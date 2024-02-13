@@ -1,0 +1,4 @@
+accessWidener v2 named
+
+accessible field net/minecraft/entity/ai/pathing/EntityNavigation currentTarget Lnet/minecraft/util/math/BlockPos;
+accessible field net/minecraft/entity/ai/pathing/EntityNavigation currentDistance I

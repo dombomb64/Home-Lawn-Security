@@ -3,28 +3,32 @@
 	"id": "homelawnsecurity",
 	"version": "${version}",
 	"name": "Home Lawn Security",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A PvZ mod for Minecraft heavily inspired by JaizPvZ.",
 	"authors": [
-		"Me!"
+		"dombomb64"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://youtu.be/nZy0tZLNNZE",
+		"sources": "https://github.com/dombomb64/Home-Lawn-Security"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/homelawnsecurity/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.homelawnsecurity.HomeLawnSecurity"
+			"net.db64.homelawnsecurity.HomeLawnSecurity"
+		],
+		"client": [
+			"net.db64.homelawnsecurity.HomeLawnSecurityClient"
 		],
 		"fabric-datagen": [
-			"com.homelawnsecurity.HomeLawnSecurityDataGenerator"
+			"net.db64.homelawnsecurity.HomeLawnSecurityDataGenerator"
 		]
 	},
 	"mixins": [
 		"homelawnsecurity.mixins.json"
 	],
+	"accessWidener": "homelawnsecurity.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.6",
 		"minecraft": "~1.20.4",

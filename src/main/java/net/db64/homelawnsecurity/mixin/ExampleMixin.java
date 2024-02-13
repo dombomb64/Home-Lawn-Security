@@ -1,4 +1,4 @@
-package com.homelawnsecurity.mixin;
+package net.db64.homelawnsecurity.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

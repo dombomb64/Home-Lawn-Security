@@ -1,0 +1,34 @@
+package net.db64.homelawnsecurity.mixin;
+
+import net.minecraft.entity.EntityPose;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.gen.Invoker;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+@Mixin(EntityPose.class)
+@Unique
+public abstract class EntityPoseMixin {
+	@Shadow
+	@Final
+	@Mutable
+	private static EntityPose[] $VALUES;
+
+	@Unique
+	private static final EntityPose ZOMBIE_EATING = addPose("ZOMBIE_EATING");
+
+	@Invoker("<init>")
+	public static EntityPose invokeInit(String internalName, int internalId) {
+		throw new AssertionError();
+	}
+
+	private static EntityPose addPose(String internalName) {
+		ArrayList<EntityPose> poses = new ArrayList<>(Arrays.asList(EntityPoseMixin.$VALUES));
+		EntityPose pose = invokeInit(internalName, poses.get(poses.size() - 1).ordinal() + 1);
+		poses.add(pose);
+		EntityPoseMixin.$VALUES = poses.toArray(new EntityPose[0]);
+		return pose;
+		
+	}
+}
