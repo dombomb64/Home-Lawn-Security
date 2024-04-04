@@ -4,19 +4,19 @@ import net.db64.homelawnsecurity.entity.animation.ModAnimations;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.MathHelper;
-import org.joml.Vector3f;
 
 public class BasicZombieModel<T extends BasicZombieEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart basicZombie;
 	private final ModelPart head;
+	private final ModelPart leftForearm;
 
 	public BasicZombieModel(ModelPart root) {
 		this.basicZombie = root.getChild("basicZombie");
 		this.head = basicZombie.getChild("body").getChild("head");
+		this.leftForearm = basicZombie.getChild("body").getChild("leftArm").getChild("leftForearm");
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -31,8 +31,10 @@ public class BasicZombieModel<T extends BasicZombieEntity> extends SinglePartEnt
 		ModelPartData rightArm = body.addChild("rightArm", ModelPartBuilder.create().uv(36, 9).cuboid(-2.0F, 6.0F, -1.5F, 3.0F, 4.0F, 3.0F, new Dilation(0.0F))
 			.uv(32, 32).cuboid(-3.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-5.0F, -10.0F, 0.0F));
 
-		ModelPartData leftArm = body.addChild("leftArm", ModelPartBuilder.create().uv(13, 44).cuboid(-1.0F, 6.0F, -1.5F, 3.0F, 4.0F, 3.0F, new Dilation(0.0F))
-			.uv(16, 32).cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(5.0F, -10.0F, 0.0F));
+		ModelPartData leftArm = body.addChild("leftArm", ModelPartBuilder.create().uv(16, 32).cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 6.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(5.0F, -10.0F, 0.0F));
+
+		ModelPartData leftForearm = leftArm.addChild("leftForearm", ModelPartBuilder.create().uv(13, 44).cuboid(4.0F, -16.0F, -1.5F, 3.0F, 4.0F, 3.0F, new Dilation(0.0F))
+			.uv(0, 41).cuboid(4.0F, -18.0F, -2.0F, 4.0F, 2.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-5.0F, 22.0F, 0.0F));
 
 		ModelPartData rightLeg = basicZombie.addChild("rightLeg", ModelPartBuilder.create().uv(24, 16).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-2.0F, -12.0F, 0.0F));
 
@@ -45,10 +47,15 @@ public class BasicZombieModel<T extends BasicZombieEntity> extends SinglePartEnt
 	@Override
 	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.getPart().traverse().forEach(ModelPart::resetTransform);
-		this.setHeadAngles(netHeadYaw, headPitch);
 
-		this.animateMovement(ModAnimations.Zombie.BasicZombie.WALK, limbSwing * 2, limbSwingAmount * 2, 2f, 2f);
+		this.setHeadAngles(netHeadYaw, headPitch);
+		this.animateMovement(ModAnimations.Zombie.BasicZombie.WALK, limbSwing, limbSwingAmount, 8f, 8f);
+
 		this.updateAnimation(entity.setupAnimationState, ModAnimations.Zombie.BasicZombie.SETUP, ageInTicks, 1f);
+		this.updateAnimation(entity.attackAnimationState, ModAnimations.Zombie.BasicZombie.EAT, ageInTicks, 1f);
+
+		leftForearm.hidden = entity.getHasLostArm();
+		head.hidden = entity.getHasLostHead();
 	}
 
 	private void setHeadAngles(float headYaw, float headPitch) {

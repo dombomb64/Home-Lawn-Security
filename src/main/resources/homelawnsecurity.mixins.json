@@ -3,9 +3,17 @@
 	"package": "net.db64.homelawnsecurity.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"EntityMixin",
+		"ExampleMixin",
+		"LivingEntityMixin",
+		"ServerPlayerInteractionManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
-	}
+	},
+	"client": [
+		"ItemRendererAccessor",
+		"ItemRendererMixin",
+		"ModelLoaderMixin"
+	]
 }

@@ -4,6 +4,7 @@ import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -24,13 +25,18 @@ public class ModEntities {
 		public static final EntityType<PeashooterEntity> PEASHOOTER = Registry.register(Registries.ENTITY_TYPE,
 			new Identifier(HomeLawnSecurity.MOD_ID, "peashooter"),
 			FabricEntityTypeBuilder.create(SpawnGroup.MISC, PeashooterEntity::new)
-				.dimensions(EntityDimensions.fixed(0.8f, 1.8f)).build());
+				.dimensions(EntityDimensions.fixed(0.8f, 1.25f)).build());
 	}
 
 	public static class Zombie {
 		public static final EntityType<BasicZombieEntity> BASIC_ZOMBIE = Registry.register(Registries.ENTITY_TYPE,
 			new Identifier(HomeLawnSecurity.MOD_ID, "basic_zombie"),
 			FabricEntityTypeBuilder.create(SpawnGroup.MISC, BasicZombieEntity::new)
+				.dimensions(EntityDimensions.fixed(0.8f, 1.8f)).build());
+
+		public static final EntityType<ConeheadZombieEntity> CONEHEAD_ZOMBIE = Registry.register(Registries.ENTITY_TYPE,
+			new Identifier(HomeLawnSecurity.MOD_ID, "conehead_zombie"),
+			FabricEntityTypeBuilder.create(SpawnGroup.MISC, ConeheadZombieEntity::new)
 				.dimensions(EntityDimensions.fixed(0.8f, 1.8f)).build());
 	}
 }

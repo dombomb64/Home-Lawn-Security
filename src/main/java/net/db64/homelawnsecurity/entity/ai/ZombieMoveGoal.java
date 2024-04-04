@@ -17,7 +17,10 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
 public class ZombieMoveGoal extends Goal {
 	protected final ZombieEntity mob;
@@ -36,13 +39,13 @@ public class ZombieMoveGoal extends Goal {
 
 	@Override
 	public boolean canStart() {
-		return !isGoal(this.world.getBlockState(this.mob.getBlockPos().down())) && this.checkForExistingGoal();
+		return !mob.isGoal(this.mob.getBlockPos().down()) && this.checkForExistingGoal();
 	}
 
 	private boolean checkForExistingGoal() {
 		BlockPos targetPos = new BlockPos(MathHelper.floor(this.targetX), MathHelper.floor(this.targetY), MathHelper.floor(this.targetZ));
 		//HomeLawnSecurity.LOGGER.info("zombie's current goal pos: " + targetX + ", " + targetY + ", " + targetZ + " | " + targetPos.toShortString() + " zombie's current pos: " + mob.getPos().toString() + " | " + mob.getBlockPos().toShortString());
-		if (isGoal(this.world.getBlockState(targetPos.down()))) {
+		if (mob.isGoal(targetPos.down())) {
 			return true; // Target still exists
 		}
 		return targetGoalPos(); // Choose a new target
@@ -64,7 +67,7 @@ public class ZombieMoveGoal extends Goal {
 
 	@Override
 	public boolean shouldContinue() {
-		return !isGoal(this.world.getBlockState(this.mob.getBlockPos().down())) && checkForExistingGoal();
+		return !mob.isGoal(this.mob.getBlockPos().down()) && checkForExistingGoal();
 	}
 
 	@Override
@@ -80,18 +83,14 @@ public class ZombieMoveGoal extends Goal {
 
 	@Nullable
 	protected Vec3d locateGoalPos() {
-		int rangeH = 10;
-		int rangeV = 3;
-		Iterable<BlockPos> iterable = BlockPos.iterate(MathHelper.floor(this.mob.getX() - rangeH), MathHelper.floor(this.mob.getY() - rangeV), MathHelper.floor(this.mob.getZ() - rangeH), MathHelper.floor(this.mob.getX() + rangeH), MathHelper.floor(this.mob.getY() + rangeV), MathHelper.floor(this.mob.getZ() + rangeH));
+		int rangeH = 16;
+		int rangeV = 5;
+		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(mob.getBlockPos(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
-			if (!isGoal(this.world.getBlockState(blockPos.down()))) continue;
+			if (!mob.isGoal(blockPos.down())) continue;
 			if (!this.mob.getNavigation().startMovingTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.speed)) continue;
 			return Vec3d.ofBottomCenter(blockPos);
 		}
 		return null;
-	}
-
-	private boolean isGoal(BlockState state) {
-		return state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
 	}
 }

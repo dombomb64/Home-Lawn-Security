@@ -6,8 +6,6 @@ import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags;
-import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
 import net.minecraft.registry.tag.BlockTags;
 
@@ -22,10 +20,74 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(ModBlocks.GARDEN_BLOCK);
 
 		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_PATH_1)
-			.add(Blocks.COBBLESTONE);
+			.add(ModBlocks.ZOMBIE_PATH_BLOCK_1)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_1);
 
 		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_PATH_2)
-			.add(Blocks.COBBLED_DEEPSLATE);
+			.add(ModBlocks.ZOMBIE_PATH_BLOCK_2)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_2);
+
+		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_PATH_CROSS)
+			.add(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_CROSS);
+
+
+
+		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_GOAL_MARKERS)
+			.add(ModBlocks.GARDEN_MARKER);
+
+		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_PATH_1_MARKERS)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_1)
+			.add(ModBlocks.FERTILE_PATH_MARKER_1);
+
+		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_PATH_2_MARKERS)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_2)
+			.add(ModBlocks.FERTILE_PATH_MARKER_2);
+
+		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_PATH_CROSS_MARKERS)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_CROSS)
+			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS);
+
+
+
+		getOrCreateTagBuilder(ModTags.Blocks.PLANT_PLACEABLE_LAWN) // Examples: Peashooter, Sunflower, Fume-shroom
+			.add(ModBlocks.LAWN_BLOCK)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_1)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_2)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_CROSS);
+
+		getOrCreateTagBuilder(ModTags.Blocks.PLANT_PLACEABLE_PATH) // Examples: Wall-nut, Garlic, Pumpkin
+			.addTag(ModTags.Blocks.ZOMBIE_PATH_1)
+			.addTag(ModTags.Blocks.ZOMBIE_PATH_2)
+			.addTag(ModTags.Blocks.ZOMBIE_PATH_CROSS);
+
+
+
+		getOrCreateTagBuilder(ModTags.Blocks.PLANT_PLACEABLE_LAWN_MARKERS) // Examples: Peashooter, Sunflower, Fume-shroom
+			.add(ModBlocks.LAWN_MARKER)
+			.add(ModBlocks.FERTILE_PATH_MARKER_1)
+			.add(ModBlocks.FERTILE_PATH_MARKER_2)
+			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS);
+
+		getOrCreateTagBuilder(ModTags.Blocks.PLANT_PLACEABLE_PATH_MARKERS) // Examples: Wall-nut, Garlic, Pumpkin
+			.addTag(ModTags.Blocks.ZOMBIE_PATH_1_MARKERS)
+			.addTag(ModTags.Blocks.ZOMBIE_PATH_2_MARKERS)
+			.addTag(ModTags.Blocks.ZOMBIE_PATH_CROSS_MARKERS);
+
+
+
+		getOrCreateTagBuilder(ModTags.Blocks.MARKERS)
+			.add(ModBlocks.GARDEN_MARKER)
+			.add(ModBlocks.LAWN_MARKER)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_1)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_2)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_CROSS)
+			.add(ModBlocks.FERTILE_PATH_MARKER_1)
+			.add(ModBlocks.FERTILE_PATH_MARKER_2)
+			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS)
+			.add(ModBlocks.UNSODDED_LAWN_MARKER);
+
+
 
 		//getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
 			//.add(ModBlocks.RUBBERWOOD_PLANKS);
@@ -36,8 +98,26 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		//getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
 			//.add(ModBlocks.RUBBERWOOD_PLANKS);
 
-		//getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
-			//.add(ModBlocks.RUBBERWOOD_PLANKS);
+		getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
+			.add(ModBlocks.GARDEN_BLOCK)
+			.add(ModBlocks.LAWN_BLOCK)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_1)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_2)
+			.add(ModBlocks.FERTILE_PATH_BLOCK_CROSS)
+			.add(ModBlocks.ZOMBIE_PATH_BLOCK_1)
+			.add(ModBlocks.ZOMBIE_PATH_BLOCK_2)
+			.add(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS)
+			.add(ModBlocks.UNSODDED_LAWN_BLOCK)
+
+			.add(ModBlocks.GARDEN_MARKER)
+			.add(ModBlocks.LAWN_MARKER)
+			.add(ModBlocks.FERTILE_PATH_MARKER_1)
+			.add(ModBlocks.FERTILE_PATH_MARKER_2)
+			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_1)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_2)
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_CROSS)
+			.add(ModBlocks.UNSODDED_LAWN_MARKER);
 
 		//getOrCreateTagBuilder(FabricMineableTags.SHEARS_MINEABLE)
 			//.add(ModBlocks.RUBBERWOOD_PLANKS);

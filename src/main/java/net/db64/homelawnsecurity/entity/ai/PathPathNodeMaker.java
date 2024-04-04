@@ -8,9 +8,7 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.RaycastContext;
 
 public class PathPathNodeMaker extends LandPathNodeMaker {
 	@Override
@@ -18,15 +16,15 @@ public class PathPathNodeMaker extends LandPathNodeMaker {
 		ZombieEntity zombie = (ZombieEntity) mob;
 		BlockPos pos = new BlockPos(x, y, z);
 
-		while (pos.getY() > world.getBottomY() && world.getBlockState(pos).isIn(BlockTags.REPLACEABLE)) {
+		while (pos.getY() > world.getBottomY() && (world.getBlockState(pos).isIn(BlockTags.REPLACEABLE) || world.getBlockState(pos).isIn(ModTags.Blocks.MARKERS))) {
 			pos = pos.down();
 		}
 
-		BlockState stateMob = world.getBlockState(zombie.getBlockPos().down());
-		BlockState state = world.getBlockState(pos);
+		//BlockState stateMob = world.getBlockState(zombie.getBlockPos().down());
+		//BlockState state = world.getBlockState(pos);
 
-		if ((stateMob.isIn(zombie.pathTag) || stateMob.isIn(ModTags.Blocks.ZOMBIE_GOAL)) // Standing on path (so that it can get back on track)
-			&& (!state.isIn(zombie.pathTag) && !state.isIn(ModTags.Blocks.ZOMBIE_GOAL))) // Block is not path
+		if (zombie.isPathOrGoal(zombie.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			&& !zombie.isPathOrGoal(pos)) // Block is not path
 			return PathNodeType.BLOCKED;
 
 		return super.getNodeType(world, x, y, z, mob);
@@ -44,7 +42,7 @@ public class PathPathNodeMaker extends LandPathNodeMaker {
 
 		BlockPos pos2 = new BlockPos(i, j, k);
 
-		while (pos2.getY() > world.getBottomY() && world.getBlockState(pos2).isIn(BlockTags.REPLACEABLE)) {
+		while (pos2.getY() > world.getBottomY() && (world.getBlockState(pos2).isIn(BlockTags.REPLACEABLE) || world.getBlockState(pos2).isIn(ModTags.Blocks.MARKERS))) {
 			pos2 = pos2.down();
 		}
 
@@ -53,10 +51,10 @@ public class PathPathNodeMaker extends LandPathNodeMaker {
 
 		//BlockState state = world.getBlockState(pos.down());
 		PathNodeType pathNodeType;
-		/*if (state.isIn(zombie.pathTag)) {
+		/*if (zombie.isPath(pos.down())) {
 			pathNodeType = PathNodeType.OPEN;
 		}
-		else if (state.isIn(ModTags.Blocks.ZOMBIE_GOAL)) {
+		else if (zombie.isGoal(pos.down())) {
 			pathNodeType = PathNodeType.WALKABLE;
 		}
 		else {
@@ -64,8 +62,8 @@ public class PathPathNodeMaker extends LandPathNodeMaker {
 		}
 
 		return pathNodeType;*/
-		if ((stateMob.isIn(zombie.pathTag) || stateMob.isIn(ModTags.Blocks.ZOMBIE_GOAL))
-			&& !state.isIn(zombie.pathTag) && !state.isIn(ModTags.Blocks.ZOMBIE_GOAL)) {
+		if (zombie.isPathOrGoal(zombie.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			&& !zombie.isPathOrGoal(pos2)) { // Block is not path
 			pathNodeType = PathNodeType.BLOCKED;
 		}
 		else {

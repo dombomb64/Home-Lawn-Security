@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:cobbled_deepslate"
+    "homelawnsecurity:zombie_path_block_2",
+    "homelawnsecurity:fertile_path_block_2"
   ]
 }

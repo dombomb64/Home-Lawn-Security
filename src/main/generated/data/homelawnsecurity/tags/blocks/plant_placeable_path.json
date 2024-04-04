@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#homelawnsecurity:zombie_path_1",
+    "#homelawnsecurity:zombie_path_2",
+    "#homelawnsecurity:zombie_path_cross"
+  ]
+}

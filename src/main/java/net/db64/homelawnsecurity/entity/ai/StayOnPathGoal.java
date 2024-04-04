@@ -1,16 +1,12 @@
 package net.db64.homelawnsecurity.entity.ai;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,13 +29,13 @@ public class StayOnPathGoal extends Goal {
 
 	@Override
 	public boolean canStart() {
-		return !isPath(this.world.getBlockState(this.mob.getBlockPos().down())) && this.checkForExistingPath();
+		return !mob.isPathOrGoal(this.mob.getBlockPos().down()) && this.checkForExistingPath();
 	}
 
 	private boolean checkForExistingPath() {
 		BlockPos targetPos = new BlockPos(MathHelper.floor(this.targetX), MathHelper.floor(this.targetY), MathHelper.floor(this.targetZ));
 		//HomeLawnSecurity.LOGGER.info("zombie's current path pos: " + targetX + ", " + targetY + ", " + targetZ + " | " + targetPos.toShortString() + " zombie's current pos: " + mob.getPos().toString() + " | " + mob.getBlockPos().toShortString());
-		if (isPath(this.world.getBlockState(targetPos.down()))) {
+		if (mob.isPathOrGoal(targetPos.down())) {
 			return true; // Target still exists
 		}
 		return targetPathPos(); // Choose a new target
@@ -49,7 +45,8 @@ public class StayOnPathGoal extends Goal {
 		//HomeLawnSecurity.LOGGER.info("zombie is picking new path pos, old: " + targetX + ", " + targetY + ", " + targetZ);
 		Vec3d vec3d = this.locatePathPos();
 		if (vec3d == null) {
-			//HomeLawnSecurity.LOGGER.info("zombie couldn't pick new path pos");
+			//HomeLawnSecurity.LOGGER.info("zombie couldn't pick new path pos, switching path tag");
+			mob.switchPathTag();
 			return false;
 		}
 		this.targetX = vec3d.x;
@@ -61,7 +58,7 @@ public class StayOnPathGoal extends Goal {
 
 	@Override
 	public boolean shouldContinue() {
-		return !isPath(this.world.getBlockState(this.mob.getBlockPos().down())) && checkForExistingPath();
+		return !mob.isPathOrGoal(this.mob.getBlockPos().down()) && checkForExistingPath();
 	}
 
 	@Override
@@ -79,16 +76,12 @@ public class StayOnPathGoal extends Goal {
 	protected Vec3d locatePathPos() {
 		int rangeH = 2;
 		int rangeV = 2;
-		Iterable<BlockPos> iterable = BlockPos.iterate(MathHelper.floor(this.mob.getX() - rangeH), MathHelper.floor(this.mob.getY() - rangeV), MathHelper.floor(this.mob.getZ() - rangeH), MathHelper.floor(this.mob.getX() + rangeH), MathHelper.floor(this.mob.getY() + rangeV), MathHelper.floor(this.mob.getZ() + rangeH));
+		Iterable<BlockPos> iterable = BlockPos.iterateRandomly(mob.getRandom(), rangeH * rangeV * rangeH, MathHelper.floor(this.mob.getX() - rangeH), MathHelper.floor(this.mob.getY() - rangeV), MathHelper.floor(this.mob.getZ() - rangeH), MathHelper.floor(this.mob.getX() + rangeH), MathHelper.floor(this.mob.getY() + rangeV), MathHelper.floor(this.mob.getZ() + rangeH));
 		for (BlockPos blockPos : iterable) {
-			if (!isPath(this.world.getBlockState(blockPos.down()))) continue;
+			if (!mob.isPathOrGoal(blockPos.down())) continue;
 			if (!this.mob.getNavigation().startMovingTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.speed)) continue;
 			return Vec3d.ofBottomCenter(blockPos);
 		}
 		return null;
-	}
-
-	private boolean isPath(BlockState state) {
-		return state.isIn(mob.pathTag) || state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
 	}
 }

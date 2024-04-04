@@ -1,13 +1,8 @@
 package net.db64.homelawnsecurity.entity.ai;
 
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
-import net.db64.homelawnsecurity.util.ModTags;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.*;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class PathNavigation extends MobNavigation {
@@ -51,12 +46,12 @@ public class PathNavigation extends MobNavigation {
 	protected void adjustPath() {
 		super.adjustPath();
 		ZombieEntity zombie = (ZombieEntity) this.entity;
-		if (!this.world.getBlockState(BlockPos.ofFloored(this.entity.getX(), this.entity.getY() + 0.5, this.entity.getZ())).isIn(zombie.pathTag)) {
+		if (zombie.isPath(!this.world.getBlockState(BlockPos.ofFloored(this.entity.getX(), this.entity.getY() + 0.5, this.entity.getZ())))) {
 			return;
 		}
 		for (int i = 0; i < this.currentPath.getLength(); ++i) {
 			PathNode pathNode = this.currentPath.getNode(i);
-			if (this.world.getBlockState(new BlockPos(pathNode.x, pathNode.y, pathNode.z)).isIn(zombie.pathTag)) continue;
+			if (zombie.isPath(this.world.getBlockState(new BlockPos(pathNode.x, pathNode.y, pathNode.z)))) continue;
 			this.currentPath.setLength(i);
 			return;
 		}

@@ -6,21 +6,9 @@ import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
 public class ModAnimations {
-	public class Plant {
-		public class Peashooter {
+	public static class Plant {
+		public static class Peashooter {
 			public static final Animation SETUP = Animation.Builder.create(1.5f).looping()
-				.addBoneAnimation("base",
-					new Transformation(Transformation.Targets.ROTATE,
-						new Keyframe(0f, AnimationHelper.createRotationalVector(5f, 0f, 0f),
-							Transformation.Interpolations.CUBIC),
-						new Keyframe(0.375f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-							Transformation.Interpolations.CUBIC),
-						new Keyframe(0.75f, AnimationHelper.createRotationalVector(-5f, 0f, 0f),
-							Transformation.Interpolations.CUBIC),
-						new Keyframe(1.125f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
-							Transformation.Interpolations.CUBIC),
-						new Keyframe(1.5f, AnimationHelper.createRotationalVector(5f, 0f, 0f),
-							Transformation.Interpolations.CUBIC)))
 				.addBoneAnimation("base",
 					new Transformation(Transformation.Targets.SCALE,
 						new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
@@ -107,8 +95,8 @@ public class ModAnimations {
 							Transformation.Interpolations.LINEAR))).build();
 		}
 	}
-	public class Zombie {
-		public class BasicZombie {
+	public static class Zombie {
+		public static class BasicZombie {
 			public static final Animation SETUP = Animation.Builder.create(2f).looping()
 				.addBoneAnimation("head",
 					new Transformation(Transformation.Targets.ROTATE,

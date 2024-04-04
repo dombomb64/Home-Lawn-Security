@@ -1,0 +1,10 @@
+package net.db64.homelawnsecurity.entity.custom.zombie;
+
+import net.minecraft.entity.AnimationState;
+
+public interface IEatingZombie {
+	public final AnimationState eatingAnimationState = new AnimationState();
+	public int eatingAnimationTimeout = 0;
+	public int attackTimeout = 0;
+	public int eatingSoundTimeout = 0;
+}

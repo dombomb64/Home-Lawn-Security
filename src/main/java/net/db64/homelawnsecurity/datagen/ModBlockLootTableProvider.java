@@ -24,6 +24,28 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 	@Override
 	public void generate() {
-		//addDrop(ModBlocks.RUBBER_LOG);
+		addDrop(ModBlocks.GARDEN_BLOCK);
+
+		addDrop(ModBlocks.FERTILE_PATH_BLOCK_1);
+		addDrop(ModBlocks.FERTILE_PATH_BLOCK_2);
+		addDrop(ModBlocks.FERTILE_PATH_BLOCK_CROSS);
+
+		addDrop(ModBlocks.ZOMBIE_PATH_BLOCK_1);
+		addDrop(ModBlocks.ZOMBIE_PATH_BLOCK_2);
+		addDrop(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS);
+
+		addDrop(ModBlocks.UNSODDED_LAWN_BLOCK);
+
+		addDrop(ModBlocks.GARDEN_MARKER);
+
+		addDrop(ModBlocks.FERTILE_PATH_MARKER_1);
+		addDrop(ModBlocks.FERTILE_PATH_MARKER_2);
+		addDrop(ModBlocks.FERTILE_PATH_MARKER_CROSS);
+
+		addDrop(ModBlocks.ZOMBIE_PATH_MARKER_1);
+		addDrop(ModBlocks.ZOMBIE_PATH_MARKER_2);
+		addDrop(ModBlocks.ZOMBIE_PATH_MARKER_CROSS);
+
+		addDrop(ModBlocks.UNSODDED_LAWN_MARKER);
 	}
 }

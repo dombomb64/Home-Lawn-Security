@@ -16,7 +16,6 @@ import net.minecraft.util.math.RotationAxis;
 
 public class PeaRenderer extends EntityRenderer<PeaEntity> {
 	private static final Identifier TEXTURE = new Identifier(HomeLawnSecurity.MOD_ID, "textures/entity/projectile/pea.png");
-	private static final RenderLayer LAYER = RenderLayer.getEntityTranslucent(TEXTURE);
 	private final PeaModel<PeaEntity> model;
 
 	public PeaRenderer(EntityRendererFactory.Context context) {
@@ -32,6 +31,8 @@ public class PeaRenderer extends EntityRenderer<PeaEntity> {
 	@Override
 	public void render(PeaEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
 		matrixStack.push();
+
+		matrixStack.translate(0f, -1.25f, 0f);
 
 		float h = MathHelper.lerpAngleDegrees(g, mobEntity.prevYaw, mobEntity.getYaw());
 		float j = MathHelper.lerp(g, mobEntity.prevPitch, mobEntity.getPitch());

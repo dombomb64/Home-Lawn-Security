@@ -1,0 +1,238 @@
+{
+	"itemgroup.homelawnsecurity.blocks": "Home Lawn Security - Blocks",
+	"itemgroup.homelawnsecurity.plants": "Home Lawn Security - Plants",
+	"itemgroup.homelawnsecurity.zombies": "Home Lawn Security - Zombies",
+
+
+	
+	"death.attack.pea": "%1$s was peas'd to be met by %2$s",
+	"death.attack.zombie_eat": "%1$s was lobotomized by %2$s",
+	"death.attack.zombie_eat.item": "%1$s was lobotomized by %2$s eating with %3$s",
+	"death.attack.zombie_headless": "%1$s didn't have their head in the game",
+	"death.attack.zombie_headless.player": "%1$s didn't have their head in the game whilst being attacked by %2$s",
+
+
+
+	"subtitles.homelawnsecurity.aaa.fnf_finale_guitar": "Guitar from hit song Finale from hit FNF mod VS Impostor V4 plays",
+	"subtitles.homelawnsecurity.aaa.peashooter_plays_fnaf": "Peashooter plays FNaF",
+
+	"subtitles.homelawnsecurity.entity.money.land": "Money lands",
+
+	"subtitles.homelawnsecurity.entity.coin.land": "Coin lands",
+	"subtitles.homelawnsecurity.entity.coin.collect": "Coin gets pinched",
+
+	"subtitles.homelawnsecurity.entity.diamond.land": "Gem lands",
+	"subtitles.homelawnsecurity.entity.diamond.appear": "Gem appears",
+	"subtitles.homelawnsecurity.entity.diamond.collect": "Gem gets yoinked",
+
+	"subtitles.homelawnsecurity.entity.present.appear": "Present appears",
+	"subtitles.homelawnsecurity.entity.present.collect": "Present gets claimed",
+
+	"subtitles.homelawnsecurity.entity.sun.collect": "Sun gets collected",
+
+	"subtitles.homelawnsecurity.entity.lawnmower.activate": "Lawnmower purrs",
+	"subtitles.homelawnsecurity.entity.pool_cleaner.appear": "Pool Cleaner whirs",
+
+	"subtitles.homelawnsecurity.entity.gravestone.appear": "Gravestone emerges",
+
+	"subtitles.homelawnsecurity.entity.vase.break": "Vase smashes",
+
+	"subtitles.homelawnsecurity.entity.projectile.throw": "Projectile flies",
+	"subtitles.homelawnsecurity.entity.projectile.hit": "Projectile hits",
+	"subtitles.homelawnsecurity.entity.projectile.ignite": "Projectile ignites",
+
+	"subtitles.homelawnsecurity.entity.pea.throw": "Pea flies",
+	"subtitles.homelawnsecurity.entity.pea.hit": "Pea splats",
+	"subtitles.homelawnsecurity.entity.pea.ignite": "Pea ignites",
+
+	"subtitles.homelawnsecurity.entity.frozen_pea.throw": "Frozen Pea flies",
+	"subtitles.homelawnsecurity.entity.frozen_pea.hit": "Frozen Pea splats",
+	"subtitles.homelawnsecurity.entity.frozen_pea.ignite": "Frozen Pea ignites",
+
+	"subtitles.homelawnsecurity.entity.fire_pea.throw": "Fire Pea flies",
+	"subtitles.homelawnsecurity.entity.fire_pea.hit": "Fire Pea torches",
+
+	"subtitles.homelawnsecurity.entity.cabbage.throw": "Cabbage flies",
+	"subtitles.homelawnsecurity.entity.cabbage.hit": "Cabbage splats",
+
+	"subtitles.homelawnsecurity.entity.kernel.throw": "Kernel flies",
+	"subtitles.homelawnsecurity.entity.kernel.hit": "Kernel ticks",
+
+	"subtitles.homelawnsecurity.entity.butter.throw": "Butter flies",
+	"subtitles.homelawnsecurity.entity.butter.hit": "Butter fwomps",
+
+	"subtitles.homelawnsecurity.entity.melon.throw": "Melon flies",
+	"subtitles.homelawnsecurity.entity.melon.hit": "Melon shatters",
+
+	"subtitles.homelawnsecurity.entity.cob.launch": "Cob launches",
+
+	"subtitles.homelawnsecurity.entity.chomper.eat": "Chomper devours",
+
+	"subtitles.homelawnsecurity.entity.blover.blow": "Blover gusts wind",
+
+	"subtitles.homelawnsecurity.entity.wall_nut.bowl": "Wall-nut rolls",
+	"subtitles.homelawnsecurity.entity.wall_nut.strike": "Wall-nut knocks",
+
+	"subtitles.homelawnsecurity.entity.explode_o_nut.bowl": "Explode-o-nut rolls",
+	"subtitles.homelawnsecurity.entity.explode_o_nut.strike": "Explode-o-nut strikes",
+	"subtitles.homelawnsecurity.entity.explode_o_nut.explode": "Explode-o-nut powies",
+
+	"subtitles.homelawnsecurity.entity.fume_shroom.fume": "Fume-shroom gurgles",
+
+	"subtitles.homelawnsecurity.entity.puff_shroom.fume": "Puff-shroom bubbles",
+
+	"subtitles.homelawnsecurity.entity.cherry_bomb.anticipate_explosion": "Cherry Bomb anticipates explosion",
+	"subtitles.homelawnsecurity.entity.cherry_bomb.explode": "Cherry Bomb explodonates",
+
+	"subtitles.homelawnsecurity.entity.coffee_bean.explode": "Coffee Bean sprinkles",
+
+	"subtitles.homelawnsecurity.entity.doom_shroom.anticipate_explosion": "Doom-shroom anticipates explosion",
+	"subtitles.homelawnsecurity.entity.doom_shroom.explode": "Doom-shroom goes critical",
+
+	"subtitles.homelawnsecurity.entity.hypno_shroom.floop": "Hypno-shroom floops",
+	"subtitles.homelawnsecurity.entity.hypno_shroom.mind_control": "Hypno-shroom wololos",
+
+	"subtitles.homelawnsecurity.entity.grave_buster.eat": "Grave Buster digs in",
+
+	"subtitles.homelawnsecurity.entity.jalapeno.anticipate_explosion": "Jalapeno anticipates explosion",
+	"subtitles.homelawnsecurity.entity.jalapeno.explode": "Jalapeno fwooshes",
+
+	"subtitles.homelawnsecurity.entity.magnet_shroom.grab": "Magnet-shroom yoinks",
+
+	"subtitles.homelawnsecurity.entity.plantern.glow": "Plantern emanates light",
+
+	"subtitles.homelawnsecurity.entity.sun_shroom.grow": "Sun-shroom powers up",
+
+	"subtitles.homelawnsecurity.entity.cactus.grow": "Cactus grows",
+
+	"subtitles.homelawnsecurity.entity.potato_mine.explode": "Potato Mine spudows",
+
+	"subtitles.homelawnsecurity.entity.squash.notice": "Squash notices",
+	"subtitles.homelawnsecurity.entity.squash.land": "Squash squashes",
+
+	"subtitles.homelawnsecurity.entity.zombie.idle": "Zombie groans",
+	"subtitles.homelawnsecurity.entity.zombie.eat": "Zombie bites",
+	"subtitles.homelawnsecurity.entity.zombie.gulp": "Zombie gulps",
+	"subtitles.homelawnsecurity.entity.zombie.detach": "Zombie detaches",
+	"subtitles.homelawnsecurity.entity.zombie.detach_headwear": "Zombie loses headwear",
+	"subtitles.homelawnsecurity.entity.zombie.detach_limb": "Zombie loses limb",
+	"subtitles.homelawnsecurity.entity.zombie.detach_head": "Zombie loses head",
+	"subtitles.homelawnsecurity.entity.zombie.blah": "Zombie expresses disgust",
+	"subtitles.homelawnsecurity.entity.zombie.collapse": "Zombie collapses",
+	"subtitles.homelawnsecurity.entity.zombie.collapse_underwater": "Zombie collapses underwater",
+	"subtitles.homelawnsecurity.entity.zombie.explode": "Zombie explodes",
+	"subtitles.homelawnsecurity.entity.zombie.frozen": "Zombie freezes",
+	"subtitles.homelawnsecurity.entity.zombie.enter_water": "Zombie splashes",
+
+	"subtitles.homelawnsecurity.entity.conehead_zombie.hurt": "Conehead Zombie absorbs damage",
+
+	"subtitles.homelawnsecurity.entity.buckethead_zombie.hurt": "Buckethead Zombie absorbs damage",
+
+	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.boing": "Jack-in-the-box Zombie boings",
+	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.surprised": "Jack-in-the-box Zombie gets surprised",
+	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.explode": "Jack-in-the-box Zombie explodes",
+
+	"subtitles.homelawnsecurity.entity.bungee_zombie.scream": "Bungee Zombie yeehaws",
+
+	"subtitles.homelawnsecurity.entity.digger_zombie.dig": "Digger Zombie burrows",
+	"subtitles.homelawnsecurity.entity.digger_zombie.rise": "Digger Zombie resurfaces",
+
+	"subtitles.homelawnsecurity.entity.dolphin_rider_zombie.warning": "Dolphin Rider Zombie gives warning",
+	"subtitles.homelawnsecurity.entity.dolphin_rider_zombie.jump": "Dolphin Rider Zombie jumps",
+
+	"subtitles.homelawnsecurity.entity.zomboni.warning": "Zomboni starts up",
+	"subtitles.homelawnsecurity.entity.zomboni.explode": "Zomboni explodes",
+
+	"subtitles.homelawnsecurity.entity.catapult_zombie.shoot": "Catapult Zombie launches basketball",
+	"subtitles.homelawnsecurity.entity.catapult_zombie.explode": "Catapult Zombie explodes",
+
+	"subtitles.homelawnsecurity.entity.balloon_zombie.warning": "Balloon Zombie inflates balloon",
+	"subtitles.homelawnsecurity.entity.balloon_zombie.pop": "Balloon Zombie falls",
+
+	"subtitles.homelawnsecurity.entity.gargantuar.idle": "Gargantuar groans",
+	"subtitles.homelawnsecurity.entity.gargantuar.smash": "Gargantuar smashes",
+	"subtitles.homelawnsecurity.entity.gargantuar.death": "Gargantuar dies",
+	"subtitles.homelawnsecurity.entity.gargantuar.step": "Gargantuar steps",
+
+	"subtitles.homelawnsecurity.entity.imp.warning": "Imp cackles",
+
+	"subtitles.homelawnsecurity.entity.ladder_zombie.place_ladder": "Ladder Zombie places ladder",
+
+	"subtitles.homelawnsecurity.entity.newspaper_zombie.rarrgh": "Newspaper Zombie rarrghs",
+	"subtitles.homelawnsecurity.entity.newspaper_zombie.paper_rip": "Newspaper Zombie loses newspaper",
+	"subtitles.homelawnsecurity.entity.newspaper_zombie.paper_hurt": "Newspaper Zombie absorbs damage",
+
+	"subtitles.homelawnsecurity.entity.pogo_zombie.pogo": "Pogo Zombie pogos",
+
+	"subtitles.homelawnsecurity.entity.pole_vaulting_zombie.vault": "Pole-vaulting Zombie boioioings",
+
+	"subtitles.homelawnsecurity.entity.zombot.make_boulder": "Zombot makes boulder",
+	"subtitles.homelawnsecurity.entity.zombot.death": "Zombot dies",
+	"subtitles.homelawnsecurity.entity.zombot.hydraulic": "Zombot moves",
+	"subtitles.homelawnsecurity.entity.zombot.hydraulic_short": "Zombot moves slightly",
+
+	"subtitles.homelawnsecurity.fanfare.countdown": "Game counts down",
+	"subtitles.homelawnsecurity.fanfare.plant_victory": "Plant victory fanfare plays",
+	"subtitles.homelawnsecurity.fanfare.plant_victory_zombot": "Zomboss defeat fanfare plays",
+	"subtitles.homelawnsecurity.fanfare.zombie_victory": "Zombie victory fanfare plays",
+	"subtitles.homelawnsecurity.fanfare.siren": "Zombie siren wails",
+	"subtitles.homelawnsecurity.fanfare.level_start": "Zombie alert plays",
+	"subtitles.homelawnsecurity.fanfare.huge_wave": "Huge wave alert thuds",
+	"subtitles.homelawnsecurity.fanfare.final_wave": "Final wave alert thuds",
+	"subtitles.homelawnsecurity.fanfare.achievement": "Achievement is made",
+
+	"subtitles.homelawnsecurity.random.swing": "Mallet swings",
+	"subtitles.homelawnsecurity.random.bonk": "Mallet bonks",
+	"subtitles.homelawnsecurity.random.buzzer": "Buzzer scratches",
+	"subtitles.homelawnsecurity.random.plant": "Plant placed",
+	"subtitles.homelawnsecurity.random.plant_water": "Water plant placed",
+	"subtitles.homelawnsecurity.random.select_seed": "Seed packet selected",
+	"subtitles.homelawnsecurity.random.shovel": "Shovel selected",
+	"subtitles.homelawnsecurity.random.big_goodie": "Big goodie appears",
+	"subtitles.homelawnsecurity.random.anticipate_explosion": "Anticipation of explosion",
+	"subtitles.homelawnsecurity.random.plant_grow": "Plant grows",
+	"subtitles.homelawnsecurity.random.plant_wake_up": "Plant wakes up",
+	"subtitles.homelawnsecurity.random.bowling": "Plant rolls",
+
+
+
+	"entity.homelawnsecurity.pea": "Pea",
+
+	"entity.homelawnsecurity.peashooter": "Peashooter",
+
+	"entity.homelawnsecurity.basic_zombie": "Basic Zombie",
+
+
+	
+	"item.homelawnsecurity.peashooter_spawn_egg": "Peashooter Spawn Egg",
+	"item.homelawnsecurity.basic_zombie_spawn_egg": "Basic Zombie Spawn Egg",
+
+	"item.homelawnsecurity.daves_pan": "Dave's Pan",
+
+	"item.homelawnsecurity.seed_packet_peashooter": "Peashooter Seed Packet",
+
+	"item.homelawnsecurity.seed_packet_basic_zombie": "Basic Zombie Seed Packet",
+	"item.homelawnsecurity.seed_packet_conehead_zombie": "Conehead Zombie Seed Packet",
+
+
+
+	"block.homelawnsecurity.garden_block": "Garden Block",
+	"block.homelawnsecurity.lawn_block": "Lawn Block",
+	"block.homelawnsecurity.fertile_path_block_1": "Fertile Path Block A",
+	"block.homelawnsecurity.fertile_path_block_2": "Fertile Path Block B",
+	"block.homelawnsecurity.fertile_path_block_cross": "Fertile Path Block Intersection",
+	"block.homelawnsecurity.zombie_path_block_1": "Zombie Path Block A",
+	"block.homelawnsecurity.zombie_path_block_2": "Zombie Path Block B",
+	"block.homelawnsecurity.zombie_path_block_cross": "Zombie Path Block Intersection",
+	"block.homelawnsecurity.unsodded_lawn_block": "Unsodded Lawn Block",
+
+	"block.homelawnsecurity.garden_marker": "Garden Marker",
+	"block.homelawnsecurity.lawn_marker": "Lawn Marker",
+	"block.homelawnsecurity.fertile_path_marker_1": "Fertile Path Marker A",
+	"block.homelawnsecurity.fertile_path_marker_2": "Fertile Path Marker B",
+	"block.homelawnsecurity.fertile_path_marker_cross": "Fertile Path Marker Intersection",
+	"block.homelawnsecurity.zombie_path_marker_1": "Zombie Path Marker A",
+	"block.homelawnsecurity.zombie_path_marker_2": "Zombie Path Marker B",
+	"block.homelawnsecurity.zombie_path_marker_cross": "Zombie Path Marker Intersection",
+	"block.homelawnsecurity.unsodded_lawn_marker": "Unsodded Lawn Marker"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "homelawnsecurity:item/seed_packet_basic_zombie"
+  }
+}

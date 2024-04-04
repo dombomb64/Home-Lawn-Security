@@ -18,5 +18,7 @@ public class ModModelLayers {
 	public static class Zombie {
 		public static final EntityModelLayer BASIC_ZOMBIE =
 			new EntityModelLayer(new Identifier(HomeLawnSecurity.MOD_ID, "basic_zombie"), "main");
+		public static final EntityModelLayer CONEHEAD_ZOMBIE =
+			new EntityModelLayer(new Identifier(HomeLawnSecurity.MOD_ID, "conehead_zombie"), "main");
 	}
 }

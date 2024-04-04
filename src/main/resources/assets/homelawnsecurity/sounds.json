@@ -1,0 +1,1485 @@
+{
+	"aaa.fnf_finale_guitar": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/fnf_finale_guitar",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.aaa.fnf_finale_guitar"
+	},
+
+	"aaa.peashooter_plays_fnaf": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/peashooter_plays_fnaf",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.aaa.peashooter_plays_fnaf"
+	},
+
+
+
+	"entity.money.land": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/lawnmower",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.money.land"
+	},
+
+	"entity.coin.land": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.money.land",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.coin.land"
+	},
+	"entity.coin.collect": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/coin",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.coin.collect"
+	},
+
+	"entity.diamond.land": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.money.land",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.diamond.land"
+	},
+	"entity.diamond.appear": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.big_goodie",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.diamond.appear"
+	},
+	"entity.diamond.collect": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/diamond",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.diamond.collect"
+	},
+
+	"entity.present.appear": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.big_goodie",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.present.appear"
+	},
+	"entity.present.collect": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/prize",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.present.collect"
+	},
+
+	"entity.sun.collect": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/points",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.sun.collect"
+	},
+
+	"entity.lawnmower.activate": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/lawnmower",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.lawnmower.activate"
+	},
+
+	"entity.pool_cleaner.activate": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/pool_cleaner",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pool_cleaner.activate"
+	},
+
+	"entity.gravestone.appear": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/gravestone_rumble",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.gravestone.appear"
+	},
+
+	"entity.vase.break": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/vase_breaking",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.vase.break"
+	},
+
+
+
+	"entity.projectile.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/throw",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/projectile/throw2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.projectile.throw"
+	},
+	"entity.projectile.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/splat",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/projectile/splat2",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/projectile/splat3",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.projectile.hit"
+	},
+	"entity.projectile.ignite": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/firepea",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.projectile.ignite"
+	},
+
+	"entity.pea.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.throw",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pea.throw"
+	},
+	"entity.pea.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.hit",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pea.hit"
+	},
+	"entity.pea.ignite": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.ignite",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pea.ignite"
+	},
+
+	"entity.frozen_pea.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/snow_pea_sparkles",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.frozen_pea.throw"
+	},
+	"entity.frozen_pea.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.hit",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.frozen_pea.hit"
+	},
+	"entity.frozen_pea.ignite": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.ignite",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.frozen_pea.ignite"
+	},
+
+	"entity.fire_pea.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.ignite",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.fire_pea.throw"
+	},
+	"entity.fire_pea.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/ignite",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/projectile/ignite2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.fire_pea.hit"
+	},
+
+	"entity.cabbage.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.throw",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.cabbage.throw"
+	},
+	"entity.cabbage.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.hit",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.cabbage.hit"
+	},
+
+	"entity.kernel.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.throw",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.kernel.throw"
+	},
+	"entity.kernel.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/kernelpult",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/projectile/kernelpult2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.kernel.hit"
+	},
+
+	"entity.butter.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.throw",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.butter.throw"
+	},
+	"entity.butter.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/butter",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.butter.hit"
+	},
+
+	"entity.melon.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.throw",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.melon.throw"
+	},
+	"entity.melon.hit": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/melonimpact",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/projectile/melonimpact2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.melon.hit"
+	},
+
+	"entity.cob.launch": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/coblaunch",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.cob.launch"
+	},
+
+
+
+
+	"entity.chomper.eat": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/bigchomp",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.chomper.eat"
+	},
+
+	"entity.blover.blow": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/blover",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.blover.blow"
+	},
+
+	"entity.wall_nut.bowl": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.bowling",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.wall_nut.bowl"
+	},
+	"entity.wall_nut.strike": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/bowlingimpact",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.wall_nut.strike"
+	},
+
+	"entity.explode_o_nut.bowl": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.bowling",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.explode_o_nut.bowl"
+	},
+	"entity.explode_o_nut.strike": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/bowlingimpact2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.explode_o_nut.strike"
+	},
+	"entity.explode_o_nut.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.cherry_bomb.explode",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.explode_o_nut.explode"
+	},
+
+	"entity.fume_shroom.fume": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/fume",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.fume_shroom.fume"
+	},
+
+	"entity.puff_shroom.puff": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/puff",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.puff_shroom.puff"
+	},
+
+	"entity.cherry_bomb.anticipate_explosion": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.anticipate_explosion",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.cherry_bomb.anticipate_explosion"
+	},
+	"entity.cherry_bomb.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/cherrybomb",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.cherry_bomb.explode"
+	},
+
+	"entity.coffee_bean.sprinkle": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/coffee",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.coffee_bean.sprinkle"
+	},
+
+	"entity.doom_shroom.anticipate_explosion": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.anticipate_explosion",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.doom_shroom.anticipate_explosion"
+	},
+	"entity.doom_shroom.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/doomshroom",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.doom_shroom.explode"
+	},
+
+	"entity.hypno_shroom.floop": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/floop",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.hypno_shroom.floop"
+	},
+	"entity.hypno_shroom.mind_control": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/mindcontrolled",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.hypno_shroom.mind_control"
+	},
+
+	"entity.grave_buster.eat": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/gravebusterchomp",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.grave_buster.eat"
+	},
+
+	"entity.jalapeno.anticipate_explosion": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.anticipate_explosion",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.jalapeno.anticipate_explosion"
+	},
+	"entity.jalapeno.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/jalapeno",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.jalapeno.explode"
+	},
+
+	"entity.magnet_shroom.grab": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/magnetshroom",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.magnet_shroom.grab"
+	},
+
+	"entity.plantern.glow": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/plantern",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.plantern.glow"
+	},
+
+	"entity.sun_shroom.grow": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant_grow",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.sun_shroom.grow"
+	},
+
+	"entity.cactus.grow": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant_grow",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.cactus.grow"
+	},
+
+	"entity.potato_mine.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/potato_mine",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.potato_mine.explode"
+	},
+
+	"entity.squash.notice": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/squash_hmm",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/plant/squash_hmm2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.squash.notice"
+	},
+	"entity.squash.land": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/squash_thump",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.squash.land"
+	},
+
+
+
+	"entity.zombie.idle": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/groan",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/groan2",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/groan3",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/groan4",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/groan5",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/groan6",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.idle"
+	},
+	"entity.zombie.eat": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/chomp",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/chomp2",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/chompsoft",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.eat"
+	},
+	"entity.zombie.gulp": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/gulp",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.gulp"
+	},
+	"entity.zombie.detach": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/limbs_pop",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.detach"
+	},
+	"entity.zombie.detach_headwear": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.detach",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.detach_headwear"
+	},
+	"entity.zombie.detach_limb": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.detach",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.detach_limb"
+	},
+	"entity.zombie.detach_head": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.detach",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.detach_head"
+	},
+	"entity.zombie.blah": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/yuck",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/yuck2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.blah"
+	},
+	"entity.zombie.collapse": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/zombie_falling_1",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/zombie_falling_2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.collapse"
+	},
+	"entity.zombie.collapse_underwater": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/zombiesplash",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.collapse_underwater"
+	},
+	"entity.zombie.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/explosion",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.explode"
+	},
+	"entity.zombie.frozen": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/frozen",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.frozen"
+	},
+	"entity.zombie.enter_water": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/zombie_entering_water",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.enter_water"
+	},
+
+	"entity.conehead_zombie.hurt": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/plastichit",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/plastichit2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.conehead_zombie.hurt"
+	},
+
+	"entity.buckethead_zombie.hurt": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/shieldhit",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/shieldhit2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.buckethead_zombie.hurt"
+	},
+
+	"entity.jack_in_the_box_zombie.boing": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/boing",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.boing"
+	},
+	"entity.jack_in_the_box_zombie.surprised": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/jack_surprise",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/jack_surprise2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.surprised"
+	},
+	"entity.jack_in_the_box_zombie.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.explode",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.explode"
+	},
+
+	"entity.bungee_zombie.scream": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/bungee_scream",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/bungee_scream2",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/bungee_scream3",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.bungee_zombie.scream"
+	},
+
+	"entity.digger_zombie.dig": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/digger_zombie",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.digger_zombie.dig"
+	},
+	"entity.digger_zombie.rise": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/dirt_rise",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.digger_zombie.rise"
+	},
+
+	"entity.dolphin_rider_zombie.warning": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/dolphin_appears",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.dolphin_rider_zombie.warning"
+	},
+	"entity.dolphin_rider_zombie.jump": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/dolphin_before_jumping",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.dolphin_rider_zombie.jump"
+	},
+
+	"entity.zomboni.warning": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/zamboni",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zomboni.warning"
+	},
+	"entity.zomboni.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.explode",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zomboni.explode"
+	},
+
+	"entity.catapult_zombie.shoot": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/basketball",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.catapult_zombie.shoot"
+	},
+	"entity.catapult_zombie.explode": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.explode",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.catapult_zombie.explode"
+	},
+
+	"entity.balloon_zombie.warning": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/ballooninflate",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.balloon_zombie.warning"
+	},
+	"entity.balloon_zombie.pop": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/balloon_pop",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.balloon_zombie.pop"
+	},
+
+	"entity.gargantuar.idle": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/lowgroan",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/lowgroan2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.gargantuar.idle"
+	},
+	"entity.gargantuar.smash": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/gargantuar_thump",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.gargantuar.smash"
+	},
+	"entity.gargantuar.death": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/gargantudeath",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.gargantuar.death"
+	},
+	"entity.gargantuar.step": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/grassstep",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.gargantuar.step"
+	},
+
+	"entity.imp.warning": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/imp",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/imp2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.imp.warning"
+	},
+
+	"entity.ladder_zombie.place_ladder": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/ladder_zombie",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.ladder_zombie.place_ladder"
+	},
+
+	"entity.newspaper_zombie.rarrgh": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/newspaper_rarrgh",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/newspaper_rarrgh2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.newspaper_zombie.rarrgh"
+	},
+	"entity.newspaper_zombie.paper_rip": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/newspaper_rip",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.newspaper_zombie.paper_rip"
+	},
+	"entity.newspaper_zombie.paper_hurt": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/paper",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.newspaper_zombie.paper_hurt"
+	},
+
+	"entity.pogo_zombie.pogo": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/pogo_zombie",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pogo_zombie.pogo"
+	},
+
+	"entity.pole_vaulting_zombie.vault": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/polevault",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pole_vaulting_zombie.vault"
+	},
+
+	"entity.zombot.make_boulder": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/bossboulderattack",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombot.make_boulder"
+	},
+	"entity.zombot.death": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/bossexplosion",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombot.death"
+	},
+	"entity.zombot.hydraulic": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/hydraulic",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombot.hydraulic"
+	},
+	"entity.zombot.hydraulic_short": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/hydraulic_short",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombot.hydraulic_short"
+	},
+
+
+
+	"fanfare.countdown": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/3_2_1_go",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.countdown"
+	},
+	"fanfare.plant_victory": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/how_to_unlock_sunflower",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.plant_victory"
+	},
+	"fanfare.plant_victory_zombot": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/me_when_i_completely_fill_the_toilet",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.plant_victory_zombot"
+	},
+	"fanfare.zombie_victory": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/mom_took_my_sphero",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.zombie_victory"
+	},
+	"fanfare.siren": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/i_swear_officer",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.siren"
+	},
+	"fanfare.level_start": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/this_is_what_he_said",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.level_start"
+	},
+	"fanfare.huge_wave": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/ow_my_ears",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.huge_wave"
+	},
+	"fanfare.final_wave": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/pea_vine_boom",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.final_wave"
+	},
+	"fanfare.achievement": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:fanfare/your_did_it",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.fanfare.achievement"
+	},
+
+
+
+	"random.swing": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/swing",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.swing"
+	},
+	"random.bonk": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/bonk",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.bonk"
+	},
+	"random.buzzer": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/buzzer",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.buzzer"
+	},
+	"random.plant": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/plant",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:random/plant2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.plant"
+	},
+	"random.plant_water": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/plant_water",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.plant_water"
+	},
+	"random.select_seed": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/seedlift",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.select_seed"
+	},
+	"random.shovel": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/shovel",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.shovel"
+	},
+	"random.big_goodie": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/chime",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.big_goodie"
+	},
+	"random.anticipate_explosion": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/reverse_explosion",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.random.anticipate_explosion"
+	},
+	"random.plant_grow": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/plantgrow",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.random.plant_grow"
+	},
+	"random.wake_up": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/plant/wakeup",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.random.wake_up"
+	},
+	"random.bowling": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/projectile/bowling",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.bowling"
+	}
+}

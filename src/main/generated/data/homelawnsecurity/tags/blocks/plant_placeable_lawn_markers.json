@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "homelawnsecurity:lawn_marker",
+    "homelawnsecurity:fertile_path_marker_1",
+    "homelawnsecurity:fertile_path_marker_2",
+    "homelawnsecurity:fertile_path_marker_cross"
+  ]
+}

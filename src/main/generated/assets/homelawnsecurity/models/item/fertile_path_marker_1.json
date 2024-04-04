@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "homelawnsecurity:item/fertile_path_marker_1"
+  }
+}
