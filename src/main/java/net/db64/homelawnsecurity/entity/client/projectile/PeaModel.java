@@ -1,15 +1,13 @@
 package net.db64.homelawnsecurity.entity.client.projectile;
 
-import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModel;
 
-public class PeaModel<T extends PeaEntity> extends SinglePartEntityModel<T> {
+public class PeaModel extends EntityModel<PeaRenderState> {
 	private final ModelPart pea;
 
 	public PeaModel(ModelPart root) {
+		super(root);
 		this.pea = root.getChild("pea");
 	}
 
@@ -21,17 +19,12 @@ public class PeaModel<T extends PeaEntity> extends SinglePartEntityModel<T> {
 	}
 
 	@Override
-	public void setAngles(PeaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
+	public void setAngles(PeaRenderState state) {
+		super.resetTransforms();
+		this.updateVisibleParts(state);
 	}
 
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		pea.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-	}
+	private void updateVisibleParts(PeaRenderState state) {
 
-	@Override
-	public ModelPart getPart() {
-		return pea;
 	}
 }

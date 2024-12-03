@@ -10,11 +10,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.mob.ShulkerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -66,16 +68,16 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 	}
 
 	@Override
-	public boolean damage(DamageSource source, float amount) {
+	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		if (source.getAttacker() != null && source.getAttacker() instanceof IPvzEntity) {
-			boolean damaged = super.damage(source, amount);
+			boolean damaged = super.damage(world, source, amount);
 
 			this.hurtTime = 0;
 			this.timeUntilRegen = 0;
 
 			return damaged;
 		}
-		return super.damage(source, amount * 10);
+		return super.damage(world, source, amount * 10);
 	}
 
 	/*
@@ -109,9 +111,9 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		this.dataTracker.startTracking(getUsingAttackTrackedData(), false);
+	protected void initDataTracker(DataTracker.Builder builder) {
+		super.initDataTracker(builder);
+		builder.add(getUsingAttackTrackedData(), false);
 	}
 
 	/*
@@ -222,7 +224,7 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 		return null;
 	}
 
-	@Override
+	/*@Override
 	public SoundEvent getEatSound(ItemStack stack) {
 		return null;
 	}
@@ -230,7 +232,7 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 	@Override
 	protected SoundEvent getDrinkSound(ItemStack stack) {
 		return null;
-	}
+	}*/
 
 	@Override
 	public SoundCategory getSoundCategory() {

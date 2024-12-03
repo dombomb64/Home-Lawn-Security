@@ -10,20 +10,36 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class ConeheadZombieRenderer extends MobEntityRenderer<ConeheadZombieEntity, ConeheadZombieModel<ConeheadZombieEntity>> {
-	private static final Identifier TEXTURE = new Identifier(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/conehead_zombie.png");
+public class ConeheadZombieRenderer extends MobEntityRenderer<ConeheadZombieEntity, ConeheadZombieRenderState, ConeheadZombieModel> {
+	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/conehead_zombie.png");
 
 	public ConeheadZombieRenderer(EntityRendererFactory.Context context) {
-		super(context, new ConeheadZombieModel<>(context.getPart(ModModelLayers.Zombie.CONEHEAD_ZOMBIE)), 0.5f);
+		super(context, new ConeheadZombieModel(context.getPart(ModModelLayers.Zombie.CONEHEAD_ZOMBIE)), 0.5f);
 	}
 
 	@Override
-	public Identifier getTexture(ConeheadZombieEntity entity) {
+	public Identifier getTexture(ConeheadZombieRenderState state) {
 		return TEXTURE;
 	}
 
 	@Override
-	public void render(ConeheadZombieEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-		super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
+	public void render(ConeheadZombieRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
+		super.render(state, matrixStack, vertexConsumerProvider, light);
+	}
+
+	@Override
+	public ConeheadZombieRenderState createRenderState() {
+		return new ConeheadZombieRenderState();
+	}
+
+	@Override
+	public void updateRenderState(ConeheadZombieEntity entity, ConeheadZombieRenderState state, float f) {
+		super.updateRenderState(entity, state, f);
+
+		state.hasLostHeadwear = entity.getHasLostHeadwear();
+		state.hasLostArm = entity.getHasLostArm();
+		state.hasLostHead = entity.getHasLostHead();
+		state.setupAnimationState.copyFrom(entity.setupAnimationState);
+		state.attackAnimationState.copyFrom(entity.attackAnimationState);
 	}
 }

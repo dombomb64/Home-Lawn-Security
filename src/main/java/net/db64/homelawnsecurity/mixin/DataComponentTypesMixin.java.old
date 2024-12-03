@@ -1,0 +1,15 @@
+package net.db64.homelawnsecurity.mixin;
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.component.DataComponentTypes;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
+@Mixin(DataComponentTypes.class)
+public class DataComponentTypesMixin {
+	@ModifyConstant(
+		method = "Lnet/minecraft/component/DataComponentTypes;register(Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/component/ComponentType;",
+		constant = @Constant(intValue = 99)
+	)
+}

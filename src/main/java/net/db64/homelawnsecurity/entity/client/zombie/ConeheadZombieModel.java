@@ -1,20 +1,18 @@
 package net.db64.homelawnsecurity.entity.client.zombie;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
-import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 
-public class ConeheadZombieModel<T extends ConeheadZombieEntity> extends SinglePartEntityModel<T> {
+public class ConeheadZombieModel extends EntityModel<ConeheadZombieRenderState> {
 	private final ModelPart coneheadZombie;
 	private final ModelPart head;
 	private final ModelPart leftForearm;
 	private final ModelPart headwear;
 
 	public ConeheadZombieModel(ModelPart root) {
+		super(root);
 		this.coneheadZombie = root.getChild("coneheadZombie");
 		this.head = coneheadZombie.getChild("body").getChild("head");
 		this.headwear = head.getChild("headwear");
@@ -53,18 +51,16 @@ public class ConeheadZombieModel<T extends ConeheadZombieEntity> extends SingleP
 	}
 
 	@Override
-	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
+	public void setAngles(ConeheadZombieRenderState state) {
+		this.resetTransforms();
 
-		this.setHeadAngles(netHeadYaw, headPitch);
-		this.animateMovement(ModAnimations.Zombie.BasicZombie.WALK, limbSwing, limbSwingAmount, 8f, 8f);
+		this.setHeadAngles(state.yawDegrees, state.pitch);
+		this.animateWalking(ModAnimations.Zombie.BasicZombie.WALK, state.limbFrequency, state.limbAmplitudeMultiplier, 8f, 8f);
 
-		this.updateAnimation(entity.setupAnimationState, ModAnimations.Zombie.BasicZombie.SETUP, ageInTicks, 1f);
-		this.updateAnimation(entity.attackAnimationState, ModAnimations.Zombie.BasicZombie.EAT, ageInTicks, 1f);
+		this.animate(state.setupAnimationState, ModAnimations.Zombie.BasicZombie.SETUP, state.age, 1f);
+		this.animate(state.attackAnimationState, ModAnimations.Zombie.BasicZombie.EAT, state.age, 1f);
 
-		headwear.visible = !entity.getHasLostHeadwear();
-		leftForearm.hidden = entity.getHasLostArm();
-		head.hidden = entity.getHasLostHead();
+		this.updateVisibleParts(state);
 	}
 
 	private void setHeadAngles(float headYaw, float headPitch) {
@@ -75,13 +71,9 @@ public class ConeheadZombieModel<T extends ConeheadZombieEntity> extends SingleP
 		this.head.pitch = headPitch * ((float)Math.PI / 180);
 	}
 
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		coneheadZombie.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-	}
-
-	@Override
-	public ModelPart getPart() {
-		return coneheadZombie;
+	private void updateVisibleParts(ConeheadZombieRenderState state) {
+		headwear.visible = !state.getHasLostHeadwear();
+		leftForearm.hidden = state.getHasLostArm();
+		head.hidden = state.getHasLostHead();
 	}
 }

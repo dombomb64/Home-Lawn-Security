@@ -1,5 +1,5 @@
 {
-	"itemgroup.homelawnsecurity.blocks": "Home Lawn Security - Blocks",
+	"itemgroup.homelawnsecurity.blocks_and_items": "Home Lawn Security - Stuff",
 	"itemgroup.homelawnsecurity.plants": "Home Lawn Security - Plants",
 	"itemgroup.homelawnsecurity.zombies": "Home Lawn Security - Zombies",
 
@@ -28,9 +28,13 @@
 	"subtitles.homelawnsecurity.entity.present.appear": "Present appears",
 	"subtitles.homelawnsecurity.entity.present.collect": "Present gets claimed",
 
+	"subtitles.homelawnsecurity.entity.brainpower.throw": "Brainpower flies",
+	"subtitles.homelawnsecurity.entity.brainpower.collect": "Brainpower gets collected",
+
+	"subtitles.homelawnsecurity.entity.sun.throw": "Sun flies",
 	"subtitles.homelawnsecurity.entity.sun.collect": "Sun gets collected",
 
-	"subtitles.homelawnsecurity.entity.lawnmower.activate": "Lawnmower purrs",
+	"subtitles.homelawnsecurity.entity.lawn_mower.activate": "Lawn Mower purrs",
 	"subtitles.homelawnsecurity.entity.pool_cleaner.appear": "Pool Cleaner whirs",
 
 	"subtitles.homelawnsecurity.entity.gravestone.appear": "Gravestone emerges",
@@ -65,6 +69,9 @@
 	"subtitles.homelawnsecurity.entity.melon.hit": "Melon shatters",
 
 	"subtitles.homelawnsecurity.entity.cob.launch": "Cob launches",
+
+	"subtitles.homelawnsecurity.entity.plant.place": "Plant placed",
+	"subtitles.homelawnsecurity.entity.plant.place_water": "Plant placed in water",
 
 	"subtitles.homelawnsecurity.entity.chomper.eat": "Chomper devours",
 
@@ -123,6 +130,8 @@
 	"subtitles.homelawnsecurity.entity.zombie.explode": "Zombie explodes",
 	"subtitles.homelawnsecurity.entity.zombie.frozen": "Zombie freezes",
 	"subtitles.homelawnsecurity.entity.zombie.enter_water": "Zombie splashes",
+	"subtitles.homelawnsecurity.entity.zombie.place": "Zombie placed",
+	"subtitles.homelawnsecurity.entity.zombie.place_water": "Zombie placed in water",
 
 	"subtitles.homelawnsecurity.entity.conehead_zombie.hurt": "Conehead Zombie absorbs damage",
 
@@ -184,8 +193,8 @@
 	"subtitles.homelawnsecurity.random.swing": "Mallet swings",
 	"subtitles.homelawnsecurity.random.bonk": "Mallet bonks",
 	"subtitles.homelawnsecurity.random.buzzer": "Buzzer scratches",
-	"subtitles.homelawnsecurity.random.plant": "Plant placed",
-	"subtitles.homelawnsecurity.random.plant_water": "Water plant placed",
+	"subtitles.homelawnsecurity.random.plant": "Seed packet used",
+	"subtitles.homelawnsecurity.random.plant_water": "Seed packet used in water",
 	"subtitles.homelawnsecurity.random.select_seed": "Seed packet selected",
 	"subtitles.homelawnsecurity.random.shovel": "Shovel selected",
 	"subtitles.homelawnsecurity.random.big_goodie": "Big goodie appears",
@@ -193,14 +202,19 @@
 	"subtitles.homelawnsecurity.random.plant_grow": "Plant grows",
 	"subtitles.homelawnsecurity.random.plant_wake_up": "Plant wakes up",
 	"subtitles.homelawnsecurity.random.bowling": "Plant rolls",
+	"subtitles.homelawnsecurity.random.slurp": "Slurping",
 
 
+
+	"entity.homelawnsecurity.currency": "Currency",
+	"entity.homelawnsecurity.lawn_mower": "Lawn Mower",
 
 	"entity.homelawnsecurity.pea": "Pea",
 
 	"entity.homelawnsecurity.peashooter": "Peashooter",
 
 	"entity.homelawnsecurity.basic_zombie": "Basic Zombie",
+	"entity.homelawnsecurity.conehead_zombie": "Conehead Zombie",
 
 
 	
@@ -208,6 +222,14 @@
 	"item.homelawnsecurity.basic_zombie_spawn_egg": "Basic Zombie Spawn Egg",
 
 	"item.homelawnsecurity.daves_pan": "Dave's Pan",
+
+	"item.homelawnsecurity.bag_of_sun": "Bag of Sun",
+	"item.homelawnsecurity.bag_of_brainpower": "Bag of Brainpower",
+
+	"item.homelawnsecurity.sun": "Sun",
+	"item.homelawnsecurity.brainpower": "Brainpower",
+
+	"item.homelawnsecurity.lawn_mower": "Lawn Mower",
 
 	"item.homelawnsecurity.seed_packet_peashooter": "Peashooter Seed Packet",
 
@@ -217,6 +239,7 @@
 
 
 	"block.homelawnsecurity.garden_block": "Garden Block",
+	"block.homelawnsecurity.graveyard_block": "Graveyard Block",
 	"block.homelawnsecurity.lawn_block": "Lawn Block",
 	"block.homelawnsecurity.fertile_path_block_1": "Fertile Path Block A",
 	"block.homelawnsecurity.fertile_path_block_2": "Fertile Path Block B",
@@ -227,6 +250,7 @@
 	"block.homelawnsecurity.unsodded_lawn_block": "Unsodded Lawn Block",
 
 	"block.homelawnsecurity.garden_marker": "Garden Marker",
+	"block.homelawnsecurity.graveyard_marker": "Graveyard Marker",
 	"block.homelawnsecurity.lawn_marker": "Lawn Marker",
 	"block.homelawnsecurity.fertile_path_marker_1": "Fertile Path Marker A",
 	"block.homelawnsecurity.fertile_path_marker_2": "Fertile Path Marker B",
@@ -234,5 +258,21 @@
 	"block.homelawnsecurity.zombie_path_marker_1": "Zombie Path Marker A",
 	"block.homelawnsecurity.zombie_path_marker_2": "Zombie Path Marker B",
 	"block.homelawnsecurity.zombie_path_marker_cross": "Zombie Path Marker Intersection",
-	"block.homelawnsecurity.unsodded_lawn_marker": "Unsodded Lawn Marker"
+	"block.homelawnsecurity.unsodded_lawn_marker": "Unsodded Lawn Marker",
+
+	"block.homelawnsecurity.sun_spawner": "Sun Spawner",
+	"block.homelawnsecurity.brainpower_beacon": "Brainpower Beacon",
+
+
+
+	"tooltip.homelawnsecurity.bag_of_sun": "Sun: %1$s",
+	"tooltip.homelawnsecurity.bag_of_brainpower": "Brainpower: %1$s",
+	"tooltip.homelawnsecurity.currency.sun": "Sun: %1$s",
+	"tooltip.homelawnsecurity.currency.brainpower": "Brainpower: %1$s",
+
+
+
+	"tag.item.homelawnsecurity.bag_of_sun": "Holds Sun",
+	"tag.item.homelawnsecurity.bag_of_brainpower": "Holds Brainpower",
+	"tag.item.homelawnsecurity.markers": "Reveals Markers"
 }

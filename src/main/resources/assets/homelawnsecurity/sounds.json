@@ -26,7 +26,7 @@
 	"entity.money.land": {
 		"sounds": [
 			{
-				"name": "homelawnsecurity:entity/other/lawnmower",
+				"name": "homelawnsecurity:entity/other/moneyfalls",
 				"pitch": 1.0,
 				"volume": 1.0
 			}
@@ -111,6 +111,17 @@
 		"subtitle": "subtitles.homelawnsecurity.entity.present.collect"
 	},
 
+	"entity.sun.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.throw",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.sun.throw"
+	},
 	"entity.sun.collect": {
 		"sounds": [
 			{
@@ -122,7 +133,29 @@
 		"subtitle": "subtitles.homelawnsecurity.entity.sun.collect"
 	},
 
-	"entity.lawnmower.activate": {
+	"entity.brainpower.throw": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.projectile.throw",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.brainpower.throw"
+	},
+	"entity.brainpower.collect": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/brainpower",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.brainpower.collect"
+	},
+
+	"entity.lawn_mower.activate": {
 		"sounds": [
 			{
 				"name": "homelawnsecurity:entity/other/lawnmower",
@@ -130,7 +163,7 @@
 				"volume": 1.0
 			}
 		],
-		"subtitle": "subtitles.homelawnsecurity.entity.lawnmower.activate"
+		"subtitle": "subtitles.homelawnsecurity.entity.lawn_mower.activate"
 	},
 
 	"entity.pool_cleaner.activate": {
@@ -420,6 +453,28 @@
 
 
 
+	"entity.plant.place": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.plant.place"
+	},
+	"entity.plant.place_water": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant_water",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.plant.place_water"
+	},
 
 	"entity.chomper.eat": {
 		"sounds": [
@@ -891,6 +946,28 @@
 			}
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.zombie.enter_water"
+	},
+	"entity.zombie.place": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.place"
+	},
+	"entity.zombie.place_water": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant_water",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.place_water"
 	},
 
 	"entity.conehead_zombie.hurt": {
@@ -1481,5 +1558,15 @@
 			}
 		],
 		"subtitle": "subtitles.homelawnsecurity.random.bowling"
+	},
+	"random.slurp": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/slurp",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.slurp"
 	}
 }

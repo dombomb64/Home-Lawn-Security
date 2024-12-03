@@ -6,23 +6,38 @@ import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.Identifier;
 
-public class PeashooterRenderer extends MobEntityRenderer<PeashooterEntity, PeashooterModel<PeashooterEntity>> {
-	private static final Identifier TEXTURE = new Identifier(HomeLawnSecurity.MOD_ID, "textures/entity/plant/peashooter.png");
+public class PeashooterRenderer extends MobEntityRenderer<PeashooterEntity, PeashooterRenderState, PeashooterModel> {
+	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/plant/peashooter.png");
 
 	public PeashooterRenderer(EntityRendererFactory.Context context) {
-		super(context, new PeashooterModel<>(context.getPart(ModModelLayers.Plant.PEASHOOTER)), 0.5f);
+		super(context, new PeashooterModel(context.getPart(ModModelLayers.Plant.PEASHOOTER)), 0.5f);
 	}
 
 	@Override
-	public Identifier getTexture(PeashooterEntity entity) {
+	public Identifier getTexture(PeashooterRenderState state) {
 		return TEXTURE;
 	}
 
 	@Override
-	public void render(PeashooterEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-		super.render(mobEntity, f, g, matrixStack, vertexConsumerProvider, i);
+	public void render(PeashooterRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+		super.render(state, matrixStack, vertexConsumerProvider, i);
+	}
+
+	@Override
+	public PeashooterRenderState createRenderState() {
+		return new PeashooterRenderState();
+	}
+
+	@Override
+	public void updateRenderState(PeashooterEntity entity, PeashooterRenderState state, float f) {
+		super.updateRenderState(entity, state, f);
+
+		state.setupAnimationState.copyFrom(entity.setupAnimationState);
+		state.attackAnimationState.copyFrom(entity.attackAnimationState);
 	}
 }

@@ -15,12 +15,12 @@ public class ModWorldProvider extends FabricDynamicRegistryProvider {
 
 	@Override
 	protected void configure(WrapperLookup registries, Entries entries) {
-		entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE));
-		entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE));
+		entries.addAll(registries.getOrThrow(RegistryKeys.CONFIGURED_FEATURE));
+		entries.addAll(registries.getOrThrow(RegistryKeys.PLACED_FEATURE));
 	}
 
 	@Override
 	public String getName() {
-		return HomeLawnSecurity.MOD_ID;
+		return "World Provider from " + HomeLawnSecurity.MOD_ID;
 	}
 }

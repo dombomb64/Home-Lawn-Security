@@ -1,7 +1,7 @@
 package net.db64.homelawnsecurity.entity.custom.plant;
 
-import net.db64.homelawnsecurity.entity.ai.PeashooterAttackGoal;
-import net.db64.homelawnsecurity.entity.ai.PlantTargetGoal;
+import net.db64.homelawnsecurity.entity.ai.plant.PeashooterAttackGoal;
+import net.db64.homelawnsecurity.entity.ai.plant.PlantTargetGoal;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
@@ -11,7 +11,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.control.LookControl;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -19,7 +18,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Optional;
@@ -140,9 +138,9 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
-			.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 20)
-			.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 3)
-			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0);
+			.add(EntityAttributes.MAX_HEALTH, 300)
+			.add(EntityAttributes.ATTACK_DAMAGE, 20)
+			.add(EntityAttributes.FOLLOW_RANGE, 3)
+			.add(EntityAttributes.MOVEMENT_SPEED, 0);
 	}
 }

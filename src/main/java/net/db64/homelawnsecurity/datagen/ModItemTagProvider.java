@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.datagen;
 import java.util.concurrent.CompletableFuture;
 
 import net.db64.homelawnsecurity.block.ModBlocks;
+import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -15,12 +16,22 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void configure(WrapperLookup arg) {
-		/*getOrCreateTagBuilder(ModTags.Items.RUBBER_LOGS)
-			.add(ModBlocks.RUBBER_LOG.asItem())
-			.add(ModBlocks.RUBBER_WOOD.asItem())
-			.add(ModBlocks.STRIPPED_RUBBER_LOG.asItem())
-			.add(ModBlocks.STRIPPED_RUBBER_WOOD.asItem())
-			.add(ModBlocks.DRIPPING_RUBBER_LOG.asItem())
-			.add(ModBlocks.DRIPPING_RUBBER_WOOD.asItem());*/
+		getOrCreateTagBuilder(ModTags.Items.BAG_OF_SUN)
+			.add(ModItems.BAG_OF_SUN);
+
+		getOrCreateTagBuilder(ModTags.Items.BAG_OF_BRAINPOWER)
+			.add(ModItems.BAG_OF_BRAINPOWER);
+
+		getOrCreateTagBuilder(ModTags.Items.MARKERS)
+			.add(ModBlocks.GARDEN_MARKER.asItem())
+			.add(ModBlocks.GRAVEYARD_MARKER.asItem())
+			.add(ModBlocks.LAWN_MARKER.asItem())
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_1.asItem())
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_2.asItem())
+			.add(ModBlocks.ZOMBIE_PATH_MARKER_CROSS.asItem())
+			.add(ModBlocks.FERTILE_PATH_MARKER_1.asItem())
+			.add(ModBlocks.FERTILE_PATH_MARKER_2.asItem())
+			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS.asItem())
+			.add(ModBlocks.UNSODDED_LAWN_MARKER.asItem());
 	}
 }

@@ -6,6 +6,93 @@ import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
 public class ModAnimations {
+	public static class Other {
+		public static class LawnMower {
+			public static final Animation MOVE = Animation.Builder.create(1.0F).looping()
+				.addBoneAnimation("body", new Transformation(Transformation.Targets.ROTATE,
+					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.0833F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.1667F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.25F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5833F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.6667F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.75F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.8333F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("body", new Transformation(Transformation.Targets.SCALE,
+					new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.0417F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.0833F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.125F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.1667F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.2083F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.25F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.2917F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.3333F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.375F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.4167F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.4583F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5417F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5833F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.625F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.6667F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.7083F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.75F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.7917F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.8333F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.875F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.9167F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.9583F, AnimationHelper.createScalingVector(1.025F, 0.975F, 1.025F), Transformation.Interpolations.LINEAR),
+					new Keyframe(1.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("exhaust", new Transformation(Transformation.Targets.SCALE,
+					new Keyframe(0.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.0417F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.0833F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.125F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.1667F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.2083F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.25F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.2917F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.3333F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.375F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.4167F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.4583F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5417F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.5833F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.625F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.6667F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.7083F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.75F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.7917F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.8333F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.875F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.9167F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(0.9583F, AnimationHelper.createScalingVector(0.8F, 1.2F, 1.2F), Transformation.Interpolations.LINEAR),
+					new Keyframe(1.0F, AnimationHelper.createScalingVector(1.0F, 1.0F, 1.0F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("wheel0", new Transformation(Transformation.Targets.ROTATE,
+					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(1.0F, AnimationHelper.createRotationalVector(360.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("wheel1", new Transformation(Transformation.Targets.ROTATE,
+					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(1.0F, AnimationHelper.createRotationalVector(360.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("wheel3", new Transformation(Transformation.Targets.ROTATE,
+					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(1.0F, AnimationHelper.createRotationalVector(360.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("wheel2", new Transformation(Transformation.Targets.ROTATE,
+					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
+					new Keyframe(1.0F, AnimationHelper.createRotationalVector(360.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR)
+				))
+				.build();
+		}
+	}
 	public static class Plant {
 		public static class Peashooter {
 			public static final Animation SETUP = Animation.Builder.create(1.5f).looping()

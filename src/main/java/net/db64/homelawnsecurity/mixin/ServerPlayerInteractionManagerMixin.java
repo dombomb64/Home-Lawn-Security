@@ -23,7 +23,7 @@ public abstract class ServerPlayerInteractionManagerMixin {
 		)
 	)
 	private void playBuzzerSound(ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-		if (!stack.isEmpty() && player.getItemCooldownManager().isCoolingDown(stack.getItem()) && stack.getItem() instanceof SeedPacketItem) {
+		if (!stack.isEmpty() && player.getItemCooldownManager().isCoolingDown(stack) && stack.getItem() instanceof SeedPacketItem) {
 			SeedPacketItem.playBuzzerSound(world, hitResult.getBlockPos());
 		}
 	}

@@ -18,6 +18,7 @@ public class ModModelProvider extends FabricModelProvider {
 	@Override
 	public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 		blockStateModelGenerator.registerSingleton(ModBlocks.GARDEN_BLOCK, BlockModels.lawnBlock(ModBlocks.GARDEN_BLOCK), Models.CUBE_BOTTOM_TOP);
+		blockStateModelGenerator.registerSingleton(ModBlocks.GRAVEYARD_BLOCK, BlockModels.lawnBlock(ModBlocks.GRAVEYARD_BLOCK), Models.CUBE_BOTTOM_TOP);
 
 		blockStateModelGenerator.registerSingleton(ModBlocks.LAWN_BLOCK, BlockModels.lawnBlock(ModBlocks.LAWN_BLOCK), Models.CUBE_BOTTOM_TOP);
 
@@ -31,6 +32,7 @@ public class ModModelProvider extends FabricModelProvider {
 
 		blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.UNSODDED_LAWN_BLOCK);
 
+		blockStateModelGenerator.registerBuiltinWithParticle(ModBlocks.GRAVEYARD_MARKER, ModBlocks.GRAVEYARD_MARKER.asItem());
 		blockStateModelGenerator.registerBuiltinWithParticle(ModBlocks.GARDEN_MARKER, ModBlocks.GARDEN_MARKER.asItem());
 
 		blockStateModelGenerator.registerBuiltinWithParticle(ModBlocks.LAWN_MARKER, ModBlocks.LAWN_MARKER.asItem());
@@ -77,14 +79,23 @@ public class ModModelProvider extends FabricModelProvider {
 	@Override
 	public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 		itemModelGenerator.register(ModItems.PEASHOOTER_SPAWN_EGG,
-			new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));
+			new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
 
 		itemModelGenerator.register(ModItems.BASIC_ZOMBIE_SPAWN_EGG,
-			new Model(Optional.of(new Identifier("item/template_spawn_egg")), Optional.empty()));
+			new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
 
 		itemModelGenerator.register(ModItems.DAVES_PAN, Models.GENERATED);
 
+		itemModelGenerator.register(ModItems.BAG_OF_SUN, Models.GENERATED);
+		itemModelGenerator.register(ModItems.BAG_OF_BRAINPOWER, Models.GENERATED);
+
+		itemModelGenerator.register(ModItems.SUN, Models.GENERATED);
+		itemModelGenerator.register(ModItems.BRAINPOWER, Models.GENERATED);
+
+		itemModelGenerator.register(ModItems.LAWN_MOWER, Models.GENERATED);
+
 		itemModelGenerator.register(ModBlocks.GARDEN_MARKER.asItem(), Models.GENERATED);
+		itemModelGenerator.register(ModBlocks.GRAVEYARD_MARKER.asItem(), Models.GENERATED);
 
 		itemModelGenerator.register(ModBlocks.LAWN_MARKER.asItem(), Models.GENERATED);
 

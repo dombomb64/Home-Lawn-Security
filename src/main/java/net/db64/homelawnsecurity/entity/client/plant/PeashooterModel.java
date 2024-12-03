@@ -1,22 +1,17 @@
 package net.db64.homelawnsecurity.entity.client.plant;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
-import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.MathHelper;
-import org.joml.Vector3f;
+import net.minecraft.client.render.entity.model.EntityModel;
 
-public class PeashooterModel<T extends PeashooterEntity> extends SinglePartEntityModel<T> {
+public class PeashooterModel extends EntityModel<PeashooterRenderState> {
 	private final ModelPart peashooter;
 	private final ModelPart stem;
 	private final ModelPart head;
 	private final ModelPart base;
 
 	public PeashooterModel(ModelPart root) {
+		super(root);
 		this.peashooter = root.getChild("peashooter");
 		this.stem = peashooter.getChild("stem");
 		this.head = stem.getChild("head");
@@ -60,16 +55,18 @@ public class PeashooterModel<T extends PeashooterEntity> extends SinglePartEntit
 	}
 
 	@Override
-	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.getPart().traverse().forEach(ModelPart::resetTransform);
+	public void setAngles(PeashooterRenderState state) {
+		super.setAngles(state);
 
-		this.setHeadAngles(entity, netHeadYaw, headPitch);
+		this.setHeadAngles(state, state.yawDegrees, state.pitch);
 
-		this.updateAnimation(entity.setupAnimationState, ModAnimations.Plant.Peashooter.SETUP, ageInTicks, 1f);
-		this.updateAnimation(entity.attackAnimationState, ModAnimations.Plant.Peashooter.SHOOT, ageInTicks, 1f);
+		this.updateVisibleParts(state);
+
+		this.animate(state.setupAnimationState, ModAnimations.Plant.Peashooter.SETUP, state.age, 1f);
+		this.animate(state.attackAnimationState, ModAnimations.Plant.Peashooter.SHOOT, state.age, 1f);
 	}
 
-	private void setHeadAngles(T entity, float headYaw, float headPitch) {
+	private void setHeadAngles(PeashooterRenderState state, float headYaw, float headPitch) {
 		//headYaw = MathHelper.clamp(headYaw, -30.0f, 30.0f);
 		//headPitch = MathHelper.clamp(headPitch, -25.0f, 45.0f);
 
@@ -78,16 +75,10 @@ public class PeashooterModel<T extends PeashooterEntity> extends SinglePartEntit
 			this.head.pitch = headPitch * ((float) Math.PI / 180);
 		//}
 
-		this.base.yaw = -entity.bodyYaw * ((float) Math.PI / 180);
+		this.base.yaw = -state.bodyYaw * ((float) Math.PI / 180);
 	}
 
-	@Override
-	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		peashooter.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-	}
+	private void updateVisibleParts(PeashooterRenderState state) {
 
-	@Override
-	public ModelPart getPart() {
-		return peashooter;
 	}
 }

@@ -1,0 +1,7 @@
+package net.db64.homelawnsecurity.item.custom;
+
+public class SunItem extends CurrencyItem {
+	public SunItem(Settings settings) {
+		super(settings);
+	}
+}

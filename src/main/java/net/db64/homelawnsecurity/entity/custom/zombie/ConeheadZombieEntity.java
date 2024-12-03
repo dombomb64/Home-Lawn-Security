@@ -1,6 +1,6 @@
 package net.db64.homelawnsecurity.entity.custom.zombie;
 
-import net.db64.homelawnsecurity.entity.ai.ZombieMeleeAttackGoal;
+import net.db64.homelawnsecurity.entity.ai.zombie.ZombieMeleeAttackGoal;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.entity.AnimationState;
@@ -98,10 +98,10 @@ public class ConeheadZombieEntity extends ZombieEntity {
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.GENERIC_MAX_HEALTH, 640)
-			.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)
-			.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64)
-			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.1);
+			.add(EntityAttributes.MAX_HEALTH, 640)
+			.add(EntityAttributes.ATTACK_DAMAGE, 5)
+			.add(EntityAttributes.FOLLOW_RANGE, 64)
+			.add(EntityAttributes.MOVEMENT_SPEED, 0.1);
 	}
 
 	/*
