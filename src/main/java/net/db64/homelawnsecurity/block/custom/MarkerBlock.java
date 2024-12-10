@@ -124,7 +124,7 @@ public class MarkerBlock extends Block implements Waterloggable {
 	}
 
 	@Override
-	public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
-		return super.getPickStack(world, pos, state);
+	public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+		return super.getPickStack(world, pos, state, includeData);
 	}
 }

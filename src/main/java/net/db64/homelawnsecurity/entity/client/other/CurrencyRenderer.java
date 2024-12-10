@@ -3,24 +3,25 @@ package net.db64.homelawnsecurity.entity.client.other;
 import net.db64.homelawnsecurity.component.CurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
+import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRenderState> {
-	private final ItemRenderer itemRenderer;
+	private final ItemModelManager itemModelManager;
 	//private final boolean lit;
 
 	public CurrencyRenderer(EntityRendererFactory.Context context, boolean lit) {
 		super(context);
-		this.itemRenderer = context.getItemRenderer();
+		this.itemModelManager = context.getItemModelManager();
 		//this.lit = lit;
 	}
 
@@ -43,8 +44,8 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 		matrixStack.push();
 		matrixStack.scale(state.scale, state.scale, state.scale);
 		matrixStack.multiply(this.dispatcher.getRotation());
-		if (state.model != null) {
-			this.itemRenderer
+		/*if (state.model != null) {
+			this.itemModelManager
 				.renderItem(
 					state.stack,
 					ModelTransformationMode.GROUND,
@@ -55,7 +56,8 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 					OverlayTexture.DEFAULT_UV,
 					state.model
 				);
-		}
+		}*/
+		state.itemRenderState.render(matrixStack, vertexConsumerProvider, i, OverlayTexture.DEFAULT_UV);
 
 		matrixStack.pop();
 		super.render(state, matrixStack, vertexConsumerProvider, i);
@@ -69,13 +71,17 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 	@Override
 	public void updateRenderState(CurrencyEntity entity, CurrencyRenderState state, float f) {
 		super.updateRenderState(entity, state, f);
-		ItemStack itemStack = entity.getStack();
-		state.model = !itemStack.isEmpty() ? this.itemRenderer.getModel(itemStack, entity.getWorld(), null, entity.getId()) : null;
-		state.stack = itemStack.copy();
-		CurrencyComponent currency = itemStack.get(ModDataComponentTypes.CURRENCY);
+		ItemStack stack = entity.getStack();
+
+		this.itemModelManager.updateForNonLivingEntity(state.itemRenderState, stack, ModelTransformationMode.GROUND, entity);
+
+		/*state.model = !stack.isEmpty() ? this.itemModelManager.getModel(stack, entity.getWorld(), null, entity.getId()) : null;
+		state.stack = stack.copy();*/
+		CurrencyComponent currency = stack.get(ModDataComponentTypes.CURRENCY);
 		if (currency != null)
 			state.scale = MathHelper.clampedMap(currency.amount(), 5f, 50f, 0.5f, 5f);
 		else
 			state.scale = 1.0f;
+
 	}
 }

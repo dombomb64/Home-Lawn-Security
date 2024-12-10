@@ -66,9 +66,9 @@ public class ModBlocks {
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.MUD).strength(-1.0f, 3600000.8f).nonOpaque());
 
 	public static final Block SUN_SPAWNER = register("sun_spawner", settings ->
-		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.SUN)), AbstractBlock.Settings.copyShallow(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).ticksRandomly());
+		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.SUN)), AbstractBlock.Settings.copyShallow(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque());
 	public static final Block BRAINPOWER_BEACON = register("brainpower_beacon", settings ->
-		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.BRAINPOWER)), AbstractBlock.Settings.copyShallow(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).ticksRandomly());
+		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.BRAINPOWER)), AbstractBlock.Settings.copyShallow(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque());
 
 	private static Block register(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean obtainable)
 	{

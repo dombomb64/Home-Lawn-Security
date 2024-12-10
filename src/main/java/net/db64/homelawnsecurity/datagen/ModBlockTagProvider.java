@@ -68,7 +68,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 
 
-		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_GOAL)
+		/*getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_GOAL)
 			.add(ModBlocks.GRAVEYARD_BLOCK);
 
 		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_START)
@@ -110,7 +110,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS);
 
 		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_PLACEABLE_MARKERS)
-			.addTag(ModTags.Blocks.LAWN_MOWER_START_MARKERS);
+			.addTag(ModTags.Blocks.LAWN_MOWER_START_MARKERS);*/
 
 
 

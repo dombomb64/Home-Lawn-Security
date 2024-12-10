@@ -3,9 +3,8 @@ package net.db64.homelawnsecurity.datagen;
 import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.block.Block;
-import net.minecraft.data.client.*;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.client.data.*;
 import net.minecraft.util.Identifier;
 
 import java.util.Optional;
@@ -17,7 +16,7 @@ public class ModModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-		blockStateModelGenerator.registerSingleton(ModBlocks.GARDEN_BLOCK, BlockModels.lawnBlock(ModBlocks.GARDEN_BLOCK), Models.CUBE_BOTTOM_TOP);
+		/*blockStateModelGenerator.registerSingleton(ModBlocks.GARDEN_BLOCK, BlockModels.lawnBlock(ModBlocks.GARDEN_BLOCK), Models.CUBE_BOTTOM_TOP);
 		blockStateModelGenerator.registerSingleton(ModBlocks.GRAVEYARD_BLOCK, BlockModels.lawnBlock(ModBlocks.GRAVEYARD_BLOCK), Models.CUBE_BOTTOM_TOP);
 
 		blockStateModelGenerator.registerSingleton(ModBlocks.LAWN_BLOCK, BlockModels.lawnBlock(ModBlocks.LAWN_BLOCK), Models.CUBE_BOTTOM_TOP);
@@ -28,7 +27,7 @@ public class ModModelProvider extends FabricModelProvider {
 
 		blockStateModelGenerator.registerSingleton(ModBlocks.ZOMBIE_PATH_BLOCK_1, BlockModels.unsoddedPath(ModBlocks.ZOMBIE_PATH_BLOCK_1), Models.CUBE_BOTTOM_TOP);
 		blockStateModelGenerator.registerSingleton(ModBlocks.ZOMBIE_PATH_BLOCK_2, BlockModels.unsoddedPath(ModBlocks.ZOMBIE_PATH_BLOCK_2), Models.CUBE_BOTTOM_TOP);
-		blockStateModelGenerator.registerSingleton(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS, BlockModels.unsoddedPath(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS), Models.CUBE_BOTTOM_TOP);
+		blockStateModelGenerator.registerSingleton(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS, BlockModels.unsoddedPath(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS), Models.CUBE_BOTTOM_TOP);*/
 
 		blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.UNSODDED_LAWN_BLOCK);
 
@@ -67,6 +66,9 @@ public class ModModelProvider extends FabricModelProvider {
 	}
 
 	private static class BlockModels {
+		/*public static final TexturedModel.Factory LAWN_BLOCK = makeFactory(TextureMap::all, Models.CUBE_BOTTOM_TOP);
+		public static final TexturedModel.Factory UNSODDED_PATH = makeFactory(TextureMap::all, Models.CUBE_BOTTOM_TOP);
+
 		public static TextureMap lawnBlock(Block block) {
 			return new TextureMap().put(TextureKey.SIDE, TextureMap.getSubId(ModBlocks.LAWN_BLOCK, "_side")).put(TextureKey.TOP, TextureMap.getSubId(block, "_top")).put(TextureKey.BOTTOM, TextureMap.getId(ModBlocks.UNSODDED_LAWN_BLOCK));
 		}
@@ -74,6 +76,12 @@ public class ModModelProvider extends FabricModelProvider {
 		public static TextureMap unsoddedPath(Block block) {
 			return new TextureMap().put(TextureKey.SIDE, TextureMap.getId(ModBlocks.UNSODDED_LAWN_BLOCK)).put(TextureKey.TOP, TextureMap.getSubId(block, "_top")).put(TextureKey.BOTTOM, TextureMap.getId(ModBlocks.UNSODDED_LAWN_BLOCK));
 		}
+
+		public static TexturedModel.Factory makeFactory(Function<Block, TextureMap> texturesGetter, Model model) {
+			return (block) -> {
+				return new TexturedModel((TextureMap)texturesGetter.apply(block), model);
+			};
+		}*/
 	}
 
 	@Override

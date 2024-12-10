@@ -12,9 +12,6 @@
 		"defaultRequire": 1
 	},
 	"client": [
-		"ClientPlayerEntityMixin",
-		"DebugRendererMixin",
-		"ItemRendererAccessor",
-		"ItemRendererMixin"
+		"ClientPlayerEntityMixin"
 	]
 }

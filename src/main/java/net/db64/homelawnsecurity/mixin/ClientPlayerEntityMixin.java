@@ -28,7 +28,7 @@ public abstract class ClientPlayerEntityMixin extends LivingEntityMixin {
 					World world = getWorld();
 					BlockState state = world.getBlockState(blockPos);
 					if (state.isIn(ModTags.Blocks.MARKERS)) {
-						world.addParticle(new BlockStateParticleEffect(ModParticles.MARKER, state), true, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 0, 0, 0);
+						world.addParticle(new BlockStateParticleEffect(ModParticles.MARKER, state), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 0, 0, 0);
 					}
 				}
 				break;

@@ -141,9 +141,9 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		BlockState markerState = world.getBlockState(pos.up());
 
 		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(pathMarkerTag) || markerState.isIn(ModTags.Blocks.LAWN_MOWER_PATH_CROSS_MARKERS);
+			return markerState.isIn(pathMarkerTag) || markerState.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS_MARKERS);
 		}
-		return state.isIn(pathTag) || state.isIn(ModTags.Blocks.LAWN_MOWER_PATH_CROSS);
+		return state.isIn(pathTag) || state.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS);
 	}
 
 	/**
@@ -155,9 +155,9 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		BlockState markerState = world.getBlockState(pos.up());
 
 		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(getOtherPathMarkerTag(pathMarkerTag)) || markerState.isIn(ModTags.Blocks.LAWN_MOWER_PATH_CROSS_MARKERS);
+			return markerState.isIn(getOtherPathMarkerTag(pathMarkerTag)) || markerState.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS_MARKERS);
 		}
-		return state.isIn(getOtherPathTag(pathTag)) || state.isIn(ModTags.Blocks.LAWN_MOWER_PATH_CROSS);
+		return state.isIn(getOtherPathTag(pathTag)) || state.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS);
 	}
 
 	/**
@@ -169,9 +169,9 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		BlockState markerState = world.getBlockState(pos.up());
 
 		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.LAWN_MOWER_GOAL_MARKERS);
+			return markerState.isIn(ModTags.Blocks.ZOMBIE_START_MARKERS);
 		}
-		return state.isIn(ModTags.Blocks.LAWN_MOWER_GOAL);
+		return state.isIn(ModTags.Blocks.ZOMBIE_START);
 	}
 
 	/**
@@ -183,9 +183,9 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		BlockState markerState = world.getBlockState(pos.up());
 
 		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.LAWN_MOWER_START_MARKERS);
+			return markerState.isIn(ModTags.Blocks.ZOMBIE_GOAL_MARKERS);
 		}
-		return state.isIn(ModTags.Blocks.LAWN_MOWER_START);
+		return state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
 	}
 
 	/**
@@ -205,26 +205,26 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 	}
 
 	public TagKey<Block> getOtherPathTag(TagKey<Block> tagKey) {
-		if (tagKey == ModTags.Blocks.LAWN_MOWER_PATH_1)
-			return ModTags.Blocks.LAWN_MOWER_PATH_2; // flip
-		return ModTags.Blocks.LAWN_MOWER_PATH_1; // flop
+		if (tagKey == ModTags.Blocks.ZOMBIE_PATH_1)
+			return ModTags.Blocks.ZOMBIE_PATH_2; // flip
+		return ModTags.Blocks.ZOMBIE_PATH_1; // flop
 	}
 
 	public TagKey<Block> getOtherPathMarkerTag(TagKey<Block> tagKey) {
-		if (tagKey == ModTags.Blocks.LAWN_MOWER_PATH_1_MARKERS)
-			return ModTags.Blocks.LAWN_MOWER_PATH_2_MARKERS; // flip
-		return ModTags.Blocks.LAWN_MOWER_PATH_1_MARKERS; // flop
+		if (tagKey == ModTags.Blocks.ZOMBIE_PATH_1_MARKERS)
+			return ModTags.Blocks.ZOMBIE_PATH_2_MARKERS; // flip
+		return ModTags.Blocks.ZOMBIE_PATH_1_MARKERS; // flop
 	}
 
 	private TagKey<Block> getPathTagNbt() {
 		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
 		if (nbt.getInt("pathTag") == 2) {
-			this.pathTag = ModTags.Blocks.LAWN_MOWER_PATH_2;
-			this.pathMarkerTag = ModTags.Blocks.LAWN_MOWER_PATH_2_MARKERS;
+			this.pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
+			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
 		}
 		else {
-			this.pathTag = ModTags.Blocks.LAWN_MOWER_PATH_1;
-			this.pathMarkerTag = ModTags.Blocks.LAWN_MOWER_PATH_1_MARKERS;
+			this.pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
+			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}
 		return this.pathTag;
 	}
@@ -232,10 +232,10 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 	private TagKey<Block> getPathMarkerTagNbt() {
 		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
 		if (nbt.getInt("pathTag") == 2) {
-			this.pathMarkerTag = ModTags.Blocks.LAWN_MOWER_PATH_2_MARKERS;
+			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
 		}
 		else {
-			this.pathMarkerTag = ModTags.Blocks.LAWN_MOWER_PATH_1_MARKERS;
+			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}
 		return this.pathMarkerTag;
 	}
@@ -243,13 +243,13 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 	private void setPathTagNbt(TagKey<Block> tagKey) {
 		this.pathTag = tagKey;
 		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
-		if (tagKey == ModTags.Blocks.LAWN_MOWER_PATH_2) {
+		if (tagKey == ModTags.Blocks.ZOMBIE_PATH_2) {
 			nbt.putInt("pathTag", 2);
-			pathMarkerTag = ModTags.Blocks.LAWN_MOWER_PATH_2_MARKERS;
+			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
 		}
 		else {
 			nbt.putInt("pathTag", 1);
-			pathMarkerTag = ModTags.Blocks.LAWN_MOWER_PATH_1_MARKERS;
+			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}
 	}
 
@@ -258,7 +258,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		if (nodeType == PathNodeType.) {
 			return 0f; // Path
 		}
-		else if (state.isIn(ModTags.Blocks.LAWN_MOWER_GOAL)) {
+		else if (state.isIn(ModTags.Blocks.ZOMBIE_GOAL)) {
 			return 0f; // Goal
 		}
 		return -1f; // Off-road

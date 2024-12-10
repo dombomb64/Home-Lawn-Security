@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity;
 
+import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.client.other.CurrencyRenderer;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
@@ -16,9 +17,11 @@ import net.db64.homelawnsecurity.entity.client.zombie.ConeheadZombieRenderer;
 import net.db64.homelawnsecurity.particle.ModParticles;
 import net.db64.homelawnsecurity.particle.custom.MarkerParticle;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.RenderLayer;
 
 public class HomeLawnSecurityClient implements ClientModInitializer {
 	@Override
@@ -38,6 +41,9 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 		ClientWorld.BLOCK_MARKER_ITEMS = Set.of(ArrayUtils.addAll(otherMarkers, modMarkers));*/
 
 		ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
+
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SUN_SPAWNER, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BRAINPOWER_BEACON, RenderLayer.getCutout());
 
 		registerOther();
 		registerProjectiles();

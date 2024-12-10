@@ -6,15 +6,12 @@ import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.SeedPacketComponent;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.item.custom.*;
-import net.db64.homelawnsecurity.util.ModTags;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraft.item.equipment.EquipmentModels;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
@@ -24,14 +21,14 @@ import java.util.function.Function;
 
 public class ModItems {
 	public static final Item PEASHOOTER_SPAWN_EGG = register("peashooter_spawn_egg", settings ->
-		new SpawnEggItem(ModEntities.Plant.PEASHOOTER, 0xD7FF37, 0x3BC10E, settings), new Item.Settings());
+		new SpawnEggItem(ModEntities.Plant.PEASHOOTER, settings), new Item.Settings());
 	public static final Item BASIC_ZOMBIE_SPAWN_EGG = register("basic_zombie_spawn_egg", settings ->
-		new SpawnEggItem(ModEntities.Zombie.BASIC_ZOMBIE, 0x6D7858, 0x4A341D, settings), new Item.Settings());
+		new SpawnEggItem(ModEntities.Zombie.BASIC_ZOMBIE, settings), new Item.Settings());
 
 	//public static final Item DAVES_PAN = registerItem("daves_pan",
 		//new ArmorItem(ModArmorMaterials.DAVES_PAN, ArmorItem.Type.HELMET, new FabricItemSettings()));
 	public static final Item DAVES_PAN = register("daves_pan", settings ->
-		new DavesPanItem(settings), new Item.Settings().component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD).equipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON).model(EquipmentModels.ELYTRA).damageOnHurt(false).build()));
+		new DavesPanItem(settings), new Item.Settings().component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD).equipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON).damageOnHurt(false).build()));
 
 	public static final Item SUN = register("sun", settings ->
 		new CurrencyItem(settings, SeedPacketItem.SUN_BAG_PREDICATE), new Item.Settings().component(ModDataComponentTypes.CURRENCY,
