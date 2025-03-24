@@ -16,6 +16,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 
 import java.util.function.Function;
 
@@ -47,13 +48,24 @@ public class ModItems {
 	public static final Item LAWN_MOWER = register("lawn_mower", settings ->
 		new LawnMowerItem(ModEntities.Other.LAWN_MOWER, settings), new Item.Settings());
 
+	public static final Item SHOVEL = register("shovel", settings ->
+		new Item(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.SHOVEL, Unit.INSTANCE));
 
+
+
+	public static final Item SEED_PACKET_SUNFLOWER = register("seed_packet_sunflower", settings ->
+		new LawnSeedPacketItem(ModEntities.Plant.SUNFLOWER, settings), new Item.Settings()
+		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(50, 150)));
 
 	public static final Item SEED_PACKET_PEASHOOTER = register("seed_packet_peashooter", settings ->
 		new LawnSeedPacketItem(ModEntities.Plant.PEASHOOTER, settings), new Item.Settings()
 		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(100, 150)));
 
 
+
+	public static final Item SEED_PACKET_ZOMBIE_GRAVESTONE = register("seed_packet_zombie_gravestone", settings ->
+		new ZombieSeedPacketItem(ModEntities.Zombie.ZOMBIE_GRAVESTONE, settings), new Item.Settings()
+		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(25, 150)));
 
 	public static final Item SEED_PACKET_BASIC_ZOMBIE = register("seed_packet_basic_zombie", settings ->
 		new ZombieSeedPacketItem(ModEntities.Zombie.BASIC_ZOMBIE, settings), new Item.Settings()

@@ -18,11 +18,11 @@
 		"main": [
 			"net.db64.homelawnsecurity.HomeLawnSecurity"
 		],
-		"client": [
-			"net.db64.homelawnsecurity.HomeLawnSecurityClient"
-		],
 		"fabric-datagen": [
 			"net.db64.homelawnsecurity.HomeLawnSecurityDataGenerator"
+		],
+		"client": [
+			"net.db64.homelawnsecurity.HomeLawnSecurityClient"
 		]
 	},
 	"mixins": [

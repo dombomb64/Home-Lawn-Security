@@ -37,8 +37,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		getOrCreateTagBuilder(ModTags.Blocks.ZOMBIE_PLACEABLE)
 			.addTag(ModTags.Blocks.ZOMBIE_PATH_1)
 			.addTag(ModTags.Blocks.ZOMBIE_PATH_2)
-			.addTag(ModTags.Blocks.ZOMBIE_PATH_CROSS)
-			.addTag(ModTags.Blocks.ZOMBIE_START);
+			.addTag(ModTags.Blocks.ZOMBIE_PATH_CROSS);
 
 
 
@@ -84,14 +83,15 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_PATH_CROSS)
 			.add(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS)
-			.add(ModBlocks.FERTILE_PATH_BLOCK_CROSS);
+			.add(ModBlocks.FERTILE_PATH_BLOCK_CROSS);*/
 
 		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_PLACEABLE)
-			.addTag(ModTags.Blocks.LAWN_MOWER_START);
+			//.addTag(ModTags.Blocks.LAWN_MOWER_START);
+			.add(ModBlocks.GARDEN_BLOCK);
 
 
 
-		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_GOAL_MARKERS)
+		/*getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_GOAL_MARKERS)
 			.add(ModBlocks.GRAVEYARD_MARKER);
 
 		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_START_MARKERS)
@@ -107,10 +107,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_PATH_CROSS_MARKERS)
 			.add(ModBlocks.ZOMBIE_PATH_MARKER_CROSS)
-			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS);
+			.add(ModBlocks.FERTILE_PATH_MARKER_CROSS);*/
 
 		getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_PLACEABLE_MARKERS)
-			.addTag(ModTags.Blocks.LAWN_MOWER_START_MARKERS);*/
+			//.addTag(ModTags.Blocks.LAWN_MOWER_START_MARKERS);
+			.add(ModBlocks.GARDEN_MARKER);
 
 
 

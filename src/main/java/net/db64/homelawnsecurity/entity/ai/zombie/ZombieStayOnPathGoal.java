@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.entity.ai.zombie;
 
+import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +28,10 @@ public class ZombieStayOnPathGoal extends Goal {
 
 	@Override
 	public boolean canStart() {
-		return !mob.isPathOrGoal(this.mob.getBlockPos().down()) && this.checkForExistingPath();
+		//HomeLawnSecurity.LOGGER.info("zombie will see if it can start the goal");
+		return !(mob.isPathOrGoal(this.mob.getBlockPos().down())
+			|| mob.isStart(this.mob.getBlockPos().down())) // If the entity is on a starting block, this goal shouldn't be activated even though this block isn't pathable! This goal randomly chooses a block to path to, remember?
+			&& this.checkForExistingPath();
 	}
 
 	private boolean checkForExistingPath() {
@@ -56,12 +60,16 @@ public class ZombieStayOnPathGoal extends Goal {
 
 	@Override
 	public boolean shouldContinue() {
-		return !mob.isPathOrGoal(this.mob.getBlockPos().down()) && checkForExistingPath();
+		return !(mob.isPathOrGoal(this.mob.getBlockPos().down())
+			|| mob.isStart(this.mob.getBlockPos().down()) // If the entity is on a starting block, this goal shouldn't be activated even though this block isn't pathable! This goal randomly chooses a block to path to, remember?
+			|| mob.getWorld().getBlockState(mob.getBlockPos().down()).isAir()) // Prevent stopping while over air
+			&& checkForExistingPath();
 	}
 
 	@Override
 	public void start() {
 		//HomeLawnSecurity.LOGGER.info("zombie started moving towards path of " + targetX + ", " + targetY + ", " + targetZ + " while at " + mob.getPos().toString());
+		this.mob.setOffTrackNbt(true);
 		this.mob.getNavigation().startMovingTo(this.targetX, this.targetY, this.targetZ, this.speed);
 	}
 
@@ -77,7 +85,9 @@ public class ZombieStayOnPathGoal extends Goal {
 		Iterable<BlockPos> iterable = BlockPos.iterateRandomly(mob.getRandom(), rangeH * rangeV * rangeH, MathHelper.floor(this.mob.getX() - rangeH), MathHelper.floor(this.mob.getY() - rangeV), MathHelper.floor(this.mob.getZ() - rangeH), MathHelper.floor(this.mob.getX() + rangeH), MathHelper.floor(this.mob.getY() + rangeV), MathHelper.floor(this.mob.getZ() + rangeH));
 		for (BlockPos blockPos : iterable) {
 			if (!mob.isPathOrGoal(blockPos.down())) continue;
-			if (!this.mob.getNavigation().startMovingTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.speed)) continue;
+			if (this.mob.getNavigation().findPathTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1) == null) continue;
+
+			this.mob.getNavigation().startMovingTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.speed);
 			return Vec3d.ofBottomCenter(blockPos);
 		}
 		return null;

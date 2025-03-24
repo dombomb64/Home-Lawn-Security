@@ -6,12 +6,13 @@
 		"EntityMixin",
 		"ExampleMixin",
 		"LivingEntityMixin",
+		"PlayerEntityMixin",
 		"ServerPlayerInteractionManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
 	},
 	"client": [
-		"ClientPlayerEntityMixin"
+		"ClientPlayerEntityMixin",
 	]
 }

@@ -7,23 +7,37 @@ import net.minecraft.util.Identifier;
 public class ModModelLayers {
 	public static class Other {
 		public static final EntityModelLayer LAWN_MOWER =
-			new EntityModelLayer(Identifier.of(HomeLawnSecurity.MOD_ID, "lawn_mower"), "main");
+			register(HomeLawnSecurity.MOD_ID, "lawn_mower");
 	}
 
 	public static class Projectile {
 		public static final EntityModelLayer PEA =
-			new EntityModelLayer(Identifier.of(HomeLawnSecurity.MOD_ID, "pea"), "main");
+			register(HomeLawnSecurity.MOD_ID, "pea");
 	}
 
 	public static class Plant {
+		public static final EntityModelLayer SUNFLOWER =
+			register(HomeLawnSecurity.MOD_ID, "sunflower");
 		public static final EntityModelLayer PEASHOOTER =
-			new EntityModelLayer(Identifier.of(HomeLawnSecurity.MOD_ID, "peashooter"), "main");
+			register(HomeLawnSecurity.MOD_ID, "peashooter");
 	}
 
 	public static class Zombie {
+		public static final EntityModelLayer ZOMBIE_GRAVESTONE =
+			register("zombie_gravestone");
+		public static final EntityModelLayer ZOMBIE_GRAVESTONE_CRACKS =
+			register("zombie_gravestone_cracks", "cracks");
 		public static final EntityModelLayer BASIC_ZOMBIE =
-			new EntityModelLayer(Identifier.of(HomeLawnSecurity.MOD_ID, "basic_zombie"), "main");
+			register(HomeLawnSecurity.MOD_ID, "basic_zombie");
 		public static final EntityModelLayer CONEHEAD_ZOMBIE =
-			new EntityModelLayer(Identifier.of(HomeLawnSecurity.MOD_ID, "conehead_zombie"), "main");
+			register(HomeLawnSecurity.MOD_ID, "conehead_zombie");
+	}
+
+	private static EntityModelLayer register(String name, String layer) {
+		return new EntityModelLayer(Identifier.of(HomeLawnSecurity.MOD_ID, name), layer);
+	}
+
+	private static EntityModelLayer register(String name) {
+		return register(name, "main");
 	}
 }

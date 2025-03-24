@@ -25,7 +25,8 @@ public class ZombiePathNodeMaker extends LandPathNodeMaker {
 		//BlockState stateMob = world.getBlockState(zombie.getBlockPos().down());
 		//BlockState state = world.getBlockState(pos);
 
-		if (zombie.isPathOrGoal(zombie.getBlockPos().down()) // Standing on path (so that it can get back on track)
+		if ((zombie.isPathOrGoal(zombie.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			|| zombie.isStart(zombie.getBlockPos().down())) // Standing on path
 			&& !zombie.isPathOrGoal(pos)) // Block is not path
 			return PathNodeType.BLOCKED;
 
@@ -66,7 +67,8 @@ public class ZombiePathNodeMaker extends LandPathNodeMaker {
 		}
 
 		return pathNodeType;*/
-		if (zombie.isPathOrGoal(zombie.getBlockPos().down()) // Standing on path (so that it can get back on track)
+		if ((zombie.isPathOrGoal(zombie.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			|| zombie.isStart(zombie.getBlockPos().down())) // Standing on path
 			&& !zombie.isPathOrGoal(pos2)) { // Block is not path
 			pathNodeType = PathNodeType.BLOCKED;
 		}

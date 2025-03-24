@@ -9,11 +9,9 @@ import net.db64.homelawnsecurity.util.IEntityDataSaver;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Debug;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,8 +22,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityMixin implements IEntityDataSaver {
 	@Shadow
 	public abstract BlockPos getBlockPos();
+
 	@Shadow
 	public abstract World getWorld();
+
+	@Final
+	@Shadow
+	protected Random random;
 
 	@Unique
 	private NbtCompound persistentData;

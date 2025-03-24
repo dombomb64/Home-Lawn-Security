@@ -1,6 +1,8 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
+import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.Spawner;
@@ -14,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -29,6 +32,10 @@ public class LawnMowerItem extends Item {
 	public LawnMowerItem(EntityType<? extends MobEntity> type, Settings settings) {
 		super(settings);
 		this.type = type;
+	}
+
+	public static void playBuzzerSound(World world, BlockPos pos) {
+		world.playSound(null, pos, ModSounds.RANDOM_BUZZER, SoundCategory.NEUTRAL);
 	}
 
 	@Override
@@ -54,6 +61,12 @@ public class LawnMowerItem extends Item {
 					blockPos2 = blockPos;
 				} else {
 					blockPos2 = blockPos.offset(direction);
+				}
+
+				// Invalid spawn position
+				if (!LawnMowerEntity.isPlaceable(blockPos, world)) {
+					playBuzzerSound(world, blockPos);
+					return ActionResult.SUCCESS;
 				}
 
 				EntityType<?> entityType = this.getEntityType(itemStack);

@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "homelawnsecurity:item/seed_packet/base/plant"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "homelawnsecurity:item/seed_packet/image/plant/sunflower"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "homelawnsecurity:item/seed_packet/cost/plant/50"
+      }
+    ]
+  }
+}

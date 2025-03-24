@@ -1,0 +1,51 @@
+package net.db64.homelawnsecurity.mixin;
+
+import net.db64.homelawnsecurity.HomeLawnSecurity;
+import net.db64.homelawnsecurity.component.ModDataComponentTypes;
+import net.db64.homelawnsecurity.item.custom.SeedPacketItem;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
+
+@Mixin(InGameHud.class)
+public abstract class InGameHudMixin {
+	@Shadow
+	private ItemStack currentStack;
+
+	@ModifyVariable(
+		method = "renderHeldItemTooltip",
+		at = @At(
+			value = "STORE"
+		),
+		ordinal = 0
+	)
+	public MutableText modifyItemName(MutableText value, DrawContext context) {
+		if (currentStack.contains(ModDataComponentTypes.SEED_PACKET)) {
+			NbtComponent nbtComponent = currentStack.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
+			if (!nbtComponent.isEmpty()) {
+				/*NbtElement customName = nbtComponent.copyNbt().get("CustomName");
+				if (customName != null) {
+					value = Text.empty().append(customName.asString());
+				}*/
+				EntityType<?> entityType = nbtComponent.getRegistryValueOfId(world.getRegistryManager(), RegistryKeys.ENTITY_TYPE);
+				if (entityType != null) {
+					value = Text.empty().append()
+				}
+			}
+			HomeLawnSecurity.LOGGER.info(value.toString());
+		}
+
+		return value;
+	}
+}

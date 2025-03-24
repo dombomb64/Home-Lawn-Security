@@ -51,6 +51,7 @@ public class ModSounds {
 	public static SoundEvent RANDOM_PLANT = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "random.plant"));
 	public static SoundEvent ENTITY_PLANT_PLACE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.plant.place"));
 	public static SoundEvent ENTITY_PLANT_PLACE_WATER = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.plant.place_water"));
+	public static SoundEvent ENTITY_PLANT_SHOVEL = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.plant.shovel"));
 	public static SoundEvent ENTITY_ZOMBIE_PLACE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.place"));
 	public static SoundEvent ENTITY_ZOMBIE_PLACE_WATER = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.place_water"));
 	public static SoundEvent ENTITY_EXPLODE_O_NUT_BOWL = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.explode_o_nut.bowl"));
@@ -78,6 +79,7 @@ public class ModSounds {
 	public static SoundEvent ENTITY_NEWSPAPER_ZOMBIE_RARRGH = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.newspaper_zombie.rarrgh"));
 	public static SoundEvent ENTITY_PUFF_SHROOM_PUFF = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.puff_shroom.puff"));
 	public static SoundEvent RANDOM_SHOVEL = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "random.shovel"));
+	public static SoundEvent RANDOM_SHOVEL_ATTACK = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "random.shovel_attack"));
 	public static SoundEvent ENTITY_GARGANTUAR_STEP = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.gargantuar.step"));
 	public static SoundEvent ENTITY_GRAVESTONE_APPEAR = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.gravestone.appear"));
 	public static SoundEvent ENTITY_FROZEN_PEA_THROW = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.frozen_pea.throw"));

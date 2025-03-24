@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -20,15 +20,29 @@ repositories {
 
 loom {
 	accessWidenerPath = file("src/main/resources/homelawnsecurity.accesswidener")
+
+	/*runs{
+		datagen {
+			client()
+
+			name "Minecraft Datagen"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file('src/main/generated')}"
+
+			runDir "build/datagen"
+		}
+	}*/
 }
 
 fabricApi {
-	configureDataGeneration()
+	configureDataGeneration {
+		client = true
+	}
 }
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	minecraft "net.minecraft:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
@@ -40,14 +54,14 @@ dependencies {
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
-	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0")))
+	//include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.4.1")))
 }
 
 processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": inputs.properties.version
 	}
 }
 
@@ -66,15 +80,18 @@ java {
 }
 
 jar {
+	inputs.property "archivesName", project.base.archivesName
+
 	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
+		rename { "${it}_${inputs.properties.archivesName}"}
 	}
 }
 
 // configure the maven publication
 publishing {
 	publications {
-		mavenJava(MavenPublication) {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
 			from components.java
 		}
 	}

@@ -475,6 +475,17 @@
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.plant.place_water"
 	},
+	"entity.plant.shovel": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.plant.shovel"
+	},
 
 	"entity.chomper.eat": {
 		"sounds": [
@@ -1508,6 +1519,16 @@
 			}
 		],
 		"subtitle": "subtitles.homelawnsecurity.random.shovel"
+	},
+	"random.shovel_attack": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/shovel_attack",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.random.shovel_attack"
 	},
 	"random.big_goodie": {
 		"sounds": [

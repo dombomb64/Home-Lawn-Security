@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.custom.plant;
 
 import net.db64.homelawnsecurity.entity.ai.plant.PeashooterAttackGoal;
 import net.db64.homelawnsecurity.entity.ai.plant.PlantTargetGoal;
+import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
@@ -22,7 +23,7 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedAttackMob {
+public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPlant, RangedAttackMob {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(PeashooterEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -138,8 +139,8 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.MAX_HEALTH, 300)
-			.add(EntityAttributes.ATTACK_DAMAGE, 20)
+			.add(EntityAttributes.MAX_HEALTH, 300 * IPvzEntity.HEALTH_SCALE)
+			.add(EntityAttributes.ATTACK_DAMAGE, 20 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.FOLLOW_RANGE, 3)
 			.add(EntityAttributes.MOVEMENT_SPEED, 0);
 	}

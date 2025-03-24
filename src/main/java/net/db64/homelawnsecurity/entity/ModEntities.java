@@ -4,9 +4,11 @@ import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
+import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -38,6 +40,12 @@ public class ModEntities {
 
 
 	public static class Plant {
+		public static final EntityType<SunflowerEntity> SUNFLOWER = register(
+			"sunflower",
+			EntityType.Builder.create(SunflowerEntity::new, SpawnGroup.MISC)
+				.dimensions(0.8f, 1.25f)
+		);
+
 		public static final EntityType<PeashooterEntity> PEASHOOTER = register(
 			"peashooter",
 			EntityType.Builder.create(PeashooterEntity::new, SpawnGroup.MISC)
@@ -48,6 +56,11 @@ public class ModEntities {
 
 
 	public static class Zombie {
+		public static final EntityType<ZombieGravestoneEntity> ZOMBIE_GRAVESTONE = register(
+			"zombie_gravestone",
+			EntityType.Builder.create(ZombieGravestoneEntity::new, SpawnGroup.MISC)
+				.dimensions(0.8f, 1.8f));
+
 		public static final EntityType<BasicZombieEntity> BASIC_ZOMBIE = register(
 			"basic_zombie",
 			EntityType.Builder.create(BasicZombieEntity::new, SpawnGroup.MISC)

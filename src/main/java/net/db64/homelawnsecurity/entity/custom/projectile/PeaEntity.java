@@ -32,7 +32,7 @@ import net.minecraft.world.World;
 
 import java.util.Iterator;
 
-public class PeaEntity extends ProjectileEntity {
+public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	public float maxDistance;
 
 	public PeaEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
@@ -103,7 +103,7 @@ public class PeaEntity extends ProjectileEntity {
 		Entity entity = entityHitResult.getEntity();
 		if (entity.getWorld() instanceof ClientWorld)
 			return;
-		entity.damage((ServerWorld) entity.getWorld(), this.getDamageSources().create(ModDamageTypes.PEA, this, this.getOwner()), 20);
+		entity.damage((ServerWorld) entity.getWorld(), this.getDamageSources().create(ModDamageTypes.PEA, this, this.getOwner()), 20 * IPvzEntity.HEALTH_SCALE);
 		//entity.damage(ModDamageTypes.of(entity.getWorld(), ModDamageTypes.PEA), 20);
 	}
 

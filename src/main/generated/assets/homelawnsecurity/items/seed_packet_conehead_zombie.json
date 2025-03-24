@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "homelawnsecurity:item/seed_packet/base/zombie"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "homelawnsecurity:item/seed_packet/image/zombie/conehead_zombie"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "homelawnsecurity:item/seed_packet/cost/zombie/75"
+      }
+    ]
+  }
+}

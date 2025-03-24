@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity.entity.custom.zombie;
 
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieMeleeAttackGoal;
+import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.entity.AnimationState;
@@ -17,7 +18,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ConeheadZombieEntity extends ZombieEntity {
+public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(ConeheadZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final TrackedData<Boolean> HAS_LOST_HEADWEAR =
@@ -50,18 +51,18 @@ public class ConeheadZombieEntity extends ZombieEntity {
 	}
 
 	@Override
-	public int getLoseHeadwearHealth() {
-		return 270;
+	public float getLoseHeadwearHealth() {
+		return 270 * IPvzEntity.HEALTH_SCALE;
 	}
 
 	@Override
-	public int getLoseArmHealth() {
-		return 180;
+	public float getLoseArmHealth() {
+		return 180 * IPvzEntity.HEALTH_SCALE;
 	}
 
 	@Override
-	public int getLoseHeadHealth() {
-		return 90;
+	public float getLoseHeadHealth() {
+		return 90 * IPvzEntity.HEALTH_SCALE;
 	}
 
 	@Override
@@ -98,8 +99,8 @@ public class ConeheadZombieEntity extends ZombieEntity {
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.MAX_HEALTH, 640)
-			.add(EntityAttributes.ATTACK_DAMAGE, 5)
+			.add(EntityAttributes.MAX_HEALTH, 640 * IPvzEntity.HEALTH_SCALE)
+			.add(EntityAttributes.ATTACK_DAMAGE, 5 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.FOLLOW_RANGE, 64)
 			.add(EntityAttributes.MOVEMENT_SPEED, 0.1);
 	}

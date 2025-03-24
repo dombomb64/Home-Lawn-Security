@@ -17,6 +17,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.passive.TropicalFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;

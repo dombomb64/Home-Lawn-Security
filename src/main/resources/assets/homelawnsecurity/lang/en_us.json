@@ -72,6 +72,7 @@
 
 	"subtitles.homelawnsecurity.entity.plant.place": "Plant placed",
 	"subtitles.homelawnsecurity.entity.plant.place_water": "Plant placed in water",
+	"subtitles.homelawnsecurity.entity.plant.shovel": "Plant shoveled",
 
 	"subtitles.homelawnsecurity.entity.chomper.eat": "Chomper devours",
 
@@ -197,6 +198,7 @@
 	"subtitles.homelawnsecurity.random.plant_water": "Seed packet used in water",
 	"subtitles.homelawnsecurity.random.select_seed": "Seed packet selected",
 	"subtitles.homelawnsecurity.random.shovel": "Shovel selected",
+	"subtitles.homelawnsecurity.random.shovel_attack": "Shovel attack",
 	"subtitles.homelawnsecurity.random.big_goodie": "Big goodie appears",
 	"subtitles.homelawnsecurity.random.anticipate_explosion": "Anticipation of explosion",
 	"subtitles.homelawnsecurity.random.plant_grow": "Plant grows",
@@ -212,7 +214,9 @@
 	"entity.homelawnsecurity.pea": "Pea",
 
 	"entity.homelawnsecurity.peashooter": "Peashooter",
+	"entity.homelawnsecurity.sunflower": "Sunflower",
 
+	"entity.homelawnsecurity.zombie_gravestone": "Zombie Gravestone",
 	"entity.homelawnsecurity.basic_zombie": "Basic Zombie",
 	"entity.homelawnsecurity.conehead_zombie": "Conehead Zombie",
 
@@ -231,8 +235,12 @@
 
 	"item.homelawnsecurity.lawn_mower": "Lawn Mower",
 
-	"item.homelawnsecurity.seed_packet_peashooter": "Peashooter Seed Packet",
+	"item.homelawnsecurity.shovel": "Shovel",
 
+	"item.homelawnsecurity.seed_packet_peashooter": "Peashooter Seed Packet",
+	"item.homelawnsecurity.seed_packet_sunflower": "Sunflower Seed Packet",
+
+	"item.homelawnsecurity.seed_packet_zombie_gravestone": "Zombie Gravestone Seed Packet",
 	"item.homelawnsecurity.seed_packet_basic_zombie": "Basic Zombie Seed Packet",
 	"item.homelawnsecurity.seed_packet_conehead_zombie": "Conehead Zombie Seed Packet",
 

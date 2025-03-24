@@ -8,12 +8,11 @@ import net.db64.homelawnsecurity.entity.client.other.LawnMowerModel;
 import net.db64.homelawnsecurity.entity.client.other.LawnMowerRenderer;
 import net.db64.homelawnsecurity.entity.client.plant.PeashooterModel;
 import net.db64.homelawnsecurity.entity.client.plant.PeashooterRenderer;
+import net.db64.homelawnsecurity.entity.client.plant.SunflowerModel;
+import net.db64.homelawnsecurity.entity.client.plant.SunflowerRenderer;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaModel;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
-import net.db64.homelawnsecurity.entity.client.zombie.BasicZombieModel;
-import net.db64.homelawnsecurity.entity.client.zombie.BasicZombieRenderer;
-import net.db64.homelawnsecurity.entity.client.zombie.ConeheadZombieModel;
-import net.db64.homelawnsecurity.entity.client.zombie.ConeheadZombieRenderer;
+import net.db64.homelawnsecurity.entity.client.zombie.*;
 import net.db64.homelawnsecurity.particle.ModParticles;
 import net.db64.homelawnsecurity.particle.custom.MarkerParticle;
 import net.fabricmc.api.ClientModInitializer;
@@ -64,11 +63,18 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 	}
 
 	private void registerPlants() {
+		EntityRendererRegistry.register(ModEntities.Plant.SUNFLOWER, SunflowerRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Plant.SUNFLOWER, SunflowerModel::getTexturedModelData);
+
 		EntityRendererRegistry.register(ModEntities.Plant.PEASHOOTER, PeashooterRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Plant.PEASHOOTER, PeashooterModel::getTexturedModelData);
 	}
 
 	private void registerZombies() {
+		EntityRendererRegistry.register(ModEntities.Zombie.ZOMBIE_GRAVESTONE, ZombieGravestoneRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.ZOMBIE_GRAVESTONE, ZombieGravestoneModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.ZOMBIE_GRAVESTONE_CRACKS, ZombieGravestoneModel::getTexturedModelData);
+
 		EntityRendererRegistry.register(ModEntities.Zombie.BASIC_ZOMBIE, BasicZombieRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.BASIC_ZOMBIE, BasicZombieModel::getTexturedModelData);
 

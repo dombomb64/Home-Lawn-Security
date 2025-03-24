@@ -21,6 +21,9 @@ public abstract class LivingEntityMixin extends EntityMixin {
 	@Shadow
 	public abstract Iterable<ItemStack> getHandItems();
 
+	@Shadow
+	public abstract ItemStack getMainHandStack();
+
 	@Inject(
 		method = "damage",
 		at = @At(

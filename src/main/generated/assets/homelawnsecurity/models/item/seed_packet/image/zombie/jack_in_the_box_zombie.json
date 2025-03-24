@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "homelawnsecurity:item/seed_packet/image/zombie/jack_in_the_box_zombie"
+  }
+}

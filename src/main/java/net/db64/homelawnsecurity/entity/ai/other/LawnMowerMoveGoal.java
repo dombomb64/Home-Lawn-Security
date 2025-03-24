@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.entity.ai.other;
 
+import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;

@@ -1,31 +1,28 @@
 package net.db64.homelawnsecurity.entity.custom;
 
+import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.item.custom.LawnSeedPacketItem;
 import net.db64.homelawnsecurity.item.custom.PathSeedPacketItem;
 import net.db64.homelawnsecurity.item.custom.SeedPacketItem;
+import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MovementType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.ShulkerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity {
 	//private abstract static final TrackedData<Boolean> USING_ATTACK =
@@ -65,19 +62,51 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 	@Override
 	public void takeKnockback(double strength, double x, double z) {
 		// ahaha--*snap*
+
+		if (getAttacker() != null && getAttacker().getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
+			super.takeKnockback(strength * 3, x, z);
+		}
 	}
 
 	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
-		if (source.getAttacker() != null && source.getAttacker() instanceof IPvzEntity) {
-			boolean damaged = super.damage(world, source, amount);
+		Entity attacker = source.getAttacker();
+		if (attacker instanceof LivingEntity && ((LivingEntity) attacker).getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
+			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, SoundCategory.PLAYERS, 0.5f, 1);
+			return super.damage(world, source, 1000000);
+		}
+		else if (attacker instanceof IPvzEntity) {
+			//boolean damaged = super.damage(world, source, amount);
 
 			this.hurtTime = 0;
 			this.timeUntilRegen = 0;
 
-			return damaged;
+			//return damaged;
 		}
-		return super.damage(world, source, amount * 10);
+		//return super.damage(world, source, amount * 10);
+		return super.damage(world, source, amount);
+	}
+
+	@Override
+	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ActionResult result = super.interactMob(player, hand);
+
+		if (player.getStackInHand(hand).contains(ModDataComponentTypes.SHOVEL)) {
+			World world = getWorld();
+			if (world.isClient) {
+				for (int i = 0; i < 5; i++) {
+					world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, getSteppingBlockState()), false, true, getX(), getY(), getZ(), 0, 0, 0);
+				}
+				world.playSound(getX(), getY(), getZ(), ModSounds.ENTITY_PLANT_SHOVEL, SoundCategory.NEUTRAL, 1, 1, false);
+			}
+			else {
+				discard();
+			}
+
+			result = ActionResult.SUCCESS;
+		}
+
+		return result;
 	}
 
 	/*

@@ -21,7 +21,8 @@ public class LawnMowerPathNodeMaker extends LandPathNodeMaker {
 			pos = pos.down();
 		}
 
-		if (lawnMower.isPathOrGoal(lawnMower.getBlockPos().down()) // Standing on path (so that it can get back on track)
+		if ((lawnMower.isPathOrGoal(lawnMower.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			|| lawnMower.isStart(lawnMower.getBlockPos().down())) // Standing on path
 			&& !lawnMower.isPathOrGoal(pos)) // Block is not path
 
 			return PathNodeType.BLOCKED;
@@ -49,7 +50,8 @@ public class LawnMowerPathNodeMaker extends LandPathNodeMaker {
 
 		PathNodeType pathNodeType;
 
-		if (lawnMower.isPathOrGoal(lawnMower.getBlockPos().down()) // Standing on path (so that it can get back on track)
+		if ((lawnMower.isPathOrGoal(lawnMower.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			|| lawnMower.isStart(lawnMower.getBlockPos().down())) // Standing on path
 			&& !lawnMower.isPathOrGoal(pos2)) { // Block is not path
 			pathNodeType = PathNodeType.BLOCKED;
 		}

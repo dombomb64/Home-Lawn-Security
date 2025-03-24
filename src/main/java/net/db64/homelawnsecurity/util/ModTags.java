@@ -28,15 +28,15 @@ public class ModTags {
 		public static final TagKey<Block> LAWN_MOWER_START = createTag("lawn_mower_start");
 		public static final TagKey<Block> LAWN_MOWER_PATH_1 = createTag("lawn_mower_path_1");
 		public static final TagKey<Block> LAWN_MOWER_PATH_2 = createTag("lawn_mower_path_2");
-		public static final TagKey<Block> LAWN_MOWER_PATH_CROSS = createTag("lawn_mower_path_cross");
+		public static final TagKey<Block> LAWN_MOWER_PATH_CROSS = createTag("lawn_mower_path_cross");*/
 		public static final TagKey<Block> LAWN_MOWER_PLACEABLE = createTag("lawn_mower_placeable");
 
-		public static final TagKey<Block> LAWN_MOWER_GOAL_MARKERS = createTag("lawn_mower_goal_markers");
+		/*public static final TagKey<Block> LAWN_MOWER_GOAL_MARKERS = createTag("lawn_mower_goal_markers");
 		public static final TagKey<Block> LAWN_MOWER_START_MARKERS = createTag("lawn_mower_start_markers");
 		public static final TagKey<Block> LAWN_MOWER_PATH_1_MARKERS = createTag("lawn_mower_path_1_markers");
 		public static final TagKey<Block> LAWN_MOWER_PATH_2_MARKERS = createTag("lawn_mower_path_2_markers");
-		public static final TagKey<Block> LAWN_MOWER_PATH_CROSS_MARKERS = createTag("lawn_mower_path_cross_markers");
-		public static final TagKey<Block> LAWN_MOWER_PLACEABLE_MARKERS = createTag("lawn_mower_placeable_markers");*/
+		public static final TagKey<Block> LAWN_MOWER_PATH_CROSS_MARKERS = createTag("lawn_mower_path_cross_markers");*/
+		public static final TagKey<Block> LAWN_MOWER_PLACEABLE_MARKERS = createTag("lawn_mower_placeable_markers");
 
 		public static final TagKey<Block> PLANT_PLACEABLE_LAWN = createTag("plant_placeable_lawn");
 		public static final TagKey<Block> PLANT_PLACEABLE_PATH = createTag("plant_placeable_path");

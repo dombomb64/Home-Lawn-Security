@@ -6,8 +6,10 @@ import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
+import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.particle.ModParticles;
@@ -44,10 +46,14 @@ public class HomeLawnSecurity implements ModInitializer {
 	}
 
 	private void registerPlants() {
+		FabricDefaultAttributeRegistry.register(ModEntities.Plant.SUNFLOWER, SunflowerEntity.createAttributes());
+
 		FabricDefaultAttributeRegistry.register(ModEntities.Plant.PEASHOOTER, PeashooterEntity.createAttributes());
 	}
 
 	private void registerZombies() {
+		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.ZOMBIE_GRAVESTONE, ZombieGravestoneEntity.createAttributes());
+
 		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.BASIC_ZOMBIE, BasicZombieEntity.createAttributes());
 
 		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieEntity.createAttributes());

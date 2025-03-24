@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.entity.custom;
 
+import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieNavigation;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieStayOnPathGoal;
@@ -37,6 +38,8 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	public TagKey<Block> pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
 	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 
+	public boolean offTrack = false;
+
 	public final AnimationState attackAnimationState = new AnimationState();
 	public int attackAnimationTimeout = 0;
 	public int maxAttackAnimationTimeout = 10;
@@ -46,6 +49,7 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	protected ZombieEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
 		setPathTagNbt(pathTag);
+		setOffTrackNbt(offTrack);
 		/*World world2 = getWorld();
 		BlockState groundState = world2.getBlockState(this.getBlockPos().down());
 		BlockState markerState = world2.getBlockState(this.getBlockPos());
@@ -54,7 +58,7 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 			switchPathTag();
 		}*/
 
-		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getBlockPos(), 5, 5, 5);
+		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getBlockPos().down(), 5, 5, 5);
 		for (BlockPos blockPos : iterable) {
 			if (isPath(blockPos)) {
 				break;
@@ -76,7 +80,7 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 		else {
 			if (this.getUsingAttack()) {
 				if (this.eatingSoundTimeout <= 0) {
-					this.playSound(ModSounds.ENTITY_ZOMBIE_EAT, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
+					this.playSound(ModSounds.ENTITY_ZOMBIE_EAT, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 1f));
 					this.eatingSoundTimeout = 10;
 					//HomeLawnSecurity.LOGGER.info("zombie took bite");
 				}
@@ -107,21 +111,34 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	@Override
 	public void takeKnockback(double strength, double x, double z) {
 		// oh no--i hope this really heavy beach ball doesn't break my leg
+
+		if (getAttacker() != null && getAttacker().getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
+			super.takeKnockback(strength * 3, x, z);
+		}
 	}
 
 	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		Entity attacker = source.getAttacker();
 		boolean damaged;
-		if ((source.getAttacker() != null && source.getAttacker() instanceof IPvzEntity)
-			|| source.isOf(ModDamageTypes.ZOMBIE_HEADLESS)) {
+		if (attacker instanceof LivingEntity && ((LivingEntity) attacker).getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
+			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, SoundCategory.PLAYERS, 1, 1);
+			damaged = super.damage(world, source, 1000000);
+		}
+		else {
 			damaged = super.damage(world, source, amount);
+		}
+
+		if ((attacker != null && attacker instanceof IPvzEntity)
+			|| source.isOf(ModDamageTypes.ZOMBIE_HEADLESS)) {
+			//damaged = super.damage(world, source, amount);
 
 			this.hurtTime = 0;
 			this.timeUntilRegen = 0;
 		}
-		else {
-			damaged = super.damage(world, source, amount * 10);
-		}
+		//else {
+			//damaged = super.damage(world, source, amount * 10);
+		//}
 
 		if (!getHasLostHeadwear() && getHealth() < getLoseHeadwearHealth()) {
 			setHasLostHeadwear(true);
@@ -178,67 +195,99 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	/**
 	 * @return The health at which this zombie will lose its headwear upon going below, or -1 if it doesn't normally spawn with any.
 	 */
-	public abstract int getLoseHeadwearHealth();
+	public abstract float getLoseHeadwearHealth();
 
 	/**
 	 * @return The health at which this zombie will lose its arm upon going below, or -1 if it never does.
 	 * Typically, this is two thirds of the zombie's max health.
 	 */
-	public abstract int getLoseArmHealth();
+	public abstract float getLoseArmHealth();
 
 	/**
 	 * @return The health at which this zombie will lose its head and start to die upon going below.
 	 * Typically, this is a third of the zombie's max health.
 	 */
-	public abstract int getLoseHeadHealth();
+	public abstract float getLoseHeadHealth();
 
 	public abstract TrackedData<Boolean> getUsingAttackTrackedData();
 
 	public void setUsingAttack(boolean usingAttack) {
-		this.dataTracker.set(getUsingAttackTrackedData(), usingAttack);
+		var usingAttackData = getUsingAttackTrackedData();
+		if (usingAttackData != null)
+			this.dataTracker.set(usingAttackData, usingAttack);
 	}
 
 	public boolean getUsingAttack() {
-		return this.dataTracker.get(getUsingAttackTrackedData());
+		var usingAttack = getUsingAttackTrackedData();
+		if (usingAttack == null)
+			return false;
+		return this.dataTracker.get(usingAttack);
 	}
 
 	public abstract TrackedData<Boolean> getHasLostHeadwearTrackedData();
 
 	public void setHasLostHeadwear(boolean hasLostHeadwear) {
-		this.dataTracker.set(getHasLostHeadwearTrackedData(), hasLostHeadwear);
+		var lostHeadwear = getHasLostHeadwearTrackedData();
+		if (lostHeadwear != null)
+			this.dataTracker.set(lostHeadwear, hasLostHeadwear);
 	}
 
 	public boolean getHasLostHeadwear() {
-		return this.dataTracker.get(getHasLostHeadwearTrackedData());
+		var lostHeadwear = getHasLostHeadwearTrackedData();
+		if (lostHeadwear == null)
+			return false;
+		return this.dataTracker.get(lostHeadwear);
 	}
 
 	public abstract TrackedData<Boolean> getHasLostArmTrackedData();
 
 	public void setHasLostArm(boolean hasLostArm) {
-		this.dataTracker.set(getHasLostArmTrackedData(), hasLostArm);
+		var lostArm = getHasLostArmTrackedData();
+		if (lostArm != null)
+			this.dataTracker.set(lostArm, hasLostArm);
 	}
 
 	public boolean getHasLostArm() {
-		return this.dataTracker.get(getHasLostArmTrackedData());
+		var lostArm = getHasLostArmTrackedData();
+		if (lostArm == null)
+			return false;
+		return this.dataTracker.get(lostArm);
 	}
 
 	public abstract TrackedData<Boolean> getHasLostHeadTrackedData();
 
 	public void setHasLostHead(boolean hasLostHead) {
-		this.dataTracker.set(getHasLostHeadTrackedData(), hasLostHead);
+		var lostHead = getHasLostHeadTrackedData();
+		if (lostHead != null)
+			this.dataTracker.set(lostHead, hasLostHead);
 	}
 
 	public boolean getHasLostHead() {
-		return this.dataTracker.get(getHasLostHeadTrackedData());
+		var lostHead = getHasLostHeadTrackedData();
+		if (lostHead == null)
+			return false;
+		return this.dataTracker.get(lostHead);
 	}
 
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
 		super.initDataTracker(builder);
-		builder.add(getUsingAttackTrackedData(), false);
-		builder.add(getHasLostHeadwearTrackedData(), false);
-		builder.add(getHasLostArmTrackedData(), false);
-		builder.add(getHasLostHeadTrackedData(), false);
+
+		var usingAttack = getUsingAttackTrackedData();
+		if (usingAttack != null)
+			builder.add(usingAttack, false);
+
+		var lostHeadwear = getHasLostHeadwearTrackedData();
+		if (lostHeadwear != null)
+			builder.add(lostHeadwear, false);
+
+		var lostArm = getHasLostArmTrackedData();
+		if (lostArm != null)
+			builder.add(lostArm, false);
+
+		var lostHead = getHasLostHeadTrackedData();
+		if (lostHead != null)
+			builder.add(lostHead, false);
 	}
 
 	/*
@@ -377,6 +426,18 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 			nbt.putInt("pathTag", 1);
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}
+	}
+
+	public boolean getOffTrackNbt() {
+		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
+		this.offTrack = nbt.getBoolean("offTrack");
+		return this.offTrack;
+	}
+
+	public void setOffTrackNbt(boolean bool) {
+		this.offTrack = bool;
+		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
+		nbt.putBoolean("offTrack", offTrack);
 	}
 
 	/*@Override

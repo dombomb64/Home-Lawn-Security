@@ -23,6 +23,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -233,5 +234,15 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 		} else {
 			idleTime = 0;
 		}
+	}
+
+	@Override
+	protected Text getDefaultName() {
+		Text placeholder = super.getDefaultName();
+
+		if (stack != null)
+			return stack.getName();
+		
+		return placeholder;
 	}
 }
