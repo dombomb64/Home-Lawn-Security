@@ -7,6 +7,10 @@ public class ZombieRenderState extends LivingEntityRenderState {
 	public boolean hasLostArm = false;
 	public boolean hasLostHead = false;
 
+	public ZombieRenderState() {
+
+	}
+
 	public boolean getHasLostHeadwear() {
 		return hasLostHeadwear;
 	}

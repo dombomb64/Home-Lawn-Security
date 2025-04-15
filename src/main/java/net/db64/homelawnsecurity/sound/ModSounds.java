@@ -52,6 +52,7 @@ public class ModSounds {
 	public static SoundEvent ENTITY_PLANT_PLACE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.plant.place"));
 	public static SoundEvent ENTITY_PLANT_PLACE_WATER = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.plant.place_water"));
 	public static SoundEvent ENTITY_PLANT_SHOVEL = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.plant.shovel"));
+	public static SoundEvent ITEM_LAWN_GADGET_SWITCH = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "item.lawn_gadget.switch"));
 	public static SoundEvent ENTITY_ZOMBIE_PLACE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.place"));
 	public static SoundEvent ENTITY_ZOMBIE_PLACE_WATER = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.place_water"));
 	public static SoundEvent ENTITY_EXPLODE_O_NUT_BOWL = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.explode_o_nut.bowl"));

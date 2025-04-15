@@ -67,6 +67,14 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 
 
+		getOrCreateTagBuilder(ModTags.Blocks.TARGET_ZOMBIE_PLACEABLE)
+			.add(ModBlocks.GRAVEYARD_BLOCK);
+
+		getOrCreateTagBuilder(ModTags.Blocks.TARGET_ZOMBIE_PLACEABLE_MARKERS)
+			.add(ModBlocks.GRAVEYARD_MARKER);
+
+
+
 		/*getOrCreateTagBuilder(ModTags.Blocks.LAWN_MOWER_GOAL)
 			.add(ModBlocks.GRAVEYARD_BLOCK);
 

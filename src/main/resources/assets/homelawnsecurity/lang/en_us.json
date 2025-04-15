@@ -16,6 +16,8 @@
 	"subtitles.homelawnsecurity.aaa.fnf_finale_guitar": "Guitar from hit song Finale from hit FNF mod VS Impostor V4 plays",
 	"subtitles.homelawnsecurity.aaa.peashooter_plays_fnaf": "Peashooter plays FNaF",
 
+	"subtitles.homelawnsecurity.item.lawn_gadget.switch": "Lawn Gadget switches",
+
 	"subtitles.homelawnsecurity.entity.money.land": "Money lands",
 
 	"subtitles.homelawnsecurity.entity.coin.land": "Coin lands",
@@ -215,6 +217,7 @@
 
 	"entity.homelawnsecurity.peashooter": "Peashooter",
 	"entity.homelawnsecurity.sunflower": "Sunflower",
+	"entity.homelawnsecurity.wall_nut": "Wall-nut",
 
 	"entity.homelawnsecurity.zombie_gravestone": "Zombie Gravestone",
 	"entity.homelawnsecurity.basic_zombie": "Basic Zombie",
@@ -233,12 +236,50 @@
 	"item.homelawnsecurity.sun": "Sun",
 	"item.homelawnsecurity.brainpower": "Brainpower",
 
+	"item.homelawnsecurity.currency.name.separator": " - ",
+	"item.homelawnsecurity.currency.name.sun": "%1$s Sun",
+	"item.homelawnsecurity.currency.name.brainpower": "%1$s Brainpower",
+
 	"item.homelawnsecurity.lawn_mower": "Lawn Mower",
+	"item.homelawnsecurity.lawn_mower.placement.error": "Lawn mowers can only be placed on the garden",
+	"item.homelawnsecurity.pool_cleaner": "Pool Cleaner",
+	"item.homelawnsecurity.pool_cleaner.placement.error": "Pool cleaners can only be placed on the garden",
+	"item.homelawnsecurity.roof_cleaner": "Roof Cleaner",
+	"item.homelawnsecurity.roof_cleaner.placement.error": "Roof cleaners can only be placed on the garden",
+
+	"item.homelawnsecurity.target": "Target",
+	"item.homelawnsecurity.target.placement.error": "Target Zombies can only be placed on the graveyard",
 
 	"item.homelawnsecurity.shovel": "Shovel",
 
+	"item.homelawnsecurity.lawn_gadget": "Lawn Gadget",
+	"item.homelawnsecurity.lawn_gadget.switch": "Mode: %1$s",
+	"item.homelawnsecurity.lawn_gadget.switch.error": "This item is broken",
+	"item.homelawnsecurity.lawn_gadget.mode.turf_toggle": "Toggle Turf",
+	"item.homelawnsecurity.lawn_gadget.mode.turf_toggle_marker": "Toggle Turf (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_toggle": "Toggle Path",
+	"item.homelawnsecurity.lawn_gadget.mode.path_toggle_marker": "Toggle Path (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type": "Switch Path Type",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_marker": "Switch Path Type (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.use.error": "This item is broken",
+
+	"item.homelawnsecurity.seed_packet.plant.placement.error.turf": "This plant can only be placed on turf",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.path": "This plant can only be placed on paths",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.solid_ground": "This plant can only be placed on solid ground",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.water": "This plant can only be placed in water",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.grave": "This plant can only be placed on graves",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.sudden_death": "This plant can't be placed during Sudden Death",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.too_far": "This plant can't be placed this far from the garden",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.block_face": "Plants can't be placed on the sides or bottoms of blocks",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.path": "Zombies can only be placed on paths",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.water": "This zombie can only be placed in water",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.too_close": "Zombies can't be placed this close to the garden",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.sudden_death": "This zombie can't be placed during Sudden Death",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.block_face": "Zombies can't be placed on the sides or bottoms of blocks",
+
 	"item.homelawnsecurity.seed_packet_peashooter": "Peashooter Seed Packet",
 	"item.homelawnsecurity.seed_packet_sunflower": "Sunflower Seed Packet",
+	"item.homelawnsecurity.seed_packet_wall_nut": "Wall-nut Seed Packet",
 
 	"item.homelawnsecurity.seed_packet_zombie_gravestone": "Zombie Gravestone Seed Packet",
 	"item.homelawnsecurity.seed_packet_basic_zombie": "Basic Zombie Seed Packet",
@@ -248,24 +289,24 @@
 
 	"block.homelawnsecurity.garden_block": "Garden Block",
 	"block.homelawnsecurity.graveyard_block": "Graveyard Block",
-	"block.homelawnsecurity.lawn_block": "Lawn Block",
-	"block.homelawnsecurity.fertile_path_block_1": "Fertile Path Block A",
-	"block.homelawnsecurity.fertile_path_block_2": "Fertile Path Block B",
-	"block.homelawnsecurity.fertile_path_block_cross": "Fertile Path Block Intersection",
-	"block.homelawnsecurity.zombie_path_block_1": "Zombie Path Block A",
-	"block.homelawnsecurity.zombie_path_block_2": "Zombie Path Block B",
-	"block.homelawnsecurity.zombie_path_block_cross": "Zombie Path Block Intersection",
+	"block.homelawnsecurity.lawn_block": "Sodded Lawn Block",
+	"block.homelawnsecurity.fertile_path_block_1": "Sodded Path Block A",
+	"block.homelawnsecurity.fertile_path_block_2": "Sodded Path Block B",
+	"block.homelawnsecurity.fertile_path_block_cross": "Sodded Path Block Intersection",
+	"block.homelawnsecurity.zombie_path_block_1": "Unsodded Path Block A",
+	"block.homelawnsecurity.zombie_path_block_2": "Unsodded Path Block B",
+	"block.homelawnsecurity.zombie_path_block_cross": "Unsodded Path Block Intersection",
 	"block.homelawnsecurity.unsodded_lawn_block": "Unsodded Lawn Block",
 
 	"block.homelawnsecurity.garden_marker": "Garden Marker",
 	"block.homelawnsecurity.graveyard_marker": "Graveyard Marker",
-	"block.homelawnsecurity.lawn_marker": "Lawn Marker",
-	"block.homelawnsecurity.fertile_path_marker_1": "Fertile Path Marker A",
-	"block.homelawnsecurity.fertile_path_marker_2": "Fertile Path Marker B",
-	"block.homelawnsecurity.fertile_path_marker_cross": "Fertile Path Marker Intersection",
-	"block.homelawnsecurity.zombie_path_marker_1": "Zombie Path Marker A",
-	"block.homelawnsecurity.zombie_path_marker_2": "Zombie Path Marker B",
-	"block.homelawnsecurity.zombie_path_marker_cross": "Zombie Path Marker Intersection",
+	"block.homelawnsecurity.lawn_marker": "Sodded Lawn Marker",
+	"block.homelawnsecurity.fertile_path_marker_1": "Sodded Path Marker A",
+	"block.homelawnsecurity.fertile_path_marker_2": "Sodded Path Marker B",
+	"block.homelawnsecurity.fertile_path_marker_cross": "Sodded Path Marker Intersection",
+	"block.homelawnsecurity.zombie_path_marker_1": "Unsodded Path Marker A",
+	"block.homelawnsecurity.zombie_path_marker_2": "Unsodded Path Marker B",
+	"block.homelawnsecurity.zombie_path_marker_cross": "Unsodded Path Marker Intersection",
 	"block.homelawnsecurity.unsodded_lawn_marker": "Unsodded Lawn Marker",
 
 	"block.homelawnsecurity.sun_spawner": "Sun Spawner",
@@ -277,6 +318,29 @@
 	"tooltip.homelawnsecurity.bag_of_brainpower": "Brainpower: %1$s",
 	"tooltip.homelawnsecurity.currency.sun": "Sun: %1$s",
 	"tooltip.homelawnsecurity.currency.brainpower": "Brainpower: %1$s",
+
+	"tooltip.item.homelawnsecurity.daves_pan": "Activates developer mode.",
+	"tooltip.item.homelawnsecurity.daves_pan.warning": "Do not use in competitions.",
+	"tooltip.item.homelawnsecurity.target": "Places a target zombie.",
+	"tooltip.item.homelawnsecurity.shovel.use": "Use on plants to remove them.",
+	"tooltip.item.homelawnsecurity.shovel.attack": "Smack plants and zombies to send them flying.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.use": "Use this item on any kind of lawn block to change something about it.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.switch": "Punch a block with this item to switch modes.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode": "Sneak and punch a block to switch between markers and normal blocks.",
+
+	"tooltip.block.homelawnsecurity.garden": "The goal for zombies.",
+	"tooltip.block.homelawnsecurity.graveyard": "The goal for lawnmowers.",
+
+	"tooltip.block.homelawnsecurity.marker": "Invisibly overrides functionality.",
+	"tooltip.block.homelawnsecurity.placement.allows": "Allows placement of:",
+	"tooltip.block.homelawnsecurity.placement.lawn_plants": "Lawn Plants",
+	"tooltip.block.homelawnsecurity.placement.path_plants": "Path Plants",
+	"tooltip.block.homelawnsecurity.placement.zombies": "Zombies",
+	"tooltip.block.homelawnsecurity.placement.none": "None",
+
+	"tooltip.block.homelawnsecurity.sun_spawner": "Place near a lawn to make sun fall from the sky.",
+	"tooltip.block.homelawnsecurity.brainpower_beacon": "Place near a lawn to make brainpower fall from the sky.",
+
 
 
 

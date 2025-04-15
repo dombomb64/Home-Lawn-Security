@@ -5,6 +5,7 @@ import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,6 +21,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -37,7 +40,7 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 
 	public PeaEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
 		super(entityType, world);
-		this.maxDistance = 3f;
+		this.maxDistance = 16f;
 	}
 
 	public PeaEntity(LivingEntity livingEntity, World world, float maxDistance) {
@@ -92,7 +95,7 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	}
 
 	protected double getGravity() {
-		if (distanceTraveled <= 2) // Bro why doesn't this variable work with projectiles
+		if (distanceTraveled <= maxDistance) // Bro why doesn't this variable work with projectiles
 			return 0d;
 		return 0.08d;
 	}
@@ -127,6 +130,22 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 					blockState.onEntityCollision(this.getWorld(), blockPos, this);
 				}
 			}
+		}
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+
+		nbt.putFloat("max_distance", maxDistance);
+	}
+
+	@Override
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+
+		if (nbt.contains("max_distance", NbtElement.FLOAT_TYPE)) {
+			this.maxDistance = nbt.getFloat("max_distance");
 		}
 	}
 }

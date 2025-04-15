@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity.mixin;
 
 import net.db64.homelawnsecurity.block.custom.MarkerBlock;
+import net.db64.homelawnsecurity.item.custom.LawnGadgetItem;
 import net.db64.homelawnsecurity.particle.ModParticles;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.BlockState;
@@ -22,7 +23,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
 	)
 	public void tickMarkerParticles(CallbackInfo ci) {
 		for (ItemStack stack : getHandItems()) {
-			if (stack.isIn(ModTags.Items.MARKERS)) {
+			if (stack.isIn(ModTags.Items.MARKERS) || (stack.getItem() instanceof LawnGadgetItem && LawnGadgetItem.shouldRevealMarkers(stack))) {
 				Iterable<BlockPos> iterable = BlockPos.iterate(MarkerBlock.PARTICLE_DISTANCE.offset(getBlockPos()));
 				for (BlockPos blockPos : iterable) {
 					World world = getWorld();

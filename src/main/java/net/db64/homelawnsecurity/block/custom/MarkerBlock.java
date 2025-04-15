@@ -1,6 +1,8 @@
 package net.db64.homelawnsecurity.block.custom;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
+import net.db64.homelawnsecurity.item.ModItems;
+import net.db64.homelawnsecurity.item.custom.LawnGadgetItem;
 import net.db64.homelawnsecurity.particle.ModParticles;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.*;
@@ -84,7 +86,11 @@ public class MarkerBlock extends Block implements Waterloggable {
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return context.isHolding(asItem()) ? VoxelShapes.fullCube() : VoxelShapes.empty();
+		if (!(context instanceof EntityShapeContext entityContext)) return VoxelShapes.empty();
+
+		ItemStack stack = entityContext.heldItem;
+		return (stack.isIn(ModTags.Items.MARKERS) || (stack.getItem() instanceof LawnGadgetItem && LawnGadgetItem.shouldRevealMarkers(stack)))
+			? VoxelShapes.fullCube() : VoxelShapes.empty();
 	}
 
 	@Override

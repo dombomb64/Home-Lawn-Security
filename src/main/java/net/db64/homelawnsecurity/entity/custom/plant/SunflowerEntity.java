@@ -31,7 +31,7 @@ public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPla
 	public final AnimationState setupAnimationState = new AnimationState();
 
 	public final int MAX_SUN_TICKS = 480;
-	public int sunTicks = 480;
+	public int sunTicks = 120;
 
 	/*
 		GENERAL

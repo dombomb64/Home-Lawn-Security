@@ -5,6 +5,7 @@
 	"mixins": [
 		"EntityMixin",
 		"ExampleMixin",
+		"ItemStackMixin",
 		"LivingEntityMixin",
 		"PlayerEntityMixin",
 		"ServerPlayerInteractionManagerMixin"
@@ -14,5 +15,6 @@
 	},
 	"client": [
 		"ClientPlayerEntityMixin",
+		"InGameHudMixin"
 	]
 }

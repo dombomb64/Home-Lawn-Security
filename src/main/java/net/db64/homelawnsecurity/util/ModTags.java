@@ -24,6 +24,9 @@ public class ModTags {
 		public static final TagKey<Block> ZOMBIE_START_MARKERS = createTag("zombie_start_markers");
 		public static final TagKey<Block> ZOMBIE_PLACEABLE_MARKERS = createTag("zombie_placeable_markers");
 
+		public static final TagKey<Block> TARGET_ZOMBIE_PLACEABLE = createTag("target_zombie_placeable");
+		public static final TagKey<Block> TARGET_ZOMBIE_PLACEABLE_MARKERS = createTag("target_zombie_placeable_markers");
+
 		/*public static final TagKey<Block> LAWN_MOWER_GOAL = createTag("lawn_mower_goal");
 		public static final TagKey<Block> LAWN_MOWER_START = createTag("lawn_mower_start");
 		public static final TagKey<Block> LAWN_MOWER_PATH_1 = createTag("lawn_mower_path_1");

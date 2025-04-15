@@ -126,7 +126,10 @@ public class ModModelProvider extends FabricModelProvider {
 
 		itemModelGenerator.register(ModItems.LAWN_MOWER, Models.GENERATED);
 
+		itemModelGenerator.register(ModItems.TARGET, Models.GENERATED);
+
 		itemModelGenerator.register(ModItems.SHOVEL, Models.HANDHELD);
+		itemModelGenerator.register(ModItems.LAWN_GADGET, Models.HANDHELD);
 
 		itemModelGenerator.register(ModBlocks.GARDEN_MARKER.asItem(), Models.GENERATED);
 		itemModelGenerator.register(ModBlocks.GRAVEYARD_MARKER.asItem(), Models.GENERATED);
@@ -238,6 +241,8 @@ public class ModModelProvider extends FabricModelProvider {
 		ItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_PEASHOOTER, plantBase, peashooter, plant100);
 
 		ItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_SUNFLOWER, plantBase, sunflower, plant50);
+
+		ItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_WALL_NUT, plantBase, wallNut, plant50);
 
 
 

@@ -102,7 +102,7 @@ public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
 			.add(EntityAttributes.MAX_HEALTH, 640 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.ATTACK_DAMAGE, 5 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.FOLLOW_RANGE, 64)
-			.add(EntityAttributes.MOVEMENT_SPEED, 0.1);
+			.add(EntityAttributes.MOVEMENT_SPEED, 0.0748);
 	}
 
 	/*

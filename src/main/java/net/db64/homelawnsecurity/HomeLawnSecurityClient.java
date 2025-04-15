@@ -6,10 +6,7 @@ import net.db64.homelawnsecurity.entity.client.other.CurrencyRenderer;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
 import net.db64.homelawnsecurity.entity.client.other.LawnMowerModel;
 import net.db64.homelawnsecurity.entity.client.other.LawnMowerRenderer;
-import net.db64.homelawnsecurity.entity.client.plant.PeashooterModel;
-import net.db64.homelawnsecurity.entity.client.plant.PeashooterRenderer;
-import net.db64.homelawnsecurity.entity.client.plant.SunflowerModel;
-import net.db64.homelawnsecurity.entity.client.plant.SunflowerRenderer;
+import net.db64.homelawnsecurity.entity.client.plant.*;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaModel;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
 import net.db64.homelawnsecurity.entity.client.zombie.*;
@@ -21,6 +18,7 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
 
 public class HomeLawnSecurityClient implements ClientModInitializer {
 	@Override
@@ -55,6 +53,13 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(ModEntities.Other.LAWN_MOWER, LawnMowerRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Other.LAWN_MOWER, LawnMowerModel::getTexturedModelData);
+
+		EntityRendererRegistry.register(ModEntities.Other.TARGET_ZOMBIE, TargetZombieRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.TARGET_ZOMBIE, TargetZombieModel::getTexturedModelData);
+
+		EntityRendererRegistry.register(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
+
+		EntityRendererRegistry.register(ModEntities.Other.ZOMBIE_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
 	}
 
 	private void registerProjectiles() {
@@ -68,6 +73,9 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 
 		EntityRendererRegistry.register(ModEntities.Plant.PEASHOOTER, PeashooterRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Plant.PEASHOOTER, PeashooterModel::getTexturedModelData);
+
+		EntityRendererRegistry.register(ModEntities.Plant.WALL_NUT, WallNutRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Plant.WALL_NUT, WallNutModel::getTexturedModelData);
 	}
 
 	private void registerZombies() {

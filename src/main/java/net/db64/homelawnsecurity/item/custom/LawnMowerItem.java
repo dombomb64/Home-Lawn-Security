@@ -11,12 +11,15 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.registry.Registries;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -64,8 +67,9 @@ public class LawnMowerItem extends Item {
 				}
 
 				// Invalid spawn position
-				if (!LawnMowerEntity.isPlaceable(blockPos, world)) {
+				if (!LawnMowerEntity.isPlaceable(blockPos.offset(direction).down(), world)) {
 					playBuzzerSound(world, blockPos);
+					sendMessage(context.getPlayer(), Text.translatable("item.homelawnsecurity.lawn_mower.placement.error"));
 					return ActionResult.SUCCESS;
 				}
 
@@ -87,6 +91,10 @@ public class LawnMowerItem extends Item {
 				return ActionResult.SUCCESS;
 			}
 		}
+	}
+
+	protected static void sendMessage(PlayerEntity player, Text message) {
+		((ServerPlayerEntity) player).sendMessageToClient(message, true);
 	}
 
 	public EntityType<?> getEntityType(ItemStack stack) {

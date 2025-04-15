@@ -1,17 +1,18 @@
 package net.db64.homelawnsecurity.entity.custom.other;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
+import net.db64.homelawnsecurity.component.ModDataComponentTypes;
+import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
 import net.db64.homelawnsecurity.entity.ai.other.LawnMowerMoveGoal;
-import net.db64.homelawnsecurity.entity.ai.other.LawnMowerNavigation;
 import net.db64.homelawnsecurity.entity.ai.other.LawnMowerStayOnPathGoal;
+import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
-import net.db64.homelawnsecurity.util.IEntityDataSaver;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -20,16 +21,19 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 
-public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
+public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPathBoundEntity {
 	public TagKey<Block> pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
 	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 
@@ -42,15 +46,15 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 	public LawnMowerEntity(EntityType<LawnMowerEntity> entityType, World world) {
 		super(entityType, world);
 
-		if (!getWorld().isClient) {
+		/*if (!getWorld().isClient) {
 			setPathTagNbt(pathTag);
-		}
+		}*/
 	}
 
-	/**
-	 * Runs on the first tick so that it has access to the position.
-	 */
-	public void firstTick() {
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+		EntityData result = super.initialize(world, difficulty, spawnReason, entityData);
 
 		/*World world2 = getWorld();
 		BlockState groundState = world2.getBlockState(this.getBlockPos().down());
@@ -65,11 +69,11 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
 			if (isPath(blockPos)) {
-				HomeLawnSecurity.LOGGER.info("path a");
+				//HomeLawnSecurity.LOGGER.info("path a");
 				break;
 			}
 			if (isOtherPath(blockPos)) {
-				HomeLawnSecurity.LOGGER.info("path b");
+				//HomeLawnSecurity.LOGGER.info("path b");
 				switchPathTag();
 				break;
 			}
@@ -77,6 +81,8 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		}
 
 		mowing = false;
+
+		return result;
 	}
 
 	@Override
@@ -85,16 +91,14 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 
 		World world = getWorld();
 		if (world instanceof ServerWorld serverWorld) {
-			if (age == 1) {
-				firstTick();
-			}
-
 			boolean wasMowing = mowing;
 
 			for (ZombieEntity entity : world
 				.getEntitiesByClass(ZombieEntity.class, this.getBoundingBox(), EntityPredicates.EXCEPT_SPECTATOR)) {
-				mowing = true;
-				entity.kill(serverWorld);
+				if (!(entity instanceof TargetZombieEntity) && !(entity instanceof ZombieGravestoneEntity)) {
+					mowing = true;
+					entity.kill(serverWorld);
+				}
 			}
 
 			if (mowing && !wasMowing)
@@ -103,13 +107,20 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 	}
 
 	public void disappear() {
-		// TODO: Add poof particles?
+		((ServerWorld) getWorld()).spawnParticles(ParticleTypes.POOF, getBodyX(0.5), getBodyY(0.5), getBodyZ(0.5), 20, getWidth() * 0.5, getHeight() * 0.5, getWidth() * 0.5, 0.02);
+
 		this.discard();
 	}
 
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
+
+		if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
+			nbt.putInt("path_tag", 2);
+		else
+			nbt.putInt("path_tag", 1);
+
 		if (this.mowing) {
 			nbt.putBoolean("mowing", true);
 		}
@@ -119,17 +130,14 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		// pathTag
-		/*if (nbt.contains("pathTag", NbtElement.INT_TYPE)) {
-			if (nbt.getInt("pathTag") == 2) {
-				pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
-				pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
-			}
-			else {
-				pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
-				pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
-			}
-		}*/
+		// path_tag
+		if (nbt.contains("path_tag", NbtElement.INT_TYPE) && nbt.getInt("path_tag") == 2) {
+			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
+			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
+		} else {
+			pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
+			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
+		}
 
 		// mowing
 		if (nbt.contains("mowing", NbtElement.NUMBER_TYPE)) {
@@ -140,12 +148,21 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 	@Override
 	public void takeKnockback(double strength, double x, double z) {
 		// oh no--i hope this really heavy beach ball doesn't break my leg
+
+		if (getAttacker() != null && getAttacker().getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
+			super.takeKnockback(strength * 3, x, z);
+		}
 	}
 
 	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		Entity attacker = source.getAttacker();
 		boolean damaged;
-		if ((source.getAttacker() != null && source.getAttacker() instanceof IPvzEntity)) {
+		if (attacker instanceof LivingEntity && ((LivingEntity) attacker).getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
+			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, attacker.getSoundCategory(), 1, 1);
+			damaged = super.damage(world, source, 1000000);
+		}
+		else if (attacker instanceof IPvzEntity) {
 			damaged = super.damage(world, source, amount);
 
 			this.hurtTime = 0;
@@ -166,8 +183,38 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		BLOCKS
 	 */
 
+	public TagKey<Block> iGetPathTag() {
+		return pathTag;
+	}
+
+	public void iSetPathTag(TagKey<Block> value) {
+		pathTag = value;
+	}
+
+	public TagKey<Block> iGetPathMarkerTag() {
+		return pathMarkerTag;
+	}
+
+	public void iSetPathMarkerTag(TagKey<Block> value) {
+		pathMarkerTag = value;
+	}
+
+	@Override
+	public World iGetWorld() {
+		return getWorld();
+	}
+
+	public void iStopNavigation() {
+		navigation.stop();
+	}
+
+	@Override
+	public Entity iGetSelf() {
+		return this;
+	}
+
 	/**
-	 * @return Whether a zombie can be placed on top of this block.
+	 * @return Whether a lawn mower can be placed on top of this block.
 	 */
 	public static boolean isPlaceable(BlockPos pos, World world) {
 		BlockState state = world.getBlockState(pos);
@@ -177,34 +224,6 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 			return markerState.isIn(ModTags.Blocks.LAWN_MOWER_PLACEABLE_MARKERS);
 		}
 		return state.isIn(ModTags.Blocks.LAWN_MOWER_PLACEABLE);
-	}
-
-	/**
-	 * @return Whether this lawn mower can use this block as a path.
-	 */
-	public boolean isPath(BlockPos pos) {
-		World world = getWorld();
-		BlockState state = world.getBlockState(pos);
-		BlockState markerState = world.getBlockState(pos.up());
-
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(pathMarkerTag) || markerState.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS_MARKERS);
-		}
-		return state.isIn(pathTag) || state.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS);
-	}
-
-	/**
-	 * @return Whether this lawn mower can't use this block as a path but the block is still a path.
-	 */
-	public boolean isOtherPath(BlockPos pos) {
-		World world = getWorld();
-		BlockState state = world.getBlockState(pos);
-		BlockState markerState = world.getBlockState(pos.up());
-
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(getOtherPathMarkerTag(pathMarkerTag)) || markerState.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS_MARKERS);
-		}
-		return state.isIn(getOtherPathTag(pathTag)) || state.isIn(ModTags.Blocks.ZOMBIE_PATH_CROSS);
 	}
 
 	/**
@@ -235,78 +254,6 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		return state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
 	}
 
-	/**
-	 * @return Whether this lawn mower can go on this block if they have not been put off-course.
-	 */
-	public boolean isPathOrGoal(BlockPos pos) {
-		return isPath(pos) || isGoal(pos);
-	}
-
-	public void switchPathTag() {
-		if (getWorld().isClient) {
-			HomeLawnSecurity.LOGGER.info("tried switching path but was on the client for some reason!");
-			return;
-		}
-		TagKey<Block> tagKey = getPathTagNbt();
-		//if (this.getWorld().getBlockState(this.getBlockPos().down()).isIn(tagKey))
-		//return; // shut up you are standing on it
-
-		HomeLawnSecurity.LOGGER.info("switching path from {} to {}", tagKey.toString(), getOtherPathTag(tagKey).toString());
-		navigation.stop();
-		setPathTagNbt(getOtherPathTag(tagKey));
-	}
-
-	public TagKey<Block> getOtherPathTag(TagKey<Block> tagKey) {
-		if (tagKey == ModTags.Blocks.ZOMBIE_PATH_1)
-			return ModTags.Blocks.ZOMBIE_PATH_2; // flip
-		return ModTags.Blocks.ZOMBIE_PATH_1; // flop
-	}
-
-	public TagKey<Block> getOtherPathMarkerTag(TagKey<Block> tagKey) {
-		if (tagKey == ModTags.Blocks.ZOMBIE_PATH_1_MARKERS)
-			return ModTags.Blocks.ZOMBIE_PATH_2_MARKERS; // flip
-		return ModTags.Blocks.ZOMBIE_PATH_1_MARKERS; // flop
-	}
-
-	private TagKey<Block> getPathTagNbt() {
-		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
-		if (nbt.getInt("pathTag") == 2) {
-			this.pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
-			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
-		}
-		else {
-			this.pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
-			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
-		}
-		return this.pathTag;
-	}
-
-	private TagKey<Block> getPathMarkerTagNbt() {
-		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
-		if (nbt.getInt("pathTag") == 2) {
-			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
-		}
-		else {
-			this.pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
-		}
-		return this.pathMarkerTag;
-	}
-
-	private void setPathTagNbt(TagKey<Block> tagKey) {
-		this.pathTag = tagKey;
-		NbtCompound nbt = ((IEntityDataSaver)this).getPersistentData();
-		if (tagKey == ModTags.Blocks.ZOMBIE_PATH_2) {
-			HomeLawnSecurity.LOGGER.info("setting to path b");
-			nbt.putInt("pathTag", 2);
-			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
-		}
-		else {
-			HomeLawnSecurity.LOGGER.info("setting to path a");
-			nbt.putInt("pathTag", 1);
-			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
-		}
-	}
-
 	/*@Override
 	public float getPathfindingPenalty(PathNodeType nodeType) {
 		if (nodeType == PathNodeType.) {
@@ -332,7 +279,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 
 	@Override
 	protected EntityNavigation createNavigation(World world) {
-		return new LawnMowerNavigation(this, world);
+		return new PvzNavigation(this, world);
 	}
 
 	/*
@@ -353,5 +300,19 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity {
 		//this.goalSelector.add(2, new LawnMowerTargetGoal<>(this, ZombieEntity.class, true));
 		//this.goalSelector.add(2, new ZombieMeleeAttackGoal(this, 1, false));
 		this.goalSelector.add(3, new LawnMowerMoveGoal(this, 1f));
+	}
+
+	/*
+		SOUNDS
+	 */
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		//super.playStepSound(pos, state);
+	}
+
+	@Override
+	protected void playSecondaryStepSound(BlockState state) {
+		//super.playSecondaryStepSound(state);
 	}
 }

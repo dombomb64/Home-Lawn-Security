@@ -9,6 +9,6 @@ public class ConeheadZombieRenderState extends ZombieRenderState {
 	public final AnimationState attackAnimationState = new AnimationState();
 
 	public ConeheadZombieRenderState() {
-
+		super();
 	}
 }

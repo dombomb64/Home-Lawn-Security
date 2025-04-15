@@ -17,7 +17,6 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.TropicalFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -30,7 +29,7 @@ import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -40,6 +39,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -56,7 +56,7 @@ public abstract class SeedPacketItem extends Item {
 		this.type = type;
 	}
 
-	protected boolean isPlaceable(BlockPos blockPos, World world) {
+	protected boolean isPlaceable(BlockPos blockPos, World world, boolean devMode, ServerPlayerEntity player) {
 		return PlantEntity.isPlaceable(blockPos, world, this);
 	}
 
@@ -71,12 +71,16 @@ public abstract class SeedPacketItem extends Item {
 		world.playSound(null, pos, ModSounds.RANDOM_BUZZER, SoundCategory.NEUTRAL);
 	}
 
-	protected static boolean isWearingDavesPan(PlayerEntity user) {
+	protected static boolean isWearingDavesPan(@Nullable PlayerEntity user) {
+		if (user == null) return false;
+
 		return user.getEquippedStack(EquipmentSlot.HEAD).isOf(ModItems.DAVES_PAN);
 	}
 
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
+		Direction direction = context.getSide();
+
 		// Reject clients, return to servr
 		World world = context.getWorld();
 		if (!(world instanceof ServerWorld)) {
@@ -84,78 +88,31 @@ public abstract class SeedPacketItem extends Item {
 		}
 
 		// Variables
-		ItemStack itemStack = context.getStack();
-		BlockPos blockPos = context.getBlockPos();
-		Direction direction = context.getSide();
-		BlockState blockState = world.getBlockState(blockPos);
-		BlockEntity blockEntity = world.getBlockEntity(blockPos);
+		ItemStack stack = context.getStack();
+		BlockPos pos = context.getBlockPos();
+		BlockState state = world.getBlockState(pos);
+		BlockEntity blockEntity = world.getBlockEntity(pos);
 
-		EntityType<?> entityType = this.getEntityType(itemStack);
+		EntityType<?> entityType = this.getEntityType(stack);
 
 		// Spawner
 		if (blockEntity instanceof Spawner spawner) {
 			spawner.setEntityType(entityType, world.getRandom());
-			world.updateListeners(blockPos, blockState, blockState, Block.NOTIFY_ALL);
-			world.emitGameEvent(context.getPlayer(), GameEvent.BLOCK_CHANGE, blockPos);
-			itemStack.decrement(1);
+			world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
+			world.emitGameEvent(context.getPlayer(), GameEvent.BLOCK_CHANGE, pos);
+			stack.decrement(1);
 			//if (shouldCooldownBeUsed(context.getPlayer()))
 				//context.getPlayer().getItemCooldownManager().set(this, cooldownLength);
 			return ActionResult.CONSUME;
 		}
 
-		// Invalid spawn position
-		if (!isPlaceable(blockPos, world)) {
-			playBuzzerSound(world, blockPos);
-			return ActionResult.SUCCESS;
-		}
-
-		BlockPos blockPos2 = blockState.getCollisionShape(world, blockPos).isEmpty() ? blockPos : blockPos.offset(direction);
-
-		PlayerEntity player = context.getPlayer();
-		if (player != null) {
-			boolean wearingPan = isWearingDavesPan(player);
-			if (!wearingPan) {
-				// Cost
-				SeedPacketComponent seedData = itemStack.get(ModDataComponentTypes.SEED_PACKET);
-				int cost = 0;
-				if (seedData != null) {
-					cost = seedData.cost();
-				}
-
-				ItemStack bag = getCurrentBag(player);
-				if (bag != null) {
-					CurrencyComponent currency = bag.get(ModDataComponentTypes.CURRENCY);
-					if (currency != null) {
-						if (currency.amount() < cost) {
-							playBuzzerSound(world, blockPos);
-							return ActionResult.SUCCESS;
-						}
-
-						bag.set(ModDataComponentTypes.CURRENCY, new CurrencyComponent(currency.amount() - cost, currency.name()));
-					}
-				}
-
-				// Cooldown
-				if (seedData != null) {
-					player.getItemCooldownManager().set(itemStack, seedData.cooldown());
-				}
-			}
-		}
-
-		if (entityType.spawnFromItemStack((ServerWorld)world, itemStack, context.getPlayer(), blockPos2, SpawnReason.SPAWN_ITEM_USE, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
-			itemStack.decrement(1);
-			world.emitGameEvent(context.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
-			playPlaceSound(world, blockPos);
-		}
-
-		return ActionResult.CONSUME;
+		return useSeedPacket(stack, context.getPlayer(), pos, (ServerWorld) context.getWorld(), direction);
 	}
 
 	@Override
-	public ActionResult use(World world, PlayerEntity user, Hand hand) {
-		ItemStack itemStack = user.getStackInHand(hand);
-		EntityType<?> entityType = this.getEntityType(itemStack);
-		BlockHitResult blockHitResult = SpawnEggItem.raycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
+	public ActionResult use(World world, PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
+		BlockHitResult blockHitResult = SpawnEggItem.raycast(world, player, RaycastContext.FluidHandling.SOURCE_ONLY);
 
 		if (blockHitResult.getType() != HitResult.Type.BLOCK) {
 			return ActionResult.PASS;
@@ -164,62 +121,16 @@ public abstract class SeedPacketItem extends Item {
 			return ActionResult.SUCCESS;
 		}
 
-		BlockPos blockPos = blockHitResult.getBlockPos();
+		BlockPos pos = blockHitResult.getBlockPos();
 
-		// Invalid spawn position
-		if (!isPlaceable(blockPos, world)) {
-			playBuzzerSound(world, blockPos);
-			return ActionResult.SUCCESS;
-		}
-
-		if (!(world.getBlockState(blockPos).getBlock() instanceof FluidBlock)) {
+		if (!(world.getBlockState(pos).getBlock() instanceof FluidBlock)) {
 			return ActionResult.PASS;
 		}
-		if (!world.canPlayerModifyAt(user, blockPos) || !user.canPlaceOn(blockPos, blockHitResult.getSide(), itemStack)) {
+		if (!world.canPlayerModifyAt(player, pos) || !player.canPlaceOn(pos, blockHitResult.getSide(), stack)) {
 			return ActionResult.FAIL;
 		}
 
-		Entity entity = entityType.spawnFromItemStack((ServerWorld)world, itemStack, user, blockPos, SpawnReason.SPAWN_ITEM_USE, false, false);
-		if (entity == null) {
-			return ActionResult.PASS;
-		}
-
-		boolean wearingPan = isWearingDavesPan(user);
-		if (!wearingPan) {
-			// Cost
-			SeedPacketComponent seedData = itemStack.get(ModDataComponentTypes.SEED_PACKET);
-			int cost = 0;
-			if (seedData != null) {
-				cost = seedData.cost();
-			}
-
-			ItemStack bag = getCurrentBag(user);
-			if (bag != null) {
-				CurrencyComponent currency = bag.get(ModDataComponentTypes.CURRENCY);
-				if (currency != null) {
-					if (currency.amount() < cost) {
-						playBuzzerSound(world, blockPos);
-						return ActionResult.SUCCESS;
-					}
-
-					bag.set(ModDataComponentTypes.CURRENCY, new CurrencyComponent(currency.amount() - cost, currency.name()));
-				}
-			}
-
-			// Cooldown
-			if (seedData != null) {
-				user.getItemCooldownManager().set(itemStack, seedData.cooldown());
-			}
-		}
-
-		if (!user.getAbilities().creativeMode) {
-			itemStack.decrement(1);
-		}
-		user.incrementStat(Stats.USED.getOrCreateStat(this));
-		world.emitGameEvent(user, GameEvent.ENTITY_PLACE, entity.getPos());
-		playPlaceSound(world, blockPos);
-
-		return ActionResult.CONSUME;
+		return useSeedPacket(stack, player, pos, (ServerWorld) world, blockHitResult.getSide());
 	}
 
 	public EntityType<?> getEntityType(ItemStack stack) {
@@ -253,6 +164,65 @@ public abstract class SeedPacketItem extends Item {
 	}
 
 	public abstract Predicate<ItemStack> getBagPredicate();
+
+	public ActionResult useSeedPacket(ItemStack stack, PlayerEntity player, BlockPos usePos, ServerWorld world, Direction direction) {
+		BlockPos groundPos = usePos.offset(direction).down();
+		BlockState state = world.getBlockState(usePos);
+		EntityType<?> entityType = this.getEntityType(stack);
+
+		// Invalid spawn position
+		if (!isPlaceable(groundPos, world, isWearingDavesPan(player), (ServerPlayerEntity) player)) {
+			//HomeLawnSecurity.LOGGER.warn("BlockPos {} is not a valid position for a seed packet of type {}!", pos, getClass().getSimpleName());
+			playBuzzerSound(world, usePos);
+			return ActionResult.SUCCESS;
+		}
+
+		BlockPos spawnPos = state.getCollisionShape(world, usePos).isEmpty() ? usePos : usePos.offset(direction);
+
+		if (player != null) {
+			boolean wearingPan = isWearingDavesPan(player);
+			if (!wearingPan) {
+				// Cost
+				SeedPacketComponent seedData = stack.get(ModDataComponentTypes.SEED_PACKET);
+				int cost = 0;
+				if (seedData != null) {
+					cost = seedData.cost();
+				}
+
+				ItemStack bag = getCurrentBag(player);
+				if (bag != null) {
+					CurrencyComponent currency = bag.get(ModDataComponentTypes.CURRENCY);
+					if (currency != null) {
+						if (currency.amount() < cost) {
+							playBuzzerSound(world, usePos);
+							return ActionResult.SUCCESS;
+						}
+
+						bag.set(ModDataComponentTypes.CURRENCY, new CurrencyComponent(currency.amount() - cost, currency.name()));
+					}
+				}
+
+				// Cooldown
+				if (seedData != null) {
+					player.getItemCooldownManager().set(stack, seedData.cooldown());
+				}
+			}
+		}
+
+		if (entityType.spawnFromItemStack(world, stack, player, spawnPos, SpawnReason.SPAWN_ITEM_USE, true, !Objects.equals(usePos, spawnPos) && direction == Direction.UP) != null) {
+			if (!player.getAbilities().creativeMode) {
+				stack.decrement(1);
+			}
+			world.emitGameEvent(player, GameEvent.ENTITY_PLACE, usePos);
+			playPlaceSound(world, usePos);
+		}
+
+		return ActionResult.CONSUME;
+	}
+
+	protected static void sendMessage(PlayerEntity player, Text message) {
+		((ServerPlayerEntity) player).sendMessageToClient(message, true);
+	}
 
 	static {
 		ENTITY_TYPE_MAP_CODEC = Registries.ENTITY_TYPE.getCodec().fieldOf("id");

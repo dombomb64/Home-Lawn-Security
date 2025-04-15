@@ -27,7 +27,7 @@ public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPl
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(PeashooterEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-	private static final PlantStats STATS = new PlantStats().attackRange(3f).attackTicks(30);
+	private static final PlantStats STATS = new PlantStats().attackRange(3f).attackRangePath(16f).attackTicks(30);
 
 	public final AnimationState setupAnimationState = new AnimationState();
 	//public int setupAnimationTimeout = 0;
@@ -91,8 +91,9 @@ public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPl
 
 	public static ProjectileEntity createProjectile(PeashooterEntity entity) {
 		//ArrowItem arrowItem = (ArrowItem)(stack.getItem() instanceof ArrowItem ? stack.getItem() : Items.ARROW);
+		float maxDistance = entity.onPath ? STATS.attackRangePath * 1.5f : STATS.attackRange * 1.5f;
 
-		ProjectileEntity projectileEntity = new PeaEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getWorld(), STATS.attackRange * 1.5f);
+		ProjectileEntity projectileEntity = new PeaEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getWorld(), maxDistance);
 		projectileEntity.setOwner(entity);
 
 		return projectileEntity;
@@ -133,15 +134,15 @@ public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPl
 
 	@Override
 	protected void initGoals() {
-		this.goalSelector.add(2, new PlantTargetGoal<>(this, ZombieEntity.class, true, STATS.attackRange));
-		this.goalSelector.add(2, new PeashooterAttackGoal(this, 1, STATS.attackTicks, STATS.attackRange));
+		this.goalSelector.add(2, new PlantTargetGoal<>(this, ZombieEntity.class, false, STATS.attackRange, STATS.attackRangePath));
+		this.goalSelector.add(2, new PeashooterAttackGoal(this, 1, STATS.attackTicks, STATS.getLargerAttackRange()));
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
 			.add(EntityAttributes.MAX_HEALTH, 300 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.ATTACK_DAMAGE, 20 * IPvzEntity.HEALTH_SCALE)
-			.add(EntityAttributes.FOLLOW_RANGE, 3)
+			.add(EntityAttributes.FOLLOW_RANGE, STATS.getLargerAttackRange())
 			.add(EntityAttributes.MOVEMENT_SPEED, 0);
 	}
 }

@@ -30,7 +30,7 @@ public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
 	public final AnimationState setupAnimationState = new AnimationState();
 
 	public final int MAX_BRAINPOWER_TICKS = 480;
-	public int brainpowerTicks = 480;
+	public int brainpowerTicks = 120;
 
 	/*
 		GENERAL

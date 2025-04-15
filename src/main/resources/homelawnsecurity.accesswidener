@@ -8,3 +8,5 @@ mutable field net/minecraft/client/world/ClientWorld BLOCK_MARKER_ITEMS Ljava/ut
 
 accessible field net/minecraft/entity/projectile/ProjectileEntity lastDeflectedEntity Lnet/minecraft/entity/Entity;
 mutable field net/minecraft/entity/projectile/ProjectileEntity lastDeflectedEntity Lnet/minecraft/entity/Entity;
+
+accessible field net/minecraft/block/EntityShapeContext heldItem Lnet/minecraft/item/ItemStack;

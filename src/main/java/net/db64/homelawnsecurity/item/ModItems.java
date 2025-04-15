@@ -1,13 +1,12 @@
 package net.db64.homelawnsecurity.item;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.component.CurrencyComponent;
-import net.db64.homelawnsecurity.component.ModDataComponentTypes;
-import net.db64.homelawnsecurity.component.SeedPacketComponent;
+import net.db64.homelawnsecurity.component.*;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.item.custom.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -15,9 +14,14 @@ import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Unit;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class ModItems {
@@ -29,7 +33,9 @@ public class ModItems {
 	//public static final Item DAVES_PAN = registerItem("daves_pan",
 		//new ArmorItem(ModArmorMaterials.DAVES_PAN, ArmorItem.Type.HELMET, new FabricItemSettings()));
 	public static final Item DAVES_PAN = register("daves_pan", settings ->
-		new DavesPanItem(settings), new Item.Settings().component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD).equipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON).damageOnHurt(false).build()));
+		new DavesPanItem(settings), new Item.Settings().component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD).equipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON).damageOnHurt(false).build()), List.of(
+			Text.translatable("tooltip.item.homelawnsecurity.daves_pan"),
+			Text.translatable("tooltip.item.homelawnsecurity.daves_pan.warning").setStyle(Style.EMPTY.withColor(Formatting.YELLOW))));
 
 	public static final Item SUN = register("sun", settings ->
 		new CurrencyItem(settings, SeedPacketItem.SUN_BAG_PREDICATE), new Item.Settings().component(ModDataComponentTypes.CURRENCY,
@@ -47,9 +53,20 @@ public class ModItems {
 
 	public static final Item LAWN_MOWER = register("lawn_mower", settings ->
 		new LawnMowerItem(ModEntities.Other.LAWN_MOWER, settings), new Item.Settings());
+	public static final Item TARGET = register("target", settings ->
+		new TargetItem(ModEntities.Other.TARGET_ZOMBIE, settings), new Item.Settings(), List.of(
+			Text.translatable("tooltip.item.homelawnsecurity.target")));
 
 	public static final Item SHOVEL = register("shovel", settings ->
-		new Item(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.SHOVEL, Unit.INSTANCE));
+		new Item(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.SHOVEL, Unit.INSTANCE), List.of(
+			Text.translatable("tooltip.item.homelawnsecurity.shovel.use"),
+			Text.translatable("tooltip.item.homelawnsecurity.shovel.attack")));
+	public static final Item LAWN_GADGET = register("lawn_gadget", settings ->
+		new LawnGadgetItem(settings), new Item.Settings().maxCount(1)
+		.component(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("turfToggle")), List.of(
+			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.use"),
+			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.switch"),
+			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode")));
 
 
 
@@ -60,6 +77,10 @@ public class ModItems {
 	public static final Item SEED_PACKET_PEASHOOTER = register("seed_packet_peashooter", settings ->
 		new LawnSeedPacketItem(ModEntities.Plant.PEASHOOTER, settings), new Item.Settings()
 		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(100, 150)));
+
+	public static final Item SEED_PACKET_WALL_NUT = register("seed_packet_wall_nut", settings ->
+		new PathSeedPacketItem(ModEntities.Plant.WALL_NUT, settings), new Item.Settings()
+		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(50, 600)));
 
 
 
@@ -75,10 +96,27 @@ public class ModItems {
 		new ZombieSeedPacketItem(ModEntities.Zombie.CONEHEAD_ZOMBIE, settings), new Item.Settings()
 		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(75, 600)));
 
+	private static Item register(RegistryKey key, Function<Item.Settings, Item> factory, Item.Settings settings) {
+		HomeLawnSecurity.LOGGER.debug("Registering item with key {}", key.getValue());
+
+		return Items.register(key, factory, settings);
+	}
+
 	private static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
-		HomeLawnSecurity.LOGGER.debug("Registering item " + HomeLawnSecurity.MOD_ID + ":" + id);
+		HomeLawnSecurity.LOGGER.debug("Registering item {}:{}", HomeLawnSecurity.MOD_ID, id);
 
 		return Items.register(keyOf(id), factory, settings);
+	}
+
+	private static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings, @Nullable List<Text> tooltip) {
+		return register(id, factory, settings.component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(tooltip)));
+	}
+
+	public static Item register(Block block, Item.Settings settings, @Nullable List<Text> tooltip) {
+		if (tooltip != null)
+			settings = settings.component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(tooltip));
+
+		return register(block.getRegistryEntry().registryKey(), settings1 -> new BlockItem(block, settings1), settings.useBlockPrefixedTranslationKey());
 	}
 
 	private static RegistryKey<Item> keyOf(String id) {

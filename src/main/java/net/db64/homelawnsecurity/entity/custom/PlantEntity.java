@@ -1,37 +1,52 @@
 package net.db64.homelawnsecurity.entity.custom;
 
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
+import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
 import net.db64.homelawnsecurity.item.custom.LawnSeedPacketItem;
 import net.db64.homelawnsecurity.item.custom.PathSeedPacketItem;
 import net.db64.homelawnsecurity.item.custom.SeedPacketItem;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.ModTags;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity {
+public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity, IPathBoundEntity {
 	//private abstract static final TrackedData<Boolean> USING_ATTACK =
 		//DataTracker.registerData(PlantEntityClassHere.class, TrackedDataHandlerRegistry.BOOLEAN);
+
+	public TagKey<Block> pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
+	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 
 	public final AnimationState attackAnimationState = new AnimationState();
 	public int attackAnimationTimeout = 0;
 	public int maxAttackAnimationTimeout = 10;
 	public int attackTimeout = 0;
+
+	public boolean onPath;
+	public boolean onIntersection;
 
 	/*
 		GENERAL
@@ -39,6 +54,48 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 
 	protected PlantEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
+	}
+
+	@Nullable
+	@Override
+	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+		EntityData result = super.initialize(world, difficulty, spawnReason, entityData);
+
+		//HomeLawnSecurity.LOGGER.info("new plant");
+		BlockPos pos = getBlockPos().down();
+		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(pos, 5, 5, 5);
+		for (BlockPos blockPos : iterable) {
+			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
+			if (isPath(blockPos)) {
+				//HomeLawnSecurity.LOGGER.info("path a");
+				break;
+			}
+			if (isOtherPath(blockPos)) {
+				//HomeLawnSecurity.LOGGER.info("path b");
+				switchPathTag();
+				break;
+			}
+			//HomeLawnSecurity.LOGGER.info("not a path");
+		}
+
+
+
+		// Where was this planted?
+		boolean isPath = isPath(pos);
+		boolean isOtherPath = isOtherPath(pos);
+
+		onPath = false;
+		onIntersection = false;
+
+		if (isPath || isOtherPath) { // It's some kind of path
+			onPath = true;
+
+			if (isPath && isOtherPath) { // It's both paths in one block! Intersection plants should target both lanes
+				onIntersection = true;
+			}
+		}
+
+		return result;
 	}
 
 	@Override
@@ -72,7 +129,7 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		Entity attacker = source.getAttacker();
 		if (attacker instanceof LivingEntity && ((LivingEntity) attacker).getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
-			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, SoundCategory.PLAYERS, 0.5f, 1);
+			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, attacker.getSoundCategory(), 0.5f, 1);
 			return super.damage(world, source, 1000000);
 		}
 		else if (attacker instanceof IPvzEntity) {
@@ -107,6 +164,45 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 		}
 
 		return result;
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+
+		if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
+			nbt.putInt("path_tag", 2);
+		else
+			nbt.putInt("path_tag", 1);
+
+		nbt.putBoolean("on_path", onPath);
+		nbt.putBoolean("on_intersection", onIntersection);
+	}
+
+	@Override
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+
+		// path_tag
+		if (nbt.contains("path_tag", NbtElement.INT_TYPE) && nbt.getInt("path_tag") == 2) {
+			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
+			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
+		} else {
+			pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
+			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
+		}
+
+		if (nbt.contains("on_path", NbtElement.BYTE_TYPE)) {
+			onPath = nbt.getBoolean("on_path");
+		} else {
+			onPath = false;
+		}
+
+		if (nbt.contains("on_intersection", NbtElement.BYTE_TYPE)) {
+			onIntersection = nbt.getBoolean("on_intersection");
+		} else {
+			onIntersection = false;
+		}
 	}
 
 	/*
@@ -148,6 +244,36 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 	/*
 		BLOCKS
 	 */
+
+	public TagKey<Block> iGetPathTag() {
+		return pathTag;
+	}
+
+	public void iSetPathTag(TagKey<Block> value) {
+		pathTag = value;
+	}
+
+	public TagKey<Block> iGetPathMarkerTag() {
+		return pathMarkerTag;
+	}
+
+	public void iSetPathMarkerTag(TagKey<Block> value) {
+		pathMarkerTag = value;
+	}
+
+	@Override
+	public World iGetWorld() {
+		return getWorld();
+	}
+
+	public void iStopNavigation() {
+		navigation.stop();
+	}
+
+	@Override
+	public Entity iGetSelf() {
+		return this;
+	}
 
 	/**
 	 * @return Whether a lawn plant can be placed on top of this block.
@@ -191,6 +317,39 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 		return false;
 	}
 
+	/**
+	 * @return Whether this block is a lawn mower goal.
+	 */
+	public boolean isGoal(BlockPos pos) {
+		World world = getWorld();
+		BlockState state = world.getBlockState(pos);
+		BlockState markerState = world.getBlockState(pos.up());
+
+		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
+			return markerState.isIn(ModTags.Blocks.ZOMBIE_START_MARKERS);
+		}
+		return state.isIn(ModTags.Blocks.ZOMBIE_START);
+	}
+
+	/**
+	 * @return Whether this block is a lawn mower start.
+	 */
+	public boolean isStart(BlockPos pos) {
+		World world = getWorld();
+		BlockState state = world.getBlockState(pos);
+		BlockState markerState = world.getBlockState(pos.up());
+
+		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
+			return markerState.isIn(ModTags.Blocks.ZOMBIE_GOAL_MARKERS);
+		}
+		return state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
+	}
+
+	@Override
+	protected EntityNavigation createNavigation(World world) {
+		return new PvzNavigation(this, world);
+	}
+
 	/*
 		STATS
 	 */
@@ -201,6 +360,7 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 	 */
 	public static class PlantStats {
 		public float attackRange = 3f;
+		public float attackRangePath = 16f;
 		public int attackTicks = 20;
 
 		public PlantStats() {
@@ -211,9 +371,18 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity 
 			return this;
 		}
 
+		public PlantStats attackRangePath(float value) {
+			attackRangePath = value;
+			return this;
+		}
+
 		public PlantStats attackTicks(int value) {
 			attackTicks = value;
 			return this;
+		}
+
+		public float getLargerAttackRange() {
+			return Math.max(attackRange, attackRangePath);
 		}
 	}
 

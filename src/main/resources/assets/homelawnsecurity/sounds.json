@@ -23,6 +23,19 @@
 
 
 
+	"item.lawn_gadget.switch": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random/lawn_gadget",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.item.lawn_gadget.switch"
+	},
+
+
+
 	"entity.money.land": {
 		"sounds": [
 			{

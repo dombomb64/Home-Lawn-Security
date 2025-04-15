@@ -1,10 +1,10 @@
 package net.db64.homelawnsecurity.entity;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
-import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
+import net.db64.homelawnsecurity.entity.custom.other.*;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
+import net.db64.homelawnsecurity.entity.custom.plant.WallNutEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
@@ -27,6 +27,18 @@ public class ModEntities {
 		public static final EntityType<LawnMowerEntity> LAWN_MOWER = register(
 			"lawn_mower",
 			EntityType.Builder.<LawnMowerEntity>create(LawnMowerEntity::new, SpawnGroup.MISC)
+				.dimensions(0.75f, 0.5f));
+		public static final EntityType<TargetZombieEntity> TARGET_ZOMBIE = register(
+			"target_zombie",
+			EntityType.Builder.create(TargetZombieEntity::new, SpawnGroup.MISC)
+				.dimensions(0.8f, 1.8f));
+		public static final EntityType<PlantSeedPacketPathfindingEntity> PLANT_SEED_PACKET_PATHFINDING = register(
+			"plant_seed_packet_pathfinding",
+			EntityType.Builder.<PlantSeedPacketPathfindingEntity>create(PlantSeedPacketPathfindingEntity::new, SpawnGroup.MISC)
+				.dimensions(0.5f, 0.5f));
+		public static final EntityType<ZombieSeedPacketPathfindingEntity> ZOMBIE_SEED_PACKET_PATHFINDING = register(
+			"zombie_seed_packet_pathfinding",
+			EntityType.Builder.<ZombieSeedPacketPathfindingEntity>create(ZombieSeedPacketPathfindingEntity::new, SpawnGroup.MISC)
 				.dimensions(0.5f, 0.5f));
 	}
 
@@ -51,6 +63,12 @@ public class ModEntities {
 			EntityType.Builder.create(PeashooterEntity::new, SpawnGroup.MISC)
 				.dimensions(0.8f, 1.25f)
 		);
+
+		public static final EntityType<WallNutEntity> WALL_NUT = register(
+			"wall_nut",
+			EntityType.Builder.create(WallNutEntity::new, SpawnGroup.MISC)
+				.dimensions(0.8f, 1.25f)
+		);
 	}
 
 
@@ -59,7 +77,7 @@ public class ModEntities {
 		public static final EntityType<ZombieGravestoneEntity> ZOMBIE_GRAVESTONE = register(
 			"zombie_gravestone",
 			EntityType.Builder.create(ZombieGravestoneEntity::new, SpawnGroup.MISC)
-				.dimensions(0.8f, 1.8f));
+				.dimensions(0.8f, 1.25f));
 
 		public static final EntityType<BasicZombieEntity> BASIC_ZOMBIE = register(
 			"basic_zombie",

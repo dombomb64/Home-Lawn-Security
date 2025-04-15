@@ -5,10 +5,14 @@ import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
+import net.db64.homelawnsecurity.entity.custom.other.PlantSeedPacketPathfindingEntity;
+import net.db64.homelawnsecurity.entity.custom.other.ZombieSeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
+import net.db64.homelawnsecurity.entity.custom.plant.WallNutEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
@@ -43,12 +47,20 @@ public class HomeLawnSecurity implements ModInitializer {
 
 	private void registerOther() {
 		FabricDefaultAttributeRegistry.register(ModEntities.Other.LAWN_MOWER, LawnMowerEntity.createAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntities.Other.TARGET_ZOMBIE, TargetZombieEntity.createAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, PlantSeedPacketPathfindingEntity.createAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntities.Other.ZOMBIE_SEED_PACKET_PATHFINDING, ZombieSeedPacketPathfindingEntity.createAttributes());
 	}
 
 	private void registerPlants() {
 		FabricDefaultAttributeRegistry.register(ModEntities.Plant.SUNFLOWER, SunflowerEntity.createAttributes());
 
 		FabricDefaultAttributeRegistry.register(ModEntities.Plant.PEASHOOTER, PeashooterEntity.createAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntities.Plant.WALL_NUT, WallNutEntity.createAttributes());
 	}
 
 	private void registerZombies() {
