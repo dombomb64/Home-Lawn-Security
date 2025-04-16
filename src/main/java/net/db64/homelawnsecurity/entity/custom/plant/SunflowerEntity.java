@@ -109,11 +109,7 @@ public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPla
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		if (nbt.contains("sun_ticks", NbtElement.INT_TYPE)) {
-			sunTicks = nbt.getInt("sun_ticks");
-		} else {
-			sunTicks = 0;
-		}
+		sunTicks = nbt.getInt("sun_ticks").orElse(0);
 	}
 
 	/*

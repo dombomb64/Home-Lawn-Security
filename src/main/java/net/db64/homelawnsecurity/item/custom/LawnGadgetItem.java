@@ -7,6 +7,7 @@ import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -37,7 +38,7 @@ public class LawnGadgetItem extends Item {
 	}
 
 	@Override
-	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
+	public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity miner) {
 		if (!world.isClient) {
 			Random random = miner.getRandom();
 			if (miner.isSneaking()) {
@@ -66,7 +67,7 @@ public class LawnGadgetItem extends Item {
 			// If the component is null, set it to its default value
 			//setComponentToDefault(stack);
 			// Actually no, play a funny sound and return
-			world.playSound(null, pos, SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 0.5f, 1.0f);
+			world.playSound(null, pos, SoundEvents.ENTITY_ITEM_BREAK.value(), SoundCategory.PLAYERS, 0.5f, 1.0f);
 			sendMessage(context.getPlayer(), Text.translatable(getTranslationKey() + ".use.error"));
 			return ActionResult.CONSUME;
 		}
@@ -95,11 +96,12 @@ public class LawnGadgetItem extends Item {
 		return ActionResult.CONSUME;
 	}
 
-	public void switchMode(ItemStack stack, PlayerEntity player) {
+	public void switchMode(ItemStack stack, LivingEntity entity) {
 		LawnGadgetComponent component = stack.get(ModDataComponentTypes.LAWN_GADGET);
 		if (component == null) { // Lawn gadget component is null for some reason, make it the default value
 			setComponentToDefault(stack);
-			sendMessage(player, Text.translatable(getTranslationKey() + ".switch.error"));
+			if (entity instanceof PlayerEntity player)
+				sendMessage(player, Text.translatable(getTranslationKey() + ".switch.error"));
 		}
 		else { // Component is not null, continue as normal
 			String mode = component.mode();
@@ -113,17 +115,19 @@ public class LawnGadgetItem extends Item {
 				default -> "turf_toggle";
 			};
 			stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent(mode));
-			sendMessage(player,
-				Text.translatable(getTranslationKey() + ".switch",
-					Text.translatable(getTranslationKey() + ".mode." + mode)));
+			if (entity instanceof PlayerEntity player)
+				sendMessage(player,
+					Text.translatable(getTranslationKey() + ".switch",
+						Text.translatable(getTranslationKey() + ".mode." + mode)));
 		}
 	}
 
-	public void toggleMarkerMode(ItemStack stack, PlayerEntity player) {
+	public void toggleMarkerMode(ItemStack stack, LivingEntity entity) {
 		LawnGadgetComponent component = stack.get(ModDataComponentTypes.LAWN_GADGET);
 		if (component == null) { // Lawn gadget component is null for some reason, make it the default value
 			setComponentToDefault(stack);
-			sendMessage(player, Text.translatable(getTranslationKey() + ".switch.error"));
+			if (entity instanceof PlayerEntity player)
+				sendMessage(player, Text.translatable(getTranslationKey() + ".switch.error"));
 		}
 		else { // Component is not null, continue as normal
 			String mode = component.mode();
@@ -137,9 +141,10 @@ public class LawnGadgetItem extends Item {
 				default -> "turf_toggle";
 			};
 			stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent(mode));
-			sendMessage(player,
-				Text.translatable(getTranslationKey() + ".switch",
-					Text.translatable(getTranslationKey() + ".mode." + mode)));
+			if (entity instanceof PlayerEntity player)
+				sendMessage(player,
+					Text.translatable(getTranslationKey() + ".switch",
+						Text.translatable(getTranslationKey() + ".mode." + mode)));
 		}
 	}
 

@@ -17,9 +17,9 @@ public class WallNutModel extends EntityModel<WallNutRenderState> {
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData wallNut = modelPartData.addChild("wallNut", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		ModelPartData wallNut = modelPartData.addChild("wallNut", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
-		ModelPartData body = wallNut.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -18.0F, -7.0F, 14.0F, 18.0F, 14.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData body = wallNut.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -18.0F, -7.0F, 14.0F, 18.0F, 14.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 		return TexturedModelData.of(modelData, 64, 64);
 	}
 
@@ -27,7 +27,7 @@ public class WallNutModel extends EntityModel<WallNutRenderState> {
 	public void setAngles(WallNutRenderState state) {
 		super.setAngles(state);
 
-		this.setHeadAngles(state, state.yawDegrees, state.pitch);
+		this.setHeadAngles(state, state.relativeHeadYaw, state.pitch);
 
 		this.updateVisibleParts(state);
 

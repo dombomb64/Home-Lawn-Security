@@ -21,11 +21,11 @@ public class SunflowerModel extends EntityModel<SunflowerRenderState> {
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData sunflower = modelPartData.addChild("sunflower", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		ModelPartData sunflower = modelPartData.addChild("sunflower", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
-		ModelPartData stem = sunflower.addChild("stem", ModelPartBuilder.create().uv(17, 21).cuboid(-1.0F, -14.0F, -1.0F, 2.0F, 14.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData stem = sunflower.addChild("stem", ModelPartBuilder.create().uv(17, 21).cuboid(-1.0F, -14.0F, -1.0F, 2.0F, 14.0F, 2.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-		ModelPartData head = stem.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, -6.0F, -4.0F, 10.0F, 8.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -11.0F, 0.0F));
+		ModelPartData head = stem.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-5.0F, -6.0F, -4.0F, 10.0F, 8.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, -11.0F, 0.0F));
 
 		ModelPartData petals1 = head.addChild("petals1", ModelPartBuilder.create().uv(28, 0).cuboid(-7.0F, -4.0F, 0.0F, 14.0F, 4.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, -6.0F, -2.0F, 0.1745F, 0.0F, 0.0F));
 
@@ -35,21 +35,21 @@ public class SunflowerModel extends EntityModel<SunflowerRenderState> {
 
 		ModelPartData petals4 = head.addChild("petals4", ModelPartBuilder.create().uv(56, 12).cuboid(0.0F, -6.0F, 0.0F, 4.0F, 12.0F, 0.0F, new Dilation(0.0F)), ModelTransform.of(5.0F, -2.0F, -2.0F, 0.0F, 0.1745F, 0.0F));
 
-		ModelPartData base = sunflower.addChild("base", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData base = sunflower.addChild("base", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-		ModelPartData leaf1 = base.addChild("leaf1", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -3.0F, 0.0F));
+		ModelPartData leaf1 = base.addChild("leaf1", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -3.0F, 0.0F));
 
 		ModelPartData cube_r1 = leaf1.addChild("cube_r1", ModelPartBuilder.create().uv(0, 12).cuboid(-3.0F, 0.0F, 0.0F, 6.0F, 3.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 2.0F, 0.0F, 0.48F, -0.7854F, 0.0F));
 
-		ModelPartData leaf2 = base.addChild("leaf2", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -3.0F, 0.0F));
+		ModelPartData leaf2 = base.addChild("leaf2", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -3.0F, 0.0F));
 
 		ModelPartData cube_r2 = leaf2.addChild("cube_r2", ModelPartBuilder.create().uv(0, 12).mirrored().cuboid(-3.0F, 0.0F, 0.0F, 6.0F, 3.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 2.0F, 0.0F, 0.48F, 0.7854F, 0.0F));
 
-		ModelPartData leaf3 = base.addChild("leaf3", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -3.0F, 0.0F));
+		ModelPartData leaf3 = base.addChild("leaf3", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -3.0F, 0.0F));
 
 		ModelPartData cube_r3 = leaf3.addChild("cube_r3", ModelPartBuilder.create().uv(0, 12).mirrored().cuboid(-3.0F, 0.0F, 0.0F, 6.0F, 3.0F, 6.0F, new Dilation(0.0F)).mirrored(false), ModelTransform.of(0.0F, 2.0F, 0.0F, 0.48F, -2.3562F, 0.0F));
 
-		ModelPartData leaf4 = base.addChild("leaf4", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, -3.0F, 0.0F));
+		ModelPartData leaf4 = base.addChild("leaf4", ModelPartBuilder.create(), ModelTransform.origin(0.0F, -3.0F, 0.0F));
 
 		ModelPartData cube_r4 = leaf4.addChild("cube_r4", ModelPartBuilder.create().uv(0, 12).cuboid(-3.0F, 0.0F, 0.0F, 6.0F, 3.0F, 6.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 2.0F, 0.0F, 0.48F, 2.3562F, 0.0F));
 		return TexturedModelData.of(modelData, 64, 64);
@@ -59,7 +59,7 @@ public class SunflowerModel extends EntityModel<SunflowerRenderState> {
 	public void setAngles(SunflowerRenderState state) {
 		super.setAngles(state);
 
-		this.setHeadAngles(state, state.yawDegrees, state.pitch);
+		this.setHeadAngles(state, state.relativeHeadYaw, state.pitch);
 
 		this.updateVisibleParts(state);
 

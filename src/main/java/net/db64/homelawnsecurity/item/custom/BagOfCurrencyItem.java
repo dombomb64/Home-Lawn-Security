@@ -13,12 +13,12 @@ public class BagOfCurrencyItem extends Item {
 		super(settings);
 	}
 
-	@Override
+	/*@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		super.appendTooltip(stack, context, tooltip, type);
 
 		var currencyComponent = stack.get(ModDataComponentTypes.CURRENCY);
 		if (currencyComponent != null)
 			tooltip.add(Text.translatable("tooltip.homelawnsecurity.bag_of_" + currencyComponent.name(), currencyComponent.amount()));
-	}
+	}*/
 }

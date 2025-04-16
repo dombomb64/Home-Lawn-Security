@@ -14,6 +14,9 @@ public class ModDataComponentTypes {
 	public static final ComponentType<CurrencyComponent> CURRENCY =
 		register("currency", builder -> builder.codec(CurrencyComponent.CODEC).packetCodec(CurrencyComponent.PACKET_CODEC));
 
+	public static final ComponentType<BagOfCurrencyComponent> BAG_OF_CURRENCY =
+		register("bag_of_currency", builder -> builder.codec(BagOfCurrencyComponent.CODEC).packetCodec(BagOfCurrencyComponent.PACKET_CODEC));
+
 	public static final ComponentType<SeedPacketComponent> SEED_PACKET =
 		register("seed_packet", builder -> builder.codec(SeedPacketComponent.CODEC).packetCodec(SeedPacketComponent.PACKET_CODEC));
 

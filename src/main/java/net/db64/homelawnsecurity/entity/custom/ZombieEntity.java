@@ -200,7 +200,8 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		if (nbt.contains("path_tag", NbtElement.INT_TYPE) && nbt.getInt("path_tag") == 2) {
+		int path = nbt.getInt("path_tag").orElse(1);
+		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
 		} else {

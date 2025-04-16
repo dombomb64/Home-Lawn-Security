@@ -1,5 +1,7 @@
 package net.db64.homelawnsecurity.entity.custom.other;
 
+import com.mojang.serialization.Codec;
+import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
 import net.db64.homelawnsecurity.component.CurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.ModEntities;
@@ -8,10 +10,7 @@ import net.db64.homelawnsecurity.item.custom.CurrencyItem;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -20,7 +19,9 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.registry.RegistryOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
@@ -132,7 +133,7 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 				BlockPos blockPos = (BlockPos)var1.next();
 				BlockState blockState = this.getWorld().getBlockState(blockPos);
 				if (blockState.isOf(Blocks.BUBBLE_COLUMN)) {
-					blockState.onEntityCollision(this.getWorld(), blockPos, this);
+					blockState.onEntityCollision(this.getWorld(), blockPos, this, EntityCollisionHandler.DUMMY);
 				}
 			}
 		}
@@ -171,11 +172,11 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 				//HomeLawnSecurity.LOGGER.info("currency collided with {} who has a bag", entity.getName());
 
 				CurrencyComponent pickupCurrency = stack.get(ModDataComponentTypes.CURRENCY);
-				CurrencyComponent bagCurrency = bag.get(ModDataComponentTypes.CURRENCY);
+				BagOfCurrencyComponent bagCurrency = bag.get(ModDataComponentTypes.BAG_OF_CURRENCY);
 
 				//HomeLawnSecurity.LOGGER.info("pickupCurrency: {}, bagCurrency: {}", pickupCurrency, bagCurrency);
 				if (pickupCurrency != null && bagCurrency != null) {
-					bag.set(ModDataComponentTypes.CURRENCY, new CurrencyComponent(Math.min(bagCurrency.amount() + pickupCurrency.amount(), 10000), bagCurrency.name()));
+					bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(Math.min(bagCurrency.amount() + pickupCurrency.amount(), 10000), bagCurrency.name()));
 
 					if (pickupCurrency.name().equals("brainpower"))
 						world.playSound(null, entity.getBlockPos(), ModSounds.ENTITY_BRAINPOWER_COLLECT, SoundCategory.NEUTRAL, 1f, world.getRandom().nextFloat() * 0.4f + 1f);
@@ -222,18 +223,11 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
+		RegistryOps<NbtElement> registryOps = this.getRegistryManager().getOps(NbtOps.INSTANCE);
 
-		if (nbt.contains("item", NbtElement.COMPOUND_TYPE)) {
-			this.setStack(ItemStack.fromNbt(this.getRegistryManager(), nbt.getCompound("item")).orElse(this.getDefaultItemStack()));
-		} else {
-			this.setStack(this.getDefaultItemStack());
-		}
+		this.setStack(nbt.get("item", ItemStack.CODEC, registryOps).orElseGet(() -> this.getDefaultItemStack().copy()));
 
-		if (nbt.contains("idle_time", NbtElement.INT_TYPE)) {
-			idleTime = nbt.getInt("idle_time");
-		} else {
-			idleTime = 0;
-		}
+		idleTime = nbt.getInt("idle_time").orElse(0);
 	}
 
 	@Override

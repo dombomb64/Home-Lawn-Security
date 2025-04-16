@@ -138,11 +138,7 @@ public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		if (nbt.contains("brainpower_ticks", NbtElement.INT_TYPE)) {
-			brainpowerTicks = nbt.getInt("brainpower_ticks");
-		} else {
-			brainpowerTicks = 0;
-		}
+		brainpowerTicks = nbt.getInt("brainpower_ticks").orElse(0);
 	}
 
 	/*

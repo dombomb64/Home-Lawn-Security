@@ -11,10 +11,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityStatuses;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -127,7 +124,7 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 				BlockPos blockPos = (BlockPos)var1.next();
 				BlockState blockState = this.getWorld().getBlockState(blockPos);
 				if (blockState.isOf(Blocks.BUBBLE_COLUMN)) {
-					blockState.onEntityCollision(this.getWorld(), blockPos, this);
+					blockState.onEntityCollision(this.getWorld(), blockPos, this, EntityCollisionHandler.DUMMY);
 				}
 			}
 		}
@@ -144,8 +141,6 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		if (nbt.contains("max_distance", NbtElement.FLOAT_TYPE)) {
-			this.maxDistance = nbt.getFloat("max_distance");
-		}
+		this.maxDistance = nbt.getFloat("max_distance").orElse(3f);
 	}
 }

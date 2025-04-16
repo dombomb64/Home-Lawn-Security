@@ -56,9 +56,7 @@ public abstract class EntityMixin implements IEntityDataSaver {
 		at = @At("HEAD")
 	)
 	protected void injectReadMethod(NbtCompound nbt, CallbackInfo ci) {
-		if (nbt.contains(IEntityDataSaver.dataId, 10)) {
-			persistentData = nbt.getCompound(IEntityDataSaver.dataId);
-		}
+		persistentData = nbt.getCompound(IEntityDataSaver.dataId).orElse(new NbtCompound());
 	}
 
 

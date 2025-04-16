@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.component;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.item.Item;
 import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
@@ -22,11 +23,9 @@ import java.util.function.Consumer;
 public record TooltipComponent(List<Text> lines, List<Text> styledLines) implements TooltipAppender {
 	public static final TooltipComponent DEFAULT = new TooltipComponent(List.of());
 	public static final int MAX_TOOLTIPS = 256;
-	private static final Style STYLE = Style.EMPTY.withColor(Formatting.GRAY);
-	public static final Codec<TooltipComponent> CODEC = TextCodecs.STRINGIFIED_CODEC.sizeLimitedListOf(256).xmap(TooltipComponent::new, TooltipComponent::lines);
-	public static final PacketCodec<RegistryByteBuf, TooltipComponent> PACKET_CODEC = TextCodecs.REGISTRY_PACKET_CODEC
-		.collect(PacketCodecs.toList(MAX_TOOLTIPS))
-		.xmap(TooltipComponent::new, TooltipComponent::lines);
+	private static final Style STYLE;
+	public static final Codec<TooltipComponent> CODEC;
+	public static final PacketCodec<RegistryByteBuf, TooltipComponent> PACKET_CODEC;
 
 	public TooltipComponent(List<Text> lines) {
 		this(lines, Lists.transform(lines, style -> Texts.setStyleIfAbsent(style.copy(), STYLE)));
@@ -46,7 +45,13 @@ public record TooltipComponent(List<Text> lines, List<Text> styledLines) impleme
 	}
 
 	@Override
-	public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type) {
+	public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type, ComponentsAccess components) {
 		this.styledLines.forEach(tooltip);
+	}
+
+	static {
+		STYLE = Style.EMPTY.withColor(Formatting.GRAY);
+		CODEC = TextCodecs.CODEC.sizeLimitedListOf(256).xmap(TooltipComponent::new, TooltipComponent::lines);
+		PACKET_CODEC = TextCodecs.REGISTRY_PACKET_CODEC.collect(PacketCodecs.toList(256)).xmap(TooltipComponent::new, TooltipComponent::lines);
 	}
 }

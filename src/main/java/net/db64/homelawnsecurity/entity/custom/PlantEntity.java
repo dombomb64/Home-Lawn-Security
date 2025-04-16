@@ -152,9 +152,9 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 			World world = getWorld();
 			if (world.isClient) {
 				for (int i = 0; i < 5; i++) {
-					world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, getSteppingBlockState()), false, true, getX(), getY(), getZ(), 0, 0, 0);
+					world.addParticleClient(new BlockStateParticleEffect(ParticleTypes.BLOCK, getSteppingBlockState()), false, true, getX(), getY(), getZ(), 0, 0, 0);
 				}
-				world.playSound(getX(), getY(), getZ(), ModSounds.ENTITY_PLANT_SHOVEL, SoundCategory.NEUTRAL, 1, 1, false);
+				world.playSoundClient(getX(), getY(), getZ(), ModSounds.ENTITY_PLANT_SHOVEL, SoundCategory.NEUTRAL, 1, 1, false);
 			}
 			else {
 				discard();
@@ -184,7 +184,8 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 		super.readCustomDataFromNbt(nbt);
 
 		// path_tag
-		if (nbt.contains("path_tag", NbtElement.INT_TYPE) && nbt.getInt("path_tag") == 2) {
+		int path = nbt.getInt("path_tag").orElse(1);
+		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
 		} else {
@@ -192,17 +193,9 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}
 
-		if (nbt.contains("on_path", NbtElement.BYTE_TYPE)) {
-			onPath = nbt.getBoolean("on_path");
-		} else {
-			onPath = false;
-		}
+		onPath = nbt.getBoolean("on_path").orElse(false);
 
-		if (nbt.contains("on_intersection", NbtElement.BYTE_TYPE)) {
-			onIntersection = nbt.getBoolean("on_intersection");
-		} else {
-			onIntersection = false;
-		}
+		onIntersection = nbt.getBoolean("on_intersection").orElse(false);
 	}
 
 	/*

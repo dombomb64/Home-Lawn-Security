@@ -76,7 +76,7 @@ public class ModModelProvider extends FabricModelProvider {
 				.put(TextureKey.BOTTOM, TextureMap.getId(ModBlocks.UNSODDED_LAWN_BLOCK))
 				.put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
 				.put(TextureKey.SIDE, TextureMap.getSubId(ModBlocks.LAWN_BLOCK, "_side"));
-			blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, Models.CUBE_BOTTOM_TOP.upload(block, textureMap, blockStateModelGenerator.modelCollector)));
+			blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, BlockStateModelGenerator.createWeightedVariant(Models.CUBE_BOTTOM_TOP.upload(block, textureMap, blockStateModelGenerator.modelCollector))));
 		}
 
 		public static void registerUnsoddedPathBlock(BlockStateModelGenerator blockStateModelGenerator, Block block) {
@@ -84,7 +84,7 @@ public class ModModelProvider extends FabricModelProvider {
 				.put(TextureKey.BOTTOM, TextureMap.getId(ModBlocks.UNSODDED_LAWN_BLOCK))
 				.put(TextureKey.TOP, TextureMap.getSubId(block, "_top"))
 				.put(TextureKey.SIDE, TextureMap.getId(ModBlocks.UNSODDED_LAWN_BLOCK));
-			blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, Models.CUBE_BOTTOM_TOP.upload(block, textureMap, blockStateModelGenerator.modelCollector)));
+			blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, BlockStateModelGenerator.createWeightedVariant(Models.CUBE_BOTTOM_TOP.upload(block, textureMap, blockStateModelGenerator.modelCollector))));
 		}
 
 		/*public static final TexturedModel.Factory LAWN_BLOCK = makeFactory(TextureMap::all, Models.CUBE_BOTTOM_TOP);
@@ -110,11 +110,11 @@ public class ModModelProvider extends FabricModelProvider {
 	public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 		//itemModelGenerator.register(ModItems.PEASHOOTER_SPAWN_EGG,
 			//new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
-		itemModelGenerator.registerSpawnEgg(ModItems.PEASHOOTER_SPAWN_EGG, 0xD7FF37, 0x3BC10E);
+		//itemModelGenerator.registerSpawnEgg(ModItems.PEASHOOTER_SPAWN_EGG, 0xD7FF37, 0x3BC10E);
 
 		//itemModelGenerator.register(ModItems.BASIC_ZOMBIE_SPAWN_EGG,
 			//new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
-		itemModelGenerator.registerSpawnEgg(ModItems.BASIC_ZOMBIE_SPAWN_EGG, 0x6D7858, 0x4A341D);
+		//itemModelGenerator.registerSpawnEgg(ModItems.BASIC_ZOMBIE_SPAWN_EGG, 0x6D7858, 0x4A341D);
 
 		//ItemModels.registerHeadgear(itemModelGenerator, ModItems.DAVES_PAN, , );
 

@@ -18,11 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends EntityMixin {
-	@Shadow
-	public abstract Iterable<ItemStack> getHandItems();
+	//@Shadow public abstract Iterable<ItemStack> getHandItems();
 
-	@Shadow
-	public abstract ItemStack getMainHandStack();
+	@Shadow public abstract ItemStack getMainHandStack();
+
+	@Shadow public abstract ItemStack getOffHandStack();
 
 	@Inject(
 		method = "damage",

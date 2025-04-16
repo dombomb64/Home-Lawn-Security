@@ -29,10 +29,10 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
 			ItemStack itemStack = this.getMainHandStack();
 			if (!ItemStack.areEqual(this.selectedItem, itemStack)) {
 				if (itemStack.contains(ModDataComponentTypes.SHOVEL)) {
-					world.playSoundFromEntity((PlayerEntity) (Object) this, ModSounds.RANDOM_SHOVEL, SoundCategory.PLAYERS, 0.25f, random.nextFloat() * 0.4f + 0.8f);
+					world.playSoundFromEntityClient((PlayerEntity) (Object) this, ModSounds.RANDOM_SHOVEL, SoundCategory.PLAYERS, 0.25f, random.nextFloat() * 0.4f + 0.8f);
 				}
 				else if (itemStack.contains(ModDataComponentTypes.SEED_PACKET)) {
-					world.playSoundFromEntity((PlayerEntity) (Object) this, ModSounds.RANDOM_SELECT_SEED, SoundCategory.PLAYERS, 0.25f, random.nextFloat() * 0.4f + 0.8f);
+					world.playSoundFromEntityClient((PlayerEntity) (Object) this, ModSounds.RANDOM_SELECT_SEED, SoundCategory.PLAYERS, 0.25f, random.nextFloat() * 0.4f + 0.8f);
 				}
 			}
 		}

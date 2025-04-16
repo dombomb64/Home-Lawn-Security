@@ -34,26 +34,26 @@ public class ZombieGravestoneModel extends EntityModel<ZombieGravestoneRenderSta
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData zombie_gravestone = modelPartData.addChild("zombie_gravestone", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		ModelPartData zombie_gravestone = modelPartData.addChild("zombie_gravestone", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
-		ModelPartData dirt = zombie_gravestone.addChild("dirt", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -1.0F, -5.0F, 14.0F, 1.0F, 10.0F, new Dilation(0.25F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData dirt = zombie_gravestone.addChild("dirt", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -1.0F, -5.0F, 14.0F, 1.0F, 10.0F, new Dilation(0.25F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-		ModelPartData grave = zombie_gravestone.addChild("grave", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData grave = zombie_gravestone.addChild("grave", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
 		ModelPartData degrade5 = grave.addChild("degrade5", ModelPartBuilder.create().uv(0, 11).cuboid(-6.0F, -3.0F, -4.0F, 12.0F, 3.0F, 8.0F, new Dilation(0.0F))
 		.uv(32, 11).cuboid(-5.0F, -5.0F, -3.0F, 10.0F, 2.0F, 6.0F, new Dilation(0.0F))
-		.uv(38, 5).cuboid(-4.0F, -6.0F, -2.0F, 8.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		.uv(38, 5).cuboid(-4.0F, -6.0F, -2.0F, 8.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
 		ModelPartData degrade4 = grave.addChild("degrade4", ModelPartBuilder.create().uv(0, 23).cuboid(-4.0F, -12.0F, -2.0F, 8.0F, 6.0F, 4.0F, new Dilation(0.0F))
-		.uv(24, 23).cuboid(-3.0F, -16.0F, -2.0F, 6.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		.uv(24, 23).cuboid(-3.0F, -16.0F, -2.0F, 6.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
-		ModelPartData degrade3 = grave.addChild("degrade3", ModelPartBuilder.create().uv(45, 23).cuboid(-6.0F, -14.0F, -2.0F, 3.0F, 2.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		ModelPartData degrade3 = grave.addChild("degrade3", ModelPartBuilder.create().uv(45, 23).cuboid(-6.0F, -14.0F, -2.0F, 3.0F, 2.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
 		ModelPartData degrade2 = grave.addChild("degrade2", ModelPartBuilder.create().uv(0, 34).cuboid(-6.0F, -15.0F, -2.0F, 3.0F, 1.0F, 4.0F, new Dilation(0.0F))
-		.uv(14, 34).cuboid(-5.0F, -16.0F, -2.0F, 2.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		.uv(14, 34).cuboid(-5.0F, -16.0F, -2.0F, 2.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 
 		ModelPartData degrade1 = grave.addChild("degrade1", ModelPartBuilder.create().uv(27, 34).cuboid(3.0F, -15.0F, -2.0F, 3.0F, 3.0F, 4.0F, new Dilation(0.0F))
-		.uv(41, 34).cuboid(3.0F, -16.0F, -2.0F, 2.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
+		.uv(41, 34).cuboid(3.0F, -16.0F, -2.0F, 2.0F, 1.0F, 4.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 		return TexturedModelData.of(modelData, 64, 64);
 	}
 

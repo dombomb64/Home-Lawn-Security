@@ -35,14 +35,14 @@ public class CurrencyItem extends Item implements ProjectileItem {
 		this.bagPredicate = bagPredicate;
 	}
 
-	@Override
+	/*@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		super.appendTooltip(stack, context, tooltip, type);
 
 		var currencyComponent = stack.get(ModDataComponentTypes.CURRENCY);
 		if (currencyComponent != null)
 			tooltip.add(Text.translatable("tooltip.homelawnsecurity.currency." + currencyComponent.name(), currencyComponent.amount()));
-	}
+	}*/
 
 	public ItemStack getCurrentBag(LivingEntity entity) {
 		if (bagPredicate.test(entity.getStackInHand(Hand.OFF_HAND))) {

@@ -9,9 +9,8 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.FlyingItemEntity;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
@@ -73,7 +72,7 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 		super.updateRenderState(entity, state, f);
 		ItemStack stack = entity.getStack();
 
-		this.itemModelManager.updateForNonLivingEntity(state.itemRenderState, stack, ModelTransformationMode.GROUND, entity);
+		this.itemModelManager.updateForNonLivingEntity(state.itemRenderState, stack, ItemDisplayContext.GROUND, entity);
 
 		/*state.model = !stack.isEmpty() ? this.itemModelManager.getModel(stack, entity.getWorld(), null, entity.getId()) : null;
 		state.stack = stack.copy();*/

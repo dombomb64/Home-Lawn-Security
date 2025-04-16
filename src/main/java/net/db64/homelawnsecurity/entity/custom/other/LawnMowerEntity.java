@@ -19,6 +19,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
@@ -131,7 +132,8 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 		super.readCustomDataFromNbt(nbt);
 
 		// path_tag
-		if (nbt.contains("path_tag", NbtElement.INT_TYPE) && nbt.getInt("path_tag") == 2) {
+		int path = nbt.getInt("path_tag").orElse(1);
+		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
 		} else {
@@ -140,9 +142,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 		}
 
 		// mowing
-		if (nbt.contains("mowing", NbtElement.NUMBER_TYPE)) {
-			this.mowing = nbt.getBoolean("mowing");
-		}
+		this.mowing = nbt.getBoolean("mowing").orElse(false);
 	}
 
 	@Override

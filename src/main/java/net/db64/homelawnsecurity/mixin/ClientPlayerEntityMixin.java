@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
+
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
 	@Inject(
@@ -22,14 +24,15 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
 		at = @At("RETURN")
 	)
 	public void tickMarkerParticles(CallbackInfo ci) {
-		for (ItemStack stack : getHandItems()) {
+		List<ItemStack> handItems = List.of(getMainHandStack(), getOffHandStack());
+		for (ItemStack stack : handItems){
 			if (stack.isIn(ModTags.Items.MARKERS) || (stack.getItem() instanceof LawnGadgetItem && LawnGadgetItem.shouldRevealMarkers(stack))) {
 				Iterable<BlockPos> iterable = BlockPos.iterate(MarkerBlock.PARTICLE_DISTANCE.offset(getBlockPos()));
 				for (BlockPos blockPos : iterable) {
 					World world = getWorld();
 					BlockState state = world.getBlockState(blockPos);
 					if (state.isIn(ModTags.Blocks.MARKERS)) {
-						world.addParticle(new BlockStateParticleEffect(ModParticles.MARKER, state), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 0, 0, 0);
+						world.addParticleClient(new BlockStateParticleEffect(ModParticles.MARKER, state), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 0, 0, 0);
 					}
 				}
 				break;

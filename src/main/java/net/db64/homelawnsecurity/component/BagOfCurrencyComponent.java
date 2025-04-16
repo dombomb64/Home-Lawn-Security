@@ -14,43 +14,43 @@ import net.minecraft.util.dynamic.Codecs;
 
 import java.util.function.Consumer;
 
-public record CurrencyComponent(int amount, String name) implements TooltipAppender {
-	public static final Codec<CurrencyComponent> CODEC = RecordCodecBuilder.create(
+public record BagOfCurrencyComponent(int amount, String name) implements TooltipAppender {
+	public static final Codec<BagOfCurrencyComponent> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-				Codecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(CurrencyComponent::amount),
-				Codecs.NON_EMPTY_STRING.fieldOf("name").forGetter(CurrencyComponent::name)
+				Codecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(BagOfCurrencyComponent::amount),
+				Codecs.NON_EMPTY_STRING.fieldOf("name").forGetter(BagOfCurrencyComponent::name)
 			)
-			.apply(instance, CurrencyComponent::new)
+			.apply(instance, BagOfCurrencyComponent::new)
 	);
-	public static final PacketCodec<RegistryByteBuf, CurrencyComponent> PACKET_CODEC = PacketCodec.tuple(
+	public static final PacketCodec<RegistryByteBuf, BagOfCurrencyComponent> PACKET_CODEC = PacketCodec.tuple(
 		PacketCodecs.VAR_INT,
-		CurrencyComponent::amount,
+		BagOfCurrencyComponent::amount,
 		PacketCodecs.STRING,
-		CurrencyComponent::name,
-		CurrencyComponent::new
+		BagOfCurrencyComponent::name,
+		BagOfCurrencyComponent::new
 	);
 
 	@Override
 	public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type, ComponentsAccess components) {
-		tooltip.accept(Text.translatable("tooltip.homelawnsecurity.currency." + name, amount));
+		tooltip.accept(Text.translatable("tooltip.homelawnsecurity.bag_of_" + name, amount));
 	}
 
 	public static class Builder {
 		private int amount;
 		private String name;
 
-		public CurrencyComponent.Builder amount(int amount) {
+		public BagOfCurrencyComponent.Builder amount(int amount) {
 			this.amount = amount;
 			return this;
 		}
 
-		public CurrencyComponent.Builder name(String name) {
+		public BagOfCurrencyComponent.Builder name(String name) {
 			this.name = name;
 			return this;
 		}
 
-		public CurrencyComponent build() {
-			return new CurrencyComponent(this.amount, this.name);
+		public BagOfCurrencyComponent build() {
+			return new BagOfCurrencyComponent(this.amount, this.name);
 		}
 	}
 }

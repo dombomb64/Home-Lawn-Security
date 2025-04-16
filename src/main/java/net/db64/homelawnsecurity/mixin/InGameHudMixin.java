@@ -50,7 +50,7 @@ public abstract class InGameHudMixin {
 				NbtElement customName = entityDataComponent.copyNbt().get("CustomName");
 				if (customName != null && client.world != null) {
 					try {
-						entityName = Text.Serialization.fromJson(customName.asString(), client.world.getRegistryManager());
+						entityName = Text.Serialization.fromJson(customName.toString(), client.world.getRegistryManager());
 					} catch (Exception e) {
 						HomeLawnSecurity.LOGGER.warn("Failed to parse entity custom name {}", customName.asString(), e);
 					}

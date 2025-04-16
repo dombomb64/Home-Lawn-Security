@@ -126,7 +126,7 @@ public abstract class SeedPacketItem extends Item {
 		if (!(world.getBlockState(pos).getBlock() instanceof FluidBlock)) {
 			return ActionResult.PASS;
 		}
-		if (!world.canPlayerModifyAt(player, pos) || !player.canPlaceOn(pos, blockHitResult.getSide(), stack)) {
+		if (!world.canEntityModifyAt(player, pos) || !player.canPlaceOn(pos, blockHitResult.getSide(), stack)) {
 			return ActionResult.FAIL;
 		}
 

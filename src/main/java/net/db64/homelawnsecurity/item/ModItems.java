@@ -45,11 +45,11 @@ public class ModItems {
 		new CurrencyComponent(25, "brainpower")));
 
 	public static final Item BAG_OF_SUN = register("bag_of_sun", settings ->
-		new BagOfCurrencyItem(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.CURRENCY,
-		new CurrencyComponent(0, "sun")));
+		new BagOfCurrencyItem(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BAG_OF_CURRENCY,
+		new BagOfCurrencyComponent(0, "sun")));
 	public static final Item BAG_OF_BRAINPOWER = register("bag_of_brainpower", settings ->
-		new BagOfCurrencyItem(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.CURRENCY,
-		new CurrencyComponent(0, "brainpower")));
+		new BagOfCurrencyItem(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BAG_OF_CURRENCY,
+		new BagOfCurrencyComponent(0, "brainpower")));
 
 	public static final Item LAWN_MOWER = register("lawn_mower", settings ->
 		new LawnMowerItem(ModEntities.Other.LAWN_MOWER, settings), new Item.Settings());
