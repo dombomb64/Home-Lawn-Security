@@ -1,0 +1,20 @@
+package net.db64.homelawnsecurity.mixin;
+
+import net.minecraft.entity.passive.WanderingTraderEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(WanderingTraderEntity.class)
+public class WanderingTraderEntityMixin {
+	@Inject(
+		method = "Lnet/minecraft/entity/passive/WanderingTraderEntity;fillRecipes()V",
+		at = @At(
+			value = "RETURN"
+		)
+	)
+	public void addSeedPackets(CallbackInfo ci) {
+
+	}
+}

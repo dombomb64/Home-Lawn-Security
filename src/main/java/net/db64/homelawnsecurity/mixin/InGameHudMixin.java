@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity.mixin;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
+import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
 import net.db64.homelawnsecurity.component.CurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.item.ModItems;
@@ -79,13 +80,22 @@ public abstract class InGameHudMixin {
 			MutableText currencyText = Text.empty();
 			CurrencyComponent currencyComponent = currentStack.getOrDefault(ModDataComponentTypes.CURRENCY, new CurrencyComponent(25, "sun"));
 
-			if (currentStack.getItem() instanceof BagOfCurrencyItem) {
-				// Bag of Sun - 25 Sun
-				currencyText = currencyText.append(currentStack.getName()).append(Text.translatable("item.homelawnsecurity.currency.name.separator"));
-			}
-
 			// 25 Sun
 			currencyText = currencyText.append(Text.translatable("item.homelawnsecurity.currency.name." + currencyComponent.name(), currencyComponent.amount()));
+
+			value = Text.empty().append(currencyText);
+		}
+
+		// Bag of Currency
+		else if (currentStack.contains(ModDataComponentTypes.BAG_OF_CURRENCY)) {
+			MutableText currencyText = Text.empty();
+			BagOfCurrencyComponent bagComponent = currentStack.getOrDefault(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(25, "sun"));
+
+			// Bag of Sun - 25 Sun
+			currencyText = currencyText
+				.append(currentStack.getName())
+				.append(Text.translatable("item.homelawnsecurity.currency.name.separator"))
+				.append(Text.translatable("item.homelawnsecurity.currency.name." + bagComponent.name(), bagComponent.amount()));
 
 			value = Text.empty().append(currencyText);
 		}

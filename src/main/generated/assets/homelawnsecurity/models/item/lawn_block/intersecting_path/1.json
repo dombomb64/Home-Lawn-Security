@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_top",
+  "textures": {
+    "side": "homelawnsecurity:block/lawn_block/no_path",
+    "top": "homelawnsecurity:block/lawn_block/intersecting_path/1"
+  }
+}

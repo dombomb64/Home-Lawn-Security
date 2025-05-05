@@ -1,16 +1,14 @@
 package net.db64.homelawnsecurity.entity.custom;
 
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
-import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
 import net.db64.homelawnsecurity.item.custom.LawnSeedPacketItem;
 import net.db64.homelawnsecurity.item.custom.PathSeedPacketItem;
 import net.db64.homelawnsecurity.item.custom.SeedPacketItem;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.ModTags;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -18,10 +16,8 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -33,12 +29,14 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity, IPathBoundEntity {
+public abstract class PlantEntity extends SeedPlacedEntity {
 	//private abstract static final TrackedData<Boolean> USING_ATTACK =
 		//DataTracker.registerData(PlantEntityClassHere.class, TrackedDataHandlerRegistry.BOOLEAN);
 
+	/*@Deprecated
 	public TagKey<Block> pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
-	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
+	@Deprecated
+	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;*/
 
 	public final AnimationState attackAnimationState = new AnimationState();
 	public int attackAnimationTimeout = 0;
@@ -46,7 +44,7 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 	public int attackTimeout = 0;
 
 	public boolean onPath;
-	public boolean onIntersection;
+	public int intersectingPath = 0;
 
 	/*
 		GENERAL
@@ -61,38 +59,15 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
 		EntityData result = super.initialize(world, difficulty, spawnReason, entityData);
 
-		//HomeLawnSecurity.LOGGER.info("new plant");
-		BlockPos pos = getBlockPos().down();
-		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(pos, 5, 5, 5);
-		for (BlockPos blockPos : iterable) {
-			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
-			if (isPath(blockPos)) {
-				//HomeLawnSecurity.LOGGER.info("path a");
-				break;
-			}
-			if (isOtherPath(blockPos)) {
-				//HomeLawnSecurity.LOGGER.info("path b");
-				switchPathTag();
-				break;
-			}
-			//HomeLawnSecurity.LOGGER.info("not a path");
-		}
-
-
+		BlockPos pos = getSteppingPos();
 
 		// Where was this planted?
-		boolean isPath = isPath(pos);
-		boolean isOtherPath = isOtherPath(pos);
-
 		onPath = false;
-		onIntersection = false;
 
-		if (isPath || isOtherPath) { // It's some kind of path
+		if (LawnUtil.isAnyPath(pos, getWorld())) { // It's some kind of path
 			onPath = true;
 
-			if (isPath && isOtherPath) { // It's both paths in one block! Intersection plants should target both lanes
-				onIntersection = true;
-			}
+			intersectingPath = LawnUtil.getIntersectingPathId(pos, getWorld()); // It's two paths in one block! Intersection plants should target both lanes
 		}
 
 		return result;
@@ -157,6 +132,7 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 				world.playSoundClient(getX(), getY(), getZ(), ModSounds.ENTITY_PLANT_SHOVEL, SoundCategory.NEUTRAL, 1, 1, false);
 			}
 			else {
+				dropSpawnItemOnDeath();
 				discard();
 			}
 
@@ -170,20 +146,20 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 
-		if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
+		/*if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
 			nbt.putInt("path_tag", 2);
 		else
-			nbt.putInt("path_tag", 1);
+			nbt.putInt("path_tag", 1);*/
 
 		nbt.putBoolean("on_path", onPath);
-		nbt.putBoolean("on_intersection", onIntersection);
+		nbt.putInt("intersecting_path", intersectingPath);
 	}
 
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		// path_tag
+		/*// path_tag
 		int path = nbt.getInt("path_tag").orElse(1);
 		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
@@ -191,11 +167,11 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 		} else {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
-		}
+		}*/
 
 		onPath = nbt.getBoolean("on_path").orElse(false);
 
-		onIntersection = nbt.getBoolean("on_intersection").orElse(false);
+		intersectingPath = nbt.getInt("intersecting_path").orElse(0);
 	}
 
 	/*
@@ -238,60 +214,22 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 		BLOCKS
 	 */
 
-	public TagKey<Block> iGetPathTag() {
-		return pathTag;
-	}
-
-	public void iSetPathTag(TagKey<Block> value) {
-		pathTag = value;
-	}
-
-	public TagKey<Block> iGetPathMarkerTag() {
-		return pathMarkerTag;
-	}
-
-	public void iSetPathMarkerTag(TagKey<Block> value) {
-		pathMarkerTag = value;
-	}
-
-	@Override
-	public World iGetWorld() {
-		return getWorld();
-	}
-
-	public void iStopNavigation() {
-		navigation.stop();
-	}
-
-	@Override
-	public Entity iGetSelf() {
-		return this;
+	public boolean isWalkable(BlockPos pos) {
+		return LawnUtil.isWalkable(pos, getWorld(), pathId, false);
 	}
 
 	/**
 	 * @return Whether a lawn plant can be placed on top of this block.
 	 */
 	public static boolean isPlaceableLawn(BlockPos pos, World world) {
-		BlockState state = world.getBlockState(pos);
-		BlockState markerState = world.getBlockState(pos.up());
-
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.PLANT_PLACEABLE_LAWN_MARKERS);
-		}
-		return state.isIn(ModTags.Blocks.PLANT_PLACEABLE_LAWN);
+		return LawnUtil.hasTurf(pos, world);
 	}
 
 	/**
 	 * @return Whether a path plant can be placed on top of this block.
 	 */
 	public static boolean isPlaceablePath(BlockPos pos, World world) {
-		BlockState state = world.getBlockState(pos);
-		BlockState markerState = world.getBlockState(pos.up());
-
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.PLANT_PLACEABLE_PATH_MARKERS);
-		}
-		return state.isIn(ModTags.Blocks.PLANT_PLACEABLE_PATH);
+		return LawnUtil.isAnyPath(pos, world);
 	}
 
 	/**
@@ -338,11 +276,6 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 		return state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
 	}
 
-	@Override
-	protected EntityNavigation createNavigation(World world) {
-		return new PvzNavigation(this, world);
-	}
-
 	/*
 		STATS
 	 */
@@ -377,6 +310,11 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 		public float getLargerAttackRange() {
 			return Math.max(attackRange, attackRangePath);
 		}
+	}
+
+	@Override
+	protected boolean itemDuplicatesSpawnItem(ItemStack stack) {
+		return stack.isIn(ModTags.Items.PLANT_FEEDABLE_FOR_DUPLICATE);
 	}
 
 	/*
@@ -424,6 +362,11 @@ public abstract class PlantEntity extends PathAwareEntity implements IPvzEntity,
 	protected SoundEvent getDrinkSound(ItemStack stack) {
 		return null;
 	}*/
+
+	@Override
+	protected void playFeedSound() {
+		getWorld().playSoundFromEntity(null, this, ModSounds.ENTITY_PLANT_FEED, getSoundCategory(), 1f, 1f);
+	}
 
 	@Override
 	public SoundCategory getSoundCategory() {

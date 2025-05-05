@@ -2,24 +2,21 @@ package net.db64.homelawnsecurity.entity.custom;
 
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.ModDamageTypes;
-import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieStayOnPathGoal;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieMoveGoal;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieTargetGoal;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.ModTags;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -27,15 +24,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity, IPathBoundEntity {
+import java.util.ArrayList;
+
+public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradableEntity {
 	//private abstract static final TrackedData<Boolean> USING_ATTACK =
 		//DataTracker.registerData(ZombieEntityClassHere.class, TrackedDataHandlerRegistry.BOOLEAN);
 
+	/*@Deprecated
 	public TagKey<Block> pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
-	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
+	@Deprecated
+	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;*/
 
 	public final AnimationState attackAnimationState = new AnimationState();
 	public int attackAnimationTimeout = 0;
@@ -53,14 +53,14 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 		BlockState groundState = world2.getBlockState(this.getBlockPos().down());
 		BlockState markerState = world2.getBlockState(this.getBlockPos());
 		if (markerState.isIn(this.getOtherPathMarkerTag(pathMarkerTag)) // The block is marked as the other path
-			|| (!markerState.isIn(ModTags.Blocks.MARKERS) && groundState.isIn(this.getOtherPathTag(pathTag)))) { // The block is not marked, but is the other path
+			|| (!markerState.isIn(ModTags.Blocks.REVEALS_MARKERS) && groundState.isIn(this.getOtherPathTag(pathTag)))) { // The block is not marked, but is the other path
 			switchPathTag();
 		}*/
 
 		/*if (age == 0) {
 			Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getBlockPos().down(), 5, 5, 5);
 			for (BlockPos blockPos : iterable) {
-				if (isPath(blockPos)) {
+				if (isThisPath(blockPos)) {
 					break;
 				}
 				if (isOtherPath(blockPos)) {
@@ -76,41 +76,32 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
 		EntityData result = super.initialize(world, difficulty, spawnReason, entityData);
 
-		//HomeLawnSecurity.LOGGER.info("new zombie");
-		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getBlockPos().down(), 5, 5, 5);
-		for (BlockPos blockPos : iterable) {
-			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
-			if (isPath(blockPos)) {
-				//HomeLawnSecurity.LOGGER.info("path a");
-				break;
-			}
-			if (isOtherPath(blockPos)) {
-				//HomeLawnSecurity.LOGGER.info("path b");
-				switchPathTag();
-				break;
-			}
-			//HomeLawnSecurity.LOGGER.info("not a path");
-		}
-
 		return result;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
+		tickDegradation(this);
 
 		if (this.getWorld().isClient()) {
 			updateAnimations();
 		}
 		else {
 			if (this.getUsingAttack()) {
-				if (this.eatingSoundTimeout <= 0) {
-					this.playSound(ModSounds.ENTITY_ZOMBIE_EAT, 0.5f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 1f));
-					this.eatingSoundTimeout = 10;
-					//HomeLawnSecurity.LOGGER.info("zombie took bite");
+				if (!hasHead()) {
+					setUsingAttack(false);
+					setTarget(null);
 				}
 				else {
-					--this.eatingSoundTimeout;
+					if (this.eatingSoundTimeout <= 0) {
+						this.playSound(ModSounds.ENTITY_ZOMBIE_EAT, 0.5f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 1f));
+						this.eatingSoundTimeout = 10;
+						//HomeLawnSecurity.LOGGER.info("zombie took bite");
+					}
+					else {
+						--this.eatingSoundTimeout;
+					}
 				}
 			}
 			else {
@@ -127,9 +118,9 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 
 			//HomeLawnSecurity.LOGGER.info("attackTimeout is " + attackTimeout + " and isUsingAttack() is " + isUsingAttack());
 
-			if (getHasLostHead()) {
+			/*if (getHasLostHead()) {
 				damage((ServerWorld) getWorld(), this.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), 2);
-			}
+			}*/
 		}
 	}
 
@@ -165,7 +156,7 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 			//damaged = super.damage(world, source, amount * 10);
 		//}
 
-		if (!getHasLostHeadwear() && getHealth() < getLoseHeadwearHealth()) {
+		/*if (!getHasLostHeadwear() && getHealth() < getLoseHeadwearHealth()) {
 			setHasLostHeadwear(true);
 			this.playSound(ModSounds.ENTITY_ZOMBIE_DETACH_HEADWEAR, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
 		}
@@ -176,38 +167,42 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 		if (!getHasLostHead() && getHealth() < getLoseHeadHealth()) {
 			setHasLostHead(true);
 			this.playSound(ModSounds.ENTITY_ZOMBIE_DETACH_HEAD, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
-		}
+		}*/
 
 		return damaged;
 	}
 
 	@Override
 	public boolean collidesWith(Entity other) {
-		return (other.isCollidable() || other instanceof PlantEntity) && !this.isConnectedThroughVehicle(other);
+		return (other.isCollidable() || (other instanceof PlantEntity && this.hasHead())) && !this.isConnectedThroughVehicle(other);
 	}
 
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 
-		if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
+		/*if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
 			nbt.putInt("path_tag", 2);
 		else
-			nbt.putInt("path_tag", 1);
+			nbt.putInt("path_tag", 1);*/
+
+		writeDegradationNbt(nbt);
 	}
 
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 
-		int path = nbt.getInt("path_tag").orElse(1);
+		/*int path = nbt.getInt("path_tag").orElse(1);
 		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
 		} else {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
-		}
+		}*/
+
+		readDegradationNbt(nbt);
 	}
 
 	/*
@@ -247,22 +242,26 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 		}
 	}
 
-	/**
+	/*
+		DAMAGE
+	 */
+
+	/*
 	 * @return The health at which this zombie will lose its headwear upon going below, or -1 if it doesn't normally spawn with any.
 	 */
-	public abstract float getLoseHeadwearHealth();
+	//public abstract float getLoseHeadwearHealth();
 
-	/**
+	/*
 	 * @return The health at which this zombie will lose its arm upon going below, or -1 if it never does.
 	 * Typically, this is two thirds of the zombie's max health.
 	 */
-	public abstract float getLoseArmHealth();
+	//public abstract float getLoseArmHealth();
 
-	/**
+	/*
 	 * @return The health at which this zombie will lose its head and start to die upon going below.
 	 * Typically, this is a third of the zombie's max health.
 	 */
-	public abstract float getLoseHeadHealth();
+	//public abstract float getLoseHeadHealth();
 
 	public abstract TrackedData<Boolean> getUsingAttackTrackedData();
 
@@ -279,7 +278,21 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 		return this.dataTracker.get(usingAttack);
 	}
 
-	public abstract TrackedData<Boolean> getHasLostHeadwearTrackedData();
+	ArrayList<DegradationStage> degradationStages = new ArrayList<>();
+
+	@Override
+	public ArrayList<DegradationStage> getDegradationStageList() {
+		return degradationStages;
+	}
+
+	public boolean hasHead() {
+		if (getDegradationStage("head") != null) {
+			return !hasTriggeredDegradationStage("head");
+		}
+		return true;
+	}
+
+	/*public abstract TrackedData<Boolean> getHasLostHeadwearTrackedData();
 
 	public void setHasLostHeadwear(boolean hasLostHeadwear) {
 		var lostHeadwear = getHasLostHeadwearTrackedData();
@@ -322,7 +335,7 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 		if (lostHead == null)
 			return false;
 		return this.dataTracker.get(lostHead);
-	}
+	}*/
 
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
@@ -332,7 +345,7 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 		if (usingAttack != null)
 			builder.add(usingAttack, false);
 
-		var lostHeadwear = getHasLostHeadwearTrackedData();
+		/*var lostHeadwear = getHasLostHeadwearTrackedData();
 		if (lostHeadwear != null)
 			builder.add(lostHeadwear, false);
 
@@ -342,54 +355,22 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 
 		var lostHead = getHasLostHeadTrackedData();
 		if (lostHead != null)
-			builder.add(lostHead, false);
+			builder.add(lostHead, false);*/
 	}
 
 	/*
 		BLOCKS
 	 */
 
-	public TagKey<Block> iGetPathTag() {
-		return pathTag;
-	}
-
-	public void iSetPathTag(TagKey<Block> value) {
-		pathTag = value;
-	}
-
-	public TagKey<Block> iGetPathMarkerTag() {
-		return pathMarkerTag;
-	}
-
-	public void iSetPathMarkerTag(TagKey<Block> value) {
-		pathMarkerTag = value;
-	}
-
-	@Override
-	public World iGetWorld() {
-		return getWorld();
-	}
-
-	public void iStopNavigation() {
-		navigation.stop();
-	}
-
-	@Override
-	public Entity iGetSelf() {
-		return this;
+	public boolean isWalkable(BlockPos pos) {
+		return LawnUtil.isWalkable(pos, getWorld(), pathId, true);
 	}
 
 	/**
 	 * @return Whether a zombie can be placed on top of this block.
 	 */
 	public static boolean isPlaceable(BlockPos pos, World world) {
-		BlockState state = world.getBlockState(pos);
-		BlockState markerState = world.getBlockState(pos.up());
-
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.ZOMBIE_PLACEABLE_MARKERS);
-		}
-		return state.isIn(ModTags.Blocks.ZOMBIE_PLACEABLE);
+		return LawnUtil.isAnyPath(pos, world);
 	}
 
 	/**
@@ -421,32 +402,16 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	}
 
 	/*@Override
-	public float getPathfindingPenalty(PathNodeType nodeType) {
-		if (nodeType == PathNodeType.) {
-			return 0f; // Path
-		}
-		else if (state.isIn(ModTags.Blocks.ZOMBIE_GOAL)) {
-			return 0f; // Goal
-		}
-		return -1f; // Off-road
-	}*/
-
-	@Override
 	public float getPathfindingFavor(BlockPos pos, WorldView world) {
 		//BlockState state = world.getBlockState(pos.down());
-		if (isPath(pos.down())) {
+		if (isThisPath(pos.down())) {
 			return 0f; // Path
 		}
 		else if (isGoal(pos.down())) {
 			return 0f; // Goal
 		}
 		return Float.NEGATIVE_INFINITY; // Off-road
-	}
-
-	@Override
-	protected EntityNavigation createNavigation(World world) {
-		return new PvzNavigation(this, world);
-	}
+	}*/
 
 	/*
 		STATS
@@ -455,8 +420,13 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new ZombieStayOnPathGoal(this, 1f));
-		this.goalSelector.add(2, new ZombieTargetGoal<PlantEntity>(this, PlantEntity.class, true));
+		this.goalSelector.add(2, new ZombieTargetGoal<PlantEntity>(this, PlantEntity.class, true, 1));
 		this.goalSelector.add(3, new ZombieMoveGoal(this, 1f));
+	}
+
+	@Override
+	protected boolean itemDuplicatesSpawnItem(ItemStack stack) {
+		return stack.isIn(ModTags.Items.ZOMBIE_FEEDABLE_FOR_DUPLICATE);
 	}
 
 	/*
@@ -506,6 +476,11 @@ public abstract class ZombieEntity extends PathAwareEntity implements IPvzEntity
 	protected SoundEvent getDrinkSound(ItemStack stack) {
 		return ModSounds.ENTITY_ZOMBIE_EAT;
 	}*/
+
+	@Override
+	protected void playFeedSound() {
+		getWorld().playSoundFromEntity(null, this, ModSounds.ENTITY_ZOMBIE_FEED, getSoundCategory(), 1f, 1f);
+	}
 
 	@Override
 	public SoundCategory getSoundCategory() {

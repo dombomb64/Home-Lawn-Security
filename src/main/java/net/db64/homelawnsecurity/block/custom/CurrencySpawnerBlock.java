@@ -117,7 +117,7 @@ public class CurrencySpawnerBlock extends Block {
 		/*BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
+		if (markerState.isIn(ModTags.Blocks.REVEALS_MARKERS)) {
 			return markerState.isIn(ModTags.Blocks.PLANT_PLACEABLE_LAWN_MARKERS);
 		}
 		return state.isIn(ModTags.Blocks.PLANT_PLACEABLE_LAWN);*/
@@ -129,7 +129,7 @@ public class CurrencySpawnerBlock extends Block {
 		/*BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
+		if (markerState.isIn(ModTags.Blocks.REVEALS_MARKERS)) {
 			return markerState.isIn(ModTags.Blocks.PLANT_PLACEABLE_LAWN_MARKERS);
 		}
 		return state.isIn(ModTags.Blocks.PLANT_PLACEABLE_LAWN);*/

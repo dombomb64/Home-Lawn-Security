@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class ZombieGravestoneCracksFeatureRenderer<S extends ZombieGravestoneRenderState, M extends EntityModel<? super S>> extends FeatureRenderer<S, M> {
-	private static final float CRACK_HEALTH = 320 * IPvzEntity.HEALTH_SCALE;
+	//private static final float CRACK_HEALTH = 320 * IPvzEntity.HEALTH_SCALE;
 
 	private final Identifier texture;
 	private final M model;
@@ -27,7 +27,7 @@ public class ZombieGravestoneCracksFeatureRenderer<S extends ZombieGravestoneRen
 	}
 
 	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, S state, float f, float g) {
-		if (state.health <= CRACK_HEALTH) {
+		if (state.getCracks()) {
 			M entityModel = this.model;
 			entityModel.setAngles(state);
 			//VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(this.texture));

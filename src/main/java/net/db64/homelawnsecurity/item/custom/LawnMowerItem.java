@@ -1,47 +1,50 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.Spawner;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
+import java.util.function.Predicate;
 
-public class LawnMowerItem extends Item {
+public class LawnMowerItem extends SeedPacketItem {
 	private static final MapCodec<EntityType<?>> ENTITY_TYPE_MAP_CODEC = Registries.ENTITY_TYPE.getCodec().fieldOf("id");
 	private final EntityType<?> type;
 
 	public LawnMowerItem(EntityType<? extends MobEntity> type, Settings settings) {
-		super(settings);
+		super(ModEntities.Other.LAWN_MOWER, settings);
 		this.type = type;
+	}
+
+	@Override
+	protected boolean isPlaceable(BlockPos blockPos, World world, boolean devMode, ServerPlayerEntity player) {
+		return LawnMowerEntity.isPlaceable(blockPos, world);
+	}
+
+	@Override
+	public void playPlaceSound(World world, BlockPos pos) {
+
 	}
 
 	public static void playBuzzerSound(World world, BlockPos pos) {
 		world.playSound(null, pos, ModSounds.RANDOM_BUZZER, SoundCategory.NEUTRAL);
 	}
 
-	@Override
+	/*@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
 		if (world.isClient) {
@@ -91,6 +94,24 @@ public class LawnMowerItem extends Item {
 				return ActionResult.SUCCESS;
 			}
 		}
+	}*/
+
+	@Override
+	protected boolean setCooldownAndCurrencyAndReturnIfInsufficient(@Nullable PlayerEntity player, ItemStack stack, World world, BlockPos usePos) {
+		return true;
+	}
+
+	@Override
+	protected void setEntityData(ItemStack stack, Entity entity, @Nullable Entity source) {
+		if (entity instanceof LawnMowerEntity lawnMowerEntity) {
+			if (source instanceof PlayerEntity player && !player.isCreative()) {
+				lawnMowerEntity.shouldDropSpawnItem = true;
+			}
+			else if (!(source instanceof PlayerEntity)) {
+				lawnMowerEntity.shouldDropSpawnItem = true;
+			}
+			lawnMowerEntity.customSpawnItem = stack.copyWithCount(1);
+		}
 	}
 
 	protected static void sendMessage(PlayerEntity player, Text message) {
@@ -100,5 +121,10 @@ public class LawnMowerItem extends Item {
 	public EntityType<?> getEntityType(ItemStack stack) {
 		NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
 		return !nbtComponent.isEmpty() ? (EntityType)nbtComponent.get(ENTITY_TYPE_MAP_CODEC).result().orElse(this.type) : this.type;
+	}
+
+	@Override
+	public Predicate<ItemStack> getBagPredicate() {
+		return null;
 	}
 }

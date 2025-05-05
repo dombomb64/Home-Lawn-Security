@@ -3,7 +3,6 @@ package net.db64.homelawnsecurity.entity.custom.plant;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -14,6 +13,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 
 public class WallNutEntity extends PlantEntity implements IPvzEntity, IPathPlant {
@@ -60,7 +60,7 @@ public class WallNutEntity extends PlantEntity implements IPvzEntity, IPathPlant
 	public void tick() {
 		super.tick();
 
-		if (getWorld() instanceof ClientWorld) {
+		if (!(getWorld() instanceof ServerWorld)) {
 			return;
 		}
 	}

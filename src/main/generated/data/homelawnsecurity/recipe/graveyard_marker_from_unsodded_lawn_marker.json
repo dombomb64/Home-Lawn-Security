@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "homelawnsecurity:turf",
+    "homelawnsecurity:unsodded_lawn_marker",
+    "#minecraft:small_flowers",
+    "minecraft:fermented_spider_eye"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:graveyard_marker"
+  }
+}

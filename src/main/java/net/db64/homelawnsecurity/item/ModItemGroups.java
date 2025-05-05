@@ -7,15 +7,11 @@ import net.db64.homelawnsecurity.component.TooltipComponent;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponents;
-import net.minecraft.component.type.FoodComponents;
-import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -24,10 +20,13 @@ public class ModItemGroups {
 	public static final ItemGroup BLOCKS_AND_ITEMS = Registry.register(Registries.ITEM_GROUP,
 		Identifier.of(HomeLawnSecurity.MOD_ID, "blocks_and_items"),
 		FabricItemGroup.builder().displayName(Text.translatable("itemgroup.homelawnsecurity.blocks_and_items"))
-			.icon(() -> new ItemStack(ModBlocks.LAWN_BLOCK)).entries((displayContext, entries) -> {
+			.icon(() -> new ItemStack(ModBlocks.SODDED_LAWN_BLOCK)).entries((displayContext, entries) -> {
 				entries.add(ModBlocks.GARDEN_BLOCK);
+				entries.add(ModBlocks.GRAVEYARD_BLOCK);
+				entries.add(ModBlocks.SODDED_LAWN_BLOCK);
+				entries.add(ModBlocks.UNSODDED_LAWN_BLOCK);
 
-				entries.add(ModBlocks.LAWN_BLOCK);
+				/*entries.add(ModBlocks.LAWN_BLOCK);
 
 				entries.add(ModBlocks.FERTILE_PATH_BLOCK_1);
 				entries.add(ModBlocks.FERTILE_PATH_BLOCK_2);
@@ -37,11 +36,14 @@ public class ModItemGroups {
 				entries.add(ModBlocks.ZOMBIE_PATH_BLOCK_2);
 				entries.add(ModBlocks.ZOMBIE_PATH_BLOCK_CROSS);
 
-				entries.add(ModBlocks.UNSODDED_LAWN_BLOCK);
+				entries.add(ModBlocks.UNSODDED_LAWN_BLOCK);*/
 
 				entries.add(ModBlocks.GARDEN_MARKER);
+				entries.add(ModBlocks.GRAVEYARD_MARKER);
+				entries.add(ModBlocks.SODDED_LAWN_MARKER);
+				entries.add(ModBlocks.UNSODDED_LAWN_MARKER);
 
-				entries.add(ModBlocks.LAWN_MARKER);
+				/*entries.add(ModBlocks.LAWN_MARKER);
 
 				entries.add(ModBlocks.FERTILE_PATH_MARKER_1);
 				entries.add(ModBlocks.FERTILE_PATH_MARKER_2);
@@ -51,9 +53,13 @@ public class ModItemGroups {
 				entries.add(ModBlocks.ZOMBIE_PATH_MARKER_2);
 				entries.add(ModBlocks.ZOMBIE_PATH_MARKER_CROSS);
 
-				entries.add(ModBlocks.UNSODDED_LAWN_MARKER);
+				entries.add(ModBlocks.UNSODDED_LAWN_MARKER);*/
 
-				entries.add(ModBlocks.GRAVEYARD_BLOCK);
+				//entries.add(ModBlocks.GRAVEYARD_BLOCK);
+
+				entries.add(ModItems.TURF);
+
+				entries.add(ModItems.BRAIN);
 
 				entries.add(ModBlocks.SUN_SPAWNER);
 				entries.add(ModBlocks.BRAINPOWER_BEACON);
@@ -67,7 +73,7 @@ public class ModItemGroups {
 				entries.add(ModItems.SHOVEL);
 				entries.add(ModItems.LAWN_GADGET);
 
-				entries.add(ModBlocks.GRAVEYARD_MARKER);
+				//entries.add(ModBlocks.GRAVEYARD_MARKER);
 
 				entries.add(ModItems.LAWN_MOWER);
 				ItemStack tempItem = ModItems.LAWN_MOWER.getDefaultStack().copy();

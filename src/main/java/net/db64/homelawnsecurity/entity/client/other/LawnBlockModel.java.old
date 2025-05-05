@@ -1,0 +1,21 @@
+package net.db64.homelawnsecurity.entity.client.other;
+
+import net.minecraft.client.model.*;
+import net.minecraft.client.render.RenderLayer;
+
+public class LawnBlockModel extends Model {
+	private final ModelPart lawn_block;
+
+	public LawnBlockModel(ModelPart root) {
+		super(root, RenderLayer::getEntityCutout);
+
+		this.lawn_block = root.getChild("lawn_block");
+	}
+
+	public static TexturedModelData getTexturedModelData() {
+		ModelData modelData = new ModelData();
+		ModelPartData modelPartData = modelData.getRoot();
+		ModelPartData lawn_block = modelPartData.addChild("lawn_block", ModelPartBuilder.create().uv(0, 0).cuboid(-8.0F, 0.0F, -8.0F, 16.0F, 16.0F, 16.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+		return TexturedModelData.of(modelData, 64, 64);
+	}
+}

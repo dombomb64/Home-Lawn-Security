@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sodded_lawn_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "homelawnsecurity:sodded_lawn_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:garden_block_from_sodded_lawn_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sodded_lawn_block"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:garden_block_from_sodded_lawn_block"
+    ]
+  }
+}

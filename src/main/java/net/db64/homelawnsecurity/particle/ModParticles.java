@@ -5,10 +5,7 @@ import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.particle.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -16,10 +13,10 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModParticles {
-	public static final ParticleType<BlockStateParticleEffect>
+	/*public static final ParticleType<ItemStackParticleEffect>
 		MARKER = register(
-		"marker", true, BlockStateParticleEffect::createCodec, BlockStateParticleEffect::createPacketCodec
-	);
+		"marker", true, ItemStackParticleEffect::createCodec, ItemStackParticleEffect::createPacketCodec
+	);*/
 
 	public static void registerParticles() {
 		HomeLawnSecurity.LOGGER.info("Registering particles for {}", HomeLawnSecurity.MOD_ID);

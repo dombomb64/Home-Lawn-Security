@@ -18,15 +18,17 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
+import java.util.ArrayList;
+
+public class ConeheadZombieEntity extends ZombieEntity {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(ConeheadZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	private static final TrackedData<Boolean> HAS_LOST_HEADWEAR =
+	/*private static final TrackedData<Boolean> HAS_LOST_HEADWEAR =
 		DataTracker.registerData(ConeheadZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final TrackedData<Boolean> HAS_LOST_ARM =
 		DataTracker.registerData(ConeheadZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final TrackedData<Boolean> HAS_LOST_HEAD =
-		DataTracker.registerData(ConeheadZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		DataTracker.registerData(ConeheadZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);*/
 
 	public final AnimationState setupAnimationState = new AnimationState();
 	//private int setupAnimationTimeout = 0;
@@ -37,6 +39,11 @@ public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
 
 	public ConeheadZombieEntity(EntityType<? extends ZombieEntity> entityType, World world) {
 		super(entityType, world);
+
+		ArrayList<DegradationStage> degradationStages = getDegradationStageList();
+		degradationStages.add(new DegradationStage("headwear", 270 * IPvzEntity.HEALTH_SCALE, false, ModSounds.ENTITY_ZOMBIE_DETACH_HEADWEAR));
+		degradationStages.add(new DegradationStage("arm", 180 * IPvzEntity.HEALTH_SCALE, false, ModSounds.ENTITY_ZOMBIE_DETACH_LIMB));
+		degradationStages.add(new DegradationStage("head", 90 * IPvzEntity.HEALTH_SCALE, true, ModSounds.ENTITY_ZOMBIE_DETACH_HEAD));
 	}
 
 	/*
@@ -51,6 +58,11 @@ public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
+	public TrackedData<Boolean> getUsingAttackTrackedData() {
+		return USING_ATTACK;
+	}
+
+	/*@Override
 	public float getLoseHeadwearHealth() {
 		return 270 * IPvzEntity.HEALTH_SCALE;
 	}
@@ -66,11 +78,6 @@ public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
-	public TrackedData<Boolean> getUsingAttackTrackedData() {
-		return USING_ATTACK;
-	}
-
-	@Override
 	public TrackedData<Boolean> getHasLostHeadwearTrackedData() {
 		return HAS_LOST_HEADWEAR;
 	}
@@ -83,7 +90,7 @@ public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
 	@Override
 	public TrackedData<Boolean> getHasLostHeadTrackedData() {
 		return HAS_LOST_HEAD;
-	}
+	}*/
 
 	/*
 		STATS
@@ -112,6 +119,6 @@ public class ConeheadZombieEntity extends ZombieEntity implements IPvzEntity {
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return getHasLostHeadwear() ? null : ModSounds.ENTITY_CONEHEAD_ZOMBIE_HURT;
+		return hasTriggeredDegradationStage("headwear") ? null : ModSounds.ENTITY_CONEHEAD_ZOMBIE_HURT;
 	}
 }

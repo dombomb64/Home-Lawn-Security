@@ -8,6 +8,12 @@ public class ModModelLayers {
 	public static class Other {
 		public static final EntityModelLayer LAWN_MOWER =
 			register(HomeLawnSecurity.MOD_ID, "lawn_mower");
+		public static final EntityModelLayer LAWN_BLOCK =
+			register("lawn_block");
+		public static final EntityModelLayer LAWN_BLOCK_MAIN_PATH =
+			register("lawn_block", "main_path");
+		public static final EntityModelLayer LAWN_BLOCK_INTERSECTING_PATH =
+			register("lawn_block", "intersecting_path");
 	}
 
 	public static class Projectile {

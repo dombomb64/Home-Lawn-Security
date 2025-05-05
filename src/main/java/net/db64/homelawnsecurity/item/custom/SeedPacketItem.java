@@ -1,10 +1,11 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.db64.homelawnsecurity.component.CurrencyComponent;
+import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.SeedPacketComponent;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
+import net.db64.homelawnsecurity.entity.custom.SeedPlacedEntity;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.ModTags;
@@ -179,6 +180,23 @@ public abstract class SeedPacketItem extends Item {
 
 		BlockPos spawnPos = state.getCollisionShape(world, usePos).isEmpty() ? usePos : usePos.offset(direction);
 
+		if (!setCooldownAndCurrencyAndReturnIfInsufficient(player, stack, world, usePos))
+			return ActionResult.SUCCESS;
+
+		Entity entity = entityType.spawnFromItemStack(world, stack, player, spawnPos, SpawnReason.SPAWN_ITEM_USE, true, !Objects.equals(usePos, spawnPos) && direction == Direction.UP);
+		if (entity != null) {
+			stack.decrementUnlessCreative(1, player);
+
+			setEntityData(stack, entity, player);
+
+			world.emitGameEvent(player, GameEvent.ENTITY_PLACE, usePos);
+			playPlaceSound(world, usePos);
+		}
+
+		return ActionResult.CONSUME;
+	}
+
+	protected boolean setCooldownAndCurrencyAndReturnIfInsufficient(@Nullable PlayerEntity player, ItemStack stack, World world, BlockPos usePos) {
 		if (player != null) {
 			boolean wearingPan = isWearingDavesPan(player);
 			if (!wearingPan) {
@@ -191,14 +209,14 @@ public abstract class SeedPacketItem extends Item {
 
 				ItemStack bag = getCurrentBag(player);
 				if (bag != null) {
-					CurrencyComponent currency = bag.get(ModDataComponentTypes.CURRENCY);
-					if (currency != null) {
-						if (currency.amount() < cost) {
+					BagOfCurrencyComponent bagComponent = bag.get(ModDataComponentTypes.BAG_OF_CURRENCY);
+					if (bagComponent != null) {
+						if (bagComponent.amount() < cost) {
 							playBuzzerSound(world, usePos);
-							return ActionResult.SUCCESS;
+							return false;
 						}
 
-						bag.set(ModDataComponentTypes.CURRENCY, new CurrencyComponent(currency.amount() - cost, currency.name()));
+						bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(bagComponent.amount() - cost, bagComponent.name()));
 					}
 				}
 
@@ -208,16 +226,19 @@ public abstract class SeedPacketItem extends Item {
 				}
 			}
 		}
+		return true;
+	}
 
-		if (entityType.spawnFromItemStack(world, stack, player, spawnPos, SpawnReason.SPAWN_ITEM_USE, true, !Objects.equals(usePos, spawnPos) && direction == Direction.UP) != null) {
-			if (!player.getAbilities().creativeMode) {
-				stack.decrement(1);
+	protected void setEntityData(ItemStack stack, Entity entity, @Nullable Entity source) {
+		if (entity instanceof SeedPlacedEntity seedPlacedEntity) {
+			if (source instanceof PlayerEntity player && !player.isCreative()) {
+				seedPlacedEntity.shouldDropSpawnItem = true;
 			}
-			world.emitGameEvent(player, GameEvent.ENTITY_PLACE, usePos);
-			playPlaceSound(world, usePos);
+			else if (!(source instanceof PlayerEntity)) {
+				seedPlacedEntity.shouldDropSpawnItem = true;
+			}
+			seedPlacedEntity.spawnItem = stack.copyWithCount(1);
 		}
-
-		return ActionResult.CONSUME;
 	}
 
 	protected static void sendMessage(PlayerEntity player, Text message) {

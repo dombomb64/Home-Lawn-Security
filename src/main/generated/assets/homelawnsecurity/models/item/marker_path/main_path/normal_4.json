@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "homelawnsecurity:block/lawn_block/main_path/normal_4"
+  }
+}

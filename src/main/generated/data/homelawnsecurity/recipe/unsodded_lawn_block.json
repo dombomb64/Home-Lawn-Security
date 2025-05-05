@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "d": "#homelawnsecurity:recipe/grassless_dirt"
+  },
+  "pattern": [
+    "dd",
+    "dd"
+  ],
+  "result": {
+    "count": 4,
+    "id": "homelawnsecurity:unsodded_lawn_block"
+  }
+}

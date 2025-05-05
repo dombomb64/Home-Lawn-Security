@@ -35,9 +35,8 @@ public class TargetZombieRenderer extends MobEntityRenderer<TargetZombieEntity, 
 	public void updateRenderState(TargetZombieEntity entity, TargetZombieRenderState state, float f) {
 		super.updateRenderState(entity, state, f);
 
-		state.hasLostHeadwear = entity.getHasLostHeadwear();
-		state.hasLostArm = entity.getHasLostArm();
-		state.hasLostHead = entity.getHasLostHead();
+		state.hasLostArm = entity.hasTriggeredDegradationStage("arm");
+		state.hasLostHead = entity.hasTriggeredDegradationStage("head");
 		state.setupAnimationState.copyFrom(entity.setupAnimationState);
 		state.attackAnimationState.copyFrom(entity.attackAnimationState);
 	}

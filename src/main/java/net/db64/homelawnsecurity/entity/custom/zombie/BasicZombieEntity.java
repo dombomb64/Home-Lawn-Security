@@ -1,8 +1,10 @@
 package net.db64.homelawnsecurity.entity.custom.zombie;
 
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieMeleeAttackGoal;
+import net.db64.homelawnsecurity.entity.custom.IDegradableEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
+import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -14,15 +16,17 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
 
-public class BasicZombieEntity extends ZombieEntity implements IPvzEntity {
+import java.util.ArrayList;
+
+public class BasicZombieEntity extends ZombieEntity {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(BasicZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	private static final TrackedData<Boolean> HAS_LOST_HEADWEAR =
+	/*private static final TrackedData<Boolean> HAS_LOST_HEADWEAR =
 		DataTracker.registerData(BasicZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final TrackedData<Boolean> HAS_LOST_ARM =
 		DataTracker.registerData(BasicZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final TrackedData<Boolean> HAS_LOST_HEAD =
-		DataTracker.registerData(BasicZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		DataTracker.registerData(BasicZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);*/
 
 	public final AnimationState setupAnimationState = new AnimationState();
 	//private int setupAnimationTimeout = 0;
@@ -33,6 +37,10 @@ public class BasicZombieEntity extends ZombieEntity implements IPvzEntity {
 
 	public BasicZombieEntity(EntityType<? extends ZombieEntity> entityType, World world) {
 		super(entityType, world);
+
+		ArrayList<DegradationStage> degradationStages = getDegradationStageList();
+		degradationStages.add(new DegradationStage("arm", 180 * IPvzEntity.HEALTH_SCALE, false, ModSounds.ENTITY_ZOMBIE_DETACH_LIMB));
+		degradationStages.add(new DegradationStage("head", 90 * IPvzEntity.HEALTH_SCALE, true, ModSounds.ENTITY_ZOMBIE_DETACH_HEAD));
 	}
 
 	/*
@@ -47,6 +55,11 @@ public class BasicZombieEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
+	public TrackedData<Boolean> getUsingAttackTrackedData() {
+		return USING_ATTACK;
+	}
+
+	/*@Override
 	public float getLoseHeadwearHealth() {
 		return -1;
 	}
@@ -62,11 +75,6 @@ public class BasicZombieEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
-	public TrackedData<Boolean> getUsingAttackTrackedData() {
-		return USING_ATTACK;
-	}
-
-	@Override
 	public TrackedData<Boolean> getHasLostHeadwearTrackedData() {
 		return HAS_LOST_HEADWEAR;
 	}
@@ -79,7 +87,7 @@ public class BasicZombieEntity extends ZombieEntity implements IPvzEntity {
 	@Override
 	public TrackedData<Boolean> getHasLostHeadTrackedData() {
 		return HAS_LOST_HEAD;
-	}
+	}*/
 
 	/*
 		STATS

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "homelawnsecurity:block/lawn_block/unsodded",
+    "side": "homelawnsecurity:block/lawn_block/side_sodded",
+    "top": "homelawnsecurity:block/lawn_block/top_sodded"
+  }
+}

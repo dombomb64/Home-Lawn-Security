@@ -45,5 +45,10 @@ public class ZombieGravestoneRenderer extends MobEntityRenderer<ZombieGravestone
 
 		state.setupAnimationState.copyFrom(entity.setupAnimationState);
 		state.health = entity.getHealth();
+		state.cracks = entity.hasTriggeredDegradationStage("cracks");
+		state.break1 = entity.hasTriggeredDegradationStage("break1");
+		state.break2 = entity.hasTriggeredDegradationStage("break2");
+		state.break3 = entity.hasTriggeredDegradationStage("break3");
+		state.break4 = entity.hasTriggeredDegradationStage("break4");
 	}
 }

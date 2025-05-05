@@ -46,7 +46,7 @@ public class PathSeedPacketItem extends SeedPacketItem {
 		// Check if it's too close to the goal
 		SeedPacketPathfindingEntity entity = new PlantSeedPacketPathfindingEntity(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, world);
 		world.spawnEntity(entity);
-		entity.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entity.getYaw(), entity.getPitch());
+		entity.refreshPositionAndAngles(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), entity.getYaw(), entity.getPitch());
 		entity.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
 
 		// Return if it's too far away from the garden

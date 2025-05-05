@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.entity.ai.zombie;
 
+import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
@@ -60,6 +61,9 @@ public class ZombieMeleeAttackGoal extends Goal {
 			return false;
 		}
 		if (!livingEntity.isAlive()) {
+			return false;
+		}
+		if (mob instanceof ZombieEntity zombie && !zombie.hasHead()) {
 			return false;
 		}
 		if (!this.pauseWhenMobIdle) {

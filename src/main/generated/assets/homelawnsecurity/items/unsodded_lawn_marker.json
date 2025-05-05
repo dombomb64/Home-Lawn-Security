@@ -1,6 +1,170 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "homelawnsecurity:item/unsodded_lawn_marker"
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:select",
+        "block_state_property": "path_id_main",
+        "cases": [
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/lawn_marker/unsodded_path"
+            },
+            "when": "1"
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/lawn_marker/unsodded_path"
+            },
+            "when": "2"
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/lawn_marker/unsodded_path"
+            },
+            "when": "3"
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/lawn_marker/unsodded_path"
+            },
+            "when": "4"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/lawn_marker/unsodded"
+        },
+        "property": "minecraft:block_state"
+      },
+      {
+        "type": "minecraft:select",
+        "block_state_property": "path_id_intersecting",
+        "cases": [
+          {
+            "model": {
+              "type": "minecraft:select",
+              "block_state_property": "path_id_main",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/marker_path/main_path/normal_1"
+                  },
+                  "when": "1"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/marker_path/main_path/normal_2"
+                  },
+                  "when": "2"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/marker_path/main_path/normal_3"
+                  },
+                  "when": "3"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/marker_path/main_path/normal_4"
+                  },
+                  "when": "4"
+                }
+              ],
+              "fallback": {
+                "type": "minecraft:empty"
+              },
+              "property": "minecraft:block_state"
+            },
+            "when": "0"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:select",
+          "block_state_property": "path_id_main",
+          "cases": [
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/marker_path/main_path/intersecting_1"
+              },
+              "when": "1"
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/marker_path/main_path/intersecting_2"
+              },
+              "when": "2"
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/marker_path/main_path/intersecting_3"
+              },
+              "when": "3"
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/marker_path/main_path/intersecting_4"
+              },
+              "when": "4"
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:empty"
+          },
+          "property": "minecraft:block_state"
+        },
+        "property": "minecraft:block_state"
+      },
+      {
+        "type": "minecraft:select",
+        "block_state_property": "path_id_intersecting",
+        "cases": [
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/marker_path/intersecting_path/1"
+            },
+            "when": "1"
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/marker_path/intersecting_path/2"
+            },
+            "when": "2"
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/marker_path/intersecting_path/3"
+            },
+            "when": "3"
+          },
+          {
+            "model": {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/marker_path/intersecting_path/4"
+            },
+            "when": "4"
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:empty"
+        },
+        "property": "minecraft:block_state"
+      }
+    ]
   }
 }

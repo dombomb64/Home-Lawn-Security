@@ -5,10 +5,10 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 public class ZombieGravestoneModel extends EntityModel<ZombieGravestoneRenderState> {
-	private static final float DEGRADE1_HEALTH = 240 * IPvzEntity.HEALTH_SCALE;
-	private static final float DEGRADE2_HEALTH = 200 * IPvzEntity.HEALTH_SCALE;
-	private static final float DEGRADE3_HEALTH = 160 * IPvzEntity.HEALTH_SCALE;
-	private static final float DEGRADE4_HEALTH = 100 * IPvzEntity.HEALTH_SCALE;
+	//private static final float DEGRADE1_HEALTH = 240 * IPvzEntity.HEALTH_SCALE;
+	//private static final float DEGRADE2_HEALTH = 200 * IPvzEntity.HEALTH_SCALE;
+	//private static final float DEGRADE3_HEALTH = 160 * IPvzEntity.HEALTH_SCALE;
+	//private static final float DEGRADE4_HEALTH = 100 * IPvzEntity.HEALTH_SCALE;
 
 	private final ModelPart zombie_gravestone;
 	private final ModelPart dirt;
@@ -65,9 +65,9 @@ public class ZombieGravestoneModel extends EntityModel<ZombieGravestoneRenderSta
 	}
 
 	private void updateVisibleParts(ZombieGravestoneRenderState state) {
-		degrade1.hidden = state.health <= DEGRADE1_HEALTH;
-		degrade2.hidden = state.health <= DEGRADE2_HEALTH;
-		degrade3.hidden = state.health <= DEGRADE3_HEALTH;
-		degrade4.hidden = state.health <= DEGRADE4_HEALTH;
+		degrade1.hidden = state.getBreak1();
+		degrade2.hidden = state.getBreak2();
+		degrade3.hidden = state.getBreak3();
+		degrade4.hidden = state.getBreak4();
 	}
 }

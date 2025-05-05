@@ -1,11 +1,9 @@
 package net.db64.homelawnsecurity.item.custom;
 
-import com.google.common.collect.ImmutableMap;
-import net.db64.homelawnsecurity.block.ModBlocks;
+import net.db64.homelawnsecurity.block.custom.lawn.ILawnBlock;
 import net.db64.homelawnsecurity.component.LawnGadgetComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.sound.ModSounds;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,15 +21,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-import java.util.Map;
-
 public class LawnGadgetItem extends Item {
+	/*@Deprecated
 	protected static final Map<Block, BlockState> STATES_TURF_TOGGLE;
+	@Deprecated
 	protected static final Map<Block, BlockState> STATES_PATH_TOGGLE;
+	@Deprecated
 	protected static final Map<Block, BlockState> STATES_PATH_TYPE;
+	@Deprecated
 	protected static final Map<Block, BlockState> STATES_MARKER_TURF_TOGGLE;
+	@Deprecated
 	protected static final Map<Block, BlockState> STATES_MARKER_PATH_TOGGLE;
-	protected static final Map<Block, BlockState> STATES_MARKER_PATH_TYPE;
+	@Deprecated
+	protected static final Map<Block, BlockState> STATES_MARKER_PATH_TYPE;*/
 
 	public LawnGadgetItem(Settings settings) {
 		super(settings);
@@ -41,14 +43,14 @@ public class LawnGadgetItem extends Item {
 	public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity miner) {
 		if (!world.isClient) {
 			Random random = miner.getRandom();
-			if (miner.isSneaking()) {
+			/*if (miner.isSneaking()) {
 				toggleMarkerMode(miner.getStackInHand(Hand.MAIN_HAND), miner);
 				world.playSound(null, miner.getBlockPos(), ModSounds.ITEM_LAWN_GADGET_SWITCH, SoundCategory.PLAYERS, 0.5f, (random.nextFloat() * 0.4f) + 1.6f);
-			}
-			else {
+			}*/
+			//else {
 				switchMode(miner.getStackInHand(Hand.MAIN_HAND), miner);
 				world.playSound(null, miner.getBlockPos(), ModSounds.ITEM_LAWN_GADGET_SWITCH, SoundCategory.PLAYERS, 0.5f, (random.nextFloat() * 0.4f) + 0.8f);
-			}
+			//}
 		}
 
 		return false;
@@ -73,11 +75,11 @@ public class LawnGadgetItem extends Item {
 		}
 
 		BlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
+		//Block block = state.getBlock();
 
 		String mode = component.mode();
 		// Which map should it use?
-		Map<Block, BlockState> map = switch (mode) {
+		/*Map<Block, BlockState> map = switch (mode) {
 			case "turf_toggle" -> STATES_TURF_TOGGLE;
 			case "path_toggle" -> STATES_PATH_TOGGLE;
 			case "path_type" -> STATES_PATH_TYPE;
@@ -85,13 +87,28 @@ public class LawnGadgetItem extends Item {
 			case "path_toggle_marker" -> STATES_MARKER_PATH_TOGGLE;
 			case "path_type_marker" -> STATES_MARKER_PATH_TYPE;
 			default -> STATES_TURF_TOGGLE;
-		};
+		};*/
 
 		// Set the block state to the new one
-		if (map.containsKey(block)) {
+		/*if (map.containsKey(block)) {
 			world.setBlockState(pos, map.get(block));
 			world.playSound(null, pos, world.getBlockState(pos).getSoundGroup().getPlaceSound(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+		}*/
+
+		if (state.getBlock() instanceof ILawnBlock) {
+			switch (mode) {
+				case "path_type_main", "path_type_main_marker":
+					ILawnBlock.setMainPathId(pos, world, ILawnBlock.getNextMainPathId(state));
+					break;
+				case "path_type_intersecting", "path_type_intersecting_marker":
+					ILawnBlock.setIntersectingPathId(pos, world, ILawnBlock.getNextIntersectingPathId(state));
+					break;
+			}
+			world.playSound(null, pos, world.getBlockState(pos).getSoundGroup().getPlaceSound(), SoundCategory.PLAYERS, 1.0f, 1.0f);
 		}
+		/*else {
+			world.playSound(null, context.getPlayer().getBlockPos(), ModSounds.RANDOM_BUZZER, SoundCategory.PLAYERS, 1.0f, 1.0f);
+		}*/
 
 		return ActionResult.CONSUME;
 	}
@@ -106,13 +123,17 @@ public class LawnGadgetItem extends Item {
 		else { // Component is not null, continue as normal
 			String mode = component.mode();
 			mode = switch (mode) { // case "currentMode": mode = "nextMode";
-				case "turf_toggle" -> "path_toggle";
+				/*case "turf_toggle" -> "path_toggle";
 				case "path_toggle" -> "path_type";
 				case "path_type" -> "turf_toggle";
 				case "turf_toggle_marker" -> "path_toggle_marker";
 				case "path_toggle_marker" -> "path_type_marker";
-				case "path_type_marker" -> "turf_toggle_marker";
-				default -> "turf_toggle";
+				case "path_type_marker" -> "turf_toggle_marker";*/
+				case "path_type_main" -> "path_type_intersecting";
+				case "path_type_intersecting" -> "path_type_main";
+				/*case "path_type_main_marker" -> "path_type_intersecting_marker";
+				case "path_type_intersecting_marker" -> "path_type_main_marker";*/
+				default -> "path_type_main";
 			};
 			stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent(mode));
 			if (entity instanceof PlayerEntity player)
@@ -122,7 +143,7 @@ public class LawnGadgetItem extends Item {
 		}
 	}
 
-	public void toggleMarkerMode(ItemStack stack, LivingEntity entity) {
+	/*public void toggleMarkerMode(ItemStack stack, LivingEntity entity) {
 		LawnGadgetComponent component = stack.get(ModDataComponentTypes.LAWN_GADGET);
 		if (component == null) { // Lawn gadget component is null for some reason, make it the default value
 			setComponentToDefault(stack);
@@ -132,13 +153,17 @@ public class LawnGadgetItem extends Item {
 		else { // Component is not null, continue as normal
 			String mode = component.mode();
 			mode = switch (mode) { // case "currentMode": mode = "nextMode";
-				case "turf_toggle" -> "turf_toggle_marker";
+				/case "turf_toggle" -> "turf_toggle_marker";
 				case "turf_toggle_marker" -> "turf_toggle";
 				case "path_toggle" -> "path_toggle_marker";
 				case "path_toggle_marker" -> "path_toggle";
 				case "path_type" -> "path_type_marker";
-				case "path_type_marker" -> "path_type";
-				default -> "turf_toggle";
+				case "path_type_marker" -> "path_type";/
+				case "path_type_main" -> "path_type_main_marker";
+				case "path_type_main_marker" -> "path_type_main";
+				case "path_type_intersecting" -> "path_type_intersecting_marker";
+				case "path_type_intersecting_marker" -> "path_type_intersecting";
+				default -> "path_type_main";
 			};
 			stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent(mode));
 			if (entity instanceof PlayerEntity player)
@@ -146,17 +171,17 @@ public class LawnGadgetItem extends Item {
 					Text.translatable(getTranslationKey() + ".switch",
 						Text.translatable(getTranslationKey() + ".mode." + mode)));
 		}
-	}
+	}*/
 
 	public void setComponentToDefault(ItemStack stack) {
-		stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("turf_toggle"));
+		stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("path_type_main"));
 	}
 
 	private static void sendMessage(PlayerEntity player, Text message) {
 		((ServerPlayerEntity) player).sendMessageToClient(message, true);
 	}
 
-	public static boolean shouldRevealMarkers(ItemStack stack) {
+	/*public static boolean shouldRevealMarkers(ItemStack stack) {
 		LawnGadgetComponent component = stack.get(ModDataComponentTypes.LAWN_GADGET);
 		if (component == null) { // Lawn gadget component is null for some reason
 			return false;
@@ -164,9 +189,9 @@ public class LawnGadgetItem extends Item {
 		else { // Component is not null, continue as normal
 			return component.mode().endsWith("_marker");
 		}
-	}
+	}*/
 
-	static {
+	/*static {
 		// Blocks
 
 		STATES_TURF_TOGGLE = new ImmutableMap.Builder<Block, BlockState>()
@@ -262,5 +287,5 @@ public class LawnGadgetItem extends Item {
 			.put(ModBlocks.ZOMBIE_PATH_MARKER_CROSS, ModBlocks.ZOMBIE_PATH_MARKER_1.getDefaultState())
 
 			.build();
-	}
+	}*/
 }

@@ -1,24 +1,15 @@
 package net.db64.homelawnsecurity.block.custom;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.item.custom.LawnGadgetItem;
-import net.db64.homelawnsecurity.particle.ModParticles;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -26,11 +17,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
-
-import java.util.List;
 
 public class MarkerBlock extends Block implements Waterloggable {
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
@@ -52,7 +40,7 @@ public class MarkerBlock extends Block implements Waterloggable {
 				//HomeLawnSecurity.LOGGER.info("player found by marker block");
 
 				for (ItemStack stack : player.getHandItems()) {
-					if (stack.isIn(ModTags.Items.MARKERS)) {
+					if (stack.isIn(ModTags.Items.REVEALS_MARKERS)) {
 						world.spawnParticles(player, new BlockStateParticleEffect(ModParticles.MARKER, state), true, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 1, 0, 0, 0, 0);
 
 						//HomeLawnSecurity.LOGGER.info("holding marker item");
@@ -89,7 +77,13 @@ public class MarkerBlock extends Block implements Waterloggable {
 		if (!(context instanceof EntityShapeContext entityContext)) return VoxelShapes.empty();
 
 		ItemStack stack = entityContext.heldItem;
-		return (stack.isIn(ModTags.Items.MARKERS) || (stack.getItem() instanceof LawnGadgetItem && LawnGadgetItem.shouldRevealMarkers(stack)))
+		Entity entity = entityContext.getEntity();
+
+		if (entity != null)
+			return shouldRevealMarkers(stack, entity.isSneaking())
+				? VoxelShapes.fullCube() : VoxelShapes.empty();
+
+		return shouldRevealMarkers(stack)
 			? VoxelShapes.fullCube() : VoxelShapes.empty();
 	}
 
@@ -131,6 +125,16 @@ public class MarkerBlock extends Block implements Waterloggable {
 
 	@Override
 	public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
-		return super.getPickStack(world, pos, state, includeData);
+		ItemStack stack = new ItemStack(this.asItem());
+		return stack;
+	}
+
+	public static boolean shouldRevealMarkers(ItemStack stack, boolean isSneaking) {
+		return stack.isIn(ModTags.Items.REVEALS_MARKERS)
+			|| (isSneaking && stack.isIn(ModTags.Items.REVEALS_MARKERS_WHILE_SNEAKING));
+	}
+
+	public static boolean shouldRevealMarkers(ItemStack stack) {
+		return shouldRevealMarkers(stack, false);
 	}
 }

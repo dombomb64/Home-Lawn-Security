@@ -2,23 +2,11 @@
   "values": [
     "homelawnsecurity:garden_block",
     "homelawnsecurity:graveyard_block",
-    "homelawnsecurity:lawn_block",
-    "homelawnsecurity:fertile_path_block_1",
-    "homelawnsecurity:fertile_path_block_2",
-    "homelawnsecurity:fertile_path_block_cross",
-    "homelawnsecurity:zombie_path_block_1",
-    "homelawnsecurity:zombie_path_block_2",
-    "homelawnsecurity:zombie_path_block_cross",
+    "homelawnsecurity:sodded_lawn_block",
     "homelawnsecurity:unsodded_lawn_block",
     "homelawnsecurity:garden_marker",
     "homelawnsecurity:graveyard_marker",
-    "homelawnsecurity:lawn_marker",
-    "homelawnsecurity:fertile_path_marker_1",
-    "homelawnsecurity:fertile_path_marker_2",
-    "homelawnsecurity:fertile_path_marker_cross",
-    "homelawnsecurity:zombie_path_marker_1",
-    "homelawnsecurity:zombie_path_marker_2",
-    "homelawnsecurity:zombie_path_marker_cross",
+    "homelawnsecurity:sodded_lawn_marker",
     "homelawnsecurity:unsodded_lawn_marker"
   ]
 }

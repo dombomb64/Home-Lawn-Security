@@ -1,0 +1,79 @@
+{
+  "variants": {
+    "path_id_intersecting=0,path_id_main=0": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_0_0"
+    },
+    "path_id_intersecting=0,path_id_main=1": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_1_0"
+    },
+    "path_id_intersecting=0,path_id_main=2": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_2_0"
+    },
+    "path_id_intersecting=0,path_id_main=3": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_3_0"
+    },
+    "path_id_intersecting=0,path_id_main=4": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_4_0"
+    },
+    "path_id_intersecting=1,path_id_main=0": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_0_1"
+    },
+    "path_id_intersecting=1,path_id_main=1": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_1_1"
+    },
+    "path_id_intersecting=1,path_id_main=2": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_2_1"
+    },
+    "path_id_intersecting=1,path_id_main=3": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_3_1"
+    },
+    "path_id_intersecting=1,path_id_main=4": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_4_1"
+    },
+    "path_id_intersecting=2,path_id_main=0": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_0_2"
+    },
+    "path_id_intersecting=2,path_id_main=1": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_1_2"
+    },
+    "path_id_intersecting=2,path_id_main=2": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_2_2"
+    },
+    "path_id_intersecting=2,path_id_main=3": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_3_2"
+    },
+    "path_id_intersecting=2,path_id_main=4": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_4_2"
+    },
+    "path_id_intersecting=3,path_id_main=0": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_0_3"
+    },
+    "path_id_intersecting=3,path_id_main=1": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_1_3"
+    },
+    "path_id_intersecting=3,path_id_main=2": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_2_3"
+    },
+    "path_id_intersecting=3,path_id_main=3": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_3_3"
+    },
+    "path_id_intersecting=3,path_id_main=4": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_4_3"
+    },
+    "path_id_intersecting=4,path_id_main=0": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_0_4"
+    },
+    "path_id_intersecting=4,path_id_main=1": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_1_4"
+    },
+    "path_id_intersecting=4,path_id_main=2": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_2_4"
+    },
+    "path_id_intersecting=4,path_id_main=3": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_3_4"
+    },
+    "path_id_intersecting=4,path_id_main=4": {
+      "model": "homelawnsecurity:block/sodded_lawn_block_4_4"
+    }
+  }
+}

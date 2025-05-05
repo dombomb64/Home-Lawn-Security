@@ -8,7 +8,8 @@
 		"ItemStackMixin",
 		"LivingEntityMixin",
 		"PlayerEntityMixin",
-		"ServerPlayerInteractionManagerMixin"
+		"ServerPlayerInteractionManagerMixin",
+		"ShearsItemMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -1,5 +1,7 @@
 package net.db64.homelawnsecurity.entity.custom.other;
 
+import net.db64.homelawnsecurity.block.ModBlocks;
+import net.db64.homelawnsecurity.entity.custom.IDegradableEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.util.ModTags;
@@ -12,20 +14,27 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class TargetZombieEntity extends ZombieEntity implements IPvzEntity {
+import java.util.ArrayList;
+
+public class TargetZombieEntity extends ZombieEntity implements IDegradableEntity {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(TargetZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-	private static final TrackedData<Boolean> HAS_LOST_HEADWEAR =
+	/*private static final TrackedData<Boolean> HAS_LOST_HEADWEAR =
 		DataTracker.registerData(TargetZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final TrackedData<Boolean> HAS_LOST_ARM =
 		DataTracker.registerData(TargetZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	private static final TrackedData<Boolean> HAS_LOST_HEAD =
-		DataTracker.registerData(TargetZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+		DataTracker.registerData(TargetZombieEntity.class, TrackedDataHandlerRegistry.BOOLEAN);*/
 
 	public final AnimationState setupAnimationState = new AnimationState();
 	//private int setupAnimationTimeout = 0;
@@ -38,14 +47,19 @@ public class TargetZombieEntity extends ZombieEntity implements IPvzEntity {
 		super(entityType, world);
 	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		tickDegradation(this);
+	}
+
 	public static boolean isPlaceable(BlockPos pos, World world) {
-		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
 		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.TARGET_ZOMBIE_PLACEABLE_MARKERS);
+			return markerState.getBlock() == ModBlocks.GRAVEYARD_MARKER;
 		}
-		return state.isIn(ModTags.Blocks.TARGET_ZOMBIE_PLACEABLE);
+		return world.getBlockState(pos).getBlock() == ModBlocks.GRAVEYARD_BLOCK;
 	}
 
 	@Nullable
@@ -53,6 +67,18 @@ public class TargetZombieEntity extends ZombieEntity implements IPvzEntity {
 	protected SoundEvent getAmbientSound() {
 		return null;
 	}
+
+	@Override
+	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
+		// Don't let the player duplicate target zombies
+		return ActionResult.PASS;
+	}
+
+	/*
+		BLOCKS
+	 */
+
+
 
 	/*
 		ANIMATIONS
@@ -66,6 +92,18 @@ public class TargetZombieEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
+	public TrackedData<Boolean> getUsingAttackTrackedData() {
+		return USING_ATTACK;
+	}
+
+	ArrayList<DegradationStage> degradationStages = new ArrayList<>();
+
+	@Override
+	public ArrayList<DegradationStage> getDegradationStageList() {
+		return degradationStages;
+	}
+
+	/*@Override
 	public float getLoseHeadwearHealth() {
 		return -1;
 	}
@@ -81,11 +119,6 @@ public class TargetZombieEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
-	public TrackedData<Boolean> getUsingAttackTrackedData() {
-		return USING_ATTACK;
-	}
-
-	@Override
 	public TrackedData<Boolean> getHasLostHeadwearTrackedData() {
 		return HAS_LOST_HEADWEAR;
 	}
@@ -98,7 +131,7 @@ public class TargetZombieEntity extends ZombieEntity implements IPvzEntity {
 	@Override
 	public TrackedData<Boolean> getHasLostHeadTrackedData() {
 		return HAS_LOST_HEAD;
-	}
+	}*/
 
 	/*
 		STATS

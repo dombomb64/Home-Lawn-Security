@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#homelawnsecurity:recipe/turf_grass",
+    "#homelawnsecurity:recipe/turf_grass",
+    "#homelawnsecurity:recipe/turf_grass",
+    "#homelawnsecurity:recipe/turf_grass",
+    "minecraft:gravel"
+  ],
+  "result": {
+    "count": 4,
+    "id": "homelawnsecurity:turf"
+  }
+}

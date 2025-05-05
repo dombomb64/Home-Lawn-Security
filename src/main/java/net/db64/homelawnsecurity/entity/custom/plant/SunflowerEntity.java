@@ -5,7 +5,6 @@ import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
 import net.db64.homelawnsecurity.item.ModItems;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -18,7 +17,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
@@ -69,7 +68,7 @@ public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPla
 	public void tick() {
 		super.tick();
 
-		if (getWorld() instanceof ClientWorld) {
+		if (!(getWorld() instanceof ServerWorld)) {
 			return;
 		}
 

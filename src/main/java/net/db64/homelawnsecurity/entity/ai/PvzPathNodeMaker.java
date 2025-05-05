@@ -24,9 +24,8 @@ public class PvzPathNodeMaker extends LandPathNodeMaker {
 			pos = pos.down();
 		}
 
-		if ((pathBoundEntity.isPathOrGoal(entity.getBlockPos().down()) // Standing on path (so that it can get back on track)
-			|| pathBoundEntity.isStart(entity.getBlockPos().down())) // Standing on path
-			&& !pathBoundEntity.isPathOrGoal(pos)) // Block is not path
+		if (pathBoundEntity.isWalkable(entity.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			&& !pathBoundEntity.isWalkable(pos)) // Block is not path
 
 			return PathNodeType.BLOCKED;
 
@@ -39,12 +38,10 @@ public class PvzPathNodeMaker extends LandPathNodeMaker {
 	}
 
 	public static PathNodeType getPvzNodeType(PathContext context, BlockPos.Mutable pos, PathAwareEntity entity) {
-		if (!(entity instanceof IPathBoundEntity)) {
+		if (!(entity instanceof IPathBoundEntity pathBoundEntity)) {
 			HomeLawnSecurity.LOGGER.error("Entities using PvzNavigation must implement IPathBoundEntity!");
 			return PathNodeType.BLOCKED;
 		}
-
-		IPathBoundEntity pathBoundEntity = (IPathBoundEntity) entity;
 
 		int i = pos.getX();
 		int j = pos.getY();
@@ -60,9 +57,8 @@ public class PvzPathNodeMaker extends LandPathNodeMaker {
 
 		PathNodeType pathNodeType;
 
-		if ((pathBoundEntity.isPathOrGoal(entity.getBlockPos().down()) // Standing on path (so that it can get back on track)
-			|| pathBoundEntity.isStart(entity.getBlockPos().down())) // Standing on path
-			&& !pathBoundEntity.isPathOrGoal(pos2)) { // Block is not path
+		if (pathBoundEntity.isWalkable(entity.getSteppingPos()) // Standing on path (so that it can get back on track)
+			&& !pathBoundEntity.isWalkable(pos2)) { // Block is not path
 			pathNodeType = PathNodeType.BLOCKED;
 		}
 		else {

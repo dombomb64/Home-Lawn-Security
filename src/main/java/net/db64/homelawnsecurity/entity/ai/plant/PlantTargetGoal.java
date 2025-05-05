@@ -2,7 +2,9 @@ package net.db64.homelawnsecurity.entity.ai.plant;
 
 import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
+import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
+import net.db64.homelawnsecurity.util.LawnUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -27,43 +29,42 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 
 		float range = ((PlantEntity) mob).onPath ? attackRangePath : attackRange;
 
-		/*HomeLawnSecurity.LOGGER.info("range: {}, in range: {}", range, (Math.abs(mob.getX() - entity.getX()) < range)
-			&& (Math.abs(mob.getY() - entity.getY()) < range)
-			&& (Math.abs(mob.getZ() - entity.getZ()) < range));*/
+		/*HomeLawnSecurity.LOGGER.info("range: {}, in range: {}", range, (Math.abs(mob.getBlockX() - entity.getBlockX()) <= range)
+			&& (Math.abs(mob.getBlockY() - entity.getBlockY()) <= range)
+			&& (Math.abs(mob.getBlockZ() - entity.getBlockZ()) <= range));*/
 
-		return (Math.abs(mob.getX() - entity.getX()) < range)
-			&& (Math.abs(mob.getY() - entity.getY()) < range)
-			&& (Math.abs(mob.getZ() - entity.getZ()) < range);
+		return (Math.abs(mob.getBlockX() - entity.getBlockX()) <= range)
+			&& (Math.abs(mob.getBlockY() - entity.getBlockY()) <= range)
+			&& (Math.abs(mob.getBlockZ() - entity.getBlockZ()) <= range);
 	};
 
 	public Predicate<LivingEntity> intersectionPredicate = entity -> {
 		boolean result = false;
 
-		for (int pathId = 1; pathId <= 2; pathId++) {
+		for (int i = 1; i <= 2; i++) {
+			int mainPathId = LawnUtil.getMainPathId(entity.getBlockPos(), entity.getWorld());
+			int intersectingPathId = LawnUtil.getIntersectingPathId(entity.getBlockPos(), entity.getWorld());
+			//int pathId = i == 1 ? mainPathId : intersectingPathId;
+			int otherPathId = i == 1 ? intersectingPathId : mainPathId;
+
 			// Find paths to the enemy and to the goal
 			Path targetPath = mob.getNavigation().findPathTo(entity, 1);
 			Path goalPath = findGoalPath();
 			if (targetPath == null || goalPath == null) {
-				((PlantEntity) mob).switchPathTag();
+				((PlantEntity) mob).setPathId(otherPathId);
 				continue;
 			}
 			//HomeLawnSecurity.LOGGER.info("targetPath: {}, goalPath: {}", targetPath, goalPath);
 
-			/*// Get the path node that the enemy is at and get its position
-			PathNode targetNode = targetPath.getEnd();
-			if (targetNode == null) {
-				((PlantEntity) mob).switchPathTag();
-				continue;
-			}
-			BlockPos targetPos = targetNode.getBlockPos();*/
+			// Get the position of the enemy
 			BlockPos targetPos = targetPath.getTarget();
 			//HomeLawnSecurity.LOGGER.info("targetPos: {}", targetPos.toString());
 
 			// Go through the goal path and see if the enemy is in front or not
-			if (targetPos.equals(entity.getBlockPos())) return true;
-			for (int i = 0; i < goalPath.getLength(); i++) {
-				//HomeLawnSecurity.LOGGER.info("checking for if goalPath has position {} at node #{}", targetPos.toShortString(), i);
-				if (goalPath.getNode(i).getBlockPos().equals(targetPos)) {
+			if (goalPath.getTarget().equals(entity.getBlockPos())) return true; // *tells predicate to return true if the pos at the end of the path to the enemy is the same as the enemy's pos* "Why is it ignoring the pathfinding part of the predicate?" -Me, apparently
+			for (int j = 0; j < goalPath.getLength(); j++) {
+				//HomeLawnSecurity.LOGGER.info("checking for if goalPath has position {} at node #{}", targetPos.toShortString(), j);
+				if (goalPath.getNode(j).getBlockPos().equals(targetPos)) {
 					//HomeLawnSecurity.LOGGER.info("goalPath does share a node position with targetPos");
 
 					result = true;
@@ -73,7 +74,7 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 
 			// We switch the path because we need to trick the pathfinding into looking down the other path
 			// And we do it in such a way that it triggers exactly twice
-			((PlantEntity) mob).switchPathTag();
+			((PlantEntity) mob).setPathId(otherPathId);
 		}
 
 		return result;
@@ -84,11 +85,16 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 
 		//HomeLawnSecurity.LOGGER.info("checking pathPredicate");
 
-		if (((PlantEntity) mob).onIntersection)
+		if (mob instanceof PlantEntity plant && !plant.onPath) {
+			// This plant is not on a path, behave as such
+			return !(entity instanceof TargetZombieEntity);
+		}
+
+		if (LawnUtil.getIntersectingPathId(entity.getBlockPos().down(), entity.getWorld()) != 0)
 			// This plant needs to target entities on both paths, redirect them to a different predicate
 			return intersectionPredicate.test(entity);
 
-		if (!(entity instanceof IPathBoundEntity) || !((IPathBoundEntity) mob).getPathTagNbt().equals(((IPathBoundEntity) entity).getPathTagNbt()))
+		if (!(entity instanceof IPathBoundEntity) || ((IPathBoundEntity) mob).getPathId() != ((IPathBoundEntity) entity).getPathId())
 			// It's on a different path, the enemy is of no concern
 			return false;
 		//HomeLawnSecurity.LOGGER.info("pathTag of mob ({}) is the same as pathTag of entity ({})", ((IPathBoundEntity) mob).getPathTagNbt(), ((IPathBoundEntity) entity).getPathTagNbt());
@@ -99,15 +105,12 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 		if (targetPath == null || goalPath == null) return false;
 		//HomeLawnSecurity.LOGGER.info("targetPath: {}, goalPath: {}", targetPath, goalPath);
 
-		/*// Get the path node that the enemy is at and get its position
-		PathNode targetNode = targetPath.getEnd();
-		if (targetNode == null) return false;
-		BlockPos targetPos = targetNode.getBlockPos();*/
+		// Get the position of the enemy
 		BlockPos targetPos = targetPath.getTarget();
 		//HomeLawnSecurity.LOGGER.info("targetPos: {}", targetPos.toString());
 
 		// Go through the goal path and see if the enemy is in front or not
-		if (targetPos.equals(entity.getBlockPos())) return true;
+		if (goalPath.getTarget().equals(entity.getBlockPos())) return true; // *tells predicate to return true if the pos at the end of the path to the enemy is the same as the enemy's pos* "Why is it ignoring the pathfinding part of the predicate?" -Me, apparently
 		for (int i = 0; i < goalPath.getLength(); i++) {
 			//HomeLawnSecurity.LOGGER.info("checking for if goalPath has position {} at node #{}", targetPos.toShortString(), i);
 			if (goalPath.getNode(i).getBlockPos().equals(targetPos)) {
@@ -150,7 +153,9 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 				&& pathPredicate.test(targetEntity);
 		}*/
 
-		return (targetEntity == null || rangePredicate.test(targetEntity))
+		if (targetEntity != null && (!rangePredicate.test(targetEntity) || !pathPredicate.test(targetEntity)))
+			mob.setTarget(null);
+		return (targetEntity == null || rangePredicate.test(targetEntity) && pathPredicate.test(targetEntity))
 			&& super.shouldContinue();
 	}
 
@@ -167,38 +172,21 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 
 	@Override
 	protected boolean canTrack(@Nullable LivingEntity target, TargetPredicate targetPredicate) {
-		if (target != null && ((PlantEntity) mob).onPath) {
-			return super.canTrack(target, targetPredicate) && rangePredicate.test(target) && pathPredicate.test(target);
-		}
-
-		return super.canTrack(target, targetPredicate) && rangePredicate.test(target);
+		return super.canTrack(target, targetPredicate) && rangePredicate.test(target) && pathPredicate.test(target);
 	}
 
 	protected void findClosestTarget() {
 		ServerWorld serverWorld = getServerWorld(this.mob);
 		if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class) {
-			if (((PlantEntity) mob).onPath) {
-				this.targetEntity = serverWorld.getClosestEntity(
-					this.mob.getWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
-						livingEntity -> rangePredicate.test(livingEntity) && pathPredicate.test(livingEntity)),
-					this.getAndUpdateTargetPredicate(),
-					this.mob,
-					this.mob.getX(),
-					this.mob.getEyeY(),
-					this.mob.getZ()
-				);
-			}
-			else {
-				this.targetEntity = serverWorld.getClosestEntity(
-					this.mob.getWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
-						livingEntity -> !(livingEntity instanceof TargetZombieEntity) && rangePredicate.test(livingEntity)),
-					this.getAndUpdateTargetPredicate(),
-					this.mob,
-					this.mob.getX(),
-					this.mob.getEyeY(),
-					this.mob.getZ()
-				);
-			}
+			this.targetEntity = serverWorld.getClosestEntity(
+				this.mob.getWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
+					livingEntity -> rangePredicate.test(livingEntity) && pathPredicate.test(livingEntity)),
+				this.getAndUpdateTargetPredicate(),
+				this.mob,
+				this.mob.getX(),
+				this.mob.getEyeY(),
+				this.mob.getZ()
+			);
 		} else {
 			this.targetEntity = serverWorld.getClosestPlayer(this.getAndUpdateTargetPredicate(), this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
 		}
@@ -212,7 +200,7 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 	private Path findGoalPath() {
 		int rangeH = 16;
 		int rangeV = 5;
-		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(mob.getBlockPos(), rangeH, rangeV, rangeH);
+		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(mob.getSteppingPos().up(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("plant is checking for if the block at {}, {}, {} is a goal", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			if (!((IPathBoundEntity) mob).isGoal(blockPos.down())) continue;

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "homelawnsecurity:unsodded_lawn_block",
+    "homelawnsecurity:turf",
+    "#minecraft:small_flowers"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:garden_block"
+  }
+}

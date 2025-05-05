@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:iron_ingot",
+    "minecraft:red_dye",
+    "#minecraft:stone_crafting_materials",
+    "#minecraft:coals"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:lawn_mower"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "homelawnsecurity:sodded_lawn_marker",
+    "#minecraft:small_flowers"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:garden_marker"
+  }
+}

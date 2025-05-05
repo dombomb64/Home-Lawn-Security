@@ -1,4 +1,9 @@
-// 1.21.4	-999999999-01-01T00:00:00	Home Lawn Security/Tags for minecraft:item
+// 1.21.5	-999999999-01-01T00:00:00	Home Lawn Security/Tags for minecraft:item
 cc97563368b506df4fe59a22a531b7c9e10c85e3 data/homelawnsecurity/tags/item/bag_of_brainpower.json
 263769f71b672e568f6309a41f39edefe5f3281b data/homelawnsecurity/tags/item/bag_of_sun.json
-88fb3609653c40ff26568302560b8989b6ea129a data/homelawnsecurity/tags/item/markers.json
+c7500f481948159c566ddedb8a200fe63a413a56 data/homelawnsecurity/tags/item/plant_feedable_for_duplicate.json
+b9d6e9c93a5650fda7704fd237f6def15314f86e data/homelawnsecurity/tags/item/recipe/grassless_dirt.json
+5b23d322ef0fdc4526dd9078960ab79be9842556 data/homelawnsecurity/tags/item/recipe/turf_grass.json
+ff2c49951aba25427c496c7ddecd2ad2597b4145 data/homelawnsecurity/tags/item/reveals_markers.json
+ff2a66028626a1e351f933ad63204b6c574dcab0 data/homelawnsecurity/tags/item/reveals_markers_while_sneaking.json
+6fab22a5d247917f8b17c204b9dccfd26a8a8b72 data/homelawnsecurity/tags/item/zombie_feedable_for_duplicate.json

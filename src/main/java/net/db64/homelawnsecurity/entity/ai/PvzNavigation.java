@@ -61,12 +61,12 @@ public class PvzNavigation extends MobNavigation {
 	protected void adjustPath() {
 		super.adjustPath();
 		ZombieEntity zombie = (ZombieEntity) this.entity;
-		if (zombie.isPath(!this.world.getBlockState(BlockPos.ofFloored(this.entity.getX(), this.entity.getY() + 0.5, this.entity.getZ())))) {
+		if (zombie.isCertainPath(!this.world.getBlockState(BlockPos.ofFloored(this.entity.getX(), this.entity.getY() + 0.5, this.entity.getZ())))) {
 			return;
 		}
 		for (int i = 0; i < this.currentPath.getLength(); ++i) {
 			PathNode pathNode = this.currentPath.getNode(i);
-			if (zombie.isPath(this.world.getBlockState(new BlockPos(pathNode.x, pathNode.y, pathNode.z)))) continue;
+			if (zombie.isCertainPath(this.world.getBlockState(new BlockPos(pathNode.x, pathNode.y, pathNode.z)))) continue;
 			this.currentPath.setLength(i);
 			return;
 		}

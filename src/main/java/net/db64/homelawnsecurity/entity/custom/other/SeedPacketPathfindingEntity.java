@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.entity.custom.other;
 import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
 import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
+import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -23,8 +24,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implements IPathBoundEntity {
+	public int pathId = 1;
+
+	/*@Deprecated
 	public TagKey<Block> pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
-	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
+	@Deprecated
+	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;*/
 
 	protected SeedPacketPathfindingEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
@@ -36,16 +41,17 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 		EntityData result = super.initialize(world, difficulty, spawnReason, entityData);
 
 		//HomeLawnSecurity.LOGGER.info("new seed packet pathfinding entity");
-		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getBlockPos().down(), 5, 5, 5);
+		BlockPos pos = getSteppingPos();
+		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(pos, 5, 5, 5);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
-			if (isPath(blockPos)) {
-				//HomeLawnSecurity.LOGGER.info("path a");
-				break;
-			}
-			if (isOtherPath(blockPos)) {
-				//HomeLawnSecurity.LOGGER.info("path b");
-				switchPathTag();
+			if (LawnUtil.isAnyPath(blockPos, getWorld())) {
+				for (int i = 1; i <= LawnUtil.getPathTypeAmount(); i++) {
+					if (LawnUtil.isCertainPath(blockPos, getWorld(), i)) {
+						//HomeLawnSecurity.LOGGER.info("path {}", i);
+						pathId = i;
+					}
+				}
 				break;
 			}
 			//HomeLawnSecurity.LOGGER.info("not a path");
@@ -61,39 +67,33 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 		discard();
 	}*/
 
+
+
+	public int getPathId() {
+		return pathId;
+	}
+
+	public void setPathId(int pathId) {
+		this.pathId = pathId;
+	}
+
+	public boolean isWalkable(BlockPos pos) {
+		return LawnUtil.isWalkable(pos, getWorld(), pathId, false);
+	}
+
+	public boolean isThisPath(BlockPos pos) {
+		return isCertainPath(pos, pathId);
+	}
+
+	public boolean isCertainPath(BlockPos pos, int pathId) {
+		return LawnUtil.isCertainPath(pos, getWorld(), pathId);
+	}
+
+
+
 	@Override
 	public void checkDespawn() {
 		this.discard();
-	}
-
-	public TagKey<Block> iGetPathTag() {
-		return pathTag;
-	}
-
-	public void iSetPathTag(TagKey<Block> value) {
-		pathTag = value;
-	}
-
-	public TagKey<Block> iGetPathMarkerTag() {
-		return pathMarkerTag;
-	}
-
-	public void iSetPathMarkerTag(TagKey<Block> value) {
-		pathMarkerTag = value;
-	}
-
-	@Override
-	public World iGetWorld() {
-		return getWorld();
-	}
-
-	public void iStopNavigation() {
-		navigation.stop();
-	}
-
-	@Override
-	public Entity iGetSelf() {
-		return this;
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 	public Path findPathToGoal(int searchDistance) {
 		int rangeH = searchDistance;
 		int rangeV = 5;
-		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getBlockPos(), rangeH, rangeV, rangeH);
+		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getSteppingPos().up(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("seed packet is checking for if the block at {}, {}, {} is a goal", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			if (!isGoal(blockPos.down())) continue;
@@ -130,7 +130,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 	public Path findPathToStart(int searchDistance) {
 		int rangeH = searchDistance;
 		int rangeV = 5;
-		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getBlockPos(), rangeH, rangeV, rangeH);
+		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getSteppingPos().up(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("seed packet is checking for if the block at {}, {}, {} is a start", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			if (!isStart(blockPos.down())) continue;

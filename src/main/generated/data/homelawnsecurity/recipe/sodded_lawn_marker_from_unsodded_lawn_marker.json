@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "homelawnsecurity:turf",
+    "homelawnsecurity:unsodded_lawn_marker"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:sodded_lawn_marker"
+  }
+}

@@ -3,8 +3,13 @@ package net.db64.homelawnsecurity.block;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.block.custom.CurrencySpawnerBlock;
 import net.db64.homelawnsecurity.block.custom.MarkerBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnBlockBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnMarkerBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.UnsoddedLawnBlockBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.UnsoddedLawnMarkerBlock;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.minecraft.block.*;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
@@ -18,33 +23,37 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ModBlocks {
-	public static final Block GARDEN_BLOCK = register("garden_block", settings ->
-		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.MOSS_BLOCK), List.of(
+	public static final Block GARDEN_BLOCK = register("garden_block", Block::new,
+		AbstractBlock.Settings.copyShallow(Blocks.MOSS_BLOCK), List.of(
 			Text.translatable("tooltip.block.homelawnsecurity.garden")));
-	public static final Block GRAVEYARD_BLOCK = register("graveyard_block", settings ->
-		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.MOSS_BLOCK), List.of(
+	public static final Block GRAVEYARD_BLOCK = register("graveyard_block", Block::new,
+		AbstractBlock.Settings.copyShallow(Blocks.MOSS_BLOCK), List.of(
 			Text.translatable("tooltip.block.homelawnsecurity.graveyard")));
 
-	public static final Block LAWN_BLOCK = register("lawn_block", settings ->
+	/*public static final Block LAWN_BLOCK = register("lawn_block", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.WART_BLOCK), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants")));
 
 	public static final Block FERTILE_PATH_BLOCK_1 = register("fertile_path_block_1", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.MUDDY_MANGROVE_ROOTS), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block FERTILE_PATH_BLOCK_2 = register("fertile_path_block_2", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.MUDDY_MANGROVE_ROOTS), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block FERTILE_PATH_BLOCK_CROSS = register("fertile_path_block_cross", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.MUDDY_MANGROVE_ROOTS), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
@@ -52,36 +61,48 @@ public class ModBlocks {
 
 	public static final Block ZOMBIE_PATH_BLOCK_1 = register("zombie_path_block_1", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.ROOTED_DIRT), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block ZOMBIE_PATH_BLOCK_2 = register("zombie_path_block_2", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.ROOTED_DIRT), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block ZOMBIE_PATH_BLOCK_CROSS = register("zombie_path_block_cross", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.ROOTED_DIRT), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
 			Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 
 	public static final Block UNSODDED_LAWN_BLOCK = register("unsodded_lawn_block", settings ->
 		new Block(settings), AbstractBlock.Settings.copyShallow(Blocks.DIRT).sounds(BlockSoundGroup.GRAVEL), List.of(
+			ModItems.OBSOLETE,
 			Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
-			Text.translatable("tooltip.block.homelawnsecurity.placement.none")));
+			Text.translatable("tooltip.block.homelawnsecurity.placement.none")));*/
 
-	public static final Block GARDEN_MARKER = register("garden_marker", settings ->
-		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.MOSS_BLOCK).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+	public static final Block SODDED_LAWN_BLOCK = register("sodded_lawn_block", SoddedLawnBlockBlock::new,
+		AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.WART_BLOCK), List.of(
+		Text.translatable("tooltip.block.homelawnsecurity.lawn_block")));
+	public static final Block UNSODDED_LAWN_BLOCK = register("unsodded_lawn_block", UnsoddedLawnBlockBlock::new,
+		AbstractBlock.Settings.copyShallow(Blocks.DIRT).sounds(BlockSoundGroup.GRAVEL), List.of(
+		Text.translatable("tooltip.block.homelawnsecurity.lawn_block")));
+
+	public static final Block GARDEN_MARKER = register("garden_marker", MarkerBlock::new,
+		AbstractBlock.Settings.create().sounds(BlockSoundGroup.MOSS_BLOCK).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.garden")));
-	public static final Block GRAVEYARD_MARKER = register("graveyard_marker", settings ->
-		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.MOSS_BLOCK).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+	public static final Block GRAVEYARD_MARKER = register("graveyard_marker", MarkerBlock::new,
+		AbstractBlock.Settings.create().sounds(BlockSoundGroup.MOSS_BLOCK).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.graveyard")));
 
-	public static final Block LAWN_MARKER = register("lawn_marker", settings ->
+	/*public static final Block LAWN_MARKER = register("lawn_marker", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.NETHER_SPROUTS).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
@@ -89,6 +110,7 @@ public class ModBlocks {
 
 	public static final Block FERTILE_PATH_MARKER_1 = register("fertile_path_marker_1", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.HANGING_ROOTS).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
@@ -96,6 +118,7 @@ public class ModBlocks {
 		Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block FERTILE_PATH_MARKER_2 = register("fertile_path_marker_2", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.HANGING_ROOTS).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
@@ -103,6 +126,7 @@ public class ModBlocks {
 		Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block FERTILE_PATH_MARKER_CROSS = register("fertile_path_marker_cross", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.HANGING_ROOTS).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.lawn_plants"),
@@ -111,18 +135,21 @@ public class ModBlocks {
 
 	public static final Block ZOMBIE_PATH_MARKER_1 = register("zombie_path_marker_1", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.HANGING_ROOTS).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block ZOMBIE_PATH_MARKER_2 = register("zombie_path_marker_2", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.HANGING_ROOTS).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.zombies")));
 	public static final Block ZOMBIE_PATH_MARKER_CROSS = register("zombie_path_marker_cross", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.HANGING_ROOTS).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.path_plants"),
@@ -130,9 +157,19 @@ public class ModBlocks {
 
 	public static final Block UNSODDED_LAWN_MARKER = register("unsodded_lawn_marker", settings ->
 		new MarkerBlock(settings), AbstractBlock.Settings.create().sounds(BlockSoundGroup.MUD).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		ModItems.OBSOLETE,
 		Text.translatable("tooltip.block.homelawnsecurity.marker"),
 		Text.translatable("tooltip.block.homelawnsecurity.placement.allows"),
-		Text.translatable("tooltip.block.homelawnsecurity.placement.none")));
+		Text.translatable("tooltip.block.homelawnsecurity.placement.none")));*/
+
+	public static final Block SODDED_LAWN_MARKER = register("sodded_lawn_marker", SoddedLawnMarkerBlock::new,
+		AbstractBlock.Settings.create().sounds(BlockSoundGroup.WART_BLOCK).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		Text.translatable("tooltip.block.homelawnsecurity.marker"),
+		Text.translatable("tooltip.block.homelawnsecurity.lawn_block")));
+	public static final Block UNSODDED_LAWN_MARKER = register("unsodded_lawn_marker", UnsoddedLawnMarkerBlock::new,
+		AbstractBlock.Settings.create().sounds(BlockSoundGroup.MUD).strength(-1.0f, 3600000.8f).nonOpaque(), List.of(
+		Text.translatable("tooltip.block.homelawnsecurity.marker"),
+		Text.translatable("tooltip.block.homelawnsecurity.lawn_block")));
 
 	public static final Block SUN_SPAWNER = register("sun_spawner", settings ->
 		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.SUN)), AbstractBlock.Settings.copyShallow(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque(), List.of(
@@ -145,7 +182,7 @@ public class ModBlocks {
 	{
 		Block block = Blocks.register(keyOf(id), factory, settings);
 		if (obtainable)
-			ModItems.register(block, new Item.Settings(), tooltip);
+			ModItems.register(id, itemSettings -> new BlockItem(block, itemSettings), new Item.Settings().useBlockPrefixedTranslationKey(), tooltip);
 		return block;
 	}
 

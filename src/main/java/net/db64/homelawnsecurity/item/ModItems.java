@@ -14,6 +14,7 @@ import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -22,9 +23,13 @@ import net.minecraft.util.Unit;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class ModItems {
+	public static final MutableText OBSOLETE = Text.translatable("tooltip.item.homelawnsecurity.obsolete")
+		.setStyle(Style.EMPTY.withColor(Formatting.RED).withBold(true));
+
 	public static final Item PEASHOOTER_SPAWN_EGG = register("peashooter_spawn_egg", settings ->
 		new SpawnEggItem(ModEntities.Plant.PEASHOOTER, settings), new Item.Settings());
 	public static final Item BASIC_ZOMBIE_SPAWN_EGG = register("basic_zombie_spawn_egg", settings ->
@@ -63,10 +68,17 @@ public class ModItems {
 			Text.translatable("tooltip.item.homelawnsecurity.shovel.attack")));
 	public static final Item LAWN_GADGET = register("lawn_gadget", settings ->
 		new LawnGadgetItem(settings), new Item.Settings().maxCount(1)
-		.component(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("turfToggle")), List.of(
+		.component(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("turf_toggle")), List.of(
 			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.use"),
-			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.switch"),
-			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode")));
+			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.switch")));
+
+	public static final Item TURF = register("turf", settings ->
+		new TurfItem(settings), new Item.Settings(), List.of(
+		Text.translatable("tooltip.item.homelawnsecurity.turf")));
+
+	public static final Item BRAIN = register("brain", settings ->
+		new Item(settings), new Item.Settings(), List.of(
+		Text.translatable("tooltip.item.homelawnsecurity.brain")));
 
 
 
@@ -96,27 +108,45 @@ public class ModItems {
 		new ZombieSeedPacketItem(ModEntities.Zombie.CONEHEAD_ZOMBIE, settings), new Item.Settings()
 		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(75, 600)));
 
-	private static Item register(RegistryKey key, Function<Item.Settings, Item> factory, Item.Settings settings) {
+	public static Item register(RegistryKey<Item> key, Function<Item.Settings, Item> factory, Item.Settings settings) {
 		HomeLawnSecurity.LOGGER.debug("Registering item with key {}", key.getValue());
 
 		return Items.register(key, factory, settings);
 	}
 
-	private static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
+	public static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings) {
 		HomeLawnSecurity.LOGGER.debug("Registering item {}:{}", HomeLawnSecurity.MOD_ID, id);
 
 		return Items.register(keyOf(id), factory, settings);
 	}
 
-	private static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings, @Nullable List<Text> tooltip) {
+	public static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings, @Nullable List<Text> tooltip) {
 		return register(id, factory, settings.component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(tooltip)));
 	}
 
-	public static Item register(Block block, Item.Settings settings, @Nullable List<Text> tooltip) {
+	/*public static Item register(Block block, Item.Settings settings, @Nullable List<Text> tooltip) {
 		if (tooltip != null)
 			settings = settings.component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(tooltip));
 
 		return register(block.getRegistryEntry().registryKey(), settings1 -> new BlockItem(block, settings1), settings.useBlockPrefixedTranslationKey());
+	}*/
+
+	public static Item register(Block block) {
+		return register(block, BlockItem::new);
+	}
+
+	public static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory) {
+		return register(block, factory, new Item.Settings());
+	}
+
+	public static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory, Item.Settings settings) {
+		return register(
+			keyOf(block.getRegistryEntry().registryKey()), itemSettings -> (Item)factory.apply(block, itemSettings), settings.useBlockPrefixedTranslationKey()
+		);
+	}
+
+	private static RegistryKey<Item> keyOf(RegistryKey<Block> blockKey) {
+		return RegistryKey.of(RegistryKeys.ITEM, blockKey.getValue());
 	}
 
 	private static RegistryKey<Item> keyOf(String id) {

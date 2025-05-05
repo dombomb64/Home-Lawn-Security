@@ -75,6 +75,7 @@
 	"subtitles.homelawnsecurity.entity.plant.place": "Plant placed",
 	"subtitles.homelawnsecurity.entity.plant.place_water": "Plant placed in water",
 	"subtitles.homelawnsecurity.entity.plant.shovel": "Plant shoveled",
+	"subtitles.homelawnsecurity.entity.plant.feed": "Plant is fed",
 
 	"subtitles.homelawnsecurity.entity.chomper.eat": "Chomper devours",
 
@@ -135,6 +136,7 @@
 	"subtitles.homelawnsecurity.entity.zombie.enter_water": "Zombie splashes",
 	"subtitles.homelawnsecurity.entity.zombie.place": "Zombie placed",
 	"subtitles.homelawnsecurity.entity.zombie.place_water": "Zombie placed in water",
+	"subtitles.homelawnsecurity.entity.zombie.feed": "Zombie is fed",
 
 	"subtitles.homelawnsecurity.entity.conehead_zombie.hurt": "Conehead Zombie absorbs damage",
 
@@ -261,7 +263,15 @@
 	"item.homelawnsecurity.lawn_gadget.mode.path_toggle_marker": "Toggle Path (Marker Mode)",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type": "Switch Path Type",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_marker": "Switch Path Type (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_main": "Switch Main Path Type",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_main_marker": "Switch Main Path Type (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting": "Switch Intersecting Path Type",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting_marker": "Switch Intersecting Path Type (Marker Mode)",
 	"item.homelawnsecurity.lawn_gadget.use.error": "This item is broken",
+
+	"item.homelawnsecurity.turf": "All-Natural Turf",
+
+	"item.homelawnsecurity.brain": "Brain",
 
 	"item.homelawnsecurity.seed_packet.plant.placement.error.turf": "This plant can only be placed on turf",
 	"item.homelawnsecurity.seed_packet.plant.placement.error.path": "This plant can only be placed on paths",
@@ -270,6 +280,7 @@
 	"item.homelawnsecurity.seed_packet.plant.placement.error.grave": "This plant can only be placed on graves",
 	"item.homelawnsecurity.seed_packet.plant.placement.error.sudden_death": "This plant can't be placed during Sudden Death",
 	"item.homelawnsecurity.seed_packet.plant.placement.error.too_far": "This plant can't be placed this far from the garden",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.near_path": "Plants can only be placed next to paths",
 	"item.homelawnsecurity.seed_packet.plant.placement.error.block_face": "Plants can't be placed on the sides or bottoms of blocks",
 	"item.homelawnsecurity.seed_packet.zombie.placement.error.path": "Zombies can only be placed on paths",
 	"item.homelawnsecurity.seed_packet.zombie.placement.error.water": "This zombie can only be placed in water",
@@ -297,6 +308,8 @@
 	"block.homelawnsecurity.zombie_path_block_2": "Unsodded Path Block B",
 	"block.homelawnsecurity.zombie_path_block_cross": "Unsodded Path Block Intersection",
 	"block.homelawnsecurity.unsodded_lawn_block": "Unsodded Lawn Block",
+	"block.homelawnsecurity.lawn_block_v2": "Lawn Block",
+	"block.homelawnsecurity.sodded_lawn_block": "Sodded Lawn Block",
 
 	"block.homelawnsecurity.garden_marker": "Garden Marker",
 	"block.homelawnsecurity.graveyard_marker": "Graveyard Marker",
@@ -308,6 +321,8 @@
 	"block.homelawnsecurity.zombie_path_marker_2": "Unsodded Path Marker B",
 	"block.homelawnsecurity.zombie_path_marker_cross": "Unsodded Path Marker Intersection",
 	"block.homelawnsecurity.unsodded_lawn_marker": "Unsodded Lawn Marker",
+	"block.homelawnsecurity.lawn_marker_v2": "Lawn Marker",
+	"block.homelawnsecurity.sodded_lawn_marker": "Sodded Lawn Marker",
 
 	"block.homelawnsecurity.sun_spawner": "Sun Spawner",
 	"block.homelawnsecurity.brainpower_beacon": "Brainpower Beacon",
@@ -324,9 +339,15 @@
 	"tooltip.item.homelawnsecurity.target": "Places a target zombie.",
 	"tooltip.item.homelawnsecurity.shovel.use": "Use on plants to remove them.",
 	"tooltip.item.homelawnsecurity.shovel.attack": "Smack plants and zombies to send them flying.",
-	"tooltip.item.homelawnsecurity.lawn_gadget.use": "Use this item on any kind of lawn block to change something about it.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.use": "Use this item on a lawn block to change something about it.",
 	"tooltip.item.homelawnsecurity.lawn_gadget.switch": "Punch a block with this item to switch modes.",
 	"tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode": "Sneak and punch a block to switch between markers and normal blocks.",
+	"tooltip.item.homelawnsecurity.turf": "Use on an unsodded lawn block to allow the placement of lawn plants.",
+	"tooltip.item.homelawnsecurity.brain": "Feed this to one of your zombies to get a duplicate seed packet.",
+
+	"tooltip.item.homelawnsecurity.bone_meal": "Feed this to one of your plants to get a duplicate seed packet.",
+	"tooltip.item.homelawnsecurity.shears": "Use these to remove turf from a lawn block.",
+	"tooltip.item.homelawnsecurity.obsolete": "Obsolete Item",
 
 	"tooltip.block.homelawnsecurity.garden": "The goal for zombies.",
 	"tooltip.block.homelawnsecurity.graveyard": "The goal for lawnmowers.",
@@ -338,6 +359,8 @@
 	"tooltip.block.homelawnsecurity.placement.zombies": "Zombies",
 	"tooltip.block.homelawnsecurity.placement.none": "None",
 
+	"tooltip.block.homelawnsecurity.lawn_block": "Use a lawn gadget on this block to configure it.",
+
 	"tooltip.block.homelawnsecurity.sun_spawner": "Place near a lawn to make sun fall from the sky.",
 	"tooltip.block.homelawnsecurity.brainpower_beacon": "Place near a lawn to make brainpower fall from the sky.",
 
@@ -346,5 +369,10 @@
 
 	"tag.item.homelawnsecurity.bag_of_sun": "Holds Sun",
 	"tag.item.homelawnsecurity.bag_of_brainpower": "Holds Brainpower",
-	"tag.item.homelawnsecurity.markers": "Reveals Markers"
+	"tag.item.homelawnsecurity.reveals_markers": "Reveals Markers",
+	"tag.item.homelawnsecurity.reveals_markers_while_sneaking": "Reveals Markers While Sneaking",
+	"tag.item.homelawnsecurity.plant_feedable_for_duplicate": "Duplicates Plants",
+	"tag.item.homelawnsecurity.zombie_feedable_for_duplicate": "Duplicates Zombies",
+	"tag.item.homelawnsecurity.recipe.turf_grass": "Grass-like Ground Cover",
+	"tag.item.homelawnsecurity.recipe.grassless_dirt": "Grassless Dirt"
 }

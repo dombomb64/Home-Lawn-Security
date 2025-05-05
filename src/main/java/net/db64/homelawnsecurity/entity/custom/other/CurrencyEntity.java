@@ -190,7 +190,7 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 		}
 	}
 
-	protected void setStack(ItemStack stack) {
+	public void setStack(ItemStack stack) {
 		ItemStack item;
 		if (!stack.isEmpty()) {
 			item = stack;

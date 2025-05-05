@@ -5,25 +5,14 @@ import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
-import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.EndGatewayBlockEntity;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.mob.BlazeEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -101,7 +90,7 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (entity.getWorld() instanceof ClientWorld)
+		if (!(getWorld() instanceof ServerWorld))
 			return;
 		entity.damage((ServerWorld) entity.getWorld(), this.getDamageSources().create(ModDamageTypes.PEA, this, this.getOwner()), 20 * IPvzEntity.HEALTH_SCALE);
 		//entity.damage(ModDamageTypes.of(entity.getWorld(), ModDamageTypes.PEA), 20);
@@ -142,5 +131,9 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 		super.readCustomDataFromNbt(nbt);
 
 		this.maxDistance = nbt.getFloat("max_distance").orElse(3f);
+	}
+
+	public static void register(EntityType<PeaEntity> entityType) {
+
 	}
 }

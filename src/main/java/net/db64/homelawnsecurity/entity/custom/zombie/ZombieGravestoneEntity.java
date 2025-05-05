@@ -1,11 +1,10 @@
 package net.db64.homelawnsecurity.entity.custom.zombie;
 
+import net.db64.homelawnsecurity.entity.custom.IDegradableEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
-import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
 import net.db64.homelawnsecurity.item.ModItems;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -17,13 +16,15 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
+import java.util.ArrayList;
+
+public class ZombieGravestoneEntity extends ZombieEntity {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(ZombieGravestoneEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -38,6 +39,13 @@ public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
 
 	public ZombieGravestoneEntity(EntityType<? extends ZombieEntity> entityType, World world) {
 		super(entityType, world);
+
+		ArrayList<DegradationStage> degradationStages = getDegradationStageList();
+		degradationStages.add(new IDegradableEntity.DegradationStage("cracks", 320 * IPvzEntity.HEALTH_SCALE, false, null));
+		degradationStages.add(new IDegradableEntity.DegradationStage("break1", 240 * IPvzEntity.HEALTH_SCALE, false, null));
+		degradationStages.add(new IDegradableEntity.DegradationStage("break2", 200 * IPvzEntity.HEALTH_SCALE, false, null));
+		degradationStages.add(new IDegradableEntity.DegradationStage("break3", 160 * IPvzEntity.HEALTH_SCALE, false, null));
+		degradationStages.add(new IDegradableEntity.DegradationStage("break4", 100 * IPvzEntity.HEALTH_SCALE, false, null));
 	}
 
 	/*
@@ -52,6 +60,11 @@ public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
+	public TrackedData<Boolean> getUsingAttackTrackedData() {
+		return USING_ATTACK;
+	}
+
+	/*@Override
 	public float getLoseHeadwearHealth() {
 		return -1;
 	}
@@ -67,11 +80,6 @@ public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
 	}
 
 	@Override
-	public TrackedData<Boolean> getUsingAttackTrackedData() {
-		return USING_ATTACK;
-	}
-
-	@Override
 	public TrackedData<Boolean> getHasLostHeadwearTrackedData() {
 		return null;
 	}
@@ -84,7 +92,7 @@ public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
 	@Override
 	public TrackedData<Boolean> getHasLostHeadTrackedData() {
 		return null;
-	}
+	}*/
 
 	/*
 		BLOCKS
@@ -98,7 +106,7 @@ public class ZombieGravestoneEntity extends ZombieEntity implements IPvzEntity {
 	public void tick() {
 		super.tick();
 
-		if (getWorld() instanceof ClientWorld) {
+		if (!(getWorld() instanceof ServerWorld)) {
 			return;
 		}
 

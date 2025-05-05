@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_garden_marker": {
+      "conditions": {
+        "items": [
+          {
+            "items": "homelawnsecurity:garden_marker"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:graveyard_marker_from_garden_marker"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_garden_marker"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:graveyard_marker_from_garden_marker"
+    ]
+  }
+}

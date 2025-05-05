@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:fermented_spider_eye",
+    "homelawnsecurity:garden_marker"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:graveyard_marker"
+  }
+}

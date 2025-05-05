@@ -1,0 +1,10 @@
+{
+  "parent": "homelawnsecurity:block/lawn_block_v2",
+  "textures": {
+    "bottom": "homelawnsecurity:block/lawn_block/unsodded",
+    "intersecting_path": "homelawnsecurity:block/lawn_block/no_path",
+    "main_path": "homelawnsecurity:block/lawn_block/main_path/normal_2",
+    "side": "homelawnsecurity:block/lawn_block/unsodded",
+    "top": "homelawnsecurity:block/lawn_block/top_unsodded_path"
+  }
+}

@@ -1,26 +1,25 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import net.db64.homelawnsecurity.entity.ModEntities;
+import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.other.PlantSeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.entity.custom.other.SeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.LawnUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.function.Predicate;
@@ -44,14 +43,30 @@ public class LawnSeedPacketItem extends SeedPacketItem {
 			return false;
 		}
 
+		// Return if it's not next to or on a path
+		if (!(devMode || LawnUtil.isAnyPath(blockPos, world))) {
+			boolean nearPath = false;
+			Iterable<BlockPos> iterable = BlockPos.iterateOutwards(blockPos, 1, 1, 1);
+			for (BlockPos pos : iterable) {
+				if (LawnUtil.isAnyPath(pos, world)) {
+					nearPath = true;
+					break;
+				}
+			}
+			if (!nearPath) {
+				sendMessage(player, Text.translatable("item.homelawnsecurity.seed_packet.plant.placement.error.near_path"));
+				return false;
+			}
+		}
+
 		// Check if it's too far away from the garden
 		SeedPacketPathfindingEntity entity = new PlantSeedPacketPathfindingEntity(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, world);
 		world.spawnEntity(entity);
-		entity.refreshPositionAndAngles(blockPos.getX(), blockPos.getY(), blockPos.getZ(), entity.getYaw(), entity.getPitch());
+		entity.refreshPositionAndAngles(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), entity.getYaw(), entity.getPitch());
 		entity.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
 
 		// Check if it's on a path
-		boolean isOffPath = !(entity.isPath(blockPos) || entity.isOtherPath(blockPos)); // We need lawn plants to still be placeable off the path
+		boolean isOffPath = !LawnUtil.isAnyPath(blockPos, world); // We need lawn plants to still be placeable off the path
 
 		// Return if it's too far away from the garden and on a path
 		if (!(devMode || isOffPath || isValidPositionOnPath(entity))) {

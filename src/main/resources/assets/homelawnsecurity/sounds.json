@@ -499,6 +499,17 @@
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.plant.shovel"
 	},
+	"entity.plant.feed": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.plant",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.plant.feed"
+	},
 
 	"entity.chomper.eat": {
 		"sounds": [
@@ -992,6 +1003,17 @@
 			}
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.zombie.place_water"
+	},
+	"entity.zombie.feed": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:random.slurp",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.feed"
 	},
 
 	"entity.conehead_zombie.hurt": {

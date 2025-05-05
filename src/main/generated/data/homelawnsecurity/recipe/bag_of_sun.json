@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:leather",
+    "minecraft:bone_meal"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:bag_of_sun"
+  }
+}

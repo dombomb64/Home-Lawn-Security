@@ -10,11 +10,8 @@ import net.db64.homelawnsecurity.entity.client.plant.*;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaModel;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
 import net.db64.homelawnsecurity.entity.client.zombie.*;
-import net.db64.homelawnsecurity.particle.ModParticles;
-import net.db64.homelawnsecurity.particle.custom.MarkerParticle;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.RenderLayer;
@@ -37,8 +34,10 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 		};
 		ClientWorld.BLOCK_MARKER_ITEMS = Set.of(ArrayUtils.addAll(otherMarkers, modMarkers));*/
 
-		ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
+		//ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
 
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SODDED_LAWN_BLOCK, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.UNSODDED_LAWN_BLOCK, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SUN_SPAWNER, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BRAINPOWER_BEACON, RenderLayer.getCutout());
 
@@ -60,6 +59,11 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
 
 		EntityRendererRegistry.register(ModEntities.Other.ZOMBIE_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
+
+		//BlockEntityRendererRegistry.register(, CurrencyRenderer::new);
+		//EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Other.LAWN_BLOCK, LawnMowerModel::getTexturedModelData);
+		//EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Other.LAWN_BLOCK_MAIN_PATH, LawnMowerModel::getTexturedModelData);
+		//EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Other.LAWN_BLOCK_INTERSECTING_PATH, LawnMowerModel::getTexturedModelData);
 	}
 
 	private void registerProjectiles() {
