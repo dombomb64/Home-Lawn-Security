@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.client.plant;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 public class SunflowerModel extends EntityModel<SunflowerRenderState> {
@@ -10,12 +11,16 @@ public class SunflowerModel extends EntityModel<SunflowerRenderState> {
 	private final ModelPart head;
 	private final ModelPart base;
 
+	private final Animation setupAnimation;
+
 	public SunflowerModel(ModelPart root) {
 		super(root);
 		this.sunflower = root.getChild("sunflower");
 		this.stem = sunflower.getChild("stem");
 		this.head = stem.getChild("head");
 		this.base = sunflower.getChild("base");
+
+		setupAnimation = ModAnimations.Plant.Sunflower.SETUP.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -63,7 +68,7 @@ public class SunflowerModel extends EntityModel<SunflowerRenderState> {
 
 		this.updateVisibleParts(state);
 
-		this.animate(state.setupAnimationState, ModAnimations.Plant.Sunflower.SETUP, state.age, 1f);
+		setupAnimation.apply(state.setupAnimationState, state.age, 1f);
 	}
 
 	private void setHeadAngles(SunflowerRenderState state, float headYaw, float headPitch) {

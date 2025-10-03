@@ -39,7 +39,7 @@ public abstract class ClientPlayerEntityMixin extends PlayerEntityMixin {
 	public void tickMarkerParticles(CallbackInfo ci) {
 		List<ItemStack> handItems = List.of(getMainHandStack(), getOffHandStack());
 		for (ItemStack stack : handItems){
-			if (MarkerBlock.shouldRevealMarkers(stack, isSneaking())) {
+			if (stack != null && MarkerBlock.shouldRevealMarkers(stack, isSneaking())) {
 				Iterable<BlockPos> iterable = BlockPos.iterate(MarkerBlock.PARTICLE_DISTANCE.offset(getBlockPos()));
 				for (BlockPos blockPos : iterable) {
 					World world = getWorld();

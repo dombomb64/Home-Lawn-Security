@@ -1,14 +1,11 @@
 package net.db64.homelawnsecurity.entity.animation;
 
-import net.minecraft.client.render.entity.animation.Animation;
-import net.minecraft.client.render.entity.animation.AnimationHelper;
-import net.minecraft.client.render.entity.animation.Keyframe;
-import net.minecraft.client.render.entity.animation.Transformation;
+import net.minecraft.client.render.entity.animation.*;
 
 public class ModAnimations {
 	public static class Other {
 		public static class LawnMower {
-			public static final Animation MOVE = Animation.Builder.create(1.0F).looping()
+			public static final AnimationDefinition MOVE = AnimationDefinition.Builder.create(1.0F).looping()
 				.addBoneAnimation("body", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
 					new Keyframe(0.0833F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 2.5F), Transformation.Interpolations.LINEAR),
@@ -95,7 +92,7 @@ public class ModAnimations {
 	}
 	public static class Plant {
 		public static class Peashooter {
-			public static final Animation SETUP = Animation.Builder.create(1.5f).looping()
+			public static final AnimationDefinition SETUP = AnimationDefinition.Builder.create(1.5f).looping()
 				.addBoneAnimation("base",
 					new Transformation(Transformation.Targets.SCALE,
 						new Keyframe(0f, AnimationHelper.createScalingVector(1f, 1f, 1f),
@@ -159,7 +156,7 @@ public class ModAnimations {
 						new Keyframe(1.5f, AnimationHelper.createRotationalVector(-2.5f, 0f, 0f),
 							Transformation.Interpolations.CUBIC))).build();
 
-			public static final Animation SHOOT = Animation.Builder.create(0.5f)
+			public static final AnimationDefinition SHOOT = AnimationDefinition.Builder.create(0.5f)
 				.addBoneAnimation("head",
 					new Transformation(Transformation.Targets.SCALE,
 						new Keyframe(0f, AnimationHelper.createScalingVector(0.9f, 0.9f, 1.2f),
@@ -182,7 +179,7 @@ public class ModAnimations {
 							Transformation.Interpolations.LINEAR))).build();
 		}
 		public static class Sunflower {
-			public static final Animation SETUP = Animation.Builder.create(1.5F).looping()
+			public static final AnimationDefinition SETUP = AnimationDefinition.Builder.create(1.5F).looping()
 				.addBoneAnimation("stem", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -5.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.375F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -255,7 +252,7 @@ public class ModAnimations {
 		}
 
 		public static class WallNut {
-			public static final Animation SETUP = Animation.Builder.create(1.1667F).looping()
+			public static final AnimationDefinition SETUP = AnimationDefinition.Builder.create(1.1667F).looping()
 				.addBoneAnimation("body", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.2917F, AnimationHelper.createRotationalVector(0.0F, 0.0F, -2.5F), Transformation.Interpolations.CUBIC),
@@ -275,7 +272,7 @@ public class ModAnimations {
 	}
 	public static class Zombie {
 		public static class TargetZombie {
-			public static final Animation SETUP = Animation.Builder.create(2.0F).looping()
+			public static final AnimationDefinition SETUP = AnimationDefinition.Builder.create(2.0F).looping()
 				.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(-20.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(1.0F, AnimationHelper.createRotationalVector(-25.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -309,7 +306,7 @@ public class ModAnimations {
 				))
 				.build();
 
-			public static final Animation WALK = Animation.Builder.create(1.0F).looping()
+			public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1.0F).looping()
 				.addBoneAnimation("head", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
 					new Keyframe(0.7917F, AnimationHelper.createRotationalVector(-5.0F, 0.0F, 0.0F), Transformation.Interpolations.CUBIC),
@@ -337,7 +334,7 @@ public class ModAnimations {
 				))
 				.build();
 
-			public static final Animation EAT = Animation.Builder.create(1.0F).looping()
+			public static final AnimationDefinition EAT = AnimationDefinition.Builder.create(1.0F).looping()
 				.addBoneAnimation("rightArm", new Transformation(Transformation.Targets.ROTATE,
 					new Keyframe(0.0F, AnimationHelper.createRotationalVector(0.0F, 0.0F, 0.0F), Transformation.Interpolations.LINEAR),
 					new Keyframe(0.375F, AnimationHelper.createRotationalVector(-152.5F, 0.0F, 40.0F), Transformation.Interpolations.LINEAR),
@@ -368,7 +365,7 @@ public class ModAnimations {
 		}
 		
 		public static class BasicZombie {
-			public static final Animation SETUP = Animation.Builder.create(2f).looping()
+			public static final AnimationDefinition SETUP = AnimationDefinition.Builder.create(2f).looping()
 				.addBoneAnimation("head",
 					new Transformation(Transformation.Targets.ROTATE,
 						new Keyframe(0f, AnimationHelper.createRotationalVector(-20f, 0f, 0f),
@@ -402,7 +399,7 @@ public class ModAnimations {
 						new Keyframe(2f, AnimationHelper.createRotationalVector(-25f, 0f, 0f),
 							Transformation.Interpolations.CUBIC))).build();
 
-			public static final Animation WALK = Animation.Builder.create(1f).looping()
+			public static final AnimationDefinition WALK = AnimationDefinition.Builder.create(1f).looping()
 				.addBoneAnimation("head",
 					new Transformation(Transformation.Targets.ROTATE,
 						new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -444,7 +441,7 @@ public class ModAnimations {
 						new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
 							Transformation.Interpolations.CUBIC))).build();
 
-			public static final Animation EAT = Animation.Builder.create(1f).looping()
+			public static final AnimationDefinition EAT = AnimationDefinition.Builder.create(1f).looping()
 				.addBoneAnimation("rightArm",
 					new Transformation(Transformation.Targets.MOVE_ORIGIN,
 						new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),

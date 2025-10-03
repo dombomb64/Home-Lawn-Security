@@ -20,6 +20,8 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -174,26 +176,26 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 
 	@Override
 	public boolean collidesWith(Entity other) {
-		return (other.isCollidable() || (other instanceof PlantEntity && this.hasHead())) && !this.isConnectedThroughVehicle(other);
+		return (other.isCollidable(this) || (other instanceof PlantEntity && this.hasHead())) && !this.isConnectedThroughVehicle(other);
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
 		/*if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
-			nbt.putInt("path_tag", 2);
+			view.putInt("path_tag", 2);
 		else
-			nbt.putInt("path_tag", 1);*/
+			view.putInt("path_tag", 1);*/
 
-		writeDegradationNbt(nbt);
+		writeDegradationNbt(view);
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
-		/*int path = nbt.getInt("path_tag").orElse(1);
+		/*int path = view.getInt("path_tag", 1);
 		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
@@ -202,7 +204,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}*/
 
-		readDegradationNbt(nbt);
+		readDegradationNbt(view);
 	}
 
 	/*
@@ -426,6 +428,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 
 	@Override
 	protected boolean itemDuplicatesSpawnItem(ItemStack stack) {
+		if (stack == null) return false;
 		return stack.isIn(ModTags.Items.ZOMBIE_FEEDABLE_FOR_DUPLICATE);
 	}
 

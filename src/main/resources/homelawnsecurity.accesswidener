@@ -12,3 +12,7 @@ mutable field net/minecraft/entity/projectile/ProjectileEntity lastDeflectedEnti
 accessible field net/minecraft/block/EntityShapeContext heldItem Lnet/minecraft/item/ItemStack;
 
 accessible field net/minecraft/client/item/ItemModelManager modelGetter Ljava/util/function/Function;
+
+accessible field net/minecraft/storage/NbtWriteView nbt Lnet/minecraft/nbt/NbtCompound;
+
+accessible field net/minecraft/storage/NbtReadView nbt Lnet/minecraft/nbt/NbtCompound;

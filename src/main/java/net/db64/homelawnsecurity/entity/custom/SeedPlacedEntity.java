@@ -13,6 +13,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -71,7 +73,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 			return ActionResult.PASS;
 
 		ItemStack stack = player.getStackInHand(hand);
-		if (itemDuplicatesSpawnItem(stack)) {
+		if (stack != null && itemDuplicatesSpawnItem(stack)) {
 			dropSpawnItemOnFeed();
 			stack.decrementUnlessCreative(1, player);
 
@@ -142,31 +144,31 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 	*/
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
 		if (pathId < 1 || pathId > LawnUtil.getPathTypeAmount()) {
 			pathId = 1;
 		}
-		nbt.putInt("path_id", pathId);
+		view.putInt("path_id", pathId);
 
-		nbt.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
+		view.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
 
-		nbt.put("spawn_item", spawnItem.toNbt(getRegistryManager()));
+		view.put("spawn_item", ItemStack.CODEC, spawnItem);
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
-		pathId = nbt.getInt("path_id").orElse(1);
+		pathId = view.getInt("path_id", 1);
 		if (pathId < 1 || pathId > LawnUtil.getPathTypeAmount()) {
 			pathId = 1;
-			nbt.putInt("path_id", pathId);
+			//view.putInt("path_id", pathId);
 		}
 
-		shouldDropSpawnItem = nbt.getBoolean("should_drop_spawn_item").orElse(false);
+		shouldDropSpawnItem = view.getBoolean("should_drop_spawn_item", false);
 
-		spawnItem = nbt.get("spawn_item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		spawnItem = view.read("spawn_item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
 	}
 }

@@ -18,6 +18,8 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
@@ -98,17 +100,17 @@ public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPla
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
-		nbt.putInt("sun_ticks", sunTicks);
+		view.putInt("sun_ticks", sunTicks);
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
-		sunTicks = nbt.getInt("sun_ticks").orElse(0);
+		sunTicks = view.getInt("sun_ticks", 0);
 	}
 
 	/*

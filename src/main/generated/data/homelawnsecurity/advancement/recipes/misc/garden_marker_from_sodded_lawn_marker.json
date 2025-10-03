@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:garden_marker_from_sodded_lawn_marker"
+        "recipe": "homelawnsecurity:garden_marker_from_sodded_lawn_marker"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:garden_marker_from_sodded_lawn_marker"
+      "homelawnsecurity:garden_marker_from_sodded_lawn_marker"
     ]
   }
 }

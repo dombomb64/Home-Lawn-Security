@@ -22,7 +22,7 @@ public abstract class ClientPlayerEntityMixin extends LivingEntityMixin {
 	)
 	public void tickMarkerParticles(CallbackInfo ci) {
 		for (ItemStack stack : getHandItems()) {
-			if (stack.isIn(ModTags.Items.MARKERS)) {
+			if (stack != null && stack.isIn(ModTags.Items.MARKERS)) {
 				Iterable<BlockPos> iterable = BlockPos.iterate(MarkerBlock.PARTICLE_DISTANCE.offset(getBlockPos()));
 				for (BlockPos blockPos : iterable) {
 					World world = getWorld();

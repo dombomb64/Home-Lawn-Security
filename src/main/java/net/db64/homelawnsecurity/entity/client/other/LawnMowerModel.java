@@ -2,11 +2,16 @@ package net.db64.homelawnsecurity.entity.client.other;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 public class LawnMowerModel extends EntityModel<LawnMowerRenderState> {
+	private final Animation moveAnimation;
+
 	public LawnMowerModel(ModelPart root) {
 		super(root);
+
+		moveAnimation = ModAnimations.Other.LawnMower.MOVE.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -44,7 +49,7 @@ public class LawnMowerModel extends EntityModel<LawnMowerRenderState> {
 	public void setAngles(LawnMowerRenderState state) {
 		super.setAngles(state);
 
-		this.animateWalking(ModAnimations.Other.LawnMower.MOVE, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
+		moveAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
 
 		this.updateVisibleParts(state);
 	}

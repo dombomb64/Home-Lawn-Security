@@ -69,7 +69,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 		if (!this.pauseWhenMobIdle) {
 			return !this.mob.getNavigation().isIdle();
 		}
-		if (!this.mob.isInWalkTargetRange(livingEntity.getBlockPos())) {
+		if (!this.mob.isInPositionTargetRange(livingEntity.getBlockPos())) {
 			return false;
 		}
 		return !(livingEntity instanceof PlayerEntity) || !livingEntity.isSpectator() && !((PlayerEntity)livingEntity).isCreative();

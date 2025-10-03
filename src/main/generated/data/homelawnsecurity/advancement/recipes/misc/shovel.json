@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:shovel"
+        "recipe": "homelawnsecurity:shovel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:shovel"
+      "homelawnsecurity:shovel"
     ]
   }
 }

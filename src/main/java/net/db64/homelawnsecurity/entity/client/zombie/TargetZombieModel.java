@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 
@@ -12,6 +13,10 @@ public class TargetZombieModel extends EntityModel<TargetZombieRenderState> {
 	private final ModelPart leftForearm;
 	private final ModelPart target;
 
+	private final Animation moveAnimation;
+	private final Animation setupAnimation;
+	private final Animation attackAnimation;
+
 	public TargetZombieModel(ModelPart root) {
 		super(root);
 		this.targetZombie = root.getChild("targetZombie");
@@ -19,6 +24,10 @@ public class TargetZombieModel extends EntityModel<TargetZombieRenderState> {
 		this.hat = this.head.getChild("hat");
 		this.leftForearm = this.targetZombie.getChild("body").getChild("leftArm").getChild("leftForearm");
 		this.target = this.targetZombie.getChild("target");
+
+		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
+		setupAnimation = ModAnimations.Zombie.BasicZombie.SETUP.createAnimation(root);
+		attackAnimation = ModAnimations.Zombie.BasicZombie.EAT.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -56,10 +65,10 @@ public class TargetZombieModel extends EntityModel<TargetZombieRenderState> {
 		this.resetTransforms();
 
 		this.setHeadAngles(state.relativeHeadYaw, state.pitch);
-		this.animateWalking(ModAnimations.Zombie.TargetZombie.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
+		moveAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
 
-		this.animate(state.setupAnimationState, ModAnimations.Zombie.TargetZombie.SETUP, state.age, 1f);
-		this.animate(state.attackAnimationState, ModAnimations.Zombie.TargetZombie.EAT, state.age, 1f);
+		setupAnimation.apply(state.setupAnimationState, state.age, 1f);
+		attackAnimation.apply(state.attackAnimationState, state.age, 1f);
 
 		this.updateVisibleParts(state);
 	}

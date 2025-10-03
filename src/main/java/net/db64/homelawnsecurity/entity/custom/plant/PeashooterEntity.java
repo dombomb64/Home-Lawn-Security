@@ -95,8 +95,9 @@ public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPl
 		//ArrowItem arrowItem = (ArrowItem)(stack.getItem() instanceof ArrowItem ? stack.getItem() : Items.ARROW);
 		float maxDistance = entity.onPath ? STATS.attackRangePath * 1.5f : STATS.attackRange * 1.5f;
 
-		ProjectileEntity projectileEntity = new PeaEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getWorld(), maxDistance);
+		PeaEntity projectileEntity = new PeaEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getWorld(), maxDistance);
 		projectileEntity.setOwner(entity);
+		projectileEntity.setMaxDistance(maxDistance);
 
 		return projectileEntity;
 	}

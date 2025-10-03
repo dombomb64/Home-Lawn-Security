@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:sodded_lawn_block_from_dirt"
+        "recipe": "homelawnsecurity:sodded_lawn_block_from_dirt"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:sodded_lawn_block_from_dirt"
+      "homelawnsecurity:sodded_lawn_block_from_dirt"
     ]
   }
 }

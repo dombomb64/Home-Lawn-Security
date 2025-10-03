@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.util.math.MathHelper;
 
@@ -11,12 +12,20 @@ public class ConeheadZombieModel extends EntityModel<ConeheadZombieRenderState> 
 	private final ModelPart leftForearm;
 	private final ModelPart headwear;
 
+	private final Animation moveAnimation;
+	private final Animation setupAnimation;
+	private final Animation attackAnimation;
+
 	public ConeheadZombieModel(ModelPart root) {
 		super(root);
 		this.coneheadZombie = root.getChild("coneheadZombie");
 		this.head = coneheadZombie.getChild("body").getChild("head");
 		this.headwear = head.getChild("headwear");
 		this.leftForearm = coneheadZombie.getChild("body").getChild("leftArm").getChild("leftForearm");
+
+		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
+		setupAnimation = ModAnimations.Zombie.BasicZombie.SETUP.createAnimation(root);
+		attackAnimation = ModAnimations.Zombie.BasicZombie.EAT.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -55,10 +64,10 @@ public class ConeheadZombieModel extends EntityModel<ConeheadZombieRenderState> 
 		this.resetTransforms();
 
 		this.setHeadAngles(state.relativeHeadYaw, state.pitch);
-		this.animateWalking(ModAnimations.Zombie.BasicZombie.WALK, state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
+		moveAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
 
-		this.animate(state.setupAnimationState, ModAnimations.Zombie.BasicZombie.SETUP, state.age, 1f);
-		this.animate(state.attackAnimationState, ModAnimations.Zombie.BasicZombie.EAT, state.age, 1f);
+		setupAnimation.apply(state.setupAnimationState, state.age, 1f);
+		attackAnimation.apply(state.attackAnimationState, state.age, 1f);
 
 		this.updateVisibleParts(state);
 	}

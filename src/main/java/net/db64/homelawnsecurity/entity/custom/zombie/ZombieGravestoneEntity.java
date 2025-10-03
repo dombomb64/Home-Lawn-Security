@@ -18,6 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -136,17 +138,17 @@ public class ZombieGravestoneEntity extends ZombieEntity {
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
-		nbt.putInt("brainpower_ticks", brainpowerTicks);
+		view.putInt("brainpower_ticks", brainpowerTicks);
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
-		brainpowerTicks = nbt.getInt("brainpower_ticks").orElse(0);
+		brainpowerTicks = view.getInt("brainpower_ticks", 0);
 	}
 
 	/*

@@ -28,6 +28,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -145,34 +147,34 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
 		/*if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
-			nbt.putInt("path_tag", 2);
+			view.putInt("path_tag", 2);
 		else
-			nbt.putInt("path_tag", 1);*/
+			view.putInt("path_tag", 1);*/
 
 		if (pathId < 1 || pathId > LawnUtil.getPathTypeAmount()) {
 			pathId = 1;
 		}
-		nbt.putInt("path_id", pathId);
+		view.putInt("path_id", pathId);
 
-		nbt.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
+		view.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
 
-		nbt.put("spawn_item", customSpawnItem.toNbt(getRegistryManager()));
+		view.put("spawn_item", ItemStack.CODEC, customSpawnItem);
 
 		if (this.mowing) {
-			nbt.putBoolean("mowing", true);
+			view.putBoolean("mowing", true);
 		}
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
 		/*// path_tag
-		int path = nbt.getInt("path_tag").orElse(1);
+		int path = view.getInt("path_tag", 1);
 		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
@@ -181,18 +183,18 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}*/
 
-		pathId = nbt.getInt("path_id").orElse(1);
+		pathId = view.getInt("path_id", 1);
 		if (pathId < 1 || pathId > LawnUtil.getPathTypeAmount()) {
 			pathId = 1;
-			nbt.putInt("path_id", pathId);
+			//view.putInt("path_id", pathId);
 		}
 
-		shouldDropSpawnItem = nbt.getBoolean("should_drop_spawn_item").orElse(false);
+		shouldDropSpawnItem = view.getBoolean("should_drop_spawn_item", false);
 
-		customSpawnItem = nbt.get("spawn_item", ItemStack.CODEC).orElse(getDefaultSpawnItem());
+		customSpawnItem = view.read("spawn_item", ItemStack.CODEC).orElse(getDefaultSpawnItem());
 
 		// mowing
-		this.mowing = nbt.getBoolean("mowing").orElse(false);
+		this.mowing = view.getBoolean("mowing", false);
 	}
 
 	@Override

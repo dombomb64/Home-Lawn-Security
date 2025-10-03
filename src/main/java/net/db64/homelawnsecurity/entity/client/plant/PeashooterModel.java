@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.client.plant;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 public class PeashooterModel extends EntityModel<PeashooterRenderState> {
@@ -10,12 +11,18 @@ public class PeashooterModel extends EntityModel<PeashooterRenderState> {
 	private final ModelPart head;
 	private final ModelPart base;
 
+	private final Animation setupAnimation;
+	private final Animation attackAnimation;
+
 	public PeashooterModel(ModelPart root) {
 		super(root);
 		this.peashooter = root.getChild("peashooter");
 		this.stem = peashooter.getChild("stem");
 		this.head = stem.getChild("head");
 		this.base = peashooter.getChild("base");
+
+		setupAnimation = ModAnimations.Plant.Peashooter.SETUP.createAnimation(root);
+		attackAnimation = ModAnimations.Plant.Peashooter.SHOOT.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -62,8 +69,8 @@ public class PeashooterModel extends EntityModel<PeashooterRenderState> {
 
 		this.updateVisibleParts(state);
 
-		this.animate(state.setupAnimationState, ModAnimations.Plant.Peashooter.SETUP, state.age, 1f);
-		this.animate(state.attackAnimationState, ModAnimations.Plant.Peashooter.SHOOT, state.age, 1f);
+		setupAnimation.apply(state.setupAnimationState, state.age, 1f);
+		attackAnimation.apply(state.attackAnimationState, state.age, 1f);
 	}
 
 	private void setHeadAngles(PeashooterRenderState state, float headYaw, float headPitch) {

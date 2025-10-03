@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:bag_of_brainpower"
+        "recipe": "homelawnsecurity:bag_of_brainpower"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:bag_of_brainpower"
+      "homelawnsecurity:bag_of_brainpower"
     ]
   }
 }

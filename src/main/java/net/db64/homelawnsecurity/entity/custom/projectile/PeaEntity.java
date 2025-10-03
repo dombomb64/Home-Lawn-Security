@@ -4,15 +4,19 @@ import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -22,11 +26,12 @@ import net.minecraft.world.World;
 import java.util.Iterator;
 
 public class PeaEntity extends ProjectileEntity implements IPvzEntity {
-	public float maxDistance;
+	private static final TrackedData<Float> MAX_DISTANCE =
+		DataTracker.registerData(PeaEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
 	public PeaEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
 		super(entityType, world);
-		this.maxDistance = 16f;
+		setMaxDistance(0f);
 	}
 
 	public PeaEntity(LivingEntity livingEntity, World world, float maxDistance) {
@@ -34,9 +39,9 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	}
 
 	public PeaEntity(double x, double y, double z, World world, float maxDistance) {
-		super(ModEntities.Projectile.PEA, world);
+		this(ModEntities.Projectile.PEA, world);
 		this.setPosition(x, y, z);
-		this.maxDistance = maxDistance;
+		setMaxDistance(maxDistance);
 	}
 
 	@Override
@@ -46,9 +51,8 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 
 	@Override
 	protected void initDataTracker(DataTracker.Builder builder) {
-
+		builder.add(MAX_DISTANCE, 0f);
 	}
-
 
 	@Override
 	public void tick() {
@@ -81,7 +85,7 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	}
 
 	protected double getGravity() {
-		if (distanceTraveled <= maxDistance) // Bro why doesn't this variable work with projectiles
+		if (distanceTraveled <= getMaxDistance()) // Bro why doesn't this variable work with projectiles
 			return 0d;
 		return 0.08d;
 	}
@@ -120,17 +124,25 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
-		nbt.putFloat("max_distance", maxDistance);
+		view.putFloat("distance_traveled", distanceTraveled);
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
-		this.maxDistance = nbt.getFloat("max_distance").orElse(3f);
+		this.distanceTraveled = view.getFloat("distance_traveled", 0f);
+	}
+
+	public float getMaxDistance() {
+		return getDataTracker().get(MAX_DISTANCE);
+	}
+
+	public void setMaxDistance(float maxDistance) {
+		getDataTracker().set(MAX_DISTANCE, maxDistance);
 	}
 
 	public static void register(EntityType<PeaEntity> entityType) {

@@ -49,8 +49,14 @@ public abstract class SeedPacketItem extends Item {
 	private static final MapCodec<EntityType<?>> ENTITY_TYPE_MAP_CODEC;
 	private final EntityType<?> type;
 
-	public static final Predicate<ItemStack> SUN_BAG_PREDICATE = stack -> stack.isIn(ModTags.Items.BAG_OF_SUN);
-	public static final Predicate<ItemStack> BRAINPOWER_BAG_PREDICATE = stack -> stack.isIn(ModTags.Items.BAG_OF_BRAINPOWER);
+	public static final Predicate<ItemStack> SUN_BAG_PREDICATE = stack -> {
+		if (stack == null) return false;
+		return stack.isIn(ModTags.Items.BAG_OF_SUN);
+	};
+	public static final Predicate<ItemStack> BRAINPOWER_BAG_PREDICATE = stack -> {
+		if (stack == null) return false;
+		return stack.isIn(ModTags.Items.BAG_OF_BRAINPOWER);
+	};
 
 	public SeedPacketItem(EntityType<? extends MobEntity> type, Settings settings) {
 		super(settings);

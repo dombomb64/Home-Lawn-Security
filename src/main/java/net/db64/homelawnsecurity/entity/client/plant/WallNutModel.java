@@ -2,16 +2,21 @@ package net.db64.homelawnsecurity.entity.client.plant;
 
 import net.db64.homelawnsecurity.entity.animation.ModAnimations;
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.model.EntityModel;
 
 public class WallNutModel extends EntityModel<WallNutRenderState> {
 	private final ModelPart wallNut;
 	private final ModelPart body;
 
+	private final Animation setupAnimation;
+
 	public WallNutModel(ModelPart root) {
 		super(root);
 		this.wallNut = root.getChild("wallNut");
 		this.body = this.wallNut.getChild("body");
+
+		setupAnimation = ModAnimations.Plant.WallNut.SETUP.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {
@@ -31,7 +36,7 @@ public class WallNutModel extends EntityModel<WallNutRenderState> {
 
 		this.updateVisibleParts(state);
 
-		this.animate(state.setupAnimationState, ModAnimations.Plant.WallNut.SETUP, state.age, 1f);
+		setupAnimation.apply(state.setupAnimationState, state.age, 1f);
 	}
 
 	private void setHeadAngles(WallNutRenderState state, float headYaw, float headPitch) {

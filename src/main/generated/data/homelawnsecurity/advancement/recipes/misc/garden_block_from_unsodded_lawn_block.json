@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:garden_block_from_unsodded_lawn_block"
+        "recipe": "homelawnsecurity:garden_block_from_unsodded_lawn_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:garden_block_from_unsodded_lawn_block"
+      "homelawnsecurity:garden_block_from_unsodded_lawn_block"
     ]
   }
 }

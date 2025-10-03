@@ -1,6 +1,5 @@
 package net.db64.homelawnsecurity.entity.custom.other;
 
-import com.mojang.serialization.Codec;
 import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
 import net.db64.homelawnsecurity.component.CurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
@@ -17,13 +16,11 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.registry.RegistryOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -212,22 +209,21 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
-		nbt.put("item", this.stack.toNbt(this.getRegistryManager()));
+		view.put("item", ItemStack.CODEC, this.stack);
 
-		nbt.putInt("idle_time", idleTime);
+		view.putInt("idle_time", idleTime);
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
-		RegistryOps<NbtElement> registryOps = this.getRegistryManager().getOps(NbtOps.INSTANCE);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
-		this.setStack(nbt.get("item", ItemStack.CODEC, registryOps).orElseGet(() -> this.getDefaultItemStack().copy()));
+		this.setStack(view.read("item", ItemStack.CODEC).orElseGet(() -> this.getDefaultItemStack().copy()));
 
-		idleTime = nbt.getInt("idle_time").orElse(0);
+		idleTime = view.getInt("idle_time", 0);
 	}
 
 	@Override

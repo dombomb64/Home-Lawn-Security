@@ -11,9 +11,10 @@ import net.db64.homelawnsecurity.entity.client.projectile.PeaModel;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
 import net.db64.homelawnsecurity.entity.client.zombie.*;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
 
@@ -36,10 +37,10 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 
 		//ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
 
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SODDED_LAWN_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.UNSODDED_LAWN_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SUN_SPAWNER, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BRAINPOWER_BEACON, RenderLayer.getCutout());
+		BlockRenderLayerMap.putBlock(ModBlocks.SODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(ModBlocks.UNSODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(ModBlocks.SUN_SPAWNER, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(ModBlocks.BRAINPOWER_BEACON, BlockRenderLayer.CUTOUT);
 
 		registerOther();
 		registerProjectiles();

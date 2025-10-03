@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:graveyard_marker_from_garden_marker"
+        "recipe": "homelawnsecurity:graveyard_marker_from_garden_marker"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:graveyard_marker_from_garden_marker"
+      "homelawnsecurity:graveyard_marker_from_garden_marker"
     ]
   }
 }

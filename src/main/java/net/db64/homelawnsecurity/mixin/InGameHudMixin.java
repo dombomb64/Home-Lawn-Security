@@ -15,8 +15,10 @@ import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextCodecs;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -51,7 +53,7 @@ public abstract class InGameHudMixin {
 				NbtElement customName = entityDataComponent.copyNbt().get("CustomName");
 				if (customName != null && client.world != null) {
 					try {
-						entityName = Text.Serialization.fromJson(customName.toString(), client.world.getRegistryManager());
+						entityName = Text.empty().append(TextCodecs.CODEC.parse(client.world.getRegistryManager().getOps(NbtOps.INSTANCE), customName).getOrThrow());
 					} catch (Exception e) {
 						HomeLawnSecurity.LOGGER.warn("Failed to parse entity custom name {}", customName.asString(), e);
 					}

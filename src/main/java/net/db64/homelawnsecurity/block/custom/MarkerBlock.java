@@ -130,6 +130,7 @@ public class MarkerBlock extends Block implements Waterloggable {
 	}
 
 	public static boolean shouldRevealMarkers(ItemStack stack, boolean isSneaking) {
+		if (stack == null) return false;
 		return stack.isIn(ModTags.Items.REVEALS_MARKERS)
 			|| (isSneaking && stack.isIn(ModTags.Items.REVEALS_MARKERS_WHILE_SNEAKING));
 	}

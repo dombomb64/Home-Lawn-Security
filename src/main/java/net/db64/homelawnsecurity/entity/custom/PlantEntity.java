@@ -21,6 +21,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -143,24 +145,24 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 	}
 
 	@Override
-	public void writeCustomDataToNbt(NbtCompound nbt) {
-		super.writeCustomDataToNbt(nbt);
+	public void writeCustomData(WriteView view) {
+		super.writeCustomData(view);
 
 		/*if (pathTag == ModTags.Blocks.ZOMBIE_PATH_2)
-			nbt.putInt("path_tag", 2);
+			view.putInt("path_tag", 2);
 		else
-			nbt.putInt("path_tag", 1);*/
+			view.putInt("path_tag", 1);*/
 
-		nbt.putBoolean("on_path", onPath);
-		nbt.putInt("intersecting_path", intersectingPath);
+		view.putBoolean("on_path", onPath);
+		view.putInt("intersecting_path", intersectingPath);
 	}
 
 	@Override
-	public void readCustomDataFromNbt(NbtCompound nbt) {
-		super.readCustomDataFromNbt(nbt);
+	public void readCustomData(ReadView view) {
+		super.readCustomData(view);
 
 		/*// path_tag
-		int path = nbt.getInt("path_tag").orElse(1);
+		int path = view.getInt("path_tag", 1);
 		if (path == 2) {
 			pathTag = ModTags.Blocks.ZOMBIE_PATH_2;
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_2_MARKERS;
@@ -169,9 +171,9 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 			pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;
 		}*/
 
-		onPath = nbt.getBoolean("on_path").orElse(false);
+		onPath = view.getBoolean("on_path", false);
 
-		intersectingPath = nbt.getInt("intersecting_path").orElse(0);
+		intersectingPath = view.getInt("intersecting_path", 0);
 	}
 
 	/*
@@ -314,6 +316,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 
 	@Override
 	protected boolean itemDuplicatesSpawnItem(ItemStack stack) {
+		if (stack == null) return false;
 		return stack.isIn(ModTags.Items.PLANT_FEEDABLE_FOR_DUPLICATE);
 	}
 

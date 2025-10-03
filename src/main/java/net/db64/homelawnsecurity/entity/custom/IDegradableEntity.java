@@ -8,6 +8,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.storage.NbtReadView;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -64,25 +68,29 @@ public interface IDegradableEntity {
 		}
 	}
 
-	default void writeDegradationNbt(NbtCompound nbt) {
-		ArrayList<DegradationStage> stages = getDegradationStageList();
-		NbtByteArray degradationNbt = new NbtByteArray(new byte[0]);
+	default void writeDegradationNbt(WriteView view) {
+		if (view instanceof NbtWriteView nbtView) {
+			ArrayList<DegradationStage> stages = getDegradationStageList();
+			NbtByteArray degradationNbt = new NbtByteArray(new byte[0]);
 
-		for (int i = 0; i < stages.size(); i++) {
-			degradationNbt.addElement(i, NbtByte.of(stages.get(i).hasTriggered));
+			for (int i = 0; i < stages.size(); i++) {
+				degradationNbt.addElement(i, NbtByte.of(stages.get(i).hasTriggered));
+			}
+
+			nbtView.nbt.put("degradation_stages", degradationNbt);
 		}
-
-		nbt.put("degradation_stages", degradationNbt);
 	}
 
-	default void readDegradationNbt(NbtCompound nbt) {
-		ArrayList<DegradationStage> stages = getDegradationStageList();
-		byte[] degradationNbt = nbt.getByteArray("degradation_stages").orElse(new byte[0]);
+	default void readDegradationNbt(ReadView view) {
+		if (view instanceof NbtReadView nbtView) {
+			ArrayList<DegradationStage> stages = getDegradationStageList();
+			byte[] degradationNbt = nbtView.nbt.getByteArray("degradation_stages").orElse(new byte[0]);
 
-		for (int i = 0; i < degradationNbt.length; i++) {
-			DegradationStage stage = stages.get(i);
-			if (stage != null) {
-				stage.hasTriggered = degradationNbt[i] == NbtByte.ONE.byteValue();
+			for (int i = 0; i < degradationNbt.length; i++) {
+				DegradationStage stage = stages.get(i);
+				if (stage != null) {
+					stage.hasTriggered = degradationNbt[i] == NbtByte.ONE.byteValue();
+				}
 			}
 		}
 	}

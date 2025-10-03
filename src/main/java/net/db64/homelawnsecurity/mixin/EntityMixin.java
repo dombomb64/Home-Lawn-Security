@@ -8,6 +8,8 @@ import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.util.IEntityDataSaver;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -42,21 +44,21 @@ public abstract class EntityMixin implements IEntityDataSaver {
 	}
 
 	@Inject(
-		method = "writeNbt",
+		method = "writeData",
 		at = @At("HEAD")
 	)
-	protected void injectWriteMethod(NbtCompound nbt, CallbackInfoReturnable<NbtCompound> cir) {
+	protected void injectWriteMethod(WriteView view, CallbackInfo ci) {
 		if (persistentData != null) {
-			nbt.put(IEntityDataSaver.dataId, persistentData);
+			view.put(IEntityDataSaver.dataId, NbtCompound.CODEC, persistentData);
 		}
 	}
 
 	@Inject(
-		method = "readNbt",
+		method = "readData",
 		at = @At("HEAD")
 	)
-	protected void injectReadMethod(NbtCompound nbt, CallbackInfo ci) {
-		persistentData = nbt.getCompound(IEntityDataSaver.dataId).orElse(new NbtCompound());
+	protected void injectReadMethod(ReadView view, CallbackInfo ci) {
+		persistentData = view.read(IEntityDataSaver.dataId, NbtCompound.CODEC).orElse(new NbtCompound());
 	}
 
 
