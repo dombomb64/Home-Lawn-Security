@@ -4,9 +4,11 @@ import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.Identifier;
@@ -24,8 +26,13 @@ public class PeashooterRenderer extends MobEntityRenderer<PeashooterEntity, Peas
 	}
 
 	@Override
-	public void render(PeashooterRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-		super.render(state, matrixStack, vertexConsumerProvider, i);
+	public void render(
+		PeashooterRenderState state,
+		MatrixStack matrixStack,
+		OrderedRenderCommandQueue orderedRenderCommandQueue,
+		CameraRenderState cameraRenderState
+	) {
+		super.render(state, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 
 	@Override

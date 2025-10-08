@@ -1,12 +1,8 @@
 package net.db64.homelawnsecurity.entity.client.zombie;
 
-import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -26,14 +22,14 @@ public class ZombieGravestoneCracksFeatureRenderer<S extends ZombieGravestoneRen
 		this.texture = texture;
 	}
 
-	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, S state, float f, float g) {
+	public void render(MatrixStack matrixStack, OrderedRenderCommandQueue orderedRenderCommandQueue, int light, S state, float limbAngle, float limbDistance) {
 		if (state.getCracks()) {
 			M entityModel = this.model;
 			entityModel.setAngles(state);
 			//VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(this.texture));
-			//entityModel.render(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
+			//entityModel.render(matrixStack, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
 
-			renderModel(entityModel, texture, matrixStack, vertexConsumerProvider, i, state, -1);
+			renderModel(entityModel, texture, matrixStack, orderedRenderCommandQueue, light, state, -1, 1);
 		}
 	}
 }

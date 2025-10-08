@@ -42,8 +42,8 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 		boolean result = false;
 
 		for (int i = 1; i <= 2; i++) {
-			int mainPathId = LawnUtil.getMainPathId(entity.getBlockPos(), entity.getWorld());
-			int intersectingPathId = LawnUtil.getIntersectingPathId(entity.getBlockPos(), entity.getWorld());
+			int mainPathId = LawnUtil.getMainPathId(entity.getBlockPos(), entity.getEntityWorld());
+			int intersectingPathId = LawnUtil.getIntersectingPathId(entity.getBlockPos(), entity.getEntityWorld());
 			//int pathId = i == 1 ? mainPathId : intersectingPathId;
 			int otherPathId = i == 1 ? intersectingPathId : mainPathId;
 
@@ -90,7 +90,7 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 			return !(entity instanceof TargetZombieEntity);
 		}
 
-		if (LawnUtil.getIntersectingPathId(entity.getBlockPos().down(), entity.getWorld()) != 0)
+		if (LawnUtil.getIntersectingPathId(entity.getBlockPos().down(), entity.getEntityWorld()) != 0)
 			// This plant needs to target entities on both paths, redirect them to a different predicate
 			return intersectionPredicate.test(entity);
 
@@ -179,7 +179,7 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 		ServerWorld serverWorld = getServerWorld(this.mob);
 		if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class) {
 			this.targetEntity = serverWorld.getClosestEntity(
-				this.mob.getWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
+				this.mob.getEntityWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
 					livingEntity -> rangePredicate.test(livingEntity) && pathPredicate.test(livingEntity)),
 				this.getAndUpdateTargetPredicate(),
 				this.mob,

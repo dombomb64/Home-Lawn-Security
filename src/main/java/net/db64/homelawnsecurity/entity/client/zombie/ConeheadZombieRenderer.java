@@ -5,8 +5,10 @@ import net.db64.homelawnsecurity.entity.client.ModModelLayers;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -23,8 +25,13 @@ public class ConeheadZombieRenderer extends MobEntityRenderer<ConeheadZombieEnti
 	}
 
 	@Override
-	public void render(ConeheadZombieRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-		super.render(state, matrixStack, vertexConsumerProvider, light);
+	public void render(
+		ConeheadZombieRenderState state,
+		MatrixStack matrixStack,
+		OrderedRenderCommandQueue orderedRenderCommandQueue,
+		CameraRenderState cameraRenderState
+	) {
+		super.render(state, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		//limbAnimator.setSpeed(limbAnimator.getSpeed() * 10f);
 
 		//setPathTagNbt(pathTag);
-		/*World world2 = getWorld();
+		/*World world2 = getEntityWorld();
 		BlockState groundState = world2.getBlockState(this.getBlockPos().down());
 		BlockState markerState = world2.getBlockState(this.getBlockPos());
 		if (markerState.isIn(this.getOtherPathMarkerTag(pathMarkerTag)) // The block is marked as the other path
@@ -86,7 +86,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		super.tick();
 		tickDegradation(this);
 
-		if (this.getWorld().isClient()) {
+		if (this.getEntityWorld().isClient()) {
 			updateAnimations();
 		}
 		else {
@@ -121,7 +121,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 			//HomeLawnSecurity.LOGGER.info("attackTimeout is " + attackTimeout + " and isUsingAttack() is " + isUsingAttack());
 
 			/*if (getHasLostHead()) {
-				damage((ServerWorld) getWorld(), this.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), 2);
+				damage((ServerWorld) getEntityWorld(), this.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), 2);
 			}*/
 		}
 	}
@@ -365,7 +365,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	 */
 
 	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getWorld(), pathId, true);
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, true);
 	}
 
 	/**
@@ -379,7 +379,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	 * @return Whether this block is a goal.
 	 */
 	public boolean isGoal(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
@@ -393,7 +393,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	 * @return Whether this block is a start.
 	 */
 	public boolean isStart(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
@@ -450,7 +450,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		if (this.getWorld().getFluidState(this.getBlockPos()).isIn(FluidTags.WATER))
+		if (this.getEntityWorld().getFluidState(this.getBlockPos()).isIn(FluidTags.WATER))
 			return ModSounds.ENTITY_ZOMBIE_COLLAPSE_UNDERWATER;
 		return ModSounds.ENTITY_ZOMBIE_COLLAPSE;
 	}
@@ -482,7 +482,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 
 	@Override
 	protected void playFeedSound() {
-		getWorld().playSoundFromEntity(null, this, ModSounds.ENTITY_ZOMBIE_FEED, getSoundCategory(), 1f, 1f);
+		getEntityWorld().playSoundFromEntity(null, this, ModSounds.ENTITY_ZOMBIE_FEED, getSoundCategory(), 1f, 1f);
 	}
 
 	@Override

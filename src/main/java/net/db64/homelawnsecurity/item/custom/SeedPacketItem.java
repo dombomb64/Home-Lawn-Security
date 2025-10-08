@@ -59,7 +59,7 @@ public abstract class SeedPacketItem extends Item {
 	};
 
 	public SeedPacketItem(EntityType<? extends MobEntity> type, Settings settings) {
-		super(settings);
+		super(settings.spawnEgg(type));
 		this.type = type;
 	}
 
@@ -141,8 +141,8 @@ public abstract class SeedPacketItem extends Item {
 	}
 
 	public EntityType<?> getEntityType(ItemStack stack) {
-		NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
-		return !nbtComponent.isEmpty() ? nbtComponent.get(ENTITY_TYPE_MAP_CODEC).result().orElse(this.type) : this.type;
+		TypedEntityData<EntityType<?>> typedEntityData = stack.get(DataComponentTypes.ENTITY_DATA);
+		return typedEntityData != null ? typedEntityData.getType() : null;
 	}
 
 	@Override

@@ -6,8 +6,10 @@ import net.db64.homelawnsecurity.entity.client.plant.PeashooterRenderState;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -24,8 +26,13 @@ public class BasicZombieRenderer extends MobEntityRenderer<BasicZombieEntity, Ba
 	}
 
 	@Override
-	public void render(BasicZombieRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-		super.render(state, matrixStack, vertexConsumerProvider, i);
+	public void render(
+		BasicZombieRenderState state,
+		MatrixStack matrixStack,
+		OrderedRenderCommandQueue orderedRenderCommandQueue,
+		CameraRenderState cameraRenderState
+	) {
+		super.render(state, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 
 	@Override

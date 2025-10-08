@@ -50,7 +50,7 @@ public interface IDegradableEntity {
 					stage.hasTriggered = true;
 
 					if (stage.getSound() != null) {
-						entity.getWorld().playSound(
+						entity.getEntityWorld().playSound(
 							null,
 							entity.getBlockPos(),
 							stage.getSound(),
@@ -61,8 +61,8 @@ public interface IDegradableEntity {
 					}
 				}
 
-				if (!entity.getWorld().isClient() && stage.getShouldDrainHealth()) {
-					entity.damage((ServerWorld) entity.getWorld(), entity.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), 0.25f);
+				if (!entity.getEntityWorld().isClient() && stage.getShouldDrainHealth()) {
+					entity.damage((ServerWorld) entity.getEntityWorld(), entity.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), 0.25f);
 				}
 			}
 		}

@@ -30,10 +30,12 @@ public class ModItems {
 	public static final MutableText OBSOLETE = Text.translatable("tooltip.item.homelawnsecurity.obsolete")
 		.setStyle(Style.EMPTY.withColor(Formatting.RED).withBold(true));
 
-	public static final Item PEASHOOTER_SPAWN_EGG = register("peashooter_spawn_egg", settings ->
-		new SpawnEggItem(ModEntities.Plant.PEASHOOTER, settings), new Item.Settings());
-	public static final Item BASIC_ZOMBIE_SPAWN_EGG = register("basic_zombie_spawn_egg", settings ->
-		new SpawnEggItem(ModEntities.Zombie.BASIC_ZOMBIE, settings), new Item.Settings());
+	public static final Item PEASHOOTER_SPAWN_EGG = register("peashooter_spawn_egg",
+		SpawnEggItem::new,
+		new Item.Settings().spawnEgg(ModEntities.Plant.PEASHOOTER));
+	public static final Item BASIC_ZOMBIE_SPAWN_EGG = register("basic_zombie_spawn_egg",
+		SpawnEggItem::new,
+		new Item.Settings().spawnEgg(ModEntities.Zombie.BASIC_ZOMBIE));
 
 	//public static final Item DAVES_PAN = registerItem("daves_pan",
 		//new ArmorItem(ModArmorMaterials.DAVES_PAN, ArmorItem.Type.HELMET, new FabricItemSettings()));

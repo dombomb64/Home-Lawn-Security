@@ -9,8 +9,10 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -30,7 +32,12 @@ public class PeaRenderer extends EntityRenderer<PeaEntity, PeaRenderState> {
 	}
 
 	@Override
-	public void render(PeaRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
+	public void render(
+		PeaRenderState state,
+		MatrixStack matrixStack,
+		OrderedRenderCommandQueue orderedRenderCommandQueue,
+		CameraRenderState cameraRenderState
+	) {
 		matrixStack.push();
 
 		matrixStack.translate(0f, -1.25f, 0f);
@@ -38,14 +45,19 @@ public class PeaRenderer extends EntityRenderer<PeaEntity, PeaRenderState> {
 		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.yaw - 90.0F));
 		matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(state.pitch));
 
-		VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutout(this.getTexture(state)));
-
-		this.model.setAngles(state);
-
-		this.model.render(matrixStack, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
+		orderedRenderCommandQueue.submitModel(
+			this.model,
+			state,
+			matrixStack,
+			RenderLayer.getEntityCutout(this.getTexture(state)),
+			state.light,
+			OverlayTexture.DEFAULT_UV,
+			state.outlineColor,
+			null
+		);
 
 		matrixStack.pop();
-		super.render(state, matrixStack, vertexConsumerProvider, light);
+		super.render(state, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 
 	@Override

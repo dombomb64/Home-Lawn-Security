@@ -88,7 +88,7 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 		ServerWorld serverWorld = getServerWorld(this.mob);
 		if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class) {
 			this.targetEntity = serverWorld.getClosestEntity(
-				this.mob.getWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
+				this.mob.getEntityWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
 					livingEntity -> rangePredicate.test(livingEntity) && notBehindPredicate.test(livingEntity) && hasHeadPredicate.test(livingEntity)),
 				this.getAndUpdateTargetPredicate(),
 				this.mob,

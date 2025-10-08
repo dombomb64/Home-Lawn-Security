@@ -66,10 +66,10 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 		// Where was this planted?
 		onPath = false;
 
-		if (LawnUtil.isAnyPath(pos, getWorld())) { // It's some kind of path
+		if (LawnUtil.isAnyPath(pos, getEntityWorld())) { // It's some kind of path
 			onPath = true;
 
-			intersectingPath = LawnUtil.getIntersectingPathId(pos, getWorld()); // It's two paths in one block! Intersection plants should target both lanes
+			intersectingPath = LawnUtil.getIntersectingPathId(pos, getEntityWorld()); // It's two paths in one block! Intersection plants should target both lanes
 		}
 
 		return result;
@@ -79,7 +79,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 	public void tick() {
 		super.tick();
 
-		if (this.getWorld().isClient()) {
+		if (this.getEntityWorld().isClient()) {
 			updateAnimations();
 		}
 		else {
@@ -126,8 +126,8 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 		ActionResult result = super.interactMob(player, hand);
 
 		if (player.getStackInHand(hand).contains(ModDataComponentTypes.SHOVEL)) {
-			World world = getWorld();
-			if (world.isClient) {
+			World world = getEntityWorld();
+			if (world.isClient()) {
 				for (int i = 0; i < 5; i++) {
 					world.addParticleClient(new BlockStateParticleEffect(ParticleTypes.BLOCK, getSteppingBlockState()), false, true, getX(), getY(), getZ(), 0, 0, 0);
 				}
@@ -217,7 +217,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 	 */
 
 	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getWorld(), pathId, false);
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, false);
 	}
 
 	/**
@@ -254,7 +254,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 	 * @return Whether this block is a lawn mower goal.
 	 */
 	public boolean isGoal(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
@@ -268,7 +268,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 	 * @return Whether this block is a lawn mower start.
 	 */
 	public boolean isStart(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
@@ -368,7 +368,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 
 	@Override
 	protected void playFeedSound() {
-		getWorld().playSoundFromEntity(null, this, ModSounds.ENTITY_PLANT_FEED, getSoundCategory(), 1f, 1f);
+		getEntityWorld().playSoundFromEntity(null, this, ModSounds.ENTITY_PLANT_FEED, getSoundCategory(), 1f, 1f);
 	}
 
 	@Override

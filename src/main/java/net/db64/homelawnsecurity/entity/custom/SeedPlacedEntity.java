@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.custom;
 
 import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
 import net.db64.homelawnsecurity.util.LawnUtil;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -11,12 +12,17 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
@@ -45,7 +51,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 
 	protected void dropSpawnItemOnDeath() {
 		if (shouldDropSpawnItem) {
-			ItemEntity itemEntity = dropStack((ServerWorld) getWorld(), getSpawnItem());
+			ItemEntity itemEntity = dropStack((ServerWorld) getEntityWorld(), getSpawnItem());
 			if (itemEntity != null) {
 				itemEntity.setVelocity(random.nextFloat() * 0.1f - 0.05f, 0.1f, random.nextFloat() * 0.1f - 0.05f);
 			}
@@ -53,7 +59,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 	}
 
 	protected void dropSpawnItemOnFeed() {
-		ItemEntity itemEntity = dropStack((ServerWorld) getWorld(), getSpawnItem());
+		ItemEntity itemEntity = dropStack((ServerWorld) getEntityWorld(), getSpawnItem());
 		if (itemEntity != null) {
 			itemEntity.setVelocity(random.nextFloat() * 0.1f - 0.05f, 0.1f, random.nextFloat() * 0.1f - 0.05f);
 		}
@@ -69,7 +75,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 
 	@Override
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-		if (getWorld().isClient())
+		if (getEntityWorld().isClient())
 			return ActionResult.PASS;
 
 		ItemStack stack = player.getStackInHand(hand);
@@ -103,9 +109,9 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(pos, 5, 5, 5);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
-			if (LawnUtil.isAnyPath(blockPos, getWorld())) {
+			if (LawnUtil.isAnyPath(blockPos, getEntityWorld())) {
 				for (int i = 1; i <= LawnUtil.getPathTypeAmount(); i++) {
-					if (LawnUtil.isCertainPath(blockPos, getWorld(), i)) {
+					if (LawnUtil.isCertainPath(blockPos, getEntityWorld(), i)) {
 						//HomeLawnSecurity.LOGGER.info("path {}", i);
 						pathId = i;
 					}
@@ -131,7 +137,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 	}
 
 	public boolean isCertainPath(BlockPos pos, int pathId) {
-		return LawnUtil.isCertainPath(pos, getWorld(), pathId);
+		return LawnUtil.isCertainPath(pos, getEntityWorld(), pathId);
 	}
 
 	@Override
@@ -169,6 +175,11 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 
 		shouldDropSpawnItem = view.getBoolean("should_drop_spawn_item", false);
 
-		spawnItem = view.read("spawn_item", ItemStack.CODEC).orElse(ItemStack.EMPTY);
+		ItemStack errorItem = new ItemStack(Items.POISONOUS_POTATO);
+		errorItem.remove(DataComponentTypes.CONSUMABLE);
+		errorItem.remove(DataComponentTypes.FOOD);
+		errorItem.set(DataComponentTypes.ITEM_MODEL, Identifier.ofVanilla("barrier"));
+		errorItem.set(DataComponentTypes.ITEM_NAME, Text.translatable("error.homelawnsecurity.invalid_spawn_item").setStyle(Style.EMPTY.withColor(16711680)));
+		spawnItem = view.read("spawn_item", ItemStack.CODEC).orElse(errorItem);
 	}
 }

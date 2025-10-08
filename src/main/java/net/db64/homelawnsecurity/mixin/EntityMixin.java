@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Debug(export = true)
 @Mixin(Entity.class)
@@ -26,7 +25,7 @@ public abstract class EntityMixin implements IEntityDataSaver {
 	public abstract BlockPos getBlockPos();
 
 	@Shadow
-	public abstract World getWorld();
+	public abstract World getEntityWorld();
 
 	@Final
 	@Shadow

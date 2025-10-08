@@ -46,7 +46,7 @@ public class ModEntities {
 		public static final EntityType<PeaEntity> PEA = register(
 			"pea",
 			EntityType.Builder.<PeaEntity>create(PeaEntity::new, SpawnGroup.MISC)
-				.dimensions(0.25f, 0.25f));
+				.dimensions(0.5f, 0.25f));
 	}
 
 

@@ -17,7 +17,7 @@ public class ZombieSeedPacketPathfindingEntity extends SeedPacketPathfindingEnti
 	 * @return Whether this block is a goal.
 	 */
 	public boolean isGoal(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
@@ -31,7 +31,7 @@ public class ZombieSeedPacketPathfindingEntity extends SeedPacketPathfindingEnti
 	 * @return Whether this block is a start.
 	 */
 	public boolean isStart(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 

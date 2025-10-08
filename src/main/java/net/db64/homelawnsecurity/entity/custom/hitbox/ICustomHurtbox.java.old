@@ -1,0 +1,17 @@
+package net.db64.homelawnsecurity.entity.custom.hitbox;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.server.world.ServerWorld;
+
+public interface ICustomHurtbox {
+	Entity getBaseEntity();
+	
+	default boolean damagePart(ServerWorld world, HurtboxPart part, DamageSource source, float amount) {
+		return getBaseEntity().damage(world, source, amount);
+	}
+
+	default void movePart(HurtboxPart part, double dx, double dy, double dz) {
+		part.setPosition(getBaseEntity().getX() + dx, getBaseEntity().getY() + dy, getBaseEntity().getZ() + dz);
+	}
+}

@@ -70,7 +70,7 @@ public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPla
 	public void tick() {
 		super.tick();
 
-		if (!(getWorld() instanceof ServerWorld)) {
+		if (!(getEntityWorld() instanceof ServerWorld)) {
 			return;
 		}
 
@@ -79,7 +79,7 @@ public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPla
 		if (sunTicks <= 0) {
 			sunTicks = MAX_SUN_TICKS;
 
-			getWorld().spawnEntity(createProjectile(this));
+			getEntityWorld().spawnEntity(createProjectile(this));
 		}
 	}
 
@@ -87,7 +87,7 @@ public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPla
 		//ArrowItem arrowItem = (ArrowItem)(stack.getItem() instanceof ArrowItem ? stack.getItem() : Items.ARROW);
 		Random random = entity.getRandom();
 
-		ProjectileEntity projectileEntity = new CurrencyEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getWorld(), new ItemStack(ModItems.SUN));
+		ProjectileEntity projectileEntity = new CurrencyEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getEntityWorld(), new ItemStack(ModItems.SUN));
 		projectileEntity.setOwner(entity);
 		projectileEntity.setVelocity(random.nextFloat() * 0.2 - 0.1, 0.2, random.nextFloat() * 0.2 - 0.1);
 

@@ -29,7 +29,7 @@ public class StayOnPathGoal extends Goal {
 
 		this.mob = mob;
 		this.speed = speed;
-		this.world = mob.getWorld();
+		this.world = mob.getEntityWorld();
 		this.setControls(EnumSet.of(Control.MOVE));
 	}
 
@@ -70,7 +70,7 @@ public class StayOnPathGoal extends Goal {
 	public boolean shouldContinue() {
 		return !(((IPathBoundEntity) mob).isWalkable(this.mob.getSteppingPos())
 			//|| ((IPathBoundEntity) mob).isStart(this.mob.getSteppingPos()) // If the entity is on a starting block, this goal shouldn't be activated even though this block isn't pathable! This goal randomly chooses a block to path to, remember?
-			|| mob.getWorld().getBlockState(mob.getSteppingPos()).isAir()) // Prevent stopping while over air
+			|| mob.getEntityWorld().getBlockState(mob.getSteppingPos()).isAir()) // Prevent stopping while over air
 			&& checkForExistingPath();
 	}
 
@@ -95,7 +95,7 @@ public class StayOnPathGoal extends Goal {
 			if (!((IPathBoundEntity) mob).isWalkable(blockPos.down())) continue;
 			Path path = this.mob.getNavigation().findPathTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1);
 			if (path == null || !path.reachesTarget()) continue;
-			//if (avoidPathId != -1 && LawnUtil.isCertainPath(blockPos, mob.getWorld(), avoidPathId)) continue;
+			//if (avoidPathId != -1 && LawnUtil.isCertainPath(blockPos, mob.getEntityWorld(), avoidPathId)) continue;
 
 			this.mob.getNavigation().startMovingTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.speed);
 			return Vec3d.ofBottomCenter(blockPos);

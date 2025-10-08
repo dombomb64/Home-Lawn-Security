@@ -24,8 +24,8 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
 		)
 	)
 	public void makeItemSounds(CallbackInfo ci) {
-		World world = getWorld();
-		if (world.isClient) {
+		World world = getEntityWorld();
+		if (world.isClient()) {
 			ItemStack itemStack = this.getMainHandStack();
 			if (!ItemStack.areEqual(this.selectedItem, itemStack)) {
 				if (itemStack.contains(ModDataComponentTypes.SHOVEL)) {

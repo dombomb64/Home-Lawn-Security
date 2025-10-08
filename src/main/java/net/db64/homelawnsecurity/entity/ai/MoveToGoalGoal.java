@@ -28,7 +28,7 @@ public class MoveToGoalGoal extends Goal {
 
 		this.mob = mob;
 		this.speed = speed;
-		this.world = mob.getWorld();
+		this.world = mob.getEntityWorld();
 		this.setControls(EnumSet.of(Control.MOVE));
 	}
 

@@ -124,8 +124,7 @@ public class TargetItem extends SeedPacketItem {
 	}
 
 	public EntityType<?> getEntityType(ItemStack stack) {
-		NbtComponent nbtComponent = stack.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
-		return !nbtComponent.isEmpty() ? (EntityType)nbtComponent.get(ENTITY_TYPE_MAP_CODEC).result().orElse(this.type) : this.type;
+		return super.getEntityType(stack);
 	}
 
 	@Override

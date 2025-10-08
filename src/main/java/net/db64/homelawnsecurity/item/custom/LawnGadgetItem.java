@@ -41,7 +41,7 @@ public class LawnGadgetItem extends Item {
 
 	@Override
 	public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity miner) {
-		if (!world.isClient) {
+		if (!world.isClient()) {
 			Random random = miner.getRandom();
 			/*if (miner.isSneaking()) {
 				toggleMarkerMode(miner.getStackInHand(Hand.MAIN_HAND), miner);
@@ -58,7 +58,7 @@ public class LawnGadgetItem extends Item {
 
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
-		if (context.getWorld().isClient) return ActionResult.SUCCESS;
+		if (context.getWorld().isClient()) return ActionResult.SUCCESS;
 
 		ItemStack stack = context.getStack();
 		ServerWorld world = (ServerWorld) context.getWorld();

@@ -6,8 +6,10 @@ import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
 import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
@@ -39,10 +41,15 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 		return 15;
 	}*/
 
-	public void render(CurrencyRenderState state, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+	public void render(
+		CurrencyRenderState state,
+		MatrixStack matrixStack,
+		OrderedRenderCommandQueue orderedRenderCommandQueue,
+		CameraRenderState cameraRenderState
+	) {
 		matrixStack.push();
 		matrixStack.scale(state.scale, state.scale, state.scale);
-		matrixStack.multiply(this.dispatcher.getRotation());
+		matrixStack.multiply(cameraRenderState.orientation);
 		/*if (state.model != null) {
 			this.itemModelManager
 				.renderItem(
@@ -56,10 +63,10 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 					state.model
 				);
 		}*/
-		state.itemRenderState.render(matrixStack, vertexConsumerProvider, i, OverlayTexture.DEFAULT_UV);
+		state.itemRenderState.render(matrixStack, orderedRenderCommandQueue, state.light, OverlayTexture.DEFAULT_UV, state.outlineColor);
 
 		matrixStack.pop();
-		super.render(state, matrixStack, vertexConsumerProvider, i);
+		super.render(state, matrixStack, orderedRenderCommandQueue, cameraRenderState);
 	}
 
 	@Override
@@ -74,7 +81,7 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 
 		this.itemModelManager.updateForNonLivingEntity(state.itemRenderState, stack, ItemDisplayContext.GROUND, entity);
 
-		/*state.model = !stack.isEmpty() ? this.itemModelManager.getModel(stack, entity.getWorld(), null, entity.getId()) : null;
+		/*state.model = !stack.isEmpty() ? this.itemModelManager.getModel(stack, entity.getEntityWorld(), null, entity.getId()) : null;
 		state.stack = stack.copy();*/
 		CurrencyComponent currency = stack.get(ModDataComponentTypes.CURRENCY);
 		if (currency != null)

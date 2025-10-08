@@ -86,16 +86,16 @@ public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPl
 		//double e = target.getBodyY(0.3333333333333333) - projectileEntity.getY();
 		double f = target.getZ() - this.getZ();
 		//double g = Math.sqrt(d * d + f * f);
-		projectileEntity.setVelocity(d, /*e + g * (double)0.2f*/ 0, f, 0.5f, /*14 - this.getWorld().getDifficulty().getId() * 4*/ 0);
+		projectileEntity.setVelocity(d, /*e + g * (double)0.2f*/ 0, f, 0.5f, /*14 - this.getEntityWorld().getDifficulty().getId() * 4*/ 0);
 		this.playSound(ModSounds.ENTITY_PEA_THROW, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
-		this.getWorld().spawnEntity(projectileEntity);
+		this.getEntityWorld().spawnEntity(projectileEntity);
 	}
 
 	public static ProjectileEntity createProjectile(PeashooterEntity entity) {
 		//ArrowItem arrowItem = (ArrowItem)(stack.getItem() instanceof ArrowItem ? stack.getItem() : Items.ARROW);
 		float maxDistance = entity.onPath ? STATS.attackRangePath * 1.5f : STATS.attackRange * 1.5f;
 
-		PeaEntity projectileEntity = new PeaEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getWorld(), maxDistance);
+		PeaEntity projectileEntity = new PeaEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getEntityWorld(), maxDistance);
 		projectileEntity.setOwner(entity);
 		projectileEntity.setMaxDistance(maxDistance);
 

@@ -13,6 +13,7 @@ import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.TypedEntityData;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
@@ -46,22 +47,25 @@ public abstract class InGameHudMixin {
 		// Seed Packet
 		if (currentStack.contains(ModDataComponentTypes.SEED_PACKET)) {
 			MutableText entityName = Text.empty();
+			NbtElement customName = null;
 
 			// Custom name
 			if (currentStack.contains(DataComponentTypes.ENTITY_DATA)) {
-				NbtComponent entityDataComponent = currentStack.getOrDefault(DataComponentTypes.ENTITY_DATA, NbtComponent.DEFAULT);
-				NbtElement customName = entityDataComponent.copyNbt().get("CustomName");
-				if (customName != null && client.world != null) {
-					try {
-						entityName = Text.empty().append(TextCodecs.CODEC.parse(client.world.getRegistryManager().getOps(NbtOps.INSTANCE), customName).getOrThrow());
-					} catch (Exception e) {
-						HomeLawnSecurity.LOGGER.warn("Failed to parse entity custom name {}", customName.asString(), e);
+				TypedEntityData<EntityType<?>> entityDataComponent = currentStack.get(DataComponentTypes.ENTITY_DATA);
+				if (entityDataComponent != null) {
+					customName = entityDataComponent.copyNbtWithoutId().get("CustomName");
+					if (customName != null && client.world != null) {
+						try {
+							entityName = Text.empty().append(TextCodecs.CODEC.parse(client.world.getRegistryManager().getOps(NbtOps.INSTANCE), customName).getOrThrow());
+						} catch (Exception e) {
+							HomeLawnSecurity.LOGGER.warn("Failed to parse entity custom name {}", customName.asString(), e);
+						}
 					}
 				}
 			}
 
 			// No custom name
-			else {
+			if (customName == null) {
 				EntityType<?> entityType;
 				if (currentStack.getItem() instanceof SeedPacketItem) {
 					entityType = ((SeedPacketItem) currentStack.getItem()).getEntityType(currentStack);

@@ -80,7 +80,7 @@ public class ZombieSeedPacketItem extends SeedPacketItem {
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 		// Reject clients, return to servr
-		World world = player.getWorld();
+		World world = player.getEntityWorld();
 		if (!(world instanceof ServerWorld)) {
 			return ActionResult.SUCCESS;
 		}

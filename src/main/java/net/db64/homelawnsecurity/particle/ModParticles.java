@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.particle;
 import com.mojang.serialization.MapCodec;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.particle.*;
@@ -17,6 +18,8 @@ public class ModParticles {
 		MARKER = register(
 		"marker", true, ItemStackParticleEffect::createCodec, ItemStackParticleEffect::createPacketCodec
 	);*/
+
+	public static final ParticleTextureSheet SHEET_ENTITY
 
 	public static void registerParticles() {
 		HomeLawnSecurity.LOGGER.info("Registering particles for {}", HomeLawnSecurity.MOD_ID);

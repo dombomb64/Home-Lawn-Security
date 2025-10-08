@@ -62,7 +62,7 @@ public class WallNutEntity extends PlantEntity implements IPvzEntity, IPathPlant
 	public void tick() {
 		super.tick();
 
-		if (!(getWorld() instanceof ServerWorld)) {
+		if (!(getEntityWorld() instanceof ServerWorld)) {
 			return;
 		}
 	}

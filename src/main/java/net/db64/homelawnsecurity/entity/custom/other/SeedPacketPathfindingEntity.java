@@ -45,9 +45,9 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(pos, 5, 5, 5);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
-			if (LawnUtil.isAnyPath(blockPos, getWorld())) {
+			if (LawnUtil.isAnyPath(blockPos, getEntityWorld())) {
 				for (int i = 1; i <= LawnUtil.getPathTypeAmount(); i++) {
-					if (LawnUtil.isCertainPath(blockPos, getWorld(), i)) {
+					if (LawnUtil.isCertainPath(blockPos, getEntityWorld(), i)) {
 						//HomeLawnSecurity.LOGGER.info("path {}", i);
 						pathId = i;
 					}
@@ -78,7 +78,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 	}
 
 	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getWorld(), pathId, false);
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, false);
 	}
 
 	public boolean isThisPath(BlockPos pos) {
@@ -86,7 +86,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 	}
 
 	public boolean isCertainPath(BlockPos pos, int pathId) {
-		return LawnUtil.isCertainPath(pos, getWorld(), pathId);
+		return LawnUtil.isCertainPath(pos, getEntityWorld(), pathId);
 	}
 
 

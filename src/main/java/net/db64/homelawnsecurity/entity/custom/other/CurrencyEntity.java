@@ -74,7 +74,7 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 		if (hitResult.getType() != HitResult.Type.MISS) {
 			vec3d = hitResult.getPos();
 		} else {
-			vec3d = this.getPos().add(this.getVelocity());
+			vec3d = this.getEntityPos().add(this.getVelocity());
 		}
 
 		//double d = this.getX() + vec3d.x;
@@ -128,9 +128,9 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 
 			while(var1.hasNext()) {
 				BlockPos blockPos = (BlockPos)var1.next();
-				BlockState blockState = this.getWorld().getBlockState(blockPos);
+				BlockState blockState = this.getEntityWorld().getBlockState(blockPos);
 				if (blockState.isOf(Blocks.BUBBLE_COLUMN)) {
-					blockState.onEntityCollision(this.getWorld(), blockPos, this, EntityCollisionHandler.DUMMY);
+					blockState.onEntityCollision(this.getEntityWorld(), blockPos, this, EntityCollisionHandler.DUMMY);
 				}
 			}
 		}
@@ -144,7 +144,7 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 	}
 
 	private void checkForCollection() {
-		if (this.getWorld() instanceof ServerWorld world) {
+		if (this.getEntityWorld() instanceof ServerWorld world) {
 			Entity owner = getOwner();
 			if (owner != null) {
 				Box box = this.getBoundingBox().expand(1.0);
@@ -154,7 +154,7 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 				}
 			}
 
-			for (LivingEntity entity : this.getWorld()
+			for (LivingEntity entity : this.getEntityWorld()
 				.getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(1.0), EntityPredicates.EXCEPT_SPECTATOR)) {
 				if (isOwner(entity) && !dataTracker.get(CURRENCY_LEFT_OWNER))
 					continue;

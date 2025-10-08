@@ -35,7 +35,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 
 	@Override
 	public boolean canStart() {
-		long l = this.mob.getWorld().getTime();
+		long l = this.mob.getEntityWorld().getTime();
 		if (l - this.lastUpdateTime < MAX_ATTACK_TIME) {
 			return false;
 		}
@@ -130,7 +130,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 		if (this.canAttack(target)) {
 			this.resetCooldown();
 			this.mob.swingHand(Hand.MAIN_HAND);
-			this.mob.tryAttack((ServerWorld) target.getWorld(), target);
+			this.mob.tryAttack((ServerWorld) target.getEntityWorld(), target);
 		}
 	}
 

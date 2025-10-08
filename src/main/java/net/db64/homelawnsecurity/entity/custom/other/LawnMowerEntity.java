@@ -59,7 +59,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	public LawnMowerEntity(EntityType<LawnMowerEntity> entityType, World world) {
 		super(entityType, world);
 
-		/*if (!getWorld().isClient) {
+		/*if (!getEntityWorld().isClient) {
 			setPathTagNbt(pathTag);
 		}*/
 	}
@@ -73,9 +73,9 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(getSteppingPos(), 5, 5, 5);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
-			if (LawnUtil.isAnyPath(blockPos, getWorld())) {
+			if (LawnUtil.isAnyPath(blockPos, getEntityWorld())) {
 				for (int i = 1; i <= LawnUtil.getPathTypeAmount(); i++) {
-					if (LawnUtil.isCertainPath(blockPos, getWorld(), i)) {
+					if (LawnUtil.isCertainPath(blockPos, getEntityWorld(), i)) {
 						//HomeLawnSecurity.LOGGER.info("path {}", i);
 						pathId = i;
 					}
@@ -94,7 +94,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	public void tick() {
 		super.tick();
 
-		World world = getWorld();
+		World world = getEntityWorld();
 		if (world instanceof ServerWorld serverWorld) {
 			boolean wasMowing = mowing;
 
@@ -112,7 +112,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	}
 
 	public void disappear() {
-		((ServerWorld) getWorld()).spawnParticles(ParticleTypes.POOF, getBodyX(0.5), getBodyY(0.5), getBodyZ(0.5), 20, getWidth() * 0.5, getHeight() * 0.5, getWidth() * 0.5, 0.02);
+		((ServerWorld) getEntityWorld()).spawnParticles(ParticleTypes.POOF, getBodyX(0.5), getBodyY(0.5), getBodyZ(0.5), 20, getWidth() * 0.5, getHeight() * 0.5, getWidth() * 0.5, 0.02);
 		dropSpawnItemOnDeath();
 
 		this.discard();
@@ -128,7 +128,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 
 	protected void dropSpawnItemOnDeath() {
 		if (shouldDropSpawnItem) {
-			ItemEntity itemEntity = dropStack((ServerWorld) getWorld(), getSpawnItem());
+			ItemEntity itemEntity = dropStack((ServerWorld) getEntityWorld(), getSpawnItem());
 			if (itemEntity != null) {
 				itemEntity.setVelocity(random.nextFloat() * 0.1f - 0.05f, 0.1f, random.nextFloat() * 0.1f - 0.05f);
 			}
@@ -250,7 +250,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	}
 
 	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getWorld(), pathId, false);
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, false);
 	}
 
 	public boolean isThisPath(BlockPos pos) {
@@ -258,7 +258,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	}
 
 	public boolean isCertainPath(BlockPos pos, int pathId) {
-		return LawnUtil.isCertainPath(pos, getWorld(), pathId);
+		return LawnUtil.isCertainPath(pos, getEntityWorld(), pathId);
 	}
 
 	/**
@@ -277,7 +277,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	 * @return Whether this block is a lawn mower goal.
 	 */
 	public boolean isGoal(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
@@ -291,7 +291,7 @@ public class LawnMowerEntity extends PathAwareEntity implements IPvzEntity, IPat
 	 * @return Whether this block is a lawn mower start.
 	 */
 	public boolean isStart(BlockPos pos) {
-		World world = getWorld();
+		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 

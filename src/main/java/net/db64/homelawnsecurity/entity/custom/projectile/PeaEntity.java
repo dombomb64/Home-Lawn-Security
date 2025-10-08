@@ -64,7 +64,7 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 		if (hitResult.getType() != HitResult.Type.MISS) {
 			vec3d = hitResult.getPos();
 		} else {
-			vec3d = this.getPos().add(this.getVelocity());
+			vec3d = this.getEntityPos().add(this.getVelocity());
 		}
 
 		//double d = this.getX() + vec3d.x;
@@ -94,16 +94,16 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 	protected void onEntityHit(EntityHitResult entityHitResult) {
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity();
-		if (!(getWorld() instanceof ServerWorld))
+		if (!(getEntityWorld() instanceof ServerWorld))
 			return;
-		entity.damage((ServerWorld) entity.getWorld(), this.getDamageSources().create(ModDamageTypes.PEA, this, this.getOwner()), 20 * IPvzEntity.HEALTH_SCALE);
-		//entity.damage(ModDamageTypes.of(entity.getWorld(), ModDamageTypes.PEA), 20);
+		entity.damage((ServerWorld) entity.getEntityWorld(), this.getDamageSources().create(ModDamageTypes.PEA, this, this.getOwner()), 20 * IPvzEntity.HEALTH_SCALE);
+		//entity.damage(ModDamageTypes.of(entity.getEntityWorld(), ModDamageTypes.PEA), 20);
 	}
 
 	@Override
 	protected void onCollision(HitResult hitResult) {
 		super.onCollision(hitResult);
-		if (!this.getWorld().isClient) {
+		if (!this.getEntityWorld().isClient()) {
 			this.playSound(ModSounds.ENTITY_PEA_HIT, 1.0f, 1.0f);
 			this.discard();
 		}
@@ -115,9 +115,9 @@ public class PeaEntity extends ProjectileEntity implements IPvzEntity {
 
 			while(var1.hasNext()) {
 				BlockPos blockPos = (BlockPos)var1.next();
-				BlockState blockState = this.getWorld().getBlockState(blockPos);
+				BlockState blockState = this.getEntityWorld().getBlockState(blockPos);
 				if (blockState.isOf(Blocks.BUBBLE_COLUMN)) {
-					blockState.onEntityCollision(this.getWorld(), blockPos, this, EntityCollisionHandler.DUMMY);
+					blockState.onEntityCollision(this.getEntityWorld(), blockPos, this, EntityCollisionHandler.DUMMY);
 				}
 			}
 		}

@@ -86,7 +86,7 @@ public interface IPathBoundEntity {
 	/*@Deprecated
 	default void switchPathTag() {
 		TagKey<Block> tagKey = getPathTagNbt();
-		//if (this.getWorld().getBlockState(this.getBlockPos().down()).isIn(tagKey))
+		//if (this.getEntityWorld().getBlockState(this.getBlockPos().down()).isIn(tagKey))
 		//return; // shut up you are standing on it
 
 		iStopNavigation();

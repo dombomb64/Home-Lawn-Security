@@ -366,7 +366,6 @@
 
 
 
-
 	"tag.item.homelawnsecurity.bag_of_sun": "Holds Sun",
 	"tag.item.homelawnsecurity.bag_of_brainpower": "Holds Brainpower",
 	"tag.item.homelawnsecurity.reveals_markers": "Reveals Markers",
@@ -374,5 +373,9 @@
 	"tag.item.homelawnsecurity.plant_feedable_for_duplicate": "Duplicates Plants",
 	"tag.item.homelawnsecurity.zombie_feedable_for_duplicate": "Duplicates Zombies",
 	"tag.item.homelawnsecurity.recipe.turf_grass": "Grass-like Ground Cover",
-	"tag.item.homelawnsecurity.recipe.grassless_dirt": "Grassless Dirt"
+	"tag.item.homelawnsecurity.recipe.grassless_dirt": "Grassless Dirt",
+
+
+
+	"error.homelawnsecurity.invalid_spawn_item": "ERROR: Invalid spawn item!"
 }
