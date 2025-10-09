@@ -1,21 +1,22 @@
 {
-	"required": true,
-	"package": "net.db64.homelawnsecurity.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"EntityMixin",
-		"ExampleMixin",
-		"ItemStackMixin",
-		"LivingEntityMixin",
-		"PlayerEntityMixin",
-		"ServerPlayerInteractionManagerMixin",
-		"ShearsItemMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"client": [
-		"ClientPlayerEntityMixin",
-		"InGameHudMixin"
-	]
+  "required": true,
+  "package": "net.db64.homelawnsecurity.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EntityMixin",
+    "ExampleMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "ServerPlayerInteractionManagerMixin",
+    "ShearsItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "ClientPlayerEntityMixin",
+    "InGameHudMixin",
+    "ParticleManagerMixin"
+    ]
 }

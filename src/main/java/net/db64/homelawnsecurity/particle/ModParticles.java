@@ -2,6 +2,10 @@ package net.db64.homelawnsecurity.particle;
 
 import com.mojang.serialization.MapCodec;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
+import net.db64.homelawnsecurity.particle.custom.EntityParticleRenderer;
+import net.db64.homelawnsecurity.particle.custom.MarkerParticle;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleRendererRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.network.RegistryByteBuf;
@@ -14,15 +18,18 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModParticles {
-	/*public static final ParticleType<ItemStackParticleEffect>
+	public static final ParticleType<ItemStackParticleEffect>
 		MARKER = register(
-		"marker", true, ItemStackParticleEffect::createCodec, ItemStackParticleEffect::createPacketCodec
-	);*/
+			"marker", true, ItemStackParticleEffect::createCodec, ItemStackParticleEffect::createPacketCodec
+	);
 
-	public static final ParticleTextureSheet SHEET_ENTITY
+	public static final ParticleTextureSheet SHEET_ENTITY = new ParticleTextureSheet("pvz_entity");
 
 	public static void registerParticles() {
 		HomeLawnSecurity.LOGGER.info("Registering particles for {}", HomeLawnSecurity.MOD_ID);
+
+		ParticleRendererRegistry.register(SHEET_ENTITY, EntityParticleRenderer::new);
+		ParticleFactoryRegistry.getInstance().register(MARKER, new MarkerParticle.Factory());
 	}
 
 	private static SimpleParticleType register(String name, boolean alwaysShow) {

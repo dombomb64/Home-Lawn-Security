@@ -6,7 +6,9 @@ import net.minecraft.item.ItemStack;
 
 public class CurrencyRenderState extends EntityRenderState {
 	public ItemStack stack = ItemStack.EMPTY;
-	public float scale = 1.0f;
+	public float scale = 1f;
+	public float alpha = 1f; // HOW DO I FORCE AN ITEM TO RENDER TRANSLUCENT???
+	public boolean lit = true;
 
 	public final ItemRenderState itemRenderState = new ItemRenderState();
 

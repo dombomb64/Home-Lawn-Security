@@ -1,16 +1,27 @@
 package net.db64.homelawnsecurity.particle.custom;
 
+import net.db64.homelawnsecurity.entity.ModEntities;
+import net.db64.homelawnsecurity.entity.client.other.CurrencyRenderState;
+import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
+import net.db64.homelawnsecurity.particle.ModParticles;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
+import org.jetbrains.annotations.Nullable;
 
 public class MarkerParticle extends Particle {
 	//protected List<Sprite> sprites;
 	//protected int curSprite = 0;
 
 	protected int ticksExisted;
-	public float alpha;
+	public float alpha; // HOW DO I FORCE AN ITEM TO RENDER TRANSLUCENT???
 
 	//private final Entity itemEntity;
 	protected final EntityRenderState renderState;
@@ -31,7 +42,7 @@ public class MarkerParticle extends Particle {
 
 	@Override
 	public ParticleTextureSheet textureSheet() {
-		return ParticleTextureSheet.NO_RENDER;
+		return ModParticles.SHEET_ENTITY;
 	}
 
 	/*private Entity getOrCopy(Entity entity) {
@@ -83,12 +94,16 @@ public class MarkerParticle extends Particle {
 		return this.sprites.get(curSprite).getMaxV();
 	}*/
 
-	/*@Environment(EnvType.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public static class Factory implements ParticleFactory<ItemStackParticleEffect> {
 		@Nullable
 		@Override
-		public Particle createParticle(ItemStackParticleEffect parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-			return new MarkerParticle(world, x, y, z, parameters.getItemStack());
+		public Particle createParticle(ItemStackParticleEffect parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, Random random) {
+			CurrencyEntity entity = new CurrencyEntity(x, y, z, world, parameters.getItemStack());
+			//CurrencyRenderState renderState = new CurrencyRenderState();
+			//renderState.entityType = ModEntities.Other.CURRENCY;
+			EntityRenderState renderState = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(entity).getAndUpdateRenderState(entity, 0f);
+			return new MarkerParticle(world, renderState, entity);
 		}
-	}*/
+	}
 }

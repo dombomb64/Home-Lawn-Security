@@ -18,23 +18,23 @@ import net.minecraft.util.math.MathHelper;
 
 public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRenderState> {
 	private final ItemModelManager itemModelManager;
-	//private final boolean lit;
 
-	public CurrencyRenderer(EntityRendererFactory.Context context, boolean lit) {
+	/*public CurrencyRenderer(EntityRendererFactory.Context context, boolean lit) {
 		super(context);
 		this.itemModelManager = context.getItemModelManager();
-		//this.lit = lit;
-	}
+		this.lit = lit;
+	}*/
 
 	public CurrencyRenderer(EntityRendererFactory.Context context) {
-		this(context, false);
+		//this(context, true);
+		super(context);
+		this.itemModelManager = context.getItemModelManager();
 	}
 
-	@Override
+	/*@Override
 	protected int getBlockLight(CurrencyEntity entity, BlockPos pos) {
-		//return this.lit ? 15 : super.getBlockLight(entity, pos);
-		return 15;
-	}
+		return this.lit ? 15 : super.getBlockLight(entity, pos);
+	}*/
 
 	/*@Override
 	protected int getSkyLight(CurrencyEntity entity, BlockPos pos) {
@@ -77,6 +77,7 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 	@Override
 	public void updateRenderState(CurrencyEntity entity, CurrencyRenderState state, float f) {
 		super.updateRenderState(entity, state, f);
+
 		ItemStack stack = entity.getStack();
 
 		this.itemModelManager.updateForNonLivingEntity(state.itemRenderState, stack, ItemDisplayContext.GROUND, entity);
@@ -84,10 +85,16 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 		/*state.model = !stack.isEmpty() ? this.itemModelManager.getModel(stack, entity.getEntityWorld(), null, entity.getId()) : null;
 		state.stack = stack.copy();*/
 		CurrencyComponent currency = stack.get(ModDataComponentTypes.CURRENCY);
-		if (currency != null)
+		if (currency != null) {
 			state.scale = MathHelper.clampedMap(currency.amount(), 5f, 50f, 0.5f, 5f);
-		else
+			state.lit = true;
+		}
+		else {
 			state.scale = 1.0f;
+			state.lit = false;
+		}
 
+		if (state.lit)
+			state.light = 15728880;
 	}
 }

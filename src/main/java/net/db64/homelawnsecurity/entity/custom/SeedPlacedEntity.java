@@ -13,13 +13,11 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -160,7 +158,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 
 		view.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
 
-		view.put("spawn_item", ItemStack.CODEC, spawnItem);
+		view.put("spawn_item", ItemStack.OPTIONAL_CODEC, ItemStack.EMPTY.copy());
 	}
 
 	@Override
@@ -174,12 +172,15 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 		}
 
 		shouldDropSpawnItem = view.getBoolean("should_drop_spawn_item", false);
+		spawnItem = view.read("spawn_item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY.copy());
+	}
 
-		ItemStack errorItem = new ItemStack(Items.POISONOUS_POTATO);
-		errorItem.remove(DataComponentTypes.CONSUMABLE);
-		errorItem.remove(DataComponentTypes.FOOD);
-		errorItem.set(DataComponentTypes.ITEM_MODEL, Identifier.ofVanilla("barrier"));
-		errorItem.set(DataComponentTypes.ITEM_NAME, Text.translatable("error.homelawnsecurity.invalid_spawn_item").setStyle(Style.EMPTY.withColor(16711680)));
-		spawnItem = view.read("spawn_item", ItemStack.CODEC).orElse(errorItem);
+	protected ItemStack createErrorItem() {
+		ItemStack stack = new ItemStack(Items.POISONOUS_POTATO);
+		stack.remove(DataComponentTypes.CONSUMABLE);
+		stack.remove(DataComponentTypes.FOOD);
+		stack.set(DataComponentTypes.ITEM_MODEL, Identifier.ofVanilla("barrier"));
+		stack.set(DataComponentTypes.ITEM_NAME, Text.translatable("error.homelawnsecurity.invalid_spawn_item").setStyle(Style.EMPTY.withColor(16711680)));
+		return stack;
 	}
 }
