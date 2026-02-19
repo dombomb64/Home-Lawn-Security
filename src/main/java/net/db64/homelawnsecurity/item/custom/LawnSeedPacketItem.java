@@ -1,7 +1,6 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import net.db64.homelawnsecurity.entity.ModEntities;
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.other.PlantSeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.entity.custom.other.SeedPacketPathfindingEntity;
@@ -19,7 +18,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.function.Predicate;
@@ -63,7 +61,7 @@ public class LawnSeedPacketItem extends SeedPacketItem {
 		SeedPacketPathfindingEntity entity = new PlantSeedPacketPathfindingEntity(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, world);
 		world.spawnEntity(entity);
 		entity.refreshPositionAndAngles(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), entity.getYaw(), entity.getPitch());
-		entity.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
+		entity.initialize(serverWorld, serverWorld.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
 
 		// Check if it's on a path
 		boolean isOffPath = !LawnUtil.isAnyPath(blockPos, world); // We need lawn plants to still be placeable off the path

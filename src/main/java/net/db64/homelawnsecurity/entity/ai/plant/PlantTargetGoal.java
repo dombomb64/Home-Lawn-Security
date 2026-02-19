@@ -1,15 +1,13 @@
 package net.db64.homelawnsecurity.entity.ai.plant;
 
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
-import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -94,10 +92,10 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 			// This plant needs to target entities on both paths, redirect them to a different predicate
 			return intersectionPredicate.test(entity);
 
-		if (!(entity instanceof IPathBoundEntity) || ((IPathBoundEntity) mob).getPathId() != ((IPathBoundEntity) entity).getPathId())
+		if (!(entity instanceof PathBoundEntity) || ((PathBoundEntity) mob).getPathId() != ((PathBoundEntity) entity).getPathId())
 			// It's on a different path, the enemy is of no concern
 			return false;
-		//HomeLawnSecurity.LOGGER.info("pathTag of mob ({}) is the same as pathTag of entity ({})", ((IPathBoundEntity) mob).getPathTagNbt(), ((IPathBoundEntity) entity).getPathTagNbt());
+		//HomeLawnSecurity.LOGGER.info("pathTag of mob ({}) is the same as pathTag of entity ({})", ((PathBoundEntity) mob).getPathTagNbt(), ((PathBoundEntity) entity).getPathTagNbt());
 
 		// Find paths to the enemy and to the goal
 		Path targetPath = mob.getNavigation().findPathTo(entity, 1);
@@ -203,7 +201,7 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(mob.getSteppingPos().up(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("plant is checking for if the block at {}, {}, {} is a goal", blockPos.getX(), blockPos.getY(), blockPos.getZ());
-			if (!((IPathBoundEntity) mob).isGoal(blockPos.down())) continue;
+			if (!((PathBoundEntity) mob).isGoal(blockPos.down())) continue;
 			//HomeLawnSecurity.LOGGER.info("plant is checking for if the goal at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			Path path = mob.getNavigation().findPathTo(blockPos, 1);
 			if (path == null) continue;

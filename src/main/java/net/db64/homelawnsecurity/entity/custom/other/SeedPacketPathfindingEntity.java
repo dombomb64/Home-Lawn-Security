@@ -1,30 +1,19 @@
 package net.db64.homelawnsecurity.entity.custom.other;
 
-import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
-import net.db64.homelawnsecurity.util.LawnUtil;
-import net.db64.homelawnsecurity.util.ModTags;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityData;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implements IPathBoundEntity {
-	public int pathId = 1;
+public abstract class SeedPacketPathfindingEntity extends PathBoundEntity {
+	//public int pathId = 1;
 
 	/*@Deprecated
 	public TagKey<Block> pathTag = ModTags.Blocks.ZOMBIE_PATH_1;
@@ -35,7 +24,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 		super(entityType, world);
 	}
 
-	@Nullable
+	/*@Nullable
 	@Override
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
 		EntityData result = super.initialize(world, difficulty, spawnReason, entityData);
@@ -58,7 +47,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 		}
 
 		return result;
-	}
+	}*/
 
 	/*@Override
 	public void tick() {
@@ -69,7 +58,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 
 
 
-	public int getPathId() {
+	/*public int getPathId() {
 		return pathId;
 	}
 
@@ -78,7 +67,7 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 	}
 
 	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, false);
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, getSteppingPos(), false);
 	}
 
 	public boolean isThisPath(BlockPos pos) {
@@ -89,16 +78,16 @@ public abstract class SeedPacketPathfindingEntity extends PathAwareEntity implem
 		return LawnUtil.isCertainPath(pos, getEntityWorld(), pathId);
 	}
 
+	@Override
+	protected EntityNavigation createNavigation(World world) {
+		return new PvzNavigation(this, world);
+	}*/
+
 
 
 	@Override
 	public void checkDespawn() {
 		this.discard();
-	}
-
-	@Override
-	protected EntityNavigation createNavigation(World world) {
-		return new PvzNavigation(this, world);
 	}
 
 	public static int searchDistanceFromClose() {

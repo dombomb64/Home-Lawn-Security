@@ -1,0 +1,56 @@
+package net.db64.homelawnsecurity.datagen;
+
+import net.db64.homelawnsecurity.item.ModItems;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.minecraft.item.Item;
+import net.minecraft.registry.RegistryWrapper;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModLanguageProvider extends FabricLanguageProvider {
+	protected final String imLazy;
+	public ModLanguageProvider(FabricDataOutput dataOutput, String language, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+		super(dataOutput, language, registryLookup);
+		imLazy = language;
+	}
+
+	public void addMower(TranslationBuilder builder, Item item, String name, String placementError) {
+		builder.add(item, name);
+		builder.add(item.getTranslationKey() + "placement.error", placementError);
+	}
+
+	public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
+		switch (imLazy) {
+			case "en_us" -> generateEnUs(wrapperLookup, builder);
+			case "lol_us" -> generateLolcat(wrapperLookup, builder);
+			case "en_pr" -> generatePirateSpeak(wrapperLookup, builder);
+		}
+	}
+
+	public void generateEnUs(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
+		builder.add(ModItems.DUMMY_ITEM, "Dummy Item");
+		builder.add(ModItems.PEASHOOTER_SPAWN_EGG, "Peashooter Spawn Egg");
+		builder.add(ModItems.BASIC_ZOMBIE_SPAWN_EGG, "Basic Zombie Spawn Egg");
+		builder.add(ModItems.DAVES_PAN, "Dave's Pan");
+		builder.add(ModItems.BAG_OF_SUN, "Bag of Sun");
+		builder.add(ModItems.BAG_OF_BRAINPOWER, "Bag of Brainpower");
+		builder.add(ModItems.SUN, "Sun");
+		builder.add(ModItems.BRAINPOWER, "Brainpower");
+		builder.add("item.homelawnsecurity.currency.name.separator", " - ");
+		builder.add("item.homelawnsecurity.currency.name.sun", "%1$s Sun");
+		builder.add("item.homelawnsecurity.currency.name.brainpower", "%1$s Brainpower");
+		addMower(builder, ModItems.LAWN_MOWER, "Lawn Mower", "Lawn mowers can only be placed on the garden");
+		//addMower(builder, ModItems.POOL_CLEANER, "Pool Cleaner", "Pool cleaners can only be placed on the garden");
+		//addMower(builder, ModItems.ROOF_CLEANER, "Roof Cleaner", "Roof cleaners can only be placed on the garden");
+		//addMower(builder, ModItems.BLOOMBA, "Bloomba", "Bloombas can only be placed on the garden");
+	}
+
+	public void generateLolcat(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
+
+	}
+
+	public void generatePirateSpeak(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder builder) {
+
+	}
+}

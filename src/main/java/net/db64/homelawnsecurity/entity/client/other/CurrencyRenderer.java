@@ -14,6 +14,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.MathHelper;
 
 public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRenderState> {
@@ -62,6 +63,11 @@ public class CurrencyRenderer extends EntityRenderer<CurrencyEntity, CurrencyRen
 					OverlayTexture.DEFAULT_UV,
 					state.model
 				);
+		}*/
+		/*for (int j = 0; j < state.itemRenderState.layerCount; j++) {
+			for (int k = 0; k < state.itemRenderState.layers[j].tints.length; k++) {
+				state.itemRenderState.layers[j].tints[k] = ColorHelper.getWhite(0.5f);
+			}
 		}*/
 		state.itemRenderState.render(matrixStack, orderedRenderCommandQueue, state.light, OverlayTexture.DEFAULT_UV, state.outlineColor);
 

@@ -1,11 +1,9 @@
 package net.db64.homelawnsecurity.entity.ai;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -15,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class StayOnPathGoal extends Goal {
-	protected final PathAwareEntity mob;
+	protected final PathBoundEntity mob;
 	protected boolean targetChosenBefore = false;
 	protected double targetX;
 	protected double targetY;
@@ -23,10 +21,7 @@ public class StayOnPathGoal extends Goal {
 	protected final double speed;
 	protected final World world;
 
-	public StayOnPathGoal(PathAwareEntity mob, double speed) {
-		if (!(mob instanceof IPathBoundEntity))
-			HomeLawnSecurity.LOGGER.error("Entities using StayOnPathGoal must implement IPathBoundEntity!");
-
+	public StayOnPathGoal(PathBoundEntity mob, double speed) {
 		this.mob = mob;
 		this.speed = speed;
 		this.world = mob.getEntityWorld();
@@ -36,15 +31,15 @@ public class StayOnPathGoal extends Goal {
 	@Override
 	public boolean canStart() {
 		//HomeLawnSecurity.LOGGER.info("zombie will see if it can start the goal");
-		return !(((IPathBoundEntity) mob).isWalkable(this.mob.getSteppingPos())
-			|| ((IPathBoundEntity) mob).isStart(this.mob.getSteppingPos())) // If the entity is on a starting block, this goal shouldn't be activated even though this block isn't pathable! This goal randomly chooses a block to path to, remember?
+		return !(mob.isWalkable(this.mob.getSteppingPos())
+			|| mob.isStart(this.mob.getSteppingPos())) // If the entity is on a starting block, this goal shouldn't be activated even though this block isn't pathable! This goal randomly chooses a block to path to, remember?
 			&& this.checkForExistingPath();
 	}
 
 	private boolean checkForExistingPath() {
 		BlockPos targetPos = new BlockPos(MathHelper.floor(this.targetX), MathHelper.floor(this.targetY), MathHelper.floor(this.targetZ));
 		//HomeLawnSecurity.LOGGER.info("zombie's current path pos: " + targetX + ", " + targetY + ", " + targetZ + " | " + targetPos.toShortString() + " zombie's current pos: " + mob.getPos().toString() + " | " + mob.getBlockPos().toShortString());
-		if (targetChosenBefore && ((IPathBoundEntity) mob).isWalkable(targetPos.down())) {
+		if (targetChosenBefore && mob.isWalkable(targetPos.down())) {
 			return true; // Target still exists
 		}
 		return targetPathPos(); // Choose a new target
@@ -55,7 +50,7 @@ public class StayOnPathGoal extends Goal {
 		Vec3d vec3d = this.locatePathPos();
 		if (vec3d == null) {
 			//HomeLawnSecurity.LOGGER.info("zombie couldn't pick new path pos, switching path tag");
-			((IPathBoundEntity) mob).setPathId(mob.getRandom().nextInt(LawnUtil.getPathTypeAmount()) + 1);
+			mob.setPathId(mob.getRandom().nextInt(LawnUtil.getPathTypeAmount()) + 1);
 			return false;
 		}
 		this.targetX = vec3d.x;
@@ -68,7 +63,7 @@ public class StayOnPathGoal extends Goal {
 
 	@Override
 	public boolean shouldContinue() {
-		return !(((IPathBoundEntity) mob).isWalkable(this.mob.getSteppingPos())
+		return !(mob.isWalkable(this.mob.getSteppingPos())
 			//|| ((IPathBoundEntity) mob).isStart(this.mob.getSteppingPos()) // If the entity is on a starting block, this goal shouldn't be activated even though this block isn't pathable! This goal randomly chooses a block to path to, remember?
 			|| mob.getEntityWorld().getBlockState(mob.getSteppingPos()).isAir()) // Prevent stopping while over air
 			&& checkForExistingPath();
@@ -92,7 +87,7 @@ public class StayOnPathGoal extends Goal {
 		int rangeV = 2;
 		Iterable<BlockPos> iterable = BlockPos.iterateRandomly(mob.getRandom(), ((rangeH * 2 + 1) * 2) * (rangeV * 2 + 1), MathHelper.floor(this.mob.getX() - rangeH), MathHelper.floor(this.mob.getY() - rangeV), MathHelper.floor(this.mob.getZ() - rangeH), MathHelper.floor(this.mob.getX() + rangeH), MathHelper.floor(this.mob.getY() + rangeV), MathHelper.floor(this.mob.getZ() + rangeH));
 		for (BlockPos blockPos : iterable) {
-			if (!((IPathBoundEntity) mob).isWalkable(blockPos.down())) continue;
+			if (!mob.isWalkable(blockPos.down())) continue;
 			Path path = this.mob.getNavigation().findPathTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1);
 			if (path == null || !path.reachesTarget()) continue;
 			//if (avoidPathId != -1 && LawnUtil.isCertainPath(blockPos, mob.getEntityWorld(), avoidPathId)) continue;

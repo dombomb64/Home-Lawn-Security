@@ -30,12 +30,18 @@ public class ModItems {
 	public static final MutableText OBSOLETE = Text.translatable("tooltip.item.homelawnsecurity.obsolete")
 		.setStyle(Style.EMPTY.withColor(Formatting.RED).withBold(true));
 
+	public static final Item DUMMY_ITEM = register("dummy_item",
+		Item::new, new Item.Settings().component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(List.of(
+			Text.translatable("tooltip.item.homelawnsecurity.dummy_item")))));
+
 	public static final Item PEASHOOTER_SPAWN_EGG = register("peashooter_spawn_egg",
 		SpawnEggItem::new,
-		new Item.Settings().spawnEgg(ModEntities.Plant.PEASHOOTER));
+		new Item.Settings().spawnEgg(ModEntities.Plant.PEASHOOTER).component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(List.of(
+			OBSOLETE))));
 	public static final Item BASIC_ZOMBIE_SPAWN_EGG = register("basic_zombie_spawn_egg",
 		SpawnEggItem::new,
-		new Item.Settings().spawnEgg(ModEntities.Zombie.BASIC_ZOMBIE));
+		new Item.Settings().spawnEgg(ModEntities.Zombie.BASIC_ZOMBIE).component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(List.of(
+			OBSOLETE))));
 
 	//public static final Item DAVES_PAN = registerItem("daves_pan",
 		//new ArmorItem(ModArmorMaterials.DAVES_PAN, ArmorItem.Type.HELMET, new FabricItemSettings()));
@@ -65,7 +71,8 @@ public class ModItems {
 			Text.translatable("tooltip.item.homelawnsecurity.target")));
 
 	public static final Item SHOVEL = register("shovel", settings ->
-		new Item(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.SHOVEL, Unit.INSTANCE), List.of(
+		new Item(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.SHOVEL, Unit.INSTANCE)
+		/*.shovel(ToolMaterial.IRON, 1.5f, -3f)*/, List.of( // Lol oops it got durability
 			Text.translatable("tooltip.item.homelawnsecurity.shovel.use"),
 			Text.translatable("tooltip.item.homelawnsecurity.shovel.attack")));
 	public static final Item LAWN_GADGET = register("lawn_gadget", settings ->
@@ -133,17 +140,17 @@ public class ModItems {
 		return register(block.getRegistryEntry().registryKey(), settings1 -> new BlockItem(block, settings1), settings.useBlockPrefixedTranslationKey());
 	}*/
 
-	public static Item register(Block block) {
-		return register(block, BlockItem::new);
+	public static Item register(Block block, String id) {
+		return register(block, id, BlockItem::new);
 	}
 
-	public static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory) {
-		return register(block, factory, new Item.Settings());
+	public static Item register(Block block, String id, BiFunction<Block, Item.Settings, Item> factory) {
+		return register(block, id, factory, new Item.Settings());
 	}
 
-	public static Item register(Block block, BiFunction<Block, Item.Settings, Item> factory, Item.Settings settings) {
+	public static Item register(Block block, String id, BiFunction<Block, Item.Settings, Item> factory, Item.Settings settings) {
 		return register(
-			keyOf(block.getRegistryEntry().registryKey()), itemSettings -> (Item)factory.apply(block, itemSettings), settings.useBlockPrefixedTranslationKey()
+			keyOf(id), itemSettings -> factory.apply(block, itemSettings), settings.useBlockPrefixedTranslationKey()
 		);
 	}
 

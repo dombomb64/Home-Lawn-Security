@@ -7,6 +7,7 @@ import net.db64.homelawnsecurity.item.custom.SeedPacketItem;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.ModTags;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -18,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -216,9 +218,34 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 		BLOCKS
 	 */
 
-	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, false);
+	@Override
+	protected boolean shouldPathLikeZombie() {
+		return false;
 	}
+
+	@Override
+	protected TagKey<Block> getGoalBlockTag() {
+		return ModTags.Blocks.ZOMBIE_START;
+	}
+
+	@Override
+	protected TagKey<Block> getGoalMarkerTag() {
+		return ModTags.Blocks.ZOMBIE_START_MARKERS;
+	}
+
+	@Override
+	protected TagKey<Block> getStartBlockTag() {
+		return ModTags.Blocks.ZOMBIE_GOAL;
+	}
+
+	@Override
+	protected TagKey<Block> getStartMarkerTag() {
+		return ModTags.Blocks.ZOMBIE_GOAL_MARKERS;
+	}
+
+	/*public boolean isWalkable(BlockPos pos) {
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, getSteppingPos(), false);
+	}*/
 
 	/**
 	 * @return Whether a lawn plant can be placed on top of this block.
@@ -250,9 +277,9 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 		return false;
 	}
 
-	/**
+	/*/**
 	 * @return Whether this block is a lawn mower goal.
-	 */
+	 *
 	public boolean isGoal(BlockPos pos) {
 		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
@@ -266,7 +293,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 
 	/**
 	 * @return Whether this block is a lawn mower start.
-	 */
+	 *
 	public boolean isStart(BlockPos pos) {
 		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
@@ -276,7 +303,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 			return markerState.isIn(ModTags.Blocks.ZOMBIE_GOAL_MARKERS);
 		}
 		return state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
-	}
+	}*/
 
 	/*
 		STATS

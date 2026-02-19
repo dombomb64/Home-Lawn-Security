@@ -1,4 +1,4 @@
-// 1.21.6	-999999999-01-01T00:00:00	Home Lawn Security/Model Definitions
+// 1.21.11	-999999999-01-01T00:00:00	Home Lawn Security/Model Definitions
 ab25d664e18b288f004b25066821dd34fe6b5c5d assets/homelawnsecurity/blockstates/garden_block.json
 c26ac3f63ca7e7211bd63a0f4001b7dcab02af8f assets/homelawnsecurity/blockstates/garden_marker.json
 eba0fc24a5e75bf5d795f8358e768c993ca41b1f assets/homelawnsecurity/blockstates/graveyard_block.json
@@ -11,6 +11,7 @@ c25e6ebf0a3e2e2ac5bb1a0739f86ac6648c003b assets/homelawnsecurity/blockstates/uns
 247449a0c939b07feafbb603fd8569bd177caedc assets/homelawnsecurity/items/bag_of_sun.json
 bd9e416710980d73cda346576ec253fdc06650fe assets/homelawnsecurity/items/brain.json
 d8f7d5bc24eaff330add89f8b0ca260f2bdb1644 assets/homelawnsecurity/items/brainpower.json
+20008e56ae172c10be9e2e4249095eda8c1b52ee assets/homelawnsecurity/items/dummy_item.json
 0ce70d9d061c840ae31d5dc72e1e24e65e80b650 assets/homelawnsecurity/items/garden_block.json
 7fb775624426a3bc7aa97eda28fc8a40febcb28c assets/homelawnsecurity/items/garden_marker.json
 ef9fbec4b1a335d720f4213c7cd6ff14cb93c831 assets/homelawnsecurity/items/graveyard_block.json
@@ -91,6 +92,7 @@ fbb511ca27e86364e787738fcaf28309b1c918fa assets/homelawnsecurity/models/block/un
 c89d220a67a93e67f77aaba3c75ecb4e23813219 assets/homelawnsecurity/models/item/bag_of_sun.json
 430d8878734e0e288442f3b3c38767da092d3344 assets/homelawnsecurity/models/item/brain.json
 a865bb277ca407af525a5bf66d089ba2d913e3bb assets/homelawnsecurity/models/item/brainpower.json
+da2ba8800346bf7cb0e08e3d8f66cedb5798bb50 assets/homelawnsecurity/models/item/dummy_item.json
 010a938088608873202a9bbbeb824263384bc7c1 assets/homelawnsecurity/models/item/garden_marker.json
 e8fbae13968edaeacd939de67baf69f17a2e999f assets/homelawnsecurity/models/item/graveyard_marker.json
 af946670b005321e0123b8cb5132f8f3c72d2a9e assets/homelawnsecurity/models/item/lawn_block/intersecting_path/1.json

@@ -12,13 +12,12 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
 
-public class WallNutEntity extends PlantEntity implements IPvzEntity, IPathPlant {
+public class WallNutEntity extends PlantEntity implements IPathPlant {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(WallNutEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 

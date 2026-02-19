@@ -6,7 +6,6 @@ import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
-import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
@@ -20,12 +19,11 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPlant, RangedAttackMob {
+public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedAttackMob {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(PeashooterEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -86,7 +84,7 @@ public class PeashooterEntity extends PlantEntity implements IPvzEntity, ILawnPl
 		//double e = target.getBodyY(0.3333333333333333) - projectileEntity.getY();
 		double f = target.getZ() - this.getZ();
 		//double g = Math.sqrt(d * d + f * f);
-		projectileEntity.setVelocity(d, /*e + g * (double)0.2f*/ 0, f, 0.5f, /*14 - this.getEntityWorld().getDifficulty().getId() * 4*/ 0);
+		projectileEntity.setVelocity(d, /*e + g * (double)0.2f*/ 0, f, 0.3f, /*14 - this.getEntityWorld().getDifficulty().getId() * 4*/ 0);
 		this.playSound(ModSounds.ENTITY_PEA_THROW, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
 		this.getEntityWorld().spawnEntity(projectileEntity);
 	}

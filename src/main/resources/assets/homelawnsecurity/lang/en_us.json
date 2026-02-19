@@ -37,7 +37,10 @@
 	"subtitles.homelawnsecurity.entity.sun.collect": "Sun gets collected",
 
 	"subtitles.homelawnsecurity.entity.lawn_mower.activate": "Lawn Mower purrs",
-	"subtitles.homelawnsecurity.entity.pool_cleaner.appear": "Pool Cleaner whirs",
+	"subtitles.homelawnsecurity.entity.pool_cleaner.activate": "Pool Cleaner stirs",
+	"subtitles.homelawnsecurity.entity.roof_cleaner.activate": "Roof Cleaner whirs",
+	"subtitles.homelawnsecurity.entity.roof_cleaner.jump": "Roof Cleaner sproings",
+	"subtitles.homelawnsecurity.entity.bloomba.activate": "Bloomba clears",
 
 	"subtitles.homelawnsecurity.entity.gravestone.appear": "Gravestone emerges",
 
@@ -90,12 +93,12 @@
 
 	"subtitles.homelawnsecurity.entity.fume_shroom.fume": "Fume-shroom gurgles",
 
-	"subtitles.homelawnsecurity.entity.puff_shroom.fume": "Puff-shroom bubbles",
+	"subtitles.homelawnsecurity.entity.puff_shroom.puff": "Puff-shroom bubbles",
 
 	"subtitles.homelawnsecurity.entity.cherry_bomb.anticipate_explosion": "Cherry Bomb anticipates explosion",
 	"subtitles.homelawnsecurity.entity.cherry_bomb.explode": "Cherry Bomb explodonates",
 
-	"subtitles.homelawnsecurity.entity.coffee_bean.explode": "Coffee Bean sprinkles",
+	"subtitles.homelawnsecurity.entity.coffee_bean.sprinkle": "Coffee Bean sprinkles",
 
 	"subtitles.homelawnsecurity.entity.doom_shroom.anticipate_explosion": "Doom-shroom anticipates explosion",
 	"subtitles.homelawnsecurity.entity.doom_shroom.explode": "Doom-shroom goes critical",
@@ -214,6 +217,10 @@
 
 	"entity.homelawnsecurity.currency": "Currency",
 	"entity.homelawnsecurity.lawn_mower": "Lawn Mower",
+	"entity.homelawnsecurity.pool_cleaner": "Pool Cleaner",
+	"entity.homelawnsecurity.roof_cleaner": "Roof Cleaner",
+	"entity.homelawnsecurity.bloomba": "Bloomba",
+	"entity.homelawnsecurity.target_zombie": "Target Zombie",
 
 	"entity.homelawnsecurity.pea": "Pea",
 
@@ -226,7 +233,9 @@
 	"entity.homelawnsecurity.conehead_zombie": "Conehead Zombie",
 
 
-	
+
+	"item.homelawnsecurity.dummy_item": "Dummy Item",
+
 	"item.homelawnsecurity.peashooter_spawn_egg": "Peashooter Spawn Egg",
 	"item.homelawnsecurity.basic_zombie_spawn_egg": "Basic Zombie Spawn Egg",
 
@@ -248,6 +257,8 @@
 	"item.homelawnsecurity.pool_cleaner.placement.error": "Pool cleaners can only be placed on the garden",
 	"item.homelawnsecurity.roof_cleaner": "Roof Cleaner",
 	"item.homelawnsecurity.roof_cleaner.placement.error": "Roof cleaners can only be placed on the garden",
+	"item.homelawnsecurity.bloomba": "Bloomba",
+	"item.homelawnsecurity.bloomba.placement.error": "Bloombas can only be placed on the garden",
 
 	"item.homelawnsecurity.target": "Target",
 	"item.homelawnsecurity.target.placement.error": "Target Zombies can only be placed on the graveyard",
@@ -334,6 +345,8 @@
 	"tooltip.homelawnsecurity.currency.sun": "Sun: %1$s",
 	"tooltip.homelawnsecurity.currency.brainpower": "Brainpower: %1$s",
 
+	"tooltip.item.homelawnsecurity.dummy_item": "You will no longer be able to feed my placeholder items to baby animals :P",
+
 	"tooltip.item.homelawnsecurity.daves_pan": "Activates developer mode.",
 	"tooltip.item.homelawnsecurity.daves_pan.warning": "Do not use in competitions.",
 	"tooltip.item.homelawnsecurity.target": "Places a target zombie.",
@@ -344,6 +357,11 @@
 	"tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode": "Sneak and punch a block to switch between markers and normal blocks.",
 	"tooltip.item.homelawnsecurity.turf": "Use on an unsodded lawn block to allow the placement of lawn plants.",
 	"tooltip.item.homelawnsecurity.brain": "Feed this to one of your zombies to get a duplicate seed packet.",
+	"tooltip.item.homelawnsecurity.mower.when_tripped": "When tripped:",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.lawn_mower": "Goes in a straight line.",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.pool_cleaner": "Goes in a straight line, surviving water.",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.roof_cleaner": "Goes in a straight line, springing up ledges.",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.bloomba": "Follows the entire path until needing to swim or jump.",
 
 	"tooltip.item.homelawnsecurity.bone_meal": "Feed this to one of your plants to get a duplicate seed packet.",
 	"tooltip.item.homelawnsecurity.shears": "Use these to remove turf from a lawn block.",

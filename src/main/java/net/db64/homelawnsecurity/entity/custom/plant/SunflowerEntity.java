@@ -16,14 +16,13 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class SunflowerEntity extends PlantEntity implements IPvzEntity, ILawnPlant {
+public class SunflowerEntity extends PlantEntity implements ILawnPlant {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(SunflowerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 

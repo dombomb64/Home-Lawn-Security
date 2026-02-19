@@ -8,6 +8,7 @@ import net.db64.homelawnsecurity.entity.ai.zombie.ZombieTargetGoal;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.ModTags;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -17,6 +18,7 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -364,9 +366,34 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		BLOCKS
 	 */
 
-	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, true);
+	@Override
+	protected boolean shouldPathLikeZombie() {
+		return true;
 	}
+
+	@Override
+	protected TagKey<Block> getGoalBlockTag() {
+		return ModTags.Blocks.ZOMBIE_GOAL;
+	}
+
+	@Override
+	protected TagKey<Block> getGoalMarkerTag() {
+		return ModTags.Blocks.ZOMBIE_GOAL_MARKERS;
+	}
+
+	@Override
+	protected TagKey<Block> getStartBlockTag() {
+		return ModTags.Blocks.ZOMBIE_START;
+	}
+
+	@Override
+	protected TagKey<Block> getStartMarkerTag() {
+		return ModTags.Blocks.ZOMBIE_START_MARKERS;
+	}
+
+	/*public boolean isWalkable(BlockPos pos) {
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, getSteppingPos(), true);
+	}*/
 
 	/**
 	 * @return Whether a zombie can be placed on top of this block.
@@ -375,9 +402,9 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		return LawnUtil.isAnyPath(pos, world);
 	}
 
-	/**
+	/*/**
 	 * @return Whether this block is a goal.
-	 */
+	 *
 	public boolean isGoal(BlockPos pos) {
 		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
@@ -391,7 +418,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 
 	/**
 	 * @return Whether this block is a start.
-	 */
+	 *
 	public boolean isStart(BlockPos pos) {
 		World world = getEntityWorld();
 		BlockState state = world.getBlockState(pos);
@@ -401,7 +428,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 			return markerState.isIn(ModTags.Blocks.ZOMBIE_START_MARKERS);
 		}
 		return state.isIn(ModTags.Blocks.ZOMBIE_START);
-	}
+	}*/
 
 	/*@Override
 	public float getPathfindingFavor(BlockPos pos, WorldView world) {

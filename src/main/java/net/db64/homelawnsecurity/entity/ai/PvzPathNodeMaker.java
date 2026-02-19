@@ -1,7 +1,7 @@
 package net.db64.homelawnsecurity.entity.ai;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathContext;
@@ -15,8 +15,7 @@ import net.minecraft.world.CollisionView;
 public class PvzPathNodeMaker extends LandPathNodeMaker {
 	@Override
 	public PathNodeType getNodeType(PathContext context, int x, int y, int z, MobEntity mob) {
-		PathAwareEntity entity = (PathAwareEntity) mob;
-		IPathBoundEntity pathBoundEntity = (IPathBoundEntity) mob;
+		PathBoundEntity entity = (PathBoundEntity) mob;
 		BlockPos pos = new BlockPos(x, y, z);
 		CollisionView world = context.getWorld();
 
@@ -24,8 +23,8 @@ public class PvzPathNodeMaker extends LandPathNodeMaker {
 			pos = pos.down();
 		}
 
-		if (pathBoundEntity.isWalkable(entity.getBlockPos().down()) // Standing on path (so that it can get back on track)
-			&& !pathBoundEntity.isWalkable(pos)) // Block is not path
+		if (entity.isWalkable(entity.getBlockPos().down()) // Standing on path (so that it can get back on track)
+			&& !entity.isWalkable(pos)) // Block is not path
 
 			return PathNodeType.BLOCKED;
 
@@ -38,8 +37,8 @@ public class PvzPathNodeMaker extends LandPathNodeMaker {
 	}
 
 	public static PathNodeType getPvzNodeType(PathContext context, BlockPos.Mutable pos, PathAwareEntity entity) {
-		if (!(entity instanceof IPathBoundEntity pathBoundEntity)) {
-			HomeLawnSecurity.LOGGER.error("Entities using PvzNavigation must implement IPathBoundEntity!");
+		if (!(entity instanceof PathBoundEntity pathBoundEntity)) {
+			HomeLawnSecurity.LOGGER.error("Entities using PvzNavigation must extend PathBoundEntity!");
 			return PathNodeType.BLOCKED;
 		}
 

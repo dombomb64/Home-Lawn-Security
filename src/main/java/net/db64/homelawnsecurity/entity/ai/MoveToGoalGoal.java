@@ -1,10 +1,8 @@
 package net.db64.homelawnsecurity.entity.ai;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -14,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class MoveToGoalGoal extends Goal {
-	protected final PathAwareEntity mob;
+	protected final PathBoundEntity mob;
 	protected double targetX;
 	protected double targetY;
 	protected double targetZ;
@@ -22,10 +20,7 @@ public class MoveToGoalGoal extends Goal {
 	protected final double speed;
 	protected final World world;
 
-	public MoveToGoalGoal(PathAwareEntity mob, double speed) {
-		if (!(mob instanceof IPathBoundEntity))
-			HomeLawnSecurity.LOGGER.error("Entities using MoveToGoalGoal must implement IPathBoundEntity!");
-
+	public MoveToGoalGoal(PathBoundEntity mob, double speed) {
 		this.mob = mob;
 		this.speed = speed;
 		this.world = mob.getEntityWorld();
@@ -42,13 +37,13 @@ public class MoveToGoalGoal extends Goal {
 
 	@Override
 	public boolean canStart() {
-		return !((IPathBoundEntity) mob).isGoal(this.mob.getSteppingPos()) && this.checkForExistingGoal();
+		return !mob.isGoal(this.mob.getSteppingPos()) && this.checkForExistingGoal();
 	}
 
 	private boolean checkForExistingGoal() {
 		BlockPos targetPos = new BlockPos(MathHelper.floor(this.targetX), MathHelper.floor(this.targetY), MathHelper.floor(this.targetZ));
 		//HomeLawnSecurity.LOGGER.info("zombie's current goal pos: " + targetX + ", " + targetY + ", " + targetZ + " | " + targetPos.toShortString() + " zombie's current pos: " + mob.getPos().toString() + " | " + mob.getBlockPos().toShortString());
-		if (targetChosenBefore && ((IPathBoundEntity) mob).isGoal(targetPos.down())) {
+		if (targetChosenBefore && mob.isGoal(targetPos.down())) {
 			//HomeLawnSecurity.LOGGER.info("zombie is checking for if the block at {}, {}, {} is a goal", targetX, targetY, targetZ);
 			return true; // Target still exists
 		}
@@ -72,7 +67,7 @@ public class MoveToGoalGoal extends Goal {
 
 	@Override
 	public boolean shouldContinue() {
-		return !((IPathBoundEntity) mob).isGoal(this.mob.getSteppingPos()) && checkForExistingGoal();
+		return !mob.isGoal(this.mob.getSteppingPos()) && checkForExistingGoal();
 	}
 
 	@Override
@@ -93,10 +88,11 @@ public class MoveToGoalGoal extends Goal {
 		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(mob.getSteppingPos().up(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("zombie is checking for if the block at {}, {}, {} is a goal", blockPos.getX(), blockPos.getY(), blockPos.getZ());
-			if (!((IPathBoundEntity) mob).isGoal(blockPos.down())) continue;
+			if (!mob.isGoal(blockPos.down())) continue;
 			//HomeLawnSecurity.LOGGER.info("zombie is checking for if the goal at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			Path path = this.mob.getNavigation().findPathTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1);
 			if (path == null || !path.reachesTarget()) continue;
+			// TODO: Iterate through path nodes here to make sure the path doesn't have a goal block before the last node?
 
 			this.mob.getNavigation().startMovingTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.speed);
 			return Vec3d.ofBottomCenter(blockPos);

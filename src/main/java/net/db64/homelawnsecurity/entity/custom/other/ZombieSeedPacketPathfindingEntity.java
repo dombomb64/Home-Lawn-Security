@@ -2,10 +2,10 @@ package net.db64.homelawnsecurity.entity.custom.other;
 
 
 import net.db64.homelawnsecurity.util.ModTags;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.World;
 
 public class ZombieSeedPacketPathfindingEntity extends SeedPacketPathfindingEntity {
@@ -13,31 +13,28 @@ public class ZombieSeedPacketPathfindingEntity extends SeedPacketPathfindingEnti
 		super(entityType, world);
 	}
 
-	/**
-	 * @return Whether this block is a goal.
-	 */
-	public boolean isGoal(BlockPos pos) {
-		World world = getEntityWorld();
-		BlockState state = world.getBlockState(pos);
-		BlockState markerState = world.getBlockState(pos.up());
-
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.ZOMBIE_GOAL_MARKERS);
-		}
-		return state.isIn(ModTags.Blocks.ZOMBIE_GOAL);
+	@Override
+	protected boolean shouldPathLikeZombie() {
+		return false;
 	}
 
-	/**
-	 * @return Whether this block is a start.
-	 */
-	public boolean isStart(BlockPos pos) {
-		World world = getEntityWorld();
-		BlockState state = world.getBlockState(pos);
-		BlockState markerState = world.getBlockState(pos.up());
+	@Override
+	protected TagKey<Block> getGoalBlockTag() {
+		return ModTags.Blocks.ZOMBIE_GOAL;
+	}
 
-		if (markerState.isIn(ModTags.Blocks.MARKERS)) {
-			return markerState.isIn(ModTags.Blocks.ZOMBIE_START_MARKERS);
-		}
-		return state.isIn(ModTags.Blocks.ZOMBIE_START);
+	@Override
+	protected TagKey<Block> getGoalMarkerTag() {
+		return ModTags.Blocks.ZOMBIE_GOAL_MARKERS;
+	}
+
+	@Override
+	protected TagKey<Block> getStartBlockTag() {
+		return ModTags.Blocks.ZOMBIE_START;
+	}
+
+	@Override
+	protected TagKey<Block> getStartMarkerTag() {
+		return ModTags.Blocks.ZOMBIE_START_MARKERS;
 	}
 }

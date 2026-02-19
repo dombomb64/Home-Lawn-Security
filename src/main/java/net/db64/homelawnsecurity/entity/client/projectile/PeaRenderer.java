@@ -40,16 +40,16 @@ public class PeaRenderer extends EntityRenderer<PeaEntity, PeaRenderState> {
 	) {
 		matrixStack.push();
 
-		matrixStack.translate(0f, -1.25f, 0f);
-
 		matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.yaw - 90.0F));
 		matrixStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(state.pitch));
+
+		matrixStack.translate(0f, -1.25f, 0f);
 
 		orderedRenderCommandQueue.submitModel(
 			this.model,
 			state,
 			matrixStack,
-			RenderLayer.getEntityCutout(this.getTexture(state)),
+			this.model.getLayer(this.getTexture(state)),
 			state.light,
 			OverlayTexture.DEFAULT_UV,
 			state.outlineColor,

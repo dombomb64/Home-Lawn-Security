@@ -1,0 +1,397 @@
+{
+	"itemgroup.homelawnsecurity.blocks_and_items": "Zommie dafenss mod - Stufz",
+	"itemgroup.homelawnsecurity.plants": "Zommie dafenss mod - Green stufz",
+	"itemgroup.homelawnsecurity.zombies": "Zommie dafenss mod - Ded guyz",
+
+
+
+	"death.attack.pea": "%1$s was PEAD ON by %2$s!!1",
+	"death.attack.zombie_eat": "%1$s had deir HEADMEAT eatin by %2$s!1!1",
+	"death.attack.zombie_eat.item": "%1$s had deir HEADMEAT eatin by %2$s and dey used da %3$s 2 eat!!1!",
+	"death.attack.zombie_headless": "%1$s waz stoopided to deth",
+	"death.attack.zombie_headless.player": "%1$s waz stoopided to death wile getting DECKED by %2$s",
+
+
+
+	"subtitles.homelawnsecurity.aaa.fnf_finale_guitar": "OWOWOWWW KITTEH EARZZZ :(",
+	"subtitles.homelawnsecurity.aaa.peashooter_plays_fnaf": "Peeshot play Freby faber gaem",
+
+	"subtitles.homelawnsecurity.item.lawn_gadget.switch": "Lawn Gadget switches",
+
+	"subtitles.homelawnsecurity.entity.money.land": "Money lands",
+
+	"subtitles.homelawnsecurity.entity.coin.land": "Coin lands",
+	"subtitles.homelawnsecurity.entity.coin.collect": "Coin gets pinched",
+
+	"subtitles.homelawnsecurity.entity.diamond.land": "Gem lands",
+	"subtitles.homelawnsecurity.entity.diamond.appear": "Gem appears",
+	"subtitles.homelawnsecurity.entity.diamond.collect": "Gem gets yoinked",
+
+	"subtitles.homelawnsecurity.entity.present.appear": "Present appears",
+	"subtitles.homelawnsecurity.entity.present.collect": "Present gets claimed",
+
+	"subtitles.homelawnsecurity.entity.brainpower.throw": "Brainpower flies",
+	"subtitles.homelawnsecurity.entity.brainpower.collect": "Brainpower gets collected",
+
+	"subtitles.homelawnsecurity.entity.sun.throw": "Sun flies",
+	"subtitles.homelawnsecurity.entity.sun.collect": "Sun gets collected",
+
+	"subtitles.homelawnsecurity.entity.lawn_mower.activate": "Lawn Mower purrs",
+	"subtitles.homelawnsecurity.entity.pool_cleaner.activate": "Pool Cleaner stirs",
+	"subtitles.homelawnsecurity.entity.roof_cleaner.activate": "Roof Cleaner whirs",
+	"subtitles.homelawnsecurity.entity.roof_cleaner.jump": "Roof Cleaner sproings",
+	"subtitles.homelawnsecurity.entity.bloomba.activate": "Bloomba clears",
+
+	"subtitles.homelawnsecurity.entity.gravestone.appear": "Gravestone emerges",
+
+	"subtitles.homelawnsecurity.entity.vase.break": "Vase smashes",
+
+	"subtitles.homelawnsecurity.entity.projectile.throw": "Projectile flies",
+	"subtitles.homelawnsecurity.entity.projectile.hit": "Projectile hits",
+	"subtitles.homelawnsecurity.entity.projectile.ignite": "Projectile ignites",
+
+	"subtitles.homelawnsecurity.entity.pea.throw": "Pea flies",
+	"subtitles.homelawnsecurity.entity.pea.hit": "Pea splats",
+	"subtitles.homelawnsecurity.entity.pea.ignite": "Pea ignites",
+
+	"subtitles.homelawnsecurity.entity.frozen_pea.throw": "Frozen Pea flies",
+	"subtitles.homelawnsecurity.entity.frozen_pea.hit": "Frozen Pea splats",
+	"subtitles.homelawnsecurity.entity.frozen_pea.ignite": "Frozen Pea ignites",
+
+	"subtitles.homelawnsecurity.entity.fire_pea.throw": "Fire Pea flies",
+	"subtitles.homelawnsecurity.entity.fire_pea.hit": "Fire Pea torches",
+
+	"subtitles.homelawnsecurity.entity.cabbage.throw": "Cabbage flies",
+	"subtitles.homelawnsecurity.entity.cabbage.hit": "Cabbage splats",
+
+	"subtitles.homelawnsecurity.entity.kernel.throw": "Kernel flies",
+	"subtitles.homelawnsecurity.entity.kernel.hit": "Kernel ticks",
+
+	"subtitles.homelawnsecurity.entity.butter.throw": ":butterfly:",
+	"subtitles.homelawnsecurity.entity.butter.hit": "butt hit",
+
+	"subtitles.homelawnsecurity.entity.melon.throw": "Melon flies",
+	"subtitles.homelawnsecurity.entity.melon.hit": "Melon shatters",
+
+	"subtitles.homelawnsecurity.entity.cob.launch": "TAKTIKUL NOOK INCOMMING!!1!1!1",
+
+	"subtitles.homelawnsecurity.entity.plant.place": "Plant placed",
+	"subtitles.homelawnsecurity.entity.plant.place_water": "Plant placed in water",
+	"subtitles.homelawnsecurity.entity.plant.shovel": "Plant shoveled",
+	"subtitles.homelawnsecurity.entity.plant.feed": "Plant is fed",
+
+	"subtitles.homelawnsecurity.entity.chomper.eat": "Chomper devours",
+
+	"subtitles.homelawnsecurity.entity.blover.blow": "Blover gusts wind",
+
+	"subtitles.homelawnsecurity.entity.wall_nut.bowl": "Wall-nut rolls",
+	"subtitles.homelawnsecurity.entity.wall_nut.strike": "Wall-nut knocks",
+
+	"subtitles.homelawnsecurity.entity.explode_o_nut.bowl": "Explode-o-nut rolls",
+	"subtitles.homelawnsecurity.entity.explode_o_nut.strike": "Explode-o-nut strikes",
+	"subtitles.homelawnsecurity.entity.explode_o_nut.explode": "Explode-o-nut powies",
+
+	"subtitles.homelawnsecurity.entity.fume_shroom.fume": "Fume-shroom gurgles",
+
+	"subtitles.homelawnsecurity.entity.puff_shroom.puff": "Puff-shroom bubbles",
+
+	"subtitles.homelawnsecurity.entity.cherry_bomb.anticipate_explosion": "Cherry Bomb anticipates explosion",
+	"subtitles.homelawnsecurity.entity.cherry_bomb.explode": "Cherry Bomb explodonates",
+
+	"subtitles.homelawnsecurity.entity.coffee_bean.sprinkle": "Coffee Bean sprinkles",
+
+	"subtitles.homelawnsecurity.entity.doom_shroom.anticipate_explosion": "Doom-shroom anticipates explosion",
+	"subtitles.homelawnsecurity.entity.doom_shroom.explode": "Doom-shroom goes critical",
+
+	"subtitles.homelawnsecurity.entity.hypno_shroom.floop": "Hypno-shroom floops",
+	"subtitles.homelawnsecurity.entity.hypno_shroom.mind_control": "Hypno-shroom wololos",
+
+	"subtitles.homelawnsecurity.entity.grave_buster.eat": "Grave Buster digs in",
+
+	"subtitles.homelawnsecurity.entity.jalapeno.anticipate_explosion": "Jalapeno anticipates explosion",
+	"subtitles.homelawnsecurity.entity.jalapeno.explode": "Jalapeno fwooshes",
+
+	"subtitles.homelawnsecurity.entity.magnet_shroom.grab": "Magnet-shroom yoinks",
+
+	"subtitles.homelawnsecurity.entity.plantern.glow": "Plantern emanates light",
+
+	"subtitles.homelawnsecurity.entity.sun_shroom.grow": "Sun-shroom powers up",
+
+	"subtitles.homelawnsecurity.entity.cactus.grow": "Cactus grows",
+
+	"subtitles.homelawnsecurity.entity.potato_mine.explode": "Potato Mine spudows",
+
+	"subtitles.homelawnsecurity.entity.squash.notice": "Squash notices",
+	"subtitles.homelawnsecurity.entity.squash.land": "Squash squashes",
+
+	"subtitles.homelawnsecurity.entity.zombie.idle": "Zombie groans",
+	"subtitles.homelawnsecurity.entity.zombie.eat": "Zombie bites",
+	"subtitles.homelawnsecurity.entity.zombie.gulp": "Zombie gulps",
+	"subtitles.homelawnsecurity.entity.zombie.detach": "Zombie detaches",
+	"subtitles.homelawnsecurity.entity.zombie.detach_headwear": "Zombie loses headwear",
+	"subtitles.homelawnsecurity.entity.zombie.detach_limb": "Zombie loses limb",
+	"subtitles.homelawnsecurity.entity.zombie.detach_head": "Zombie loses head",
+	"subtitles.homelawnsecurity.entity.zombie.blah": "Zombie expresses disgust",
+	"subtitles.homelawnsecurity.entity.zombie.collapse": "Zombie collapses",
+	"subtitles.homelawnsecurity.entity.zombie.collapse_underwater": "Zombie collapses underwater",
+	"subtitles.homelawnsecurity.entity.zombie.explode": "Zombie explodes",
+	"subtitles.homelawnsecurity.entity.zombie.frozen": "Zombie freezes",
+	"subtitles.homelawnsecurity.entity.zombie.enter_water": "Zombie splashes",
+	"subtitles.homelawnsecurity.entity.zombie.place": "Zombie placed",
+	"subtitles.homelawnsecurity.entity.zombie.place_water": "Zombie placed in water",
+	"subtitles.homelawnsecurity.entity.zombie.feed": "Zombie is fed",
+
+	"subtitles.homelawnsecurity.entity.conehead_zombie.hurt": "Conehead Zombie absorbs damage",
+
+	"subtitles.homelawnsecurity.entity.buckethead_zombie.hurt": "Buckethead Zombie absorbs damage",
+
+	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.boing": "Jack-in-the-box Zombie boings",
+	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.surprised": "Jack-in-the-box Zombie gets surprised",
+	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.explode": "Jack-in-the-box Zombie explodes",
+
+	"subtitles.homelawnsecurity.entity.bungee_zombie.scream": "Bungee Zombie yeehaws",
+
+	"subtitles.homelawnsecurity.entity.digger_zombie.dig": "Digger Zombie burrows",
+	"subtitles.homelawnsecurity.entity.digger_zombie.rise": "Digger Zombie resurfaces",
+
+	"subtitles.homelawnsecurity.entity.dolphin_rider_zombie.warning": "Dolphin Rider Zombie gives warning",
+	"subtitles.homelawnsecurity.entity.dolphin_rider_zombie.jump": "Dolphin Rider Zombie jumps",
+
+	"subtitles.homelawnsecurity.entity.zomboni.warning": "Zomboni starts up",
+	"subtitles.homelawnsecurity.entity.zomboni.explode": "Zomboni explodes",
+
+	"subtitles.homelawnsecurity.entity.catapult_zombie.shoot": "Catapult Zombie launches basketball",
+	"subtitles.homelawnsecurity.entity.catapult_zombie.explode": "Catapult Zombie explodes",
+
+	"subtitles.homelawnsecurity.entity.balloon_zombie.warning": "Balloon Zombie inflates balloon",
+	"subtitles.homelawnsecurity.entity.balloon_zombie.pop": "Balloon Zombie falls",
+
+	"subtitles.homelawnsecurity.entity.gargantuar.idle": "Gargantuar groans",
+	"subtitles.homelawnsecurity.entity.gargantuar.smash": "Gargantuar smashes",
+	"subtitles.homelawnsecurity.entity.gargantuar.death": "Gargantuar dies",
+	"subtitles.homelawnsecurity.entity.gargantuar.step": "Gargantuar steps",
+
+	"subtitles.homelawnsecurity.entity.imp.warning": "Imp cackles",
+
+	"subtitles.homelawnsecurity.entity.ladder_zombie.place_ladder": "Ladder Zombie places ladder",
+
+	"subtitles.homelawnsecurity.entity.newspaper_zombie.rarrgh": "Newspaper Zombie rarrghs",
+	"subtitles.homelawnsecurity.entity.newspaper_zombie.paper_rip": "Newspaper Zombie loses newspaper",
+	"subtitles.homelawnsecurity.entity.newspaper_zombie.paper_hurt": "Newspaper Zombie absorbs damage",
+
+	"subtitles.homelawnsecurity.entity.pogo_zombie.pogo": "Pogo Zombie pogos",
+
+	"subtitles.homelawnsecurity.entity.pole_vaulting_zombie.vault": "Pole-vaulting Zombie boioioings",
+
+	"subtitles.homelawnsecurity.entity.zombot.make_boulder": "Zombot makes boulder",
+	"subtitles.homelawnsecurity.entity.zombot.death": "Zombot dies",
+	"subtitles.homelawnsecurity.entity.zombot.hydraulic": "Zombot moves",
+	"subtitles.homelawnsecurity.entity.zombot.hydraulic_short": "Zombot moves slightly",
+
+	"subtitles.homelawnsecurity.fanfare.countdown": "Game counts down",
+	"subtitles.homelawnsecurity.fanfare.plant_victory": "Plant victory fanfare plays",
+	"subtitles.homelawnsecurity.fanfare.plant_victory_zombot": "Zomboss defeat fanfare plays",
+	"subtitles.homelawnsecurity.fanfare.zombie_victory": "Zombie victory fanfare plays",
+	"subtitles.homelawnsecurity.fanfare.siren": "Zombie siren wails",
+	"subtitles.homelawnsecurity.fanfare.level_start": "Zombie alert plays",
+	"subtitles.homelawnsecurity.fanfare.huge_wave": "Huge wave alert thuds",
+	"subtitles.homelawnsecurity.fanfare.final_wave": "Final wave alert thuds",
+	"subtitles.homelawnsecurity.fanfare.achievement": "Achievement is made",
+
+	"subtitles.homelawnsecurity.random.swing": "Mallet swings",
+	"subtitles.homelawnsecurity.random.bonk": "Mallet bonks",
+	"subtitles.homelawnsecurity.random.buzzer": "Buzzer scratches",
+	"subtitles.homelawnsecurity.random.plant": "Seed packet used",
+	"subtitles.homelawnsecurity.random.plant_water": "Seed packet used in water",
+	"subtitles.homelawnsecurity.random.select_seed": "Seed packet selected",
+	"subtitles.homelawnsecurity.random.shovel": "Shovel selected",
+	"subtitles.homelawnsecurity.random.shovel_attack": "Shovel attack",
+	"subtitles.homelawnsecurity.random.big_goodie": "Big goodie appears",
+	"subtitles.homelawnsecurity.random.anticipate_explosion": "Anticipation of explosion",
+	"subtitles.homelawnsecurity.random.plant_grow": "Plant grows",
+	"subtitles.homelawnsecurity.random.plant_wake_up": "Plant wakes up",
+	"subtitles.homelawnsecurity.random.bowling": "Plant rolls",
+	"subtitles.homelawnsecurity.random.slurp": "me when i taekz a BIG SLUERP",
+
+
+
+	"entity.homelawnsecurity.currency": "MUNZ",
+	"entity.homelawnsecurity.lawn_mower": "grassacre mashien",
+	"entity.homelawnsecurity.pool_cleaner": "Water screamur",
+	"entity.homelawnsecurity.roof_cleaner": "birb scarer",
+	"entity.homelawnsecurity.bloomba": "Landmeower taht iz NIEC to kitteh earz",
+	"entity.homelawnsecurity.target_zombie": "Wamart Kmarm zommie",
+
+	"entity.homelawnsecurity.pea": "pee",
+
+	"entity.homelawnsecurity.peashooter": "Peeer",
+	"entity.homelawnsecurity.sunflower": "Sause flower",
+	"entity.homelawnsecurity.wall_nut": "Great nut ov plaent gaym",
+	"entity.homelawnsecurity.tall_nut": "max nut from bsoser game",
+
+	"entity.homelawnsecurity.zombie_gravestone": "scary sause",
+	"entity.homelawnsecurity.basic_zombie": "awesum zommie wif uh gun",
+	"entity.homelawnsecurity.conehead_zombie": "Plug zommie",
+
+
+
+	"item.homelawnsecurity.peashooter_spawn_egg": "Peashooter Spawn Egg",
+	"item.homelawnsecurity.basic_zombie_spawn_egg": "Basic Zombie Spawn Egg",
+
+	"item.homelawnsecurity.daves_pan": "iron helmet",
+
+	"item.homelawnsecurity.bag_of_sun": "Pokkit of Sonshien",
+	"item.homelawnsecurity.bag_of_brainpower": "Bag briannnn...",
+
+	"item.homelawnsecurity.sun": "Warm windoe stuf",
+	"item.homelawnsecurity.brainpower": "nekomansy orbz",
+
+	"item.homelawnsecurity.currency.name.separator": " - ",
+	"item.homelawnsecurity.currency.name.sun": "%1$s orbz a warm windoe stuf",
+	"item.homelawnsecurity.currency.name.brainpower": "%1$s nekomansy POWAH!!1",
+
+	"item.homelawnsecurity.lawn_mower": "grassacre mashien",
+	"item.homelawnsecurity.lawn_mower.placement.error": "U GOTTA PUT DIS ON TEH GARDEN!!1!",
+	"item.homelawnsecurity.pool_cleaner": "Water screamur",
+	"item.homelawnsecurity.pool_cleaner.placement.error": "U GOTTA PUT DIS ON TEH GARDEN!!1!",
+	"item.homelawnsecurity.roof_cleaner": "birb scarer",
+	"item.homelawnsecurity.roof_cleaner.placement.error": "U GOTTA PUT DIS ON TEH GARDEN!!1!",
+	"item.homelawnsecurity.bloomba": "Landmeower taht iz NIEC to kitteh earz",
+	"item.homelawnsecurity.bloomba.placement.error": "U GOTTA PUT DIS ON TEH GARDEN!!1!",
+
+	"item.homelawnsecurity.target": "Wamar bal",
+	"item.homelawnsecurity.target.placement.error": "U GOTTA PUT DIS ON TEH GRAVEYARD!!1!",
+
+	"item.homelawnsecurity.shovel": "Flowr smACkr",
+
+	"item.homelawnsecurity.lawn_gadget": "lil sporky",
+	"item.homelawnsecurity.lawn_gadget.switch": "type of do: %1$s",
+	"item.homelawnsecurity.lawn_gadget.switch.error": "U BROKE DIS",
+	"item.homelawnsecurity.lawn_gadget.mode.turf_toggle": "Put graz",
+	"item.homelawnsecurity.lawn_gadget.mode.turf_toggle_marker": "Toggle Turf (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_toggle": "Put teh go line",
+	"item.homelawnsecurity.lawn_gadget.mode.path_toggle_marker": "Toggle Path (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type": "Change teh go line",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_marker": "Switch Path Type (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_main": "Change teh maen go line",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_main_marker": "Switch Main Path Type (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting": "Change teh udder go line",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting_marker": "Switch Intersecting Path Type (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.use.error": "U BROKE DIS",
+
+	"item.homelawnsecurity.turf": "HOOMAN WONT LET ME EAT DIS??/",
+
+	"item.homelawnsecurity.brain": "huiii briaaaaann",
+
+	"item.homelawnsecurity.seed_packet.plant.placement.error.turf": "PUT TEH PLANT ON DA GRAS!!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.path": "PUT TEH PLANT IN TEH WAY!!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.solid_ground": "PUT TEH PLANT ON TEH BLAUK!!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.water": "PUT TEH PLANT in da pool :) !!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.grave": "PUT TEH PLANT ON DA SCARIE ROCK!!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.sudden_death": "TEH PLANT WAS GONE AWAI BY SUDDEN DEATG GO!!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.too_far": "PUT TEH PLANT CLOES 2 HOAM!!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.near_path": "PUT TEH PLANT NEXT 2 TEH ZOMMIE STEP PLAEC!!1!",
+	"item.homelawnsecurity.seed_packet.plant.placement.error.block_face": "PUT TEH PLANT ON DA TOP!!1!",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.path": "PUT TEH ZOMMIE ON DA PATG!!1!",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.water": "PUT TEH ZOMMIE in da pool :) !!1!",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.too_close": "PUT TEH ZOMMIE AWAE FORM TEH GARDEN!!1!",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.sudden_death": "TEH ZOMMIE WAS GONE AWAI BY SUDDEN DEATG GO!!1!",
+	"item.homelawnsecurity.seed_packet.zombie.placement.error.block_face": "PUT TEH ZOMMIE ON DA TOP!!1!",
+
+	"item.homelawnsecurity.seed_packet_peashooter": "seedz for da peeer",
+	"item.homelawnsecurity.seed_packet_sunflower": "seedz for infinite muni glich plant",
+	"item.homelawnsecurity.seed_packet_wall_nut": "nut seedz",
+
+	"item.homelawnsecurity.seed_packet_zombie_gravestone": "ROACK SEEDZ???/",
+	"item.homelawnsecurity.seed_packet_basic_zombie": "seedz for zomble",
+	"item.homelawnsecurity.seed_packet_conehead_zombie": "their iz no wai deres a better helmit dan dis",
+	"item.homelawnsecurity.seed_packet_buckethead_zombie": "NO FLURMPIN WAI",
+
+
+
+	"block.homelawnsecurity.garden_block": "Prebby flowr block :)",
+	"block.homelawnsecurity.graveyard_block": "EVIL FLOWR BOLCK GRR >:)",
+	"block.homelawnsecurity.lawn_block": "Sodded Lawn Block",
+	"block.homelawnsecurity.fertile_path_block_1": "Sodded Path Block A",
+	"block.homelawnsecurity.fertile_path_block_2": "Sodded Path Block B",
+	"block.homelawnsecurity.fertile_path_block_cross": "Sodded Path Block Intersection",
+	"block.homelawnsecurity.zombie_path_block_1": "Unsodded Path Block A",
+	"block.homelawnsecurity.zombie_path_block_2": "Unsodded Path Block B",
+	"block.homelawnsecurity.zombie_path_block_cross": "Unsodded Path Block Intersection",
+	"block.homelawnsecurity.unsodded_lawn_block": "faek faek faek gras blonk",
+	"block.homelawnsecurity.lawn_block_v2": "Lawn Block",
+	"block.homelawnsecurity.sodded_lawn_block": "faek faek gras blonk",
+
+	"block.homelawnsecurity.garden_marker": "Prebby flowr spacetime block :)",
+	"block.homelawnsecurity.graveyard_marker": "EVIL FLOWR SPACETIEM BOLCK GRR >:)",
+	"block.homelawnsecurity.lawn_marker": "Sodded Lawn Marker",
+	"block.homelawnsecurity.fertile_path_marker_1": "Sodded Path Marker A",
+	"block.homelawnsecurity.fertile_path_marker_2": "Sodded Path Marker B",
+	"block.homelawnsecurity.fertile_path_marker_cross": "Sodded Path Marker Intersection",
+	"block.homelawnsecurity.zombie_path_marker_1": "Unsodded Path Marker A",
+	"block.homelawnsecurity.zombie_path_marker_2": "Unsodded Path Marker B",
+	"block.homelawnsecurity.zombie_path_marker_cross": "Unsodded Path Marker Intersection",
+	"block.homelawnsecurity.unsodded_lawn_marker": "faek faek faek spaectiem gras blonk",
+	"block.homelawnsecurity.lawn_marker_v2": "Lawn Marker",
+	"block.homelawnsecurity.sodded_lawn_marker": "faek faek spaectiem gras blonk",
+
+	"block.homelawnsecurity.sun_spawner": "i makea da suna",
+	"block.homelawnsecurity.brainpower_beacon": "brain store?",
+
+
+
+	"tooltip.homelawnsecurity.bag_of_sun": "%1$s orbz a warm windoe stuf",
+	"tooltip.homelawnsecurity.bag_of_brainpower": "%1$s nekomansy POWAH!!1",
+	"tooltip.homelawnsecurity.currency.sun": "%1$s orbz a warm windoe stuf",
+	"tooltip.homelawnsecurity.currency.brainpower": "%1$s nekomansy POWAH!!1",
+
+	"tooltip.item.homelawnsecurity.daves_pan": "activaets u53rdv!!",
+	"tooltip.item.homelawnsecurity.daves_pan.warning": "i see dat smireck hooman!1 dont uze it in a mathc!!11",
+	"tooltip.item.homelawnsecurity.target": "Will maek targit zommie",
+	"tooltip.item.homelawnsecurity.shovel.use": "Ueze on palant to peefuly retier it",
+	"tooltip.item.homelawnsecurity.shovel.attack": "heccin DECK stuf to make dem go WEEEE and ded",
+	"tooltip.item.homelawnsecurity.lawn_gadget.use": "uze it on da lawn to ead it",
+	"tooltip.item.homelawnsecurity.lawn_gadget.switch": "punch a blonk to eatg it aain",
+	"tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode": "Sneak and punch a block to switch between markers and normal blocks.",
+	"tooltip.item.homelawnsecurity.turf": "put on da ground to maek plantz liek it",
+	"tooltip.item.homelawnsecurity.brain": "gib 2 da zommie to get MOAR zommie!!1",
+	"tooltip.item.homelawnsecurity.mower.when_tripped": "when da zommie touch it:",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.lawn_mower": "goez strayt liek a yt shortz comentor",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.pool_cleaner": "goez strayt n can the wader",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.roof_cleaner": "goez strayt n den BOIGN!!!1",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.bloomba": "taeks teh turnz",
+
+	"tooltip.item.homelawnsecurity.bone_meal": "gib 2 da plant to get MOAR plant!!1",
+	"tooltip.item.homelawnsecurity.shears": "snip da turf",
+	"tooltip.item.homelawnsecurity.obsolete": "idem iz ded to devloper!!1",
+
+	"tooltip.block.homelawnsecurity.garden": "da zommies go hear",
+	"tooltip.block.homelawnsecurity.graveyard": "da mowers go hear",
+
+	"tooltip.block.homelawnsecurity.marker": "Ovaridez da blonk funkshin belolw. Sleak!!1",
+	"tooltip.block.homelawnsecurity.placement.allows": "hmm...> u can put...>.",
+	"tooltip.block.homelawnsecurity.placement.lawn_plants": "plantz 4 da lawnz",
+	"tooltip.block.homelawnsecurity.placement.path_plants": "plantz 4 in da way",
+	"tooltip.block.homelawnsecurity.placement.zombies": "zommies",
+	"tooltip.block.homelawnsecurity.placement.none": "NUFFIN!! GUD DAY!!1",
+
+	"tooltip.block.homelawnsecurity.lawn_block": "Use a LIL SPORKY 2 get editin on dis blonk",
+
+	"tooltip.block.homelawnsecurity.sun_spawner": "Put it next 2 teh lawn and deres WARMNES ORBZ!!!",
+	"tooltip.block.homelawnsecurity.brainpower_beacon": "Put it next 2 teh lawn and deres HEADMEAT ORBZ!!!",
+
+
+
+	"tag.item.homelawnsecurity.bag_of_sun": "come inside theres sun inside",
+	"tag.item.homelawnsecurity.bag_of_brainpower": "brain inside is brain inside",
+	"tag.item.homelawnsecurity.reveals_markers": "Showz da spaectiem blonks",
+	"tag.item.homelawnsecurity.reveals_markers_while_sneaking": "Showz da spaectiem blonks if u prezent",
+	"tag.item.homelawnsecurity.plant_feedable_for_duplicate": "pant fod",
+	"tag.item.homelawnsecurity.zombie_feedable_for_duplicate": "zomble fod",
+	"tag.item.homelawnsecurity.recipe.turf_grass": "faek faek gras",
+	"tag.item.homelawnsecurity.recipe.grassless_dirt": "dird after sheep infestion",
+
+
+
+	"error.homelawnsecurity.invalid_spawn_item": "OH NOES!! spawn itum failed da vibe chek!1"
+}

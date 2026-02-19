@@ -1,13 +1,12 @@
 package net.db64.homelawnsecurity.entity.custom;
 
-import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
-import net.db64.homelawnsecurity.util.LawnUtil;
+import net.db64.homelawnsecurity.component.ModDataComponentTypes;
+import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
+import net.db64.homelawnsecurity.item.ModItems;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,13 +20,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.debug.data.EntityPathDebugData;
 
-public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEntity, IPathBoundEntity {
+public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEntity {
 	public boolean shouldDropSpawnItem = false;
 	public ItemStack spawnItem = ItemStack.EMPTY;
 
@@ -36,8 +32,26 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 	}
 
 	/*
-		DROPS
+		DEATH / DROPS
 	*/
+
+	/**
+	 * Plants and zombies cannot despawn if they were placed with a seed packet.
+	 * @return Whether this entity's "intermediate range" despawning is disabled or not.
+	 */
+	@Override
+	public boolean cannotDespawn() {
+		return super.cannotDespawn() || !spawnItem.isEmpty();
+	}
+
+	/**
+	 * Plants and zombies cannot despawn if they were placed with a seed packet.
+	 * @return Whether this entity can naturally despawn at all or not.
+	 */
+	@Override
+	public boolean canImmediatelyDespawn(double distanceSquared) {
+		return spawnItem.isEmpty();
+	}
 
 	@Override
 	protected void drop(ServerWorld world, DamageSource damageSource) {
@@ -95,7 +109,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 		IPATHBOUNDENTITY STUFF
 	 */
 
-	public int pathId = 1;
+	/*public int pathId = 1;
 
 	@Nullable
 	@Override
@@ -141,7 +155,7 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 	@Override
 	protected EntityNavigation createNavigation(World world) {
 		return new PvzNavigation(this, world);
-	}
+	}*/
 
 	/*
 		NBT
@@ -151,36 +165,49 @@ public abstract class SeedPlacedEntity extends PathAwareEntity implements IPvzEn
 	public void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
 
-		if (pathId < 1 || pathId > LawnUtil.getPathTypeAmount()) {
+		/*if (pathId < 1 || pathId > LawnUtil.getPathTypeAmount()) {
 			pathId = 1;
 		}
-		view.putInt("path_id", pathId);
+		view.putInt("path_id", pathId);*/
 
 		view.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
 
-		view.put("spawn_item", ItemStack.OPTIONAL_CODEC, ItemStack.EMPTY.copy());
+		view.put("spawn_item", ItemStack.OPTIONAL_CODEC, getSpawnItem());
 	}
 
 	@Override
 	public void readCustomData(ReadView view) {
 		super.readCustomData(view);
 
-		pathId = view.getInt("path_id", 1);
+		/*pathId = view.getInt("path_id", 1);
 		if (pathId < 1 || pathId > LawnUtil.getPathTypeAmount()) {
 			pathId = 1;
 			//view.putInt("path_id", pathId);
-		}
+		}*/
 
 		shouldDropSpawnItem = view.getBoolean("should_drop_spawn_item", false);
 		spawnItem = view.read("spawn_item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY.copy());
 	}
 
 	protected ItemStack createErrorItem() {
-		ItemStack stack = new ItemStack(Items.POISONOUS_POTATO);
-		stack.remove(DataComponentTypes.CONSUMABLE);
-		stack.remove(DataComponentTypes.FOOD);
+		ItemStack stack = new ItemStack(ModItems.DUMMY_ITEM);
+		stack.remove(ModDataComponentTypes.TOOLTIP);
 		stack.set(DataComponentTypes.ITEM_MODEL, Identifier.ofVanilla("barrier"));
 		stack.set(DataComponentTypes.ITEM_NAME, Text.translatable("error.homelawnsecurity.invalid_spawn_item").setStyle(Style.EMPTY.withColor(16711680)));
 		return stack;
+	}
+
+	/*
+		DEBUG RENDERING
+	*/
+
+	@Override
+	public void registerTracking(ServerWorld world, Tracker tracker) {
+		super.registerTracking(world, tracker);
+
+		tracker.track(ModDebugSubscriptionTypes.PVZ_PATHS, () -> {
+			Path path = this.getNavigation().getCurrentPath();
+			return path != null && path.getDebugNodeInfos() != null ? new EntityPathDebugData(path.copy(), this.getNavigation().getNodeReachProximity()) : null;
+		});
 	}
 }

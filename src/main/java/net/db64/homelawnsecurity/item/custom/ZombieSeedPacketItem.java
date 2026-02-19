@@ -45,7 +45,7 @@ public class ZombieSeedPacketItem extends SeedPacketItem {
 		SeedPacketPathfindingEntity entity = new ZombieSeedPacketPathfindingEntity(ModEntities.Other.ZOMBIE_SEED_PACKET_PATHFINDING, world);
 		world.spawnEntity(entity);
 		entity.refreshPositionAndAngles(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ(), entity.getYaw(), entity.getPitch());
-		entity.initialize(serverWorld, world.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
+		entity.initialize(serverWorld, serverWorld.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
 
 		// Return if it's too close to the garden
 		if (!(devMode || isValidPositionOnPath(entity))) {

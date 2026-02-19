@@ -21,11 +21,13 @@ public class LawnUtil {
 	/**
 	 * @return If this block can be walked on with the provided path id.
 	 */
-	public static boolean isWalkable(BlockPos pos, World world, int entityPathId, boolean isZombie) {
+	public static boolean isWalkable(BlockPos pos, World world, int entityPathId, BlockPos entitySteppingPos, boolean isZombie) {
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 		Block block = state.getBlock();
 
+		if (pos.equals(entitySteppingPos))
+			return true;
 		if (markerState.getBlock() instanceof MarkerBlock)
 			return isWalkableMarker(markerState, entityPathId, isZombie);
 		else if (block instanceof ILawnBlock || block == ModBlocks.GARDEN_BLOCK || block == ModBlocks.GRAVEYARD_BLOCK)

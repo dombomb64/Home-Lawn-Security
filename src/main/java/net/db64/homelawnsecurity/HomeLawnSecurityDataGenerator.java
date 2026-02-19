@@ -16,5 +16,11 @@ public class HomeLawnSecurityDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModWorldProvider::new);
+		/*pack.addProvider((dataOutput, registryLookup) ->
+			new ModLanguageProvider(dataOutput, "en_us", registryLookup));
+		pack.addProvider((dataOutput, registryLookup) ->
+			new ModLanguageProvider(dataOutput, "lol_us", registryLookup));
+		pack.addProvider((dataOutput, registryLookup) ->
+			new ModLanguageProvider(dataOutput, "en_pr", registryLookup));*/
 	}
 }

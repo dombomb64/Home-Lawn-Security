@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity;
 
 import net.db64.homelawnsecurity.block.ModBlocks;
+import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.client.other.CurrencyRenderer;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
@@ -10,15 +11,22 @@ import net.db64.homelawnsecurity.entity.client.plant.*;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaModel;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
 import net.db64.homelawnsecurity.entity.client.zombie.*;
+import net.db64.homelawnsecurity.particle.ModParticles;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.gui.hud.debug.DebugHudEntries;
+import net.minecraft.client.gui.hud.debug.RendererDebugHudEntry;
 import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactories;
+import net.minecraft.util.Identifier;
 
 public class HomeLawnSecurityClient implements ClientModInitializer {
+	public static final Identifier DEBUG_PATHFINDING =
+		DebugHudEntries.register(Identifier.of(HomeLawnSecurity.MOD_ID, "pvz_pathfinding"), new RendererDebugHudEntry(true));
+
+
 	@Override
 	public void onInitializeClient() {
 		/*Item[] otherMarkers = ClientWorld.BLOCK_MARKER_ITEMS.toArray(new Item[0]);
@@ -37,6 +45,9 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 
 		//ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
 
+		ModDebugSubscriptionTypes.initialize();
+		ModParticles.registerParticles();
+
 		BlockRenderLayerMap.putBlock(ModBlocks.SODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.UNSODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.SUN_SPAWNER, BlockRenderLayer.CUTOUT);
@@ -49,17 +60,17 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 	}
 
 	private void registerOther() {
-		EntityRendererRegistry.register(ModEntities.Other.CURRENCY, CurrencyRenderer::new);
+		EntityRendererFactories.register(ModEntities.Other.CURRENCY, CurrencyRenderer::new);
 
-		EntityRendererRegistry.register(ModEntities.Other.LAWN_MOWER, LawnMowerRenderer::new);
+		EntityRendererFactories.register(ModEntities.Other.LAWN_MOWER, LawnMowerRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Other.LAWN_MOWER, LawnMowerModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ModEntities.Other.TARGET_ZOMBIE, TargetZombieRenderer::new);
+		EntityRendererFactories.register(ModEntities.Other.TARGET_ZOMBIE, TargetZombieRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.TARGET_ZOMBIE, TargetZombieModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
+		EntityRendererFactories.register(ModEntities.Other.PLANT_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
 
-		EntityRendererRegistry.register(ModEntities.Other.ZOMBIE_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
+		EntityRendererFactories.register(ModEntities.Other.ZOMBIE_SEED_PACKET_PATHFINDING, EmptyEntityRenderer::new);
 
 		//BlockEntityRendererRegistry.register(, CurrencyRenderer::new);
 		//EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Other.LAWN_BLOCK, LawnMowerModel::getTexturedModelData);
@@ -68,30 +79,30 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 	}
 
 	private void registerProjectiles() {
-		EntityRendererRegistry.register(ModEntities.Projectile.PEA, PeaRenderer::new);
+		EntityRendererFactories.register(ModEntities.Projectile.PEA, PeaRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Projectile.PEA, PeaModel::getTexturedModelData);
 	}
 
 	private void registerPlants() {
-		EntityRendererRegistry.register(ModEntities.Plant.SUNFLOWER, SunflowerRenderer::new);
+		EntityRendererFactories.register(ModEntities.Plant.SUNFLOWER, SunflowerRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Plant.SUNFLOWER, SunflowerModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ModEntities.Plant.PEASHOOTER, PeashooterRenderer::new);
+		EntityRendererFactories.register(ModEntities.Plant.PEASHOOTER, PeashooterRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Plant.PEASHOOTER, PeashooterModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ModEntities.Plant.WALL_NUT, WallNutRenderer::new);
+		EntityRendererFactories.register(ModEntities.Plant.WALL_NUT, WallNutRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Plant.WALL_NUT, WallNutModel::getTexturedModelData);
 	}
 
 	private void registerZombies() {
-		EntityRendererRegistry.register(ModEntities.Zombie.ZOMBIE_GRAVESTONE, ZombieGravestoneRenderer::new);
+		EntityRendererFactories.register(ModEntities.Zombie.ZOMBIE_GRAVESTONE, ZombieGravestoneRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.ZOMBIE_GRAVESTONE, ZombieGravestoneModel::getTexturedModelData);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.ZOMBIE_GRAVESTONE_CRACKS, ZombieGravestoneModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ModEntities.Zombie.BASIC_ZOMBIE, BasicZombieRenderer::new);
+		EntityRendererFactories.register(ModEntities.Zombie.BASIC_ZOMBIE, BasicZombieRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.BASIC_ZOMBIE, BasicZombieModel::getTexturedModelData);
 
-		EntityRendererRegistry.register(ModEntities.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieRenderer::new);
+		EntityRendererFactories.register(ModEntities.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieModel::getTexturedModelData);
 	}
 }

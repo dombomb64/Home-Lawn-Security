@@ -1,6 +1,6 @@
 package net.db64.homelawnsecurity.entity.ai.zombie;
 
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.minecraft.entity.LivingEntity;
@@ -112,7 +112,7 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(mob.getSteppingPos().up(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("zombie is checking for if the block at {}, {}, {} is a goal", blockPos.getX(), blockPos.getY(), blockPos.getZ());
-			if (!((IPathBoundEntity) mob).isStart(blockPos.down())) continue;
+			if (!((PathBoundEntity) mob).isStart(blockPos.down())) continue;
 			//HomeLawnSecurity.LOGGER.info("zombie is checking for if the start at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			Path path = mob.getNavigation().findPathTo(blockPos, 1);
 			if (path == null) continue;

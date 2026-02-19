@@ -24,10 +24,10 @@ import java.util.function.Function;
 
 public class ModBlocks {
 	public static final Block GARDEN_BLOCK = register("garden_block", Block::new,
-		AbstractBlock.Settings.copyShallow(Blocks.MOSS_BLOCK), List.of(
+		AbstractBlock.Settings.copy(Blocks.MOSS_BLOCK), List.of(
 			Text.translatable("tooltip.block.homelawnsecurity.garden")));
 	public static final Block GRAVEYARD_BLOCK = register("graveyard_block", Block::new,
-		AbstractBlock.Settings.copyShallow(Blocks.MOSS_BLOCK), List.of(
+		AbstractBlock.Settings.copy(Blocks.MOSS_BLOCK), List.of(
 			Text.translatable("tooltip.block.homelawnsecurity.graveyard")));
 
 	/*public static final Block LAWN_BLOCK = register("lawn_block", settings ->
@@ -85,10 +85,10 @@ public class ModBlocks {
 			Text.translatable("tooltip.block.homelawnsecurity.placement.none")));*/
 
 	public static final Block SODDED_LAWN_BLOCK = register("sodded_lawn_block", SoddedLawnBlockBlock::new,
-		AbstractBlock.Settings.copyShallow(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.WART_BLOCK), List.of(
+		AbstractBlock.Settings.copy(Blocks.GRASS_BLOCK).sounds(BlockSoundGroup.WART_BLOCK), List.of(
 		Text.translatable("tooltip.block.homelawnsecurity.lawn_block")));
 	public static final Block UNSODDED_LAWN_BLOCK = register("unsodded_lawn_block", UnsoddedLawnBlockBlock::new,
-		AbstractBlock.Settings.copyShallow(Blocks.DIRT).sounds(BlockSoundGroup.GRAVEL), List.of(
+		AbstractBlock.Settings.copy(Blocks.DIRT).sounds(BlockSoundGroup.GRAVEL), List.of(
 		Text.translatable("tooltip.block.homelawnsecurity.lawn_block")));
 
 	public static final Block GARDEN_MARKER = register("garden_marker", MarkerBlock::new,
@@ -172,10 +172,10 @@ public class ModBlocks {
 		Text.translatable("tooltip.block.homelawnsecurity.lawn_block")));
 
 	public static final Block SUN_SPAWNER = register("sun_spawner", settings ->
-		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.SUN)), AbstractBlock.Settings.copyShallow(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque(), List.of(
+		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.SUN)), AbstractBlock.Settings.copy(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque(), List.of(
 		Text.translatable("tooltip.block.homelawnsecurity.sun_spawner")));
 	public static final Block BRAINPOWER_BEACON = register("brainpower_beacon", settings ->
-		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.BRAINPOWER)), AbstractBlock.Settings.copyShallow(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque(), List.of(
+		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.BRAINPOWER)), AbstractBlock.Settings.copy(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque(), List.of(
 		Text.translatable("tooltip.block.homelawnsecurity.brainpower_beacon")));
 
 	private static Block register(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean obtainable, List<Text> tooltip)

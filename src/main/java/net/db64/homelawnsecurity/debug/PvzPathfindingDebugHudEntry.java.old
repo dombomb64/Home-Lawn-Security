@@ -1,0 +1,25 @@
+package net.db64.homelawnsecurity.debug;
+
+import net.minecraft.client.gui.hud.debug.DebugHudEntry;
+import net.minecraft.client.gui.hud.debug.DebugHudEntryCategory;
+import net.minecraft.client.gui.hud.debug.DebugHudLines;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.WorldChunk;
+import org.jspecify.annotations.Nullable;
+
+public class PvzPathfindingDebugHudEntry implements DebugHudEntry {
+	@Override
+	public void render(DebugHudLines lines, @Nullable World world, @Nullable WorldChunk clientChunk, @Nullable WorldChunk chunk) {
+		
+	}
+
+	@Override
+	public boolean canShow(boolean reducedDebugInfo) {
+		return DebugHudEntry.super.canShow(reducedDebugInfo);
+	}
+
+	@Override
+	public DebugHudEntryCategory getCategory() {
+		return DebugHudEntry.super.getCategory();
+	}
+}

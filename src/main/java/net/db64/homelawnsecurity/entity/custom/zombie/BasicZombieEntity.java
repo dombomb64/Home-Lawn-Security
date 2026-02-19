@@ -1,7 +1,6 @@
 package net.db64.homelawnsecurity.entity.custom.zombie;
 
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieMeleeAttackGoal;
-import net.db64.homelawnsecurity.entity.custom.IDegradableEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;

@@ -338,6 +338,8 @@ public class ModModelProvider extends FabricModelProvider {
 
 	@Override
 	public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+		itemModelGenerator.register(ModItems.DUMMY_ITEM, Models.GENERATED);
+
 		//itemModelGenerator.register(ModItems.PEASHOOTER_SPAWN_EGG,
 			//new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
 		//itemModelGenerator.registerSpawnEgg(ModItems.PEASHOOTER_SPAWN_EGG, 0xD7FF37, 0x3BC10E);

@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity;
 import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.TooltipComponent;
+import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
 import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
@@ -49,7 +50,7 @@ public class HomeLawnSecurity implements ModInitializer {
 		ModDataComponentTypes.registerDataComponentTypes();
 		ModDamageTypes.registerModDamageTypes();
 
-		ModParticles.registerParticles();
+		ModDebugSubscriptionTypes.initialize();
 		ModLootTableModifiers.modifyLootTables();
 
 		addVanillaItemComponents();

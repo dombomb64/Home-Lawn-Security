@@ -1,21 +1,25 @@
 package net.db64.homelawnsecurity.entity.ai;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.entity.custom.IPathBoundEntity;
+import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.other.SeedPacketPathfindingEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
-import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.server.debug.SubscriberTracker;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 
 public class PvzNavigation extends MobNavigation {
-	public PvzNavigation(PathAwareEntity mario, World world) {
+	public PvzNavigation(PathBoundEntity mario, World world) {
 		super(mario, world); // Lmao
 
-		if (!(mario instanceof IPathBoundEntity))
-			HomeLawnSecurity.LOGGER.error("Entities using PvzNavigation must implement IPathBoundEntity!");
+		if (world instanceof ServerWorld serverWorld) {
+			assert serverWorld.getServer() != null;
+			SubscriberTracker subscriberTracker = serverWorld.getServer().getSubscriberTracker();
+			this.pathNodeNavigator.setShouldSendDebugData(() -> subscriberTracker.hasSubscriber(ModDebugSubscriptionTypes.PVZ_PATHS));
+		}
 	}
 
 	@Override

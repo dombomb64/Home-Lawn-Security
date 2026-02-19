@@ -7,11 +7,13 @@ import net.db64.homelawnsecurity.particle.ModParticles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
@@ -25,6 +27,7 @@ public class MarkerParticle extends Particle {
 
 	//private final Entity itemEntity;
 	protected final EntityRenderState renderState;
+	//protected final Model<Unit> model;
 
 	public MarkerParticle(ClientWorld world, EntityRenderState renderState, Entity itemEntity) {
 		super(world, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ());
@@ -38,6 +41,8 @@ public class MarkerParticle extends Particle {
 		collidesWithWorld = false;
 
 		alpha = 0.5f;
+
+		//this.model = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(itemEntity)
 	}
 
 	@Override
