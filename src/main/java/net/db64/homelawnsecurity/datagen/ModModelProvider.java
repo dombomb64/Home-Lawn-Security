@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.datagen;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.block.custom.lawn.ILawnBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.LawnBlockBlock;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -29,14 +30,14 @@ public class ModModelProvider extends FabricModelProvider {
 			blockStateModelGenerator,
 			ModBlocks.GARDEN_BLOCK,
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/garden_block_top"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded"),
+			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded_0"),
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded")
 		);
 		ModBlockModels.registerCubeBottomTop(
 			blockStateModelGenerator,
 			ModBlocks.GRAVEYARD_BLOCK,
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/graveyard_block_top"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded"),
+			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded_0"),
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded")
 		);
 
@@ -56,18 +57,42 @@ public class ModModelProvider extends FabricModelProvider {
 		ModBlockModels.registerLawnBlockV2(
 			blockStateModelGenerator,
 			ModBlocks.SODDED_LAWN_BLOCK,
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/top_sodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/top_sodded_path"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded")
+			new String[]{
+				"block/lawn_block/top_sodded_0",
+				"block/lawn_block/top_sodded_1",
+				"block/lawn_block/top_sodded_2"
+			},
+			new String[]{
+				"block/lawn_block/top_sodded_path_0",
+				"block/lawn_block/top_sodded_path_1",
+				"block/lawn_block/top_sodded_path_2"
+			},
+			new String[]{
+				"block/lawn_block/side_sodded_0",
+				"block/lawn_block/side_sodded_1",
+				"block/lawn_block/side_sodded_2"
+			},
+			"block/lawn_block/unsodded"
 		);
 		ModBlockModels.registerLawnBlockV2(
 			blockStateModelGenerator,
 			ModBlocks.UNSODDED_LAWN_BLOCK,
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/top_unsodded_path"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded")
+			new String[]{
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded",
+			},
+			new String[]{
+				"block/lawn_block/top_unsodded_path",
+				"block/lawn_block/top_unsodded_path",
+				"block/lawn_block/top_unsodded_path",
+			},
+			new String[]{
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded",
+			},
+			"block/lawn_block/unsodded"
 		);
 
 		blockStateModelGenerator.registerBuiltinWithParticle(ModBlocks.GRAVEYARD_MARKER, ModBlocks.GRAVEYARD_MARKER.asItem());
@@ -138,60 +163,69 @@ public class ModModelProvider extends FabricModelProvider {
 		public static final TextureKey textureKeyIntersectingPath = TextureKey.of("intersecting_path");
 		public static final Model LAWN_BLOCK_V2 = new Model(Optional.of(Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block_v2")), Optional.empty(), TextureKey.BOTTOM, TextureKey.SIDE, TextureKey.TOP, textureKeyMainPath, textureKeyIntersectingPath);
 
-		public static void registerLawnBlockV2(BlockStateModelGenerator generator, Block block, Identifier topTexture, Identifier topDarkTexture, Identifier sideTexture, Identifier bottomTexture) {
+		public static void registerLawnBlockV2(BlockStateModelGenerator generator, Block block, String[] topTextureNames, String[] topDarkTextureNames, String[] sideTextureNames, String bottomTextureName) {
 			Identifier noPath = Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/no_path");
-			Identifier[][] identifiers = new Identifier[LawnUtil.getPathTypeAmount() + 1][LawnUtil.getPathTypeAmount() + 1];
+			Identifier[][][] identifiers = new Identifier[LawnUtil.getPathTypeAmount() + 1][LawnUtil.getPathTypeAmount() + 1][LawnUtil.getShadeAmount() + 1];
+			Identifier[] topTextures = new Identifier[LawnUtil.getShadeAmount() + 1];
+			Identifier[] topDarkTextures = new Identifier[LawnUtil.getShadeAmount() + 1];
+			Identifier[] sideTextures = new Identifier[LawnUtil.getShadeAmount() + 1];
+			Identifier bottomTexture = Identifier.of(HomeLawnSecurity.MOD_ID, bottomTextureName);
 
 
 
 			TextureMap textureMap = new TextureMap()
-				.put(TextureKey.BOTTOM, bottomTexture)
-				.put(TextureKey.SIDE, sideTexture);
+				.put(TextureKey.BOTTOM, bottomTexture);
 
 
 
-			for (int mainPathId = 0; mainPathId <= LawnUtil.getPathTypeAmount(); mainPathId++) {
-				Identifier mainPathNormalTexture = Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/main_path/normal_" + mainPathId);
-				Identifier mainPathIntersectingTexture = Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/main_path/intersecting_" + mainPathId);
+			for (int shade = 0; shade <= LawnUtil.getShadeAmount(); shade++) {
+				var topTexture = Identifier.of(HomeLawnSecurity.MOD_ID, topTextureNames[shade]);
+				var topDarkTexture = Identifier.of(HomeLawnSecurity.MOD_ID, topDarkTextureNames[shade]);
+				var sideTexture = Identifier.of(HomeLawnSecurity.MOD_ID, sideTextureNames[shade]);
+
+				textureMap.put(TextureKey.SIDE, sideTexture);
 
 
+				for (int mainPathId = 0; mainPathId <= LawnUtil.getPathTypeAmount(); mainPathId++) {
+					Identifier mainPathNormalTexture = Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/main_path/normal_" + mainPathId);
+					Identifier mainPathIntersectingTexture = Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/main_path/intersecting_" + mainPathId);
 
-				for (int intersectingPathId = 0; intersectingPathId <= LawnUtil.getPathTypeAmount(); intersectingPathId++) {
-					Identifier intersectingPathTexture = Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/intersecting_path/" + intersectingPathId);
 
-					if (mainPathId == 0) {
-						textureMap.put(TextureKey.TOP, topTexture)
-							.put(textureKeyMainPath, noPath);
-					}
-					else {
-						textureMap.put(TextureKey.TOP, topDarkTexture);
-						if (intersectingPathId == 0) {
-							textureMap.put(textureKeyMainPath, mainPathNormalTexture);
+					for (int intersectingPathId = 0; intersectingPathId <= LawnUtil.getPathTypeAmount(); intersectingPathId++) {
+						Identifier intersectingPathTexture = Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/intersecting_path/" + intersectingPathId);
+
+						if (mainPathId == 0) {
+							textureMap.put(TextureKey.TOP, topTexture)
+								.put(textureKeyMainPath, noPath);
 						} else {
-							textureMap.put(textureKeyMainPath, mainPathIntersectingTexture);
+							textureMap.put(TextureKey.TOP, topDarkTexture);
+							if (intersectingPathId == 0) {
+								textureMap.put(textureKeyMainPath, mainPathNormalTexture);
+							} else {
+								textureMap.put(textureKeyMainPath, mainPathIntersectingTexture);
+							}
 						}
-					}
 
-					if (intersectingPathId == 0) {
-						textureMap.put(textureKeyIntersectingPath, noPath);
-					}
-					else {
-						textureMap.put(textureKeyIntersectingPath, intersectingPathTexture);
-					}
+						if (intersectingPathId == 0) {
+							textureMap.put(textureKeyIntersectingPath, noPath);
+						} else {
+							textureMap.put(textureKeyIntersectingPath, intersectingPathTexture);
+						}
 
-					identifiers[mainPathId][intersectingPathId] = LAWN_BLOCK_V2.upload(block,
-						"_" + mainPathId + "_" + intersectingPathId,
-						textureMap,
-						generator.modelCollector);
+						identifiers[mainPathId][intersectingPathId][shade] = LAWN_BLOCK_V2.upload(block,
+							"_" + mainPathId + "_" + intersectingPathId + "_" + shade,
+							textureMap,
+							generator.modelCollector);
+					}
 				}
 			}
 
 			generator.blockStateCollector
 				.accept(
 					VariantsBlockModelDefinitionCreator.of(block)
-						.with(BlockStateVariantMap.models(ILawnBlock.PATH_ID_MAIN, ILawnBlock.PATH_ID_INTERSECTING)
-							.generate((mainPath, intersectingPath)
-								-> BlockStateModelGenerator.createWeightedVariant(identifiers[mainPath][intersectingPath])
+						.with(BlockStateVariantMap.models(ILawnBlock.PATH_ID_MAIN, ILawnBlock.PATH_ID_INTERSECTING, LawnBlockBlock.SHADE)
+							.generate((mainPath, intersectingPath, shade)
+								-> BlockStateModelGenerator.createWeightedVariant(identifiers[mainPath][intersectingPath][shade])
 							)
 						)
 				);
@@ -402,22 +436,62 @@ public class ModModelProvider extends FabricModelProvider {
 		ModItemModels.registerLawnBlockItemV2(
 			itemModelGenerator,
 			ModBlocks.SODDED_LAWN_BLOCK,
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/top_sodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/top_sodded_path"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "item/lawn_block/sodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "item/lawn_block/sodded_path")
+			new String[]{
+				"block/lawn_block/top_sodded_0",
+				"block/lawn_block/top_sodded_1",
+				"block/lawn_block/top_sodded_2"
+			},
+			new String[]{
+				"block/lawn_block/top_sodded_path_0",
+				"block/lawn_block/top_sodded_path_1",
+				"block/lawn_block/top_sodded_path_2"
+			},
+			new String[]{
+				"block/lawn_block/side_sodded_0",
+				"block/lawn_block/side_sodded_1",
+				"block/lawn_block/side_sodded_2"
+			},
+			"block/lawn_block/unsodded",
+			new String[]{
+				"item/lawn_block/sodded_0",
+				"item/lawn_block/sodded_1",
+				"item/lawn_block/sodded_2"
+			},
+			new String[]{
+				"item/lawn_block/sodded_path_0",
+				"item/lawn_block/sodded_path_1",
+				"item/lawn_block/sodded_path_2"
+			}
 		);
 		ModItemModels.registerLawnBlockItemV2(
 			itemModelGenerator,
 			ModBlocks.UNSODDED_LAWN_BLOCK,
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/top_unsodded_path"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "item/lawn_block/unsodded"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "item/lawn_block/unsodded_path")
+			new String[]{
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded"
+			},
+			new String[]{
+				"block/lawn_block/top_unsodded_path",
+				"block/lawn_block/top_unsodded_path",
+				"block/lawn_block/top_unsodded_path"
+			},
+			new String[]{
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded",
+				"block/lawn_block/unsodded"
+			},
+			"block/lawn_block/unsodded",
+			new String[]{
+				"item/lawn_block/unsodded_0",
+				"item/lawn_block/unsodded_1",
+				"item/lawn_block/unsodded_2"
+			},
+			new String[]{
+				"item/lawn_block/unsodded_path_0",
+				"item/lawn_block/unsodded_path_1",
+				"item/lawn_block/unsodded_path_2"
+			}
 		);
 
 
@@ -674,22 +748,41 @@ public class ModModelProvider extends FabricModelProvider {
 
 		private static boolean generatedBlockPathModels = false;
 
-		public static void registerLawnBlockItemV2(ItemModelGenerator generator, Block block, Identifier topTexture, Identifier topDarkTexture, Identifier sideTexture, Identifier bottomTexture, Identifier lawnModel, Identifier lawnDarkModel) {
-			Models.CUBE_BOTTOM_TOP.upload(lawnModel,
-				new TextureMap()
-					.put(TextureKey.TOP, topTexture)
-					.put(TextureKey.SIDE, sideTexture)
-					.put(TextureKey.BOTTOM, bottomTexture),
-				generator.modelCollector);
+		public static void registerLawnBlockItemV2(ItemModelGenerator generator, Block block, String[] topTextureNames, String[] topDarkTextureNames, String[] sideTextureNames, String bottomTextureName, String[] lawnModelNames, String[] lawnDarkModelNames) {
+			Identifier bottomTexture = Identifier.of(HomeLawnSecurity.MOD_ID, bottomTextureName);
 
-			Models.CUBE_BOTTOM_TOP.upload(lawnDarkModel,
-				new TextureMap()
-					.put(TextureKey.TOP, topDarkTexture)
-					.put(TextureKey.SIDE, sideTexture)
-					.put(TextureKey.BOTTOM, bottomTexture),
-				generator.modelCollector);
+			for (int shade = 0; shade < lawnModelNames.length; shade++) {
+				Identifier sideTexture = Identifier.of(HomeLawnSecurity.MOD_ID, sideTextureNames[shade]);
+
+				Identifier topTexture = Identifier.of(HomeLawnSecurity.MOD_ID, topTextureNames[shade]);
+				Identifier lawnModel = Identifier.of(HomeLawnSecurity.MOD_ID, lawnModelNames[shade]);
+				Models.CUBE_BOTTOM_TOP.upload(lawnModel,
+					new TextureMap()
+						.put(TextureKey.TOP, topTexture)
+						.put(TextureKey.SIDE, sideTexture)
+						.put(TextureKey.BOTTOM, bottomTexture),
+					generator.modelCollector);
+
+				Identifier topDarkTexture = Identifier.of(HomeLawnSecurity.MOD_ID, topDarkTextureNames[shade]);
+				Identifier lawnDarkModel = Identifier.of(HomeLawnSecurity.MOD_ID, lawnDarkModelNames[shade]);
+				Models.CUBE_BOTTOM_TOP.upload(lawnDarkModel,
+					new TextureMap()
+						.put(TextureKey.TOP, topDarkTexture)
+						.put(TextureKey.SIDE, sideTexture)
+						.put(TextureKey.BOTTOM, bottomTexture),
+					generator.modelCollector);
+			}
 
 			ItemModel.Unbaked empty = new EmptyItemModel.Unbaked();
+
+			HashMap<Integer, ItemModel.Unbaked> shadeModels = new HashMap<>();
+			HashMap<Integer, ItemModel.Unbaked> shadeDarkModels = new HashMap<>();
+			for (int shade = 0; shade <= LawnUtil.getShadeAmount(); shade++) {
+				Identifier shadeModel = Identifier.of(HomeLawnSecurity.MOD_ID, lawnModelNames[shade]);
+				Identifier shadeDarkModel = Identifier.of(HomeLawnSecurity.MOD_ID, lawnDarkModelNames[shade]);
+				shadeModels.put(shade, ItemModels.basic(shadeModel));
+				shadeDarkModels.put(shade, ItemModels.basic(shadeModel));
+			}
 
 			HashMap<Integer, ItemModel.Unbaked> mainPathNormalModels = new HashMap<>();
 			HashMap<Integer, ItemModel.Unbaked> mainPathIntersectingModels = new HashMap<>();
@@ -713,7 +806,11 @@ public class ModModelProvider extends FabricModelProvider {
 							.put(TextureKey.SIDE, Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/no_path")),
 						generator.modelCollector);
 
-				tempMap.put(mainPathId, ItemModels.basic(lawnDarkModel));
+				tempMap.put(mainPathId, ItemModels.select(
+					LawnBlockBlock.SHADE,
+					ItemModels.basic(Identifier.of(HomeLawnSecurity.MOD_ID, lawnModelNames[0])),
+					shadeDarkModels
+				));
 			}
 
 			HashMap<Integer, ItemModel.Unbaked> intersectingPathModels = new HashMap<>();
@@ -735,7 +832,11 @@ public class ModModelProvider extends FabricModelProvider {
 					// Base
 					ItemModels.select(
 						ILawnBlock.PATH_ID_MAIN,
-						ItemModels.basic(lawnModel),
+						ItemModels.select(
+							LawnBlockBlock.SHADE,
+							ItemModels.basic(Identifier.of(HomeLawnSecurity.MOD_ID, lawnModelNames[0])),
+							shadeModels
+						),
 						tempMap
 					),
 					// Main path

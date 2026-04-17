@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "bottom": "homelawnsecurity:block/lawn_block/unsodded",
-    "side": "homelawnsecurity:block/lawn_block/side_sodded",
+    "side": "homelawnsecurity:block/lawn_block/side_sodded_0",
     "top": "homelawnsecurity:block/garden_block_top"
   }
 }

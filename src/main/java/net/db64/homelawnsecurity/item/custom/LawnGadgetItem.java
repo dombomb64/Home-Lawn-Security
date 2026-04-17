@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import net.db64.homelawnsecurity.block.custom.lawn.ILawnBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.LawnBlockBlock;
 import net.db64.homelawnsecurity.component.LawnGadgetComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.sound.ModSounds;
@@ -101,14 +102,33 @@ public class LawnGadgetItem extends Item {
 					ILawnBlock.setMainPathId(pos, world, ILawnBlock.getNextMainPathId(state));
 					break;
 				case "path_type_intersecting", "path_type_intersecting_marker":
-					ILawnBlock.setIntersectingPathId(pos, world, ILawnBlock.getNextIntersectingPathId(state));
+					if (ILawnBlock.getMainPathId(state) != 0) {
+						ILawnBlock.setIntersectingPathId(pos, world, ILawnBlock.getNextIntersectingPathId(state));
+					}
+					else {
+						sendMessage(context.getPlayer(), Text.translatable(getTranslationKey() + ".switch.error.invalid_block.needs_main_path"));
+					}
+					break;
+				case "shade":
+					if (state.getBlock() instanceof LawnBlockBlock) {
+						if (ILawnBlock.getTurf(state)) {
+							LawnBlockBlock.setShade(pos, world, LawnBlockBlock.getNextShade(state));
+						}
+						else {
+							sendMessage(context.getPlayer(), Text.translatable(getTranslationKey() + ".switch.error.invalid_block.needs_turf"));
+						}
+					}
+					else {
+						sendMessage(context.getPlayer(), Text.translatable(getTranslationKey() + ".switch.error.invalid_block.no_markers"));
+					}
 					break;
 			}
 			world.playSound(null, pos, world.getBlockState(pos).getSoundGroup().getPlaceSound(), SoundCategory.PLAYERS, 1.0f, 1.0f);
 		}
-		/*else {
-			world.playSound(null, context.getPlayer().getBlockPos(), ModSounds.RANDOM_BUZZER, SoundCategory.PLAYERS, 1.0f, 1.0f);
-		}*/
+		else {
+			//world.playSound(null, context.getPlayer().getBlockPos(), ModSounds.RANDOM_BUZZER, SoundCategory.PLAYERS, 1.0f, 1.0f);
+			sendMessage(context.getPlayer(), Text.translatable(getTranslationKey() + ".switch.error.invalid_block"));
+		}
 
 		return ActionResult.CONSUME;
 	}
@@ -130,7 +150,8 @@ public class LawnGadgetItem extends Item {
 				case "path_toggle_marker" -> "path_type_marker";
 				case "path_type_marker" -> "turf_toggle_marker";*/
 				case "path_type_main" -> "path_type_intersecting";
-				case "path_type_intersecting" -> "path_type_main";
+				case "path_type_intersecting" -> "shade";
+				case "shade" -> "path_type_main";
 				/*case "path_type_main_marker" -> "path_type_intersecting_marker";
 				case "path_type_intersecting_marker" -> "path_type_main_marker";*/
 				default -> "path_type_main";

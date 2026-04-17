@@ -8,36 +8,176 @@
         "cases": [
           {
             "model": {
-              "type": "minecraft:model",
-              "model": "homelawnsecurity:item/lawn_block/unsodded_path"
+              "type": "minecraft:select",
+              "block_state_property": "shade",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+                  },
+                  "when": "0"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_1"
+                  },
+                  "when": "1"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_2"
+                  },
+                  "when": "2"
+                }
+              ],
+              "fallback": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+              },
+              "property": "minecraft:block_state"
             },
             "when": "1"
           },
           {
             "model": {
-              "type": "minecraft:model",
-              "model": "homelawnsecurity:item/lawn_block/unsodded_path"
+              "type": "minecraft:select",
+              "block_state_property": "shade",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+                  },
+                  "when": "0"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_1"
+                  },
+                  "when": "1"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_2"
+                  },
+                  "when": "2"
+                }
+              ],
+              "fallback": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+              },
+              "property": "minecraft:block_state"
             },
             "when": "2"
           },
           {
             "model": {
-              "type": "minecraft:model",
-              "model": "homelawnsecurity:item/lawn_block/unsodded_path"
+              "type": "minecraft:select",
+              "block_state_property": "shade",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+                  },
+                  "when": "0"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_1"
+                  },
+                  "when": "1"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_2"
+                  },
+                  "when": "2"
+                }
+              ],
+              "fallback": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+              },
+              "property": "minecraft:block_state"
             },
             "when": "3"
           },
           {
             "model": {
-              "type": "minecraft:model",
-              "model": "homelawnsecurity:item/lawn_block/unsodded_path"
+              "type": "minecraft:select",
+              "block_state_property": "shade",
+              "cases": [
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+                  },
+                  "when": "0"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_1"
+                  },
+                  "when": "1"
+                },
+                {
+                  "model": {
+                    "type": "minecraft:model",
+                    "model": "homelawnsecurity:item/lawn_block/unsodded_2"
+                  },
+                  "when": "2"
+                }
+              ],
+              "fallback": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+              },
+              "property": "minecraft:block_state"
             },
             "when": "4"
           }
         ],
         "fallback": {
-          "type": "minecraft:model",
-          "model": "homelawnsecurity:item/lawn_block/unsodded"
+          "type": "minecraft:select",
+          "block_state_property": "shade",
+          "cases": [
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+              },
+              "when": "0"
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/lawn_block/unsodded_1"
+              },
+              "when": "1"
+            },
+            {
+              "model": {
+                "type": "minecraft:model",
+                "model": "homelawnsecurity:item/lawn_block/unsodded_2"
+              },
+              "when": "2"
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "homelawnsecurity:item/lawn_block/unsodded_0"
+          },
+          "property": "minecraft:block_state"
         },
         "property": "minecraft:block_state"
       },

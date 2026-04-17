@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.util;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.block.custom.lawn.ILawnBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.LawnBlockBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.LawnMarkerBlock;
 import net.db64.homelawnsecurity.block.custom.MarkerBlock;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
@@ -163,5 +164,9 @@ public class LawnUtil {
 
 	public static int getPathTypeAmount() {
 		return ILawnBlock.PATH_TYPE_AMOUNT;
+	}
+
+	public static int getShadeAmount() {
+		return LawnBlockBlock.SHADE_AMOUNT;
 	}
 }

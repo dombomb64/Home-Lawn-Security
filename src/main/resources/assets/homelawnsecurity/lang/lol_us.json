@@ -235,6 +235,8 @@
 
 
 
+	"item.homelawnsecurity.dummy_item": "dum dum idem",
+
 	"item.homelawnsecurity.peashooter_spawn_egg": "Peashooter Spawn Egg",
 	"item.homelawnsecurity.basic_zombie_spawn_egg": "Basic Zombie Spawn Egg",
 
@@ -267,6 +269,10 @@
 	"item.homelawnsecurity.lawn_gadget": "lil sporky",
 	"item.homelawnsecurity.lawn_gadget.switch": "type of do: %1$s",
 	"item.homelawnsecurity.lawn_gadget.switch.error": "U BROKE DIS",
+	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block": "U CANT SPORK DIS BLOUK",
+	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block.no_markers": "DIS BLONKS INVISIBUL DUM DUM",
+	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block.needs_turf": "DIS BLOGK NEDZ GRASS TO DO DAT",
+	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block.needs_main_path": "DIS BLOAK NEDZ A MAEN GO LINE TO DO DAT",
 	"item.homelawnsecurity.lawn_gadget.mode.turf_toggle": "Put graz",
 	"item.homelawnsecurity.lawn_gadget.mode.turf_toggle_marker": "Toggle Turf (Marker Mode)",
 	"item.homelawnsecurity.lawn_gadget.mode.path_toggle": "Put teh go line",
@@ -275,8 +281,10 @@
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_marker": "Switch Path Type (Marker Mode)",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_main": "Change teh maen go line",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_main_marker": "Switch Main Path Type (Marker Mode)",
-	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting": "Change teh udder go line",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting": "Change teh uddther go line",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting_marker": "Switch Intersecting Path Type (Marker Mode)",
+	"item.homelawnsecurity.lawn_gadget.mode.shade.old": "Change amnts eated (Darknes)",
+	"item.homelawnsecurity.lawn_gadget.mode.shade": "Change darknes",
 	"item.homelawnsecurity.lawn_gadget.use.error": "U BROKE DIS",
 
 	"item.homelawnsecurity.turf": "HOOMAN WONT LET ME EAT DIS??/",
@@ -344,6 +352,8 @@
 	"tooltip.homelawnsecurity.bag_of_brainpower": "%1$s nekomansy POWAH!!1",
 	"tooltip.homelawnsecurity.currency.sun": "%1$s orbz a warm windoe stuf",
 	"tooltip.homelawnsecurity.currency.brainpower": "%1$s nekomansy POWAH!!1",
+
+	"tooltip.item.homelawnsecurity.dummy_item": "deres no WAYE som1 modz in a use 4 dis",
 
 	"tooltip.item.homelawnsecurity.daves_pan": "activaets u53rdv!!",
 	"tooltip.item.homelawnsecurity.daves_pan.warning": "i see dat smireck hooman!1 dont uze it in a mathc!!11",

@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.mixin;
 
 import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.block.custom.lawn.ILawnBlock;
+import net.db64.homelawnsecurity.block.custom.lawn.LawnBlockBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnBlockBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnMarkerBlock;
 import net.db64.homelawnsecurity.item.ModItems;
