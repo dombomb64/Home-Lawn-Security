@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:leather",
-    "homelawnsecurity:brain"
+    "#c:leathers",
+    "#homelawnsecurity:recipe/zombie_feedable"
   ],
   "result": {
     "count": 1,

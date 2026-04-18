@@ -9,8 +9,17 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModBlockEntities {
-	public static final BlockEntityType<LawnBlockBlockEntity> LAWN_BLOCK =
+	/*public static final BlockEntityType<LawnBlockBlockEntity> LAWN_BLOCK =
 		Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, "lawn_block"),
 			FabricBlockEntityTypeBuilder.create(LawnBlockBlockEntity::new,
-				ModBlocks.LAWN_BLOCK).build());
+				ModBlocks.LAWN_BLOCK).build());*/
+
+	public static final BlockEntityType<LawnManagerBlockEntity> LAWN_MANAGER =
+		Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, "lawn_manager"),
+			FabricBlockEntityTypeBuilder.create(LawnManagerBlockEntity::new,
+				ModBlocks.LAWN_MANAGER).build());
+
+	public static void registerBlockEntities() {
+		HomeLawnSecurity.logRegistration("block entities");
+	}
 }

@@ -1,13 +1,11 @@
 package net.db64.homelawnsecurity.entity;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 
 public class ModDamageTypes implements DamageTypes {
 	public static final RegistryKey<DamageType> PEA = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, "pea"));
@@ -18,7 +16,7 @@ public class ModDamageTypes implements DamageTypes {
 		return new DamageSource(world.getRegistryManager().getOrThrow(RegistryKeys.DAMAGE_TYPE).getEntry(key.));
 	}*/
 
-	public static void registerModDamageTypes() {
-		HomeLawnSecurity.LOGGER.debug("Registering damage types for " + HomeLawnSecurity.MOD_ID);
+	public static void registerDamageTypes() {
+		HomeLawnSecurity.logRegistration("damage types");
 	}
 }

@@ -346,6 +346,8 @@
 	"block.homelawnsecurity.sun_spawner": "i makea da suna",
 	"block.homelawnsecurity.brainpower_beacon": "brain store?",
 
+	"block.homelawnsecurity.lawn_manager": "Meowager",
+
 
 
 	"tooltip.homelawnsecurity.bag_of_sun": "%1$s orbz a warm windoe stuf",
@@ -390,6 +392,9 @@
 	"tooltip.block.homelawnsecurity.sun_spawner": "Put it next 2 teh lawn and deres WARMNES ORBZ!!!",
 	"tooltip.block.homelawnsecurity.brainpower_beacon": "Put it next 2 teh lawn and deres HEADMEAT ORBZ!!!",
 
+	"tooltip.block.homelawnsecurity.lawn_manager.winner": "redstufz: power to da playerz",
+	"tooltip.block.homelawnsecurity.lawn_manager.reset": "reset da bloank wif [%s]",
+
 
 
 	"tag.item.homelawnsecurity.bag_of_sun": "come inside theres sun inside",
@@ -400,6 +405,8 @@
 	"tag.item.homelawnsecurity.zombie_feedable_for_duplicate": "zomble fod",
 	"tag.item.homelawnsecurity.recipe.turf_grass": "faek faek gras",
 	"tag.item.homelawnsecurity.recipe.grassless_dirt": "dird after sheep infestion",
+	"tag.item.homelawnsecurity.recipe.plant_feedable": "pant fod 4 recipe",
+	"tag.item.homelawnsecurity.recipe.zombie_feedable": "zomble fod 4 recipe",
 
 
 

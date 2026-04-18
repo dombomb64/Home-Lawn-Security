@@ -20,6 +20,7 @@ public class LawnMowerMoveGoal extends MoveToGoalGoal {
 
 	@Override
 	public void stop() {
+		super.stop();
 		//HomeLawnSecurity.LOGGER.info("lawnmower stopped moving towards goal of " + targetX + ", " + targetY + ", " + targetZ + " while at " + mob.getPos().toString());
 		((LawnMowerEntity) mob).disappear(); // I must go, my people need me
 	}

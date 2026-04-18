@@ -1,12 +1,15 @@
 package net.db64.homelawnsecurity.entity.ai;
 
 import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
+import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -76,10 +79,11 @@ public class MoveToGoalGoal extends Goal {
 		this.mob.getNavigation().startMovingTo(this.targetX, this.targetY, this.targetZ, this.speed);
 	}
 
-	/*@Override
+	@Override
 	public void stop() {
-		HomeLawnSecurity.LOGGER.info("zombie stopped moving towards goal of " + targetX + ", " + targetY + ", " + targetZ + " while at " + mob.getPos().toString());
-	}*/
+		//HomeLawnSecurity.LOGGER.info("zombie stopped moving towards goal of " + targetX + ", " + targetY + ", " + targetZ + " while at " + mob.getPos().toString());
+		mob.getNavigation().stop();
+	}
 
 	@Nullable
 	protected Vec3d locateGoalPos() {

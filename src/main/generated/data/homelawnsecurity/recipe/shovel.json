@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "d": "minecraft:red_dye",
-    "i": "minecraft:iron_ingot",
-    "n": "minecraft:iron_nugget",
-    "s": "minecraft:stick"
+    "d": "#c:dyes/red",
+    "i": "#c:ingots/iron",
+    "n": "#c:nuggets/iron",
+    "s": "#c:rods/wooden"
   },
   "pattern": [
     "i ",

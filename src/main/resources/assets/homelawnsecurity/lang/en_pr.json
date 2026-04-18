@@ -337,12 +337,14 @@
 	"block.homelawnsecurity.zombie_path_marker_1": "Unsodded Path Marker A",
 	"block.homelawnsecurity.zombie_path_marker_2": "Unsodded Path Marker B",
 	"block.homelawnsecurity.zombie_path_marker_cross": "Unsodded Path Marker Intersection",
-	"block.homelawnsecurity.unsodded_lawn_marker": "Naked lawn stench",
+	"block.homelawnsecurity.unsodded_lawn_marker": "Bare lawn stench",
 	"block.homelawnsecurity.lawn_marker_v2": "Lawn Marker",
 	"block.homelawnsecurity.sodded_lawn_marker": "Grassy lawn stench",
 
 	"block.homelawnsecurity.sun_spawner": "Heaven's light",
 	"block.homelawnsecurity.brainpower_beacon": "Hell's light",
+
+	"block.homelawnsecurity.lawn_manager": "Lawn overseer",
 
 
 
@@ -388,6 +390,9 @@
 	"tooltip.block.homelawnsecurity.sun_spawner": "Place near a lawn to make doubloons o' sunshine rain down.",
 	"tooltip.block.homelawnsecurity.brainpower_beacon": "Place near a lawn to make doubloons o' plunderin' rain down.",
 
+	"tooltip.block.homelawnsecurity.lawn_manager.winner": "If ye win, yer side gets powered.",
+	"tooltip.block.homelawnsecurity.lawn_manager.reset": "Press [%s] on the block teh bring it back teh square one.",
+
 
 
 	"tag.item.homelawnsecurity.bag_of_sun": "Holds sunshine",
@@ -398,6 +403,8 @@
 	"tag.item.homelawnsecurity.zombie_feedable_for_duplicate": "Duplicates plunderers",
 	"tag.item.homelawnsecurity.recipe.turf_grass": "Grass-like ground coverrr",
 	"tag.item.homelawnsecurity.recipe.grassless_dirt": "Naked dirt",
+	"tag.item.homelawnsecurity.recipe.plant_feedable": "Feeds plants",
+	"tag.item.homelawnsecurity.recipe.zombie_feedable": "Feeds plunderers",
 
 
 

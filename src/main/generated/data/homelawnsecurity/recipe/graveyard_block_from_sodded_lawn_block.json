@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     "homelawnsecurity:sodded_lawn_block",
-    "#minecraft:small_flowers",
+    "#c:flowers/small",
     "minecraft:fermented_spider_eye"
   ],
   "result": {

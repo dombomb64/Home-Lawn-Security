@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "p": "#homelawnsecurity:recipe/plant_feedable",
+    "r": "#c:dusts/redstone",
+    "s": "#c:cobblestones",
+    "z": "#homelawnsecurity:recipe/zombie_feedable"
+  },
+  "pattern": [
+    "sss",
+    "prz",
+    "sss"
+  ],
+  "result": {
+    "count": 4,
+    "id": "homelawnsecurity:lawn_manager"
+  }
+}

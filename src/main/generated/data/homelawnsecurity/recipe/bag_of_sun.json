@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:leather",
-    "minecraft:bone_meal"
+    "#c:leathers",
+    "#homelawnsecurity:recipe/plant_feedable"
   ],
   "result": {
     "count": 1,

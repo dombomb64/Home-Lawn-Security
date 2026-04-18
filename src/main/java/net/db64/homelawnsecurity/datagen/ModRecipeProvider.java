@@ -11,9 +11,12 @@ import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -34,6 +37,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
 			@Override
 			public void generate() {
+				TagKey<Item> gravelTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "gravels"));
+				TagKey<Item> ironTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "ingots/iron"));
+				TagKey<Item> ironNuggetTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "nuggets/iron"));
+				TagKey<Item> flowerTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "flowers/small"));
+				TagKey<Item> stickTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "rods/wooden"));
+				TagKey<Item> coalTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "coal"));
+				TagKey<Item> redDyeTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dyes/red"));
+				TagKey<Item> whiteDyeTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dyes/white"));
+				TagKey<Item> glassTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "glass_blocks"));
+				TagKey<Item> leatherTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "leathers"));
+				TagKey<Item> cobblestoneTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "cobblestones"));
+				TagKey<Item> redstoneTag = TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dusts/redstone"));
+
 				//offerSmelting(exporter, LIST_NAME, RecipeCategory.FOOD, ModItems.DOG_FOOD, 0.7f, 200, "dog_food");
 				//offerSmokingUhhhh(exporter, LIST_NAME, RecipeCategory.FOOD, ModItems.DOG_FOOD, 0.7f, 100, "dog_food"); // Smoking isn't a default thing??
 
@@ -43,7 +59,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 					.input(ModTags.Items.RECIPE_TURF_GRASS)
 					.input(ModTags.Items.RECIPE_TURF_GRASS)
 					.input(ModTags.Items.RECIPE_TURF_GRASS)
-					.input(Items.GRAVEL)
+					.input(gravelTag)
 					.criterion("has_grass", conditionsFromTag(ModTags.Items.RECIPE_TURF_GRASS))
 					.offerTo(exporter);
 
@@ -82,7 +98,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				// Garden Block
 				createShapeless(RecipeCategory.MISC, ModBlocks.GARDEN_BLOCK, 1)
 					.input(ModBlocks.SODDED_LAWN_BLOCK)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.criterion(hasItem(ModBlocks.SODDED_LAWN_BLOCK), conditionsFromItem(ModBlocks.SODDED_LAWN_BLOCK))
 					.offerTo(exporter, getRecipeName(ModBlocks.GARDEN_BLOCK) + "_from_" + getItemPath(ModBlocks.SODDED_LAWN_BLOCK));
 
@@ -90,7 +106,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				createShapeless(RecipeCategory.MISC, ModBlocks.GARDEN_BLOCK, 1)
 					.input(ModBlocks.UNSODDED_LAWN_BLOCK)
 					.input(ModItems.TURF)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.criterion(hasItem(ModBlocks.UNSODDED_LAWN_BLOCK), conditionsFromItem(ModBlocks.UNSODDED_LAWN_BLOCK))
 					.offerTo(exporter, getRecipeName(ModBlocks.GARDEN_BLOCK) + "_from_" + getItemPath(ModBlocks.UNSODDED_LAWN_BLOCK));
 
@@ -104,7 +120,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				// Graveyard Block (Quick)
 				createShapeless(RecipeCategory.MISC, ModBlocks.GRAVEYARD_BLOCK, 1)
 					.input(ModBlocks.SODDED_LAWN_BLOCK)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.input(Items.FERMENTED_SPIDER_EYE)
 					.criterion(hasItem(ModBlocks.SODDED_LAWN_BLOCK), conditionsFromItem(ModBlocks.SODDED_LAWN_BLOCK))
 					.offerTo(exporter, getRecipeName(ModBlocks.GRAVEYARD_BLOCK) + "_from_" + getItemPath(ModBlocks.SODDED_LAWN_BLOCK));
@@ -113,7 +129,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				createShapeless(RecipeCategory.MISC, ModBlocks.GRAVEYARD_BLOCK, 1)
 					.input(ModItems.TURF)
 					.input(ModBlocks.UNSODDED_LAWN_BLOCK)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.input(Items.FERMENTED_SPIDER_EYE)
 					.criterion(hasItem(ModItems.TURF), conditionsFromItem(ModItems.TURF))
 					.offerTo(exporter, getRecipeName(ModBlocks.GRAVEYARD_BLOCK) + "_from_" + getItemPath(ModBlocks.UNSODDED_LAWN_BLOCK));
@@ -121,7 +137,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				// Garden Marker
 				createShapeless(RecipeCategory.MISC, ModBlocks.GARDEN_MARKER, 1)
 					.input(ModBlocks.SODDED_LAWN_MARKER)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.criterion(hasItem(ModBlocks.SODDED_LAWN_MARKER), conditionsFromItem(ModBlocks.SODDED_LAWN_MARKER))
 					.offerTo(exporter, getRecipeName(ModBlocks.GARDEN_MARKER) + "_from_" + getItemPath(ModBlocks.SODDED_LAWN_MARKER));
 
@@ -129,7 +145,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				createShapeless(RecipeCategory.MISC, ModBlocks.GARDEN_MARKER, 1)
 					.input(ModBlocks.UNSODDED_LAWN_MARKER)
 					.input(ModItems.TURF)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.criterion(hasItem(ModBlocks.UNSODDED_LAWN_MARKER), conditionsFromItem(ModBlocks.UNSODDED_LAWN_MARKER))
 					.offerTo(exporter, getRecipeName(ModBlocks.GARDEN_MARKER) + "_from_" + getItemPath(ModBlocks.UNSODDED_LAWN_MARKER));
 
@@ -143,7 +159,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				// Graveyard Marker (Quick)
 				createShapeless(RecipeCategory.MISC, ModBlocks.GRAVEYARD_MARKER, 1)
 					.input(ModBlocks.SODDED_LAWN_MARKER)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.input(Items.FERMENTED_SPIDER_EYE)
 					.criterion(hasItem(ModBlocks.SODDED_LAWN_MARKER), conditionsFromItem(ModBlocks.SODDED_LAWN_MARKER))
 					.offerTo(exporter, getRecipeName(ModBlocks.GRAVEYARD_MARKER) + "_from_" + getItemPath(ModBlocks.SODDED_LAWN_MARKER));
@@ -152,26 +168,26 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 				createShapeless(RecipeCategory.MISC, ModBlocks.GRAVEYARD_MARKER, 1)
 					.input(ModItems.TURF)
 					.input(ModBlocks.UNSODDED_LAWN_MARKER)
-					.input(ItemTags.SMALL_FLOWERS)
+					.input(flowerTag)
 					.input(Items.FERMENTED_SPIDER_EYE)
 					.criterion(hasItem(ModItems.TURF), conditionsFromItem(ModItems.TURF))
 					.offerTo(exporter, getRecipeName(ModBlocks.GRAVEYARD_MARKER) + "_from_" + getItemPath(ModBlocks.UNSODDED_LAWN_MARKER));
 
 				// Lawn Mower
 				createShapeless(RecipeCategory.MISC, ModItems.LAWN_MOWER, 1)
-					.input(Items.IRON_INGOT)
-					.input(Items.RED_DYE)
-					.input(ItemTags.STONE_CRAFTING_MATERIALS)
-					.input(ItemTags.COALS)
+					.input(ironTag)
+					.input(redDyeTag)
+					.input(cobblestoneTag)
+					.input(coalTag)
 					.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
 					.offerTo(exporter, getRecipeName(ModItems.LAWN_MOWER));
 
 				// Shovel
 				createShaped(RecipeCategory.MISC, ModItems.SHOVEL, 1)
-					.input('i', Items.IRON_INGOT)
-					.input('d', Items.RED_DYE)
-					.input('s', Items.STICK)
-					.input('n', Items.IRON_NUGGET)
+					.input('i', ironTag)
+					.input('d', redDyeTag)
+					.input('s', stickTag)
+					.input('n', ironNuggetTag)
 					.pattern("i ")
 					.pattern("s ")
 					.pattern("nd")
@@ -180,58 +196,70 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
 				// Lawn Gadget
 				createShaped(RecipeCategory.MISC, ModItems.LAWN_GADGET, 1)
-					.input('i', Items.IRON_INGOT)
-					.input('d', Items.RED_DYE)
-					.input('n', Items.IRON_NUGGET)
+					.input('i', ironTag)
+					.input('d', redDyeTag)
+					.input('n', ironNuggetTag)
 					.pattern("n n")
 					.pattern("ndn")
 					.pattern(" i ")
-					.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+					.criterion(hasItem(Items.IRON_INGOT), conditionsFromTag(ironTag))
 					.offerTo(exporter, getRecipeName(ModItems.LAWN_GADGET));
 
 				// Sun Spawner
 				createShaped(RecipeCategory.MISC, ModBlocks.SUN_SPAWNER, 1)
-					.input('g', Items.GLASS)
-					.input('i', Items.IRON_INGOT)
-					.input('b', Items.BONE_MEAL)
+					.input('g', glassTag)
+					.input('i', ironTag)
+					.input('b', ModTags.Items.RECIPE_PLANT_FEEDABLE)
 					.pattern("bbb")
 					.pattern("bgb")
 					.pattern("bib")
-					.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+					.criterion(hasItem(Items.IRON_INGOT), conditionsFromTag(ironTag))
 					.offerTo(exporter, getRecipeName(ModBlocks.SUN_SPAWNER));
 
 				// Brainpower Beacon
 				createShaped(RecipeCategory.MISC, ModBlocks.BRAINPOWER_BEACON, 1)
-					.input('g', Items.GLASS)
-					.input('i', Items.IRON_INGOT)
-					.input('b', ModItems.BRAIN)
+					.input('g', glassTag)
+					.input('i', ironTag)
+					.input('b', ModTags.Items.RECIPE_ZOMBIE_FEEDABLE)
 					.pattern("bbb")
 					.pattern("bgb")
 					.pattern("bib")
-					.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+					.criterion(hasItem(Items.IRON_INGOT), conditionsFromTag(ironTag))
 					.offerTo(exporter, getRecipeName(ModBlocks.BRAINPOWER_BEACON));
 
 				// Bag of Sun
 				createShapeless(RecipeCategory.MISC, ModItems.BAG_OF_SUN, 1)
-					.input(Items.LEATHER)
-					.input(Items.BONE_MEAL)
-					.criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+					.input(leatherTag)
+					.input(ModTags.Items.RECIPE_PLANT_FEEDABLE)
+					.criterion(hasItem(Items.LEATHER), conditionsFromTag(leatherTag))
 					.offerTo(exporter, getRecipeName(ModItems.BAG_OF_SUN));
 
 				// Bag of Brainpower
 				createShapeless(RecipeCategory.MISC, ModItems.BAG_OF_BRAINPOWER, 1)
-					.input(Items.LEATHER)
-					.input(ModItems.BRAIN)
-					.criterion(hasItem(Items.LEATHER), conditionsFromItem(Items.LEATHER))
+					.input(leatherTag)
+					.input(ModTags.Items.RECIPE_ZOMBIE_FEEDABLE)
+					.criterion(hasItem(Items.LEATHER), conditionsFromTag(leatherTag))
 					.offerTo(exporter, getRecipeName(ModItems.BAG_OF_BRAINPOWER));
 
 				// Target
 				createShapeless(RecipeCategory.MISC, ModItems.TARGET, 1)
 					.input(ItemTags.PLANKS)
-					.input(Items.WHITE_DYE)
-					.input(Items.RED_DYE)
+					.input(whiteDyeTag)
+					.input(redDyeTag)
 					.criterion("has_planks", conditionsFromTag(ItemTags.PLANKS))
 					.offerTo(exporter, getRecipeName(ModItems.TARGET));
+
+				// Lawn Manager
+				createShaped(RecipeCategory.MISC, ModBlocks.LAWN_MANAGER, 4)
+					.input('s', cobblestoneTag)
+					.input('r', redstoneTag)
+					.input('p', ModTags.Items.RECIPE_PLANT_FEEDABLE)
+					.input('z', ModTags.Items.RECIPE_ZOMBIE_FEEDABLE)
+					.pattern("sss") // Sunny Side Skies reference??
+					.pattern("prz")
+					.pattern("sss")
+					.criterion("has_redstone", conditionsFromTag(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dusts/redstone"))))
+					.offerTo(exporter);
 
 				/*// Rubber wood set
 				templates.makeWoodType(exporter, new Item[][] {{ModBlocks.RUBBER_LOG.asItem(), ModBlocks.RUBBER_WOOD.asItem()},

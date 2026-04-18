@@ -96,6 +96,8 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 		PeaEntity projectileEntity = new PeaEntity(entity.getX(), entity.getY() + entity.getHeight() * 0.6, entity.getZ(), entity.getEntityWorld(), maxDistance);
 		projectileEntity.setOwner(entity);
 		projectileEntity.setMaxDistance(maxDistance);
+		projectileEntity.setPathId(entity.onPath ? entity.getPathId() : 0);
+		projectileEntity.setIntersectingPath(entity.intersectingPath);
 
 		return projectileEntity;
 	}

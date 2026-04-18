@@ -6,7 +6,7 @@
     "#homelawnsecurity:recipe/turf_grass",
     "#homelawnsecurity:recipe/turf_grass",
     "#homelawnsecurity:recipe/turf_grass",
-    "minecraft:gravel"
+    "#c:gravels"
   ],
   "result": {
     "count": 4,

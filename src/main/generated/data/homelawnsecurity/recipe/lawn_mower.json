@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:iron_ingot",
-    "minecraft:red_dye",
-    "#minecraft:stone_crafting_materials",
-    "#minecraft:coals"
+    "#c:ingots/iron",
+    "#c:dyes/red",
+    "#c:cobblestones",
+    "#c:coal"
   ],
   "result": {
     "count": 1,

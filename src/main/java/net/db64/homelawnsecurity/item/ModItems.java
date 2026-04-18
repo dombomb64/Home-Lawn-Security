@@ -6,6 +6,7 @@ import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.item.custom.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
@@ -162,10 +163,15 @@ public class ModItems {
 		return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(HomeLawnSecurity.MOD_ID, id));
 	}
 
-	public static void registerModItems() {
-		HomeLawnSecurity.LOGGER.debug("Registering items for Home Lawn Security (" + HomeLawnSecurity.MOD_ID + ")");
+	public static void registerItems() {
+		HomeLawnSecurity.logRegistration("items");
 
-		HomeLawnSecurity.LOGGER.debug("Registering vanilla item groups for Home Lawn Security (" + HomeLawnSecurity.MOD_ID + ")");
+		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+			HomeLawnSecurity.LOGGER.info("Modifying vanilla item groups for Home Lawn Security ({})", HomeLawnSecurity.MOD_ID);
+		}
+		else {
+			HomeLawnSecurity.LOGGER.debug("Modifying vanilla item groups for Home Lawn Security ({})", HomeLawnSecurity.MOD_ID);
+		}
 
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(VanillaItemGroups::addItemsToBuildingBlocksItemGroup);
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register(VanillaItemGroups::addItemsToColoredBlocksItemGroup);

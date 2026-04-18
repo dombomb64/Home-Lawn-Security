@@ -40,6 +40,7 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 
 	public int idleTime = 0;
 	public ItemStack stack = getDefaultItemStack();
+	private float projectileDistance = 0;
 
 	public CurrencyEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
 		super(entityType, world);
@@ -90,7 +91,7 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 		}
 
 		Vec3d velocity = this.getVelocity();
-		this.distanceTraveled += (float) Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z);
+		this.projectileDistance += (float) Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y + velocity.z * velocity.z);
 		//this.setPosition(d, e, f);
 
 		checkForCollection();

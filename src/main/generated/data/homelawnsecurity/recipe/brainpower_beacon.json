@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": "homelawnsecurity:brain",
-    "g": "minecraft:glass",
-    "i": "minecraft:iron_ingot"
+    "b": "#homelawnsecurity:recipe/zombie_feedable",
+    "g": "#c:glass_blocks",
+    "i": "#c:ingots/iron"
   },
   "pattern": [
     "bbb",

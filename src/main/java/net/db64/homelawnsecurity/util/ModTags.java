@@ -82,6 +82,8 @@ public class ModTags {
 
 		public static final TagKey<Item> RECIPE_TURF_GRASS = createTag("recipe/turf_grass");
 		public static final TagKey<Item> RECIPE_GRASSLESS_DIRT = createTag("recipe/grassless_dirt");
+		public static final TagKey<Item> RECIPE_PLANT_FEEDABLE = createTag("recipe/plant_feedable");
+		public static final TagKey<Item> RECIPE_ZOMBIE_FEEDABLE = createTag("recipe/zombie_feedable");
 
 		private static TagKey<Item> createTag(String name) {
 			return TagKey.of(RegistryKeys.ITEM, Identifier.of(HomeLawnSecurity.MOD_ID, name));

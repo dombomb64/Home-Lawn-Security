@@ -3,8 +3,8 @@
   "category": "misc",
   "ingredients": [
     "#minecraft:planks",
-    "minecraft:white_dye",
-    "minecraft:red_dye"
+    "#c:dyes/white",
+    "#c:dyes/red"
   ],
   "result": {
     "count": 1,

@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": "minecraft:bone_meal",
-    "g": "minecraft:glass",
-    "i": "minecraft:iron_ingot"
+    "b": "#homelawnsecurity:recipe/plant_feedable",
+    "g": "#c:glass_blocks",
+    "i": "#c:ingots/iron"
   },
   "pattern": [
     "bbb",

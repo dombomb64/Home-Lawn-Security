@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity;
 
 import net.db64.homelawnsecurity.block.ModBlocks;
+import net.db64.homelawnsecurity.block.entity.ModBlockEntities;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.TooltipComponent;
 import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
@@ -19,13 +20,14 @@ import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
-import net.db64.homelawnsecurity.particle.ModParticles;
+import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -45,33 +47,17 @@ public class HomeLawnSecurity implements ModInitializer {
 
 		ModItemGroups.registerItemGroups();
 
-		ModItems.registerModItems();
-		ModBlocks.registerModBlocks();
+		ModItems.registerItems();
+		ModBlocks.registerBlocks();
+		ModBlockEntities.registerBlockEntities();
 		ModDataComponentTypes.registerDataComponentTypes();
-		ModDamageTypes.registerModDamageTypes();
+		ModDamageTypes.registerDamageTypes();
+		ModGameEvents.registerGameEvents();
+		ModDebugSubscriptionTypes.registerDebugSubscriptionTypes();
 
-		ModDebugSubscriptionTypes.initialize();
 		ModLootTableModifiers.modifyLootTables();
-
 		addVanillaItemComponents();
-
-		TradeOfferHelper.registerWanderingTraderOffers(factories -> {
-			int price = 2;
-			int count = 1;
-			int maxUses = 5;
-
-			factories.pool(Identifier.of(HomeLawnSecurity.MOD_ID, "plant_seed_packets"), 3,
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_PEASHOOTER, price, count, maxUses, 1),
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_SUNFLOWER, price, count, maxUses, 1),
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_WALL_NUT, price, count, maxUses, 1)
-			);
-
-			factories.pool(Identifier.of(HomeLawnSecurity.MOD_ID, "zombie_seed_packets"), 3,
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_ZOMBIE_GRAVESTONE, price, count, maxUses, 1),
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_BASIC_ZOMBIE, price, count, maxUses, 1),
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_CONEHEAD_ZOMBIE, price, count, maxUses, 1)
-			);
-		});
+		addWanderingTraderOffers();
 
 		registerOther();
 		registerProjectiles();
@@ -94,6 +80,26 @@ public class HomeLawnSecurity implements ModInitializer {
 					Text.translatable("tooltip.item.homelawnsecurity.shears")
 				)));
 			});
+		});
+	}
+
+	private void addWanderingTraderOffers() {
+		TradeOfferHelper.registerWanderingTraderOffers(factories -> {
+			int price = 2;
+			int count = 1;
+			int maxUses = 5;
+
+			factories.pool(Identifier.of(HomeLawnSecurity.MOD_ID, "plant_seed_packets"), 3,
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_PEASHOOTER, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_SUNFLOWER, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_WALL_NUT, price, count, maxUses, 1)
+			);
+
+			factories.pool(Identifier.of(HomeLawnSecurity.MOD_ID, "zombie_seed_packets"), 3,
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_ZOMBIE_GRAVESTONE, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_BASIC_ZOMBIE, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_CONEHEAD_ZOMBIE, price, count, maxUses, 1)
+			);
 		});
 	}
 
@@ -125,5 +131,21 @@ public class HomeLawnSecurity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.BASIC_ZOMBIE, BasicZombieEntity.createAttributes());
 
 		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieEntity.createAttributes());
+	}
+
+	/**
+	 * A shortcut to log a line when running modded registry functions.
+	 * <li>If the game is being run by the IDE, an <b>info</b> line will be logged.</li>
+	 * <li>Otherwise, a <b>debug</b> line will be logged as to not flood as much.</li>
+	 * @param registryType The plural form of the kind of registry you are using.
+	 *                     For instance, "items", "blocks", "entity types", etc.
+	 */
+	public static void logRegistration(String registryType) {
+		if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+			HomeLawnSecurity.LOGGER.info("Registering {} for Home Lawn Security ({})", registryType, MOD_ID);
+		}
+		else {
+			HomeLawnSecurity.LOGGER.debug("Registering {} for Home Lawn Security ({})", registryType, MOD_ID);
+		}
 	}
 }

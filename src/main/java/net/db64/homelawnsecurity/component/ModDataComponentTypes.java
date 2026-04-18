@@ -35,6 +35,6 @@ public class ModDataComponentTypes {
 	}
 
 	public static void registerDataComponentTypes() {
-		HomeLawnSecurity.LOGGER.info("Registering Item Components for " + HomeLawnSecurity.MOD_ID);
+		HomeLawnSecurity.logRegistration("item components");
 	}
 }

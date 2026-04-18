@@ -5,7 +5,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModSounds {
-	// Apologies for the mess, I converted the sounds.json to Java code using Copilot and a Lua library ^_^;
+	// Apologies for the mess, I had the computer do the arduous conversion for me ^_^;
 
 	public static SoundEvent ENTITY_COB_LAUNCH = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.cob.launch"));
 	public static SoundEvent ENTITY_POTATO_MINE_EXPLODE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.potato_mine.explode"));

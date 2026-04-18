@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=east,winner=none": {
+      "model": "homelawnsecurity:block/lawn_manager",
+      "y": 90
+    },
+    "facing=east,winner=plants": {
+      "model": "homelawnsecurity:block/lawn_manager_plants",
+      "y": 90
+    },
+    "facing=east,winner=zombies": {
+      "model": "homelawnsecurity:block/lawn_manager_zombies",
+      "y": 90
+    },
+    "facing=north,winner=none": {
+      "model": "homelawnsecurity:block/lawn_manager"
+    },
+    "facing=north,winner=plants": {
+      "model": "homelawnsecurity:block/lawn_manager_plants"
+    },
+    "facing=north,winner=zombies": {
+      "model": "homelawnsecurity:block/lawn_manager_zombies"
+    },
+    "facing=south,winner=none": {
+      "model": "homelawnsecurity:block/lawn_manager",
+      "y": 180
+    },
+    "facing=south,winner=plants": {
+      "model": "homelawnsecurity:block/lawn_manager_plants",
+      "y": 180
+    },
+    "facing=south,winner=zombies": {
+      "model": "homelawnsecurity:block/lawn_manager_zombies",
+      "y": 180
+    },
+    "facing=west,winner=none": {
+      "model": "homelawnsecurity:block/lawn_manager",
+      "y": 270
+    },
+    "facing=west,winner=plants": {
+      "model": "homelawnsecurity:block/lawn_manager_plants",
+      "y": 270
+    },
+    "facing=west,winner=zombies": {
+      "model": "homelawnsecurity:block/lawn_manager_zombies",
+      "y": 270
+    }
+  }
+}

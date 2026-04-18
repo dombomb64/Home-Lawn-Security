@@ -9,7 +9,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper.WrapperLookup;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 	public ModItemTagProvider(FabricDataOutput output, CompletableFuture<WrapperLookup> completableFuture) {
@@ -44,7 +47,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Registries.ITEM.getId(Items.SHEARS));
 
 		getTagBuilder(ModTags.Items.PLANT_FEEDABLE_FOR_DUPLICATE)
-			.add(Registries.ITEM.getId(Items.BONE_MEAL));
+			//.add(Registries.ITEM.getId(Items.BONE_MEAL));
+			.addOptionalTag(Identifier.of("c", "fertilizers"));
 
 		getTagBuilder(ModTags.Items.ZOMBIE_FEEDABLE_FOR_DUPLICATE)
 			.add(Registries.ITEM.getId(ModItems.BRAIN));
@@ -64,5 +68,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Registries.ITEM.getId(Items.ROOTED_DIRT))
 			.add(Registries.ITEM.getId(Items.PODZOL))
 			.add(Registries.ITEM.getId(Items.MYCELIUM));
+
+		getTagBuilder(ModTags.Items.RECIPE_PLANT_FEEDABLE)
+			.addOptionalTag(Identifier.of("c", "fertilizers"));
+
+		getTagBuilder(ModTags.Items.RECIPE_ZOMBIE_FEEDABLE)
+			.add(Registries.ITEM.getId(ModItems.BRAIN));
 	}
 }

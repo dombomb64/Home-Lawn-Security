@@ -16,7 +16,7 @@ public class ModDebugSubscriptionTypes {
 		return Registry.register(Registries.DEBUG_SUBSCRIPTION, Identifier.of(HomeLawnSecurity.MOD_ID, id), new DebugSubscriptionType<>(packetCodec));
 	}
 
-	public static void initialize() {
-
+	public static void registerDebugSubscriptionTypes() {
+		HomeLawnSecurity.logRegistration("debug subscription types");
 	}
 }

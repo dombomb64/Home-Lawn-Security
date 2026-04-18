@@ -1,5 +1,8 @@
 {
   "values": [
-    "minecraft:bone_meal"
+    {
+      "id": "#c:fertilizers",
+      "required": false
+    }
   ]
 }

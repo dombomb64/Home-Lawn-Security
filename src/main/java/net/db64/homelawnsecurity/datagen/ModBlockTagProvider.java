@@ -174,7 +174,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 		getTagBuilder(BlockTags.PICKAXE_MINEABLE)
 			.add(Registries.BLOCK.getId(ModBlocks.SUN_SPAWNER))
-			.add(Registries.BLOCK.getId(ModBlocks.BRAINPOWER_BEACON));
+			.add(Registries.BLOCK.getId(ModBlocks.BRAINPOWER_BEACON))
+			.add(Registries.BLOCK.getId(ModBlocks.LAWN_MANAGER));
 
 		getTagBuilder(BlockTags.SHOVEL_MINEABLE)
 			.add(Registries.BLOCK.getId(ModBlocks.GARDEN_BLOCK))

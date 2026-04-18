@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "d": "minecraft:red_dye",
-    "i": "minecraft:iron_ingot",
-    "n": "minecraft:iron_nugget"
+    "d": "#c:dyes/red",
+    "i": "#c:ingots/iron",
+    "n": "#c:nuggets/iron"
   },
   "pattern": [
     "n n",

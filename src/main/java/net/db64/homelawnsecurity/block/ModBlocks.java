@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.block;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.block.custom.CurrencySpawnerBlock;
+import net.db64.homelawnsecurity.block.custom.LawnManagerBlock;
 import net.db64.homelawnsecurity.block.custom.MarkerBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnBlockBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnMarkerBlock;
@@ -16,6 +17,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -178,6 +180,11 @@ public class ModBlocks {
 		new CurrencySpawnerBlock(settings, new ItemStack(ModItems.BRAINPOWER)), AbstractBlock.Settings.copy(Blocks.STONE).sounds(BlockSoundGroup.HEAVY_CORE).nonOpaque(), List.of(
 		Text.translatable("tooltip.block.homelawnsecurity.brainpower_beacon")));
 
+	public static final Block LAWN_MANAGER = register("lawn_manager", LawnManagerBlock::new,
+		AbstractBlock.Settings.copy(Blocks.COBBLESTONE), List.of(
+			Text.translatable("tooltip.block.homelawnsecurity.lawn_manager.winner"),
+			Text.stringifiedTranslatable("tooltip.block.homelawnsecurity.lawn_manager.reset", Text.translatable("key.use").formatted(Formatting.GREEN))));
+
 	private static Block register(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean obtainable, List<Text> tooltip)
 	{
 		Block block = Blocks.register(keyOf(id), factory, settings);
@@ -208,8 +215,8 @@ public class ModBlocks {
 		return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(HomeLawnSecurity.MOD_ID, id));
 	}
 
-	public static void registerModBlocks() {
-		HomeLawnSecurity.LOGGER.debug("Registering blocks for " + HomeLawnSecurity.MOD_ID);
+	public static void registerBlocks() {
+		HomeLawnSecurity.logRegistration("blocks");
 	}
 
 	public static class BlockSetTypes {

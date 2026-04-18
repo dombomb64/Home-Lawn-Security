@@ -4,7 +4,7 @@
   "ingredients": [
     "homelawnsecurity:unsodded_lawn_block",
     "homelawnsecurity:turf",
-    "#minecraft:small_flowers"
+    "#c:flowers/small"
   ],
   "result": {
     "count": 1,

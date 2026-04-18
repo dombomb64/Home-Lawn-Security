@@ -26,7 +26,7 @@ public class ModParticles {
 	public static final ParticleTextureSheet SHEET_ENTITY = new ParticleTextureSheet("pvz_entity");
 
 	public static void registerParticles() {
-		HomeLawnSecurity.LOGGER.info("Registering particles for {}", HomeLawnSecurity.MOD_ID);
+		HomeLawnSecurity.logRegistration("particles");
 
 		ParticleRendererRegistry.register(SHEET_ENTITY, EntityParticleRenderer::new);
 		ParticleFactoryRegistry.getInstance().register(MARKER, new MarkerParticle.Factory());

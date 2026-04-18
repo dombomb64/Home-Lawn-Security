@@ -3,13 +3,17 @@ package net.db64.homelawnsecurity.entity.custom.other;
 import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.entity.custom.IDegradableEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
+import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
+import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -17,11 +21,13 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -132,6 +138,19 @@ public class TargetZombieEntity extends ZombieEntity implements IDegradableEntit
 	public TrackedData<Boolean> getHasLostHeadTrackedData() {
 		return HAS_LOST_HEAD;
 	}*/
+
+	/*
+		DEATH
+	 */
+
+	@Override
+	public void onDeath(DamageSource damageSource) {
+		super.onDeath(damageSource);
+		if (!getEntityWorld().isClient() && getLastAttacker() instanceof PlantEntity) {
+			ServerWorld world = (ServerWorld) getEntityWorld();
+			world.emitGameEvent(ModGameEvents.TARGET_ZOMBIE_DEATH, getEntityPos(), GameEvent.Emitter.of(this));
+		}
+	}
 
 	/*
 		STATS
