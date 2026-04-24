@@ -113,6 +113,9 @@ public class ModModelProvider extends FabricModelProvider {
 
 		blockStateModelGenerator.registerBuiltinWithParticle(ModBlocks.UNSODDED_LAWN_MARKER, ModBlocks.UNSODDED_LAWN_MARKER.asItem());*/
 
+		blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SPEAKER_PLANT_VICTORY);
+		blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SPEAKER_ZOMBIE_VICTORY);
+
 		/*blockStateModelGenerator.registerLog(ModBlocks.RUBBER_LOG).log(ModBlocks.RUBBER_LOG).wood(ModBlocks.RUBBER_WOOD);
 		blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_RUBBER_LOG).log(ModBlocks.STRIPPED_RUBBER_LOG).wood(ModBlocks.STRIPPED_RUBBER_WOOD);
 		blockStateModelGenerator.registerLog(ModBlocks.DRIPPING_RUBBER_LOG).log(ModBlocks.DRIPPING_RUBBER_LOG).wood(ModBlocks.DRIPPING_RUBBER_WOOD);

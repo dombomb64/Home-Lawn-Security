@@ -346,6 +346,9 @@
 
 	"block.homelawnsecurity.lawn_manager": "Lawn Manager",
 
+	"block.homelawnsecurity.speaker_plant_victory": "Speaker (Plant Victory)",
+	"block.homelawnsecurity.speaker_zombie_victory": "Speaker (Zombie Victory)",
+
 
 
 	"tooltip.homelawnsecurity.bag_of_sun": "Sun: %1$s",

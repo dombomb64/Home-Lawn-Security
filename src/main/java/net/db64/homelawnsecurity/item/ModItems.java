@@ -131,7 +131,10 @@ public class ModItems {
 	}
 
 	public static Item register(String id, Function<Item.Settings, Item> factory, Item.Settings settings, @Nullable List<Text> tooltip) {
-		return register(id, factory, settings.component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(tooltip)));
+		if (tooltip == null)
+			return register(id, factory, settings);
+		else
+			return register(id, factory, settings.component(ModDataComponentTypes.TOOLTIP, new TooltipComponent(tooltip)));
 	}
 
 	/*public static Item register(Block block, Item.Settings settings, @Nullable List<Text> tooltip) {

@@ -348,6 +348,9 @@
 
 	"block.homelawnsecurity.lawn_manager": "Meowager",
 
+	"block.homelawnsecurity.speaker_plant_victory": "loud thingy (plantz wien)",
+	"block.homelawnsecurity.speaker_zombie_victory": "loud thingy (zommies wien)",
+
 
 
 	"tooltip.homelawnsecurity.bag_of_sun": "%1$s orbz a warm windoe stuf",

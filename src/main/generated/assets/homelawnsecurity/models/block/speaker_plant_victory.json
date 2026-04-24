@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "homelawnsecurity:block/speaker_plant_victory"
+  }
+}

@@ -4,11 +4,13 @@ import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.block.custom.CurrencySpawnerBlock;
 import net.db64.homelawnsecurity.block.custom.LawnManagerBlock;
 import net.db64.homelawnsecurity.block.custom.MarkerBlock;
+import net.db64.homelawnsecurity.block.custom.SpeakerBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnBlockBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.SoddedLawnMarkerBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.UnsoddedLawnBlockBlock;
 import net.db64.homelawnsecurity.block.custom.lawn.UnsoddedLawnMarkerBlock;
 import net.db64.homelawnsecurity.item.ModItems;
+import net.db64.homelawnsecurity.sound.ModSounds;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -184,6 +186,11 @@ public class ModBlocks {
 		AbstractBlock.Settings.copy(Blocks.COBBLESTONE), List.of(
 			Text.translatable("tooltip.block.homelawnsecurity.lawn_manager.winner"),
 			Text.stringifiedTranslatable("tooltip.block.homelawnsecurity.lawn_manager.reset", Text.translatable("key.use").formatted(Formatting.GREEN))));
+
+	public static final Block SPEAKER_PLANT_VICTORY = register("speaker_plant_victory", settings ->
+		new SpeakerBlock(settings, ModSounds.FANFARE_PLANT_VICTORY), AbstractBlock.Settings.copy(Blocks.NOTE_BLOCK));
+	public static final Block SPEAKER_ZOMBIE_VICTORY = register("speaker_zombie_victory", settings ->
+		new SpeakerBlock(settings, ModSounds.FANFARE_ZOMBIE_VICTORY), AbstractBlock.Settings.copy(Blocks.NOTE_BLOCK));
 
 	private static Block register(String id, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings, boolean obtainable, List<Text> tooltip)
 	{

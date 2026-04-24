@@ -346,6 +346,9 @@
 
 	"block.homelawnsecurity.lawn_manager": "Lawn overseer",
 
+	"block.homelawnsecurity.speaker_plant_victory": "Voicebox (Plant victory)",
+	"block.homelawnsecurity.speaker_zombie_victory": "Voicebox (Plunderer victory)",
+
 
 
 	"tooltip.homelawnsecurity.bag_of_sun": "Sunshine: %1$s",

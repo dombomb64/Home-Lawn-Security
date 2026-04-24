@@ -250,7 +250,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 					.offerTo(exporter, getRecipeName(ModItems.TARGET));
 
 				// Lawn Manager
-				createShaped(RecipeCategory.MISC, ModBlocks.LAWN_MANAGER, 4)
+				createShaped(RecipeCategory.MISC, ModBlocks.LAWN_MANAGER, 1)
 					.input('s', cobblestoneTag)
 					.input('r', redstoneTag)
 					.input('p', ModTags.Items.RECIPE_PLANT_FEEDABLE)
@@ -259,6 +259,20 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 					.pattern("prz")
 					.pattern("sss")
 					.criterion("has_redstone", conditionsFromTag(TagKey.of(RegistryKeys.ITEM, Identifier.of("c", "dusts/redstone"))))
+					.offerTo(exporter);
+
+				// Speaker (Plant Victory)
+				createShapeless(RecipeCategory.MISC, ModBlocks.SPEAKER_PLANT_VICTORY, 1)
+					.input(Items.NOTE_BLOCK)
+					.input(ModTags.Items.RECIPE_PLANT_FEEDABLE)
+					.criterion("has_plant_feedable", conditionsFromTag(ModTags.Items.RECIPE_PLANT_FEEDABLE))
+					.offerTo(exporter);
+
+				// Speaker (Zombie Victory)
+				createShapeless(RecipeCategory.MISC, ModBlocks.SPEAKER_ZOMBIE_VICTORY, 1)
+					.input(Items.NOTE_BLOCK)
+					.input(ModTags.Items.RECIPE_ZOMBIE_FEEDABLE)
+					.criterion("has_zombie_feedable", conditionsFromTag(ModTags.Items.RECIPE_ZOMBIE_FEEDABLE))
 					.offerTo(exporter);
 
 				/*// Rubber wood set

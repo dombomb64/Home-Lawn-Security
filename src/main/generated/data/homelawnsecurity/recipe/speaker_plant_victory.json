@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:note_block",
+    "#homelawnsecurity:recipe/plant_feedable"
+  ],
+  "result": {
+    "count": 1,
+    "id": "homelawnsecurity:speaker_plant_victory"
+  }
+}

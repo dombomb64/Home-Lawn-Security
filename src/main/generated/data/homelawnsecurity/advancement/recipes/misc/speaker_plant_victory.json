@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_plant_feedable": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#homelawnsecurity:recipe/plant_feedable"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "homelawnsecurity:speaker_plant_victory"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_plant_feedable"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "homelawnsecurity:speaker_plant_victory"
+    ]
+  }
+}
