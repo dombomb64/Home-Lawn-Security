@@ -1,0 +1,29 @@
+package net.db64.homelawnsecurity.entity.client.zombie;
+
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+
+public class ConeFeatureRenderer<S extends BasicZombieRenderState, M extends EntityModel<? super S>> extends FeatureRenderer<S, M> {
+	private final Identifier texture;
+	private final M model;
+
+	public ConeFeatureRenderer(FeatureRendererContext<S, M> context, M model, Identifier texture) {
+		super(context);
+		this.model = model;
+		this.texture = texture;
+	}
+
+	@Override
+	public void render(MatrixStack matrices, OrderedRenderCommandQueue queue, int light, S state, float limbAngle, float limbDistance) {
+		if (state.getHasLostHeadwear()) {
+			M entityModel = this.model;
+			entityModel.setAngles(state);
+
+			renderModel(entityModel, texture, matrices, queue, light, state, -1, 1);
+		}
+	}
+}

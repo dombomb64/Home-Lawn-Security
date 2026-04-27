@@ -1015,6 +1015,21 @@
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.zombie.feed"
 	},
+	"entity.zombie.metal_hurt": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/zombie/shieldhit",
+				"pitch": 1.0,
+				"volume": 1.0
+			},
+			{
+				"name": "homelawnsecurity:entity/zombie/shieldhit2",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.zombie.metal_hurt"
+	},
 
 	"entity.conehead_zombie.hurt": {
 		"sounds": [
@@ -1032,20 +1047,40 @@
 		"subtitle": "subtitles.homelawnsecurity.entity.conehead_zombie.hurt"
 	},
 
+	"entity.trash_can_zombie.hurt": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.metal_hurt",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.trash_can_zombie.hurt"
+	},
+
 	"entity.buckethead_zombie.hurt": {
 		"sounds": [
 			{
-				"name": "homelawnsecurity:entity/zombie/shieldhit",
-				"pitch": 1.0,
-				"volume": 1.0
-			},
-			{
-				"name": "homelawnsecurity:entity/zombie/shieldhit2",
+				"name": "homelawnsecurity:entity.zombie.metal_hurt",
+				"type": "event",
 				"pitch": 1.0,
 				"volume": 1.0
 			}
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.buckethead_zombie.hurt"
+	},
+
+	"entity.screen_door_zombie.hurt": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.zombie.metal_hurt",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.screen_door_zombie.hurt"
 	},
 
 	"entity.jack_in_the_box_zombie.boing": {

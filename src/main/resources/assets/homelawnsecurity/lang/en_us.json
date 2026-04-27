@@ -140,10 +140,15 @@
 	"subtitles.homelawnsecurity.entity.zombie.place": "Zombie placed",
 	"subtitles.homelawnsecurity.entity.zombie.place_water": "Zombie placed in water",
 	"subtitles.homelawnsecurity.entity.zombie.feed": "Zombie is fed",
+	"subtitles.homelawnsecurity.entity.zombie.metal_hurt": "Zombie absorbs damage",
 
 	"subtitles.homelawnsecurity.entity.conehead_zombie.hurt": "Conehead Zombie absorbs damage",
 
+	"subtitles.homelawnsecurity.entity.trash_can_zombie.hurt": "Trash Can Zombie absorbs damage",
+
 	"subtitles.homelawnsecurity.entity.buckethead_zombie.hurt": "Buckethead Zombie absorbs damage",
+
+	"subtitles.homelawnsecurity.entity.screen_door_zombie.hurt": "Screen Door Zombie absorbs damage",
 
 	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.boing": "Jack-in-the-box Zombie boings",
 	"subtitles.homelawnsecurity.entity.jack_in_the_box_zombie.surprised": "Jack-in-the-box Zombie gets surprised",
@@ -223,14 +228,21 @@
 	"entity.homelawnsecurity.target_zombie": "Target Zombie",
 
 	"entity.homelawnsecurity.pea": "Pea",
+	"entity.homelawnsecurity.frozen_pea": "Frozen Pea",
 
 	"entity.homelawnsecurity.peashooter": "Peashooter",
 	"entity.homelawnsecurity.sunflower": "Sunflower",
+	"entity.homelawnsecurity.cherry_bomb": "Cherry Bomb",
 	"entity.homelawnsecurity.wall_nut": "Wall-nut",
+	"entity.homelawnsecurity.potato_mine": "Potato Mine",
+	"entity.homelawnsecurity.snow_pea": "Snow Pea",
 
 	"entity.homelawnsecurity.zombie_gravestone": "Zombie Gravestone",
 	"entity.homelawnsecurity.basic_zombie": "Basic Zombie",
+	"entity.homelawnsecurity.trash_can_zombie": "Trash Can Zombie",
 	"entity.homelawnsecurity.conehead_zombie": "Conehead Zombie",
+	"entity.homelawnsecurity.pole_vaulting_zombie": "Pole Vaulting Zombie",
+	"entity.homelawnsecurity.buckethead_zombie": "Buckethead Zombie",
 
 
 
@@ -307,11 +319,17 @@
 
 	"item.homelawnsecurity.seed_packet_peashooter": "Peashooter Seed Packet",
 	"item.homelawnsecurity.seed_packet_sunflower": "Sunflower Seed Packet",
+	"item.homelawnsecurity.seed_packet_cherry_bomb": "Cherry Bomb Seed Packet",
 	"item.homelawnsecurity.seed_packet_wall_nut": "Wall-nut Seed Packet",
+	"item.homelawnsecurity.seed_packet_potato_mine": "Potato Mine Seed Packet",
+	"item.homelawnsecurity.seed_packet_snow_pea": "Snow Pea Seed Packet",
 
 	"item.homelawnsecurity.seed_packet_zombie_gravestone": "Zombie Gravestone Seed Packet",
 	"item.homelawnsecurity.seed_packet_basic_zombie": "Basic Zombie Seed Packet",
+	"item.homelawnsecurity.seed_packet_trash_can_zombie": "Trash Can Zombie Seed Packet",
 	"item.homelawnsecurity.seed_packet_conehead_zombie": "Conehead Zombie Seed Packet",
+	"item.homelawnsecurity.seed_packet_pole_vaulting_zombie": "Pole Vaulting Zombie Seed Packet",
+	"item.homelawnsecurity.seed_packet_buckethead_zombie": "Buckethead Zombie Seed Packet",
 
 
 

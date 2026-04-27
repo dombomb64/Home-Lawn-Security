@@ -115,6 +115,8 @@ public class ModSounds {
 	public static SoundEvent ENTITY_ZOMBIE_EXPLODE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.explode"));
 	public static SoundEvent ENTITY_JACK_IN_THE_BOX_ZOMBIE_BOING = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.jack_in_the_box_zombie.boing"));
 	public static SoundEvent ENTITY_BUCKETHEAD_ZOMBIE_HURT = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.buckethead_zombie.hurt"));
+	public static SoundEvent ENTITY_TRASH_CAN_ZOMBIE_HURT = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.trash_can_zombie.hurt"));
+	public static SoundEvent ENTITY_ZOMBIE_METAL_HURT = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.metal_hurt"));
 	public static SoundEvent ENTITY_BRAINPOWER_THROW = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.brainpower.throw"));
 	public static SoundEvent ENTITY_BRAINPOWER_COLLECT = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.brainpower.collect"));
 	public static SoundEvent ENTITY_SUN_THROW = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.sun.throw"));

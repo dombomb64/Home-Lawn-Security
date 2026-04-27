@@ -104,5 +104,8 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 
 		EntityRendererFactories.register(ModEntities.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieModel::getTexturedModelData);
+
+		EntityRendererFactories.register(ModEntities.Zombie.BUCKETHEAD_ZOMBIE, BucketheadZombieRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.Zombie.BUCKETHEAD_ZOMBIE, BucketheadZombieModel::getTexturedModelData);
 	}
 }

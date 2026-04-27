@@ -487,5 +487,18 @@ public class ModAnimations {
 						new Keyframe(1f, AnimationHelper.createRotationalVector(-101.67f, 30f, -60f),
 							Transformation.Interpolations.LINEAR))).build();
 		}
+
+		public static class BucketheadZombie {
+			public static final AnimationDefinition SETUP_BUCKET = AnimationDefinition.Builder.create(0.0F).looping()
+				.addBoneAnimation("bucketRim", new Transformation(Transformation.Targets.MOVE_ORIGIN,
+					new Keyframe(0.0F, AnimationHelper.createTranslationalVector(0.0F, -0.75F, 0.0F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("bucketRim", new Transformation(Transformation.Targets.SCALE,
+					new Keyframe(0.0F, AnimationHelper.createScalingVector(1.1F, 1.1F, 1.1F), Transformation.Interpolations.LINEAR)
+				))
+				.addBoneAnimation("bucketHandle", new Transformation(Transformation.Targets.SCALE,
+					new Keyframe(0.0F, AnimationHelper.createScalingVector(1.125F, 1.125F, 1.125F), Transformation.Interpolations.LINEAR)
+				)).build();
+		}
 	}
 }

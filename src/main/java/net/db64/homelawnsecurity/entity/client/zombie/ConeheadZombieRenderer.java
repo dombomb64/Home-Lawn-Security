@@ -2,9 +2,7 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
-import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -14,9 +12,18 @@ import net.minecraft.util.Identifier;
 
 public class ConeheadZombieRenderer extends MobEntityRenderer<ConeheadZombieEntity, ConeheadZombieRenderState, ConeheadZombieModel> {
 	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/conehead_zombie.png");
+	//private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/basic_zombie.png");
+	//private static final Identifier TEXTURE_CONE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/accessory/cone.png");
 
 	public ConeheadZombieRenderer(EntityRendererFactory.Context context) {
 		super(context, new ConeheadZombieModel(context.getPart(ModModelLayers.Zombie.CONEHEAD_ZOMBIE)), 0.5f);
+		/*addFeature(
+			new ConeFeatureRenderer<>(
+				this,
+				new ConeModel(context.getPart(ModModelLayers.Zombie.CONE)),
+				TEXTURE_CONE
+			)
+		);*/
 	}
 
 	@Override

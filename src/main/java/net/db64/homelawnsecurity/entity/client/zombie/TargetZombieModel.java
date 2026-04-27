@@ -26,7 +26,7 @@ public class TargetZombieModel extends EntityModel<TargetZombieRenderState> {
 		this.target = this.targetZombie.getChild("target");
 
 		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
-		setupAnimation = ModAnimations.Zombie.BasicZombie.SETUP.createAnimation(root);
+		setupAnimation = ModAnimations.Zombie.TargetZombie.SETUP.createAnimation(root);
 		attackAnimation = ModAnimations.Zombie.BasicZombie.EAT.createAnimation(root);
 	}
 

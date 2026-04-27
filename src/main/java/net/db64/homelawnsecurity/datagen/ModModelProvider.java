@@ -636,6 +636,12 @@ public class ModModelProvider extends FabricModelProvider {
 				seedPacketImages.get("coneheadZombie"),
 				seedPacketCosts.get("zombie75")
 			);
+
+			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_BUCKETHEAD_ZOMBIE,
+				seedPacketBases.get("zombieBase"),
+				seedPacketImages.get("bucketheadZombie"),
+				seedPacketCosts.get("zombie100")
+			);
 		}
 	}
 

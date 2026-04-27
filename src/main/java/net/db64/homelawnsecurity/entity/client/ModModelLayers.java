@@ -41,6 +41,10 @@ public class ModModelLayers {
 			register(HomeLawnSecurity.MOD_ID, "basic_zombie");
 		public static final EntityModelLayer CONEHEAD_ZOMBIE =
 			register(HomeLawnSecurity.MOD_ID, "conehead_zombie");
+		/*public static final EntityModelLayer CONE =
+			register(HomeLawnSecurity.MOD_ID, "cone");*/
+		public static final EntityModelLayer BUCKETHEAD_ZOMBIE =
+			register(HomeLawnSecurity.MOD_ID, "buckethead_zombie");
 	}
 
 	private static EntityModelLayer register(String name, String layer) {

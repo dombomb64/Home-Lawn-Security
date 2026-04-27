@@ -85,6 +85,10 @@ public class ModItemGroups {
 				entries.add(tempItem);
 
 				entries.add(ModItems.TARGET);
+
+				entries.add(ModBlocks.LAWN_MANAGER);
+				entries.add(ModBlocks.SPEAKER_PLANT_VICTORY);
+				entries.add(ModBlocks.SPEAKER_ZOMBIE_VICTORY);
 			}).build());
 
 	public static final ItemGroup PLANTS = Registry.register(Registries.ITEM_GROUP,
@@ -103,6 +107,7 @@ public class ModItemGroups {
 				entries.add(ModItems.SEED_PACKET_ZOMBIE_GRAVESTONE);
 				entries.add(ModItems.SEED_PACKET_BASIC_ZOMBIE);
 				entries.add(ModItems.SEED_PACKET_CONEHEAD_ZOMBIE);
+				entries.add(ModItems.SEED_PACKET_BUCKETHEAD_ZOMBIE);
 			}).build());
 
 	public static void registerItemGroups() {

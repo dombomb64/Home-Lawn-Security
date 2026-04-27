@@ -7,6 +7,7 @@ import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.WallNutEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.zombie.BucketheadZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.minecraft.entity.Entity;
@@ -87,6 +88,11 @@ public class ModEntities {
 		public static final EntityType<ConeheadZombieEntity> CONEHEAD_ZOMBIE = register(
 			"conehead_zombie",
 			EntityType.Builder.create(ConeheadZombieEntity::new, SpawnGroup.MISC)
+				.dimensions(0.8f, 1.8f));
+
+		public static final EntityType<BucketheadZombieEntity> BUCKETHEAD_ZOMBIE = register(
+			"buckethead_zombie",
+			EntityType.Builder.create(BucketheadZombieEntity::new, SpawnGroup.MISC)
 				.dimensions(0.8f, 1.8f));
 	}
 

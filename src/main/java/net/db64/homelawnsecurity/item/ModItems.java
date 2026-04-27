@@ -118,6 +118,10 @@ public class ModItems {
 		new ZombieSeedPacketItem(ModEntities.Zombie.CONEHEAD_ZOMBIE, settings), new Item.Settings()
 		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(75, 600)));
 
+	public static final Item SEED_PACKET_BUCKETHEAD_ZOMBIE = register("seed_packet_buckethead_zombie", settings ->
+		new ZombieSeedPacketItem(ModEntities.Zombie.BUCKETHEAD_ZOMBIE, settings), new Item.Settings()
+		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(100, 600)));
+
 	public static Item register(RegistryKey<Item> key, Function<Item.Settings, Item> factory, Item.Settings settings) {
 		HomeLawnSecurity.LOGGER.debug("Registering item with key {}", key.getValue());
 

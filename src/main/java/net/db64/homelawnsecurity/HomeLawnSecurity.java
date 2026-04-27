@@ -15,6 +15,7 @@ import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.WallNutEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
+import net.db64.homelawnsecurity.entity.custom.zombie.BucketheadZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
@@ -98,7 +99,10 @@ public class HomeLawnSecurity implements ModInitializer {
 			factories.pool(Identifier.of(HomeLawnSecurity.MOD_ID, "zombie_seed_packets"), 3,
 				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_ZOMBIE_GRAVESTONE, price, count, maxUses, 1),
 				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_BASIC_ZOMBIE, price, count, maxUses, 1),
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_CONEHEAD_ZOMBIE, price, count, maxUses, 1)
+				//new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_TRASH_CAN_ZOMBIE, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_CONEHEAD_ZOMBIE, price, count, maxUses, 1),
+				//new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_POLE_VAULTING_ZOMBIE, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_BUCKETHEAD_ZOMBIE, price, count, maxUses, 1)
 			);
 		});
 	}
@@ -131,6 +135,8 @@ public class HomeLawnSecurity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.BASIC_ZOMBIE, BasicZombieEntity.createAttributes());
 
 		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.CONEHEAD_ZOMBIE, ConeheadZombieEntity.createAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntities.Zombie.BUCKETHEAD_ZOMBIE, BucketheadZombieEntity.createAttributes());
 	}
 
 	/**
