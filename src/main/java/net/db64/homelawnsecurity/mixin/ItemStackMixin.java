@@ -36,12 +36,13 @@ public abstract class ItemStackMixin {
 		at = @At(
 			value = "INVOKE",
 			target = "Lnet/minecraft/item/ItemStack;appendComponentTooltip(Lnet/minecraft/component/ComponentType;Lnet/minecraft/item/Item$TooltipContext;Lnet/minecraft/component/type/TooltipDisplayComponent;Ljava/util/function/Consumer;Lnet/minecraft/item/tooltip/TooltipType;)V",
-			ordinal = 1
+			ordinal = 0
 		)
 	)
-	public void appendTooltipFromComponents(Item.TooltipContext context, TooltipDisplayComponent displayComponent, @Nullable PlayerEntity player, TooltipType type, Consumer<Text> textConsumer, CallbackInfo ci, @Local Consumer<Text> consumer) {
+	public void appendTooltipFromComponents(Item.TooltipContext context, TooltipDisplayComponent displayComponent, @Nullable PlayerEntity player, TooltipType type, Consumer<Text> textConsumer, CallbackInfo ci, @Local(argsOnly = true) Consumer<Text> consumer) {
 		appendComponentTooltip(ModDataComponentTypes.TOOLTIP, context, displayComponent, consumer, type);
 		appendComponentTooltip(ModDataComponentTypes.CURRENCY, context, displayComponent, consumer, type);
 		appendComponentTooltip(ModDataComponentTypes.BAG_OF_CURRENCY, context, displayComponent, consumer, type);
+		appendComponentTooltip(ModDataComponentTypes.SEED_PACKET, context, displayComponent, consumer, type);
 	}
 }

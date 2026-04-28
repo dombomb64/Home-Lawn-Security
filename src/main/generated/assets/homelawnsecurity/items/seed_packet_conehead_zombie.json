@@ -1,19 +1,50 @@
 {
   "model": {
-    "type": "minecraft:composite",
-    "models": [
+    "type": "minecraft:select",
+    "cases": [
       {
-        "type": "minecraft:model",
-        "model": "homelawnsecurity:item/seed_packet/base/zombie"
-      },
-      {
-        "type": "minecraft:model",
-        "model": "homelawnsecurity:item/seed_packet/image/zombie/conehead_zombie"
-      },
-      {
-        "type": "minecraft:model",
-        "model": "homelawnsecurity:item/seed_packet/cost/zombie/75"
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/background/zombie"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/image/zombie/conehead_zombie"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/overlay_expanded/zombie"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/cost/zombie/75"
+            }
+          ]
+        },
+        "when": "homelawnsecurity:hotbar"
       }
-    ]
-  }
+    ],
+    "fallback": {
+      "type": "minecraft:composite",
+      "models": [
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/background/zombie"
+        },
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/image/zombie/conehead_zombie"
+        },
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/overlay/zombie"
+        }
+      ]
+    },
+    "property": "minecraft:custom_model_data"
+  },
+  "oversized_in_gui": true
 }

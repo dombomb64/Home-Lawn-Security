@@ -1,19 +1,50 @@
 {
   "model": {
-    "type": "minecraft:composite",
-    "models": [
+    "type": "minecraft:select",
+    "cases": [
       {
-        "type": "minecraft:model",
-        "model": "homelawnsecurity:item/seed_packet/base/plant"
-      },
-      {
-        "type": "minecraft:model",
-        "model": "homelawnsecurity:item/seed_packet/image/plant/peashooter"
-      },
-      {
-        "type": "minecraft:model",
-        "model": "homelawnsecurity:item/seed_packet/cost/plant/100"
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/background/plant"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/image/plant/peashooter"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/overlay_expanded/plant"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/cost/plant/100"
+            }
+          ]
+        },
+        "when": "homelawnsecurity:hotbar"
       }
-    ]
-  }
+    ],
+    "fallback": {
+      "type": "minecraft:composite",
+      "models": [
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/background/plant"
+        },
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/image/plant/peashooter"
+        },
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/overlay/plant"
+        }
+      ]
+    },
+    "property": "minecraft:custom_model_data"
+  },
+  "oversized_in_gui": true
 }

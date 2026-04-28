@@ -392,6 +392,11 @@
 	"tooltip.item.homelawnsecurity.mower.when_tripped.roof_cleaner": "Goes in a straight line, springing up ledges.",
 	"tooltip.item.homelawnsecurity.mower.when_tripped.bloomba": "Follows the entire path until needing to swim or jump.",
 
+	"tooltip.item.homelawnsecurity.seed_packet.cost": "%1$s%2$s",
+	"tooltip.item.homelawnsecurity.seed_packet.currency.sun": "\udb80\udc00",
+	"tooltip.item.homelawnsecurity.seed_packet.currency.brainpower": "\udb80\udc01",
+	"tooltip.item.homelawnsecurity.seed_packet.cooldown": "Recharge: %1$ss",
+
 	"tooltip.item.homelawnsecurity.bone_meal": "Feed this to one of your plants to get a duplicate seed packet.",
 	"tooltip.item.homelawnsecurity.shears": "Use these to remove turf from a lawn block.",
 	"tooltip.item.homelawnsecurity.obsolete": "Obsolete Item",

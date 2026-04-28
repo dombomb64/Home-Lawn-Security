@@ -10,8 +10,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.client.data.*;
+import net.minecraft.client.item.ItemAsset;
 import net.minecraft.client.render.item.model.EmptyItemModel;
 import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.item.property.select.CustomModelDataStringProperty;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
@@ -499,12 +501,12 @@ public class ModModelProvider extends FabricModelProvider {
 
 
 
-		HashMap<String, Identifier> seedPacketBases = new HashMap<>();
+		HashMap<String, Identifier> seedPacketBackgrounds = new HashMap<>();
 		{
-			seedPacketBases.put("plantBase", ModItemModels.registerSeedPacketBase(itemModelGenerator, "plant"));
-			seedPacketBases.put("zombieBase", ModItemModels.registerSeedPacketBase(itemModelGenerator, "zombie"));
-			seedPacketBases.put("imitaterBase", ModItemModels.registerSeedPacketBase(itemModelGenerator, "imitater"));
-			seedPacketBases.put("upgradeBase", ModItemModels.registerSeedPacketBase(itemModelGenerator, "upgrade"));
+			seedPacketBackgrounds.put("plant", ModItemModels.registerSeedPacketBackground(itemModelGenerator, "plant"));
+			seedPacketBackgrounds.put("zombie", ModItemModels.registerSeedPacketBackground(itemModelGenerator, "zombie"));
+			seedPacketBackgrounds.put("imitater", ModItemModels.registerSeedPacketBackground(itemModelGenerator, "imitater"));
+			seedPacketBackgrounds.put("upgrade", ModItemModels.registerSeedPacketBackground(itemModelGenerator, "upgrade"));
 		}
 
 		HashMap<String, Identifier> seedPacketImages = new HashMap<>();
@@ -571,6 +573,22 @@ public class ModModelProvider extends FabricModelProvider {
 			seedPacketImages.put("gargantuar", ModItemModels.registerSeedPacketImage(itemModelGenerator, "zombie", "gargantuar"));
 		}
 
+		HashMap<String, Identifier> seedPacketOverlays = new HashMap<>();
+		{
+			seedPacketOverlays.put("plant", ModItemModels.registerSeedPacketOverlay(itemModelGenerator, "plant"));
+			seedPacketOverlays.put("zombie", ModItemModels.registerSeedPacketOverlay(itemModelGenerator, "zombie"));
+			seedPacketOverlays.put("imitater", ModItemModels.registerSeedPacketOverlay(itemModelGenerator, "imitater"));
+			seedPacketOverlays.put("upgrade", ModItemModels.registerSeedPacketOverlay(itemModelGenerator, "upgrade"));
+		}
+
+		HashMap<String, Identifier> seedPacketOverlaysExpanded = new HashMap<>();
+		{
+			seedPacketOverlaysExpanded.put("plant", ModItemModels.registerSeedPacketOverlayExpanded(itemModelGenerator, "plant"));
+			seedPacketOverlaysExpanded.put("zombie", ModItemModels.registerSeedPacketOverlayExpanded(itemModelGenerator, "zombie"));
+			seedPacketOverlaysExpanded.put("imitater", ModItemModels.registerSeedPacketOverlayExpanded(itemModelGenerator, "imitater"));
+			seedPacketOverlaysExpanded.put("upgrade", ModItemModels.registerSeedPacketOverlayExpanded(itemModelGenerator, "upgrade"));
+		}
+
 		HashMap<String, Identifier> seedPacketCosts = new HashMap<>();
 		{
 			seedPacketCosts.put("plant0", ModItemModels.registerSeedPacketCost(itemModelGenerator, "plant", "0"));
@@ -599,20 +617,26 @@ public class ModModelProvider extends FabricModelProvider {
 		// Plant seed packets
 		{
 			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_PEASHOOTER,
-				seedPacketBases.get("plantBase"),
+				seedPacketBackgrounds.get("plant"),
 				seedPacketImages.get("peashooter"),
+				seedPacketOverlays.get("plant"),
+				seedPacketOverlaysExpanded.get("plant"),
 				seedPacketCosts.get("plant100")
 			);
 
 			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_SUNFLOWER,
-				seedPacketBases.get("plantBase"),
+				seedPacketBackgrounds.get("plant"),
 				seedPacketImages.get("sunflower"),
+				seedPacketOverlays.get("plant"),
+				seedPacketOverlaysExpanded.get("plant"),
 				seedPacketCosts.get("plant50")
 			);
 
 			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_WALL_NUT,
-				seedPacketBases.get("plantBase"),
+				seedPacketBackgrounds.get("plant"),
 				seedPacketImages.get("wallNut"),
+				seedPacketOverlays.get("plant"),
+				seedPacketOverlaysExpanded.get("plant"),
 				seedPacketCosts.get("plant50")
 			);
 		}
@@ -620,35 +644,41 @@ public class ModModelProvider extends FabricModelProvider {
 		// Zombie seed packets
 		{
 			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_ZOMBIE_GRAVESTONE,
-				seedPacketBases.get("zombieBase"),
+				seedPacketBackgrounds.get("zombie"),
 				seedPacketImages.get("zombieGravestone"),
+				seedPacketOverlays.get("zombie"),
+				seedPacketOverlaysExpanded.get("zombie"),
 				seedPacketCosts.get("zombie50")
 			);
 
 			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_BASIC_ZOMBIE,
-				seedPacketBases.get("zombieBase"),
+				seedPacketBackgrounds.get("zombie"),
 				seedPacketImages.get("basicZombie"),
+				seedPacketOverlays.get("zombie"),
+				seedPacketOverlaysExpanded.get("zombie"),
 				seedPacketCosts.get("zombie25")
 			);
 
 			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_CONEHEAD_ZOMBIE,
-				seedPacketBases.get("zombieBase"),
+				seedPacketBackgrounds.get("zombie"),
 				seedPacketImages.get("coneheadZombie"),
+				seedPacketOverlays.get("zombie"),
+				seedPacketOverlaysExpanded.get("zombie"),
 				seedPacketCosts.get("zombie75")
 			);
 
 			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_BUCKETHEAD_ZOMBIE,
-				seedPacketBases.get("zombieBase"),
+				seedPacketBackgrounds.get("zombie"),
 				seedPacketImages.get("bucketheadZombie"),
+				seedPacketOverlays.get("zombie"),
+				seedPacketOverlaysExpanded.get("zombie"),
 				seedPacketCosts.get("zombie100")
 			);
 		}
 	}
 
 	private static class ModItemModels {
-		public static final Model TEMPLATE_SEED_PACKET_BASE = item("template_seed_packet_base", TextureKey.LAYER0);
-		public static final Model TEMPLATE_SEED_PACKET_IMAGE = item("template_seed_packet_image", TextureKey.LAYER0);
-		public static final Model TEMPLATE_SEED_PACKET_COST = item("template_seed_packet_cost", TextureKey.LAYER0);
+		public static final Model TEMPLATE_SEED_PACKET_EXPANDED = item("seed_packet/template_expanded", TextureKey.LAYER0);
 
 		private static Model item(String parent, TextureKey... requiredTextureKeys) {
 			return new Model(Optional.of(Identifier.of(HomeLawnSecurity.MOD_ID, "item/" + parent)), Optional.empty(), requiredTextureKeys);
@@ -663,18 +693,30 @@ public class ModModelProvider extends FabricModelProvider {
 			itemModelGenerator.output.accept(item, unbaked);
 		}*/
 
-		public static void registerSeedPacket(ItemModelGenerator itemModelGenerator, Item item, Identifier baseModel, Identifier imageModel, Identifier costModel) {
-			ItemModel.Unbaked unbaked = net.minecraft.client.data.ItemModels.composite(
-				net.minecraft.client.data.ItemModels.basic(baseModel),
-				net.minecraft.client.data.ItemModels.basic(imageModel),
-				net.minecraft.client.data.ItemModels.basic(costModel)
+		public static void registerSeedPacket(ItemModelGenerator itemModelGenerator, Item item, Identifier backgroundModel, Identifier imageModel, Identifier overlayModel, Identifier overlayExpandedModel, Identifier costModel) {
+			ItemModel.Unbaked unbaked = ItemModels.select(
+				new CustomModelDataStringProperty(0), // You do not understand how much this integer confused me
+				ItemModels.composite(
+					ItemModels.basic(backgroundModel),
+					ItemModels.basic(imageModel),
+					ItemModels.basic(overlayModel)
+				),
+				ItemModels.switchCase(
+					HomeLawnSecurity.MOD_ID + ":hotbar",
+					ItemModels.composite(
+						ItemModels.basic(backgroundModel),
+						ItemModels.basic(imageModel),
+						ItemModels.basic(overlayExpandedModel),
+						ItemModels.basic(costModel)
+					)
+				)
 			);
 
-			itemModelGenerator.output.accept(item, unbaked);
+			itemModelGenerator.output.accept(item, unbaked, new ItemAsset.Properties(true, true, 1f));
 		}
 
-		public static Identifier registerSeedPacketBase(ItemModelGenerator itemModelGenerator, String base) {
-			Identifier id = Identifier.of(HomeLawnSecurity.MOD_ID, "item/seed_packet/base/" + base);
+		public static Identifier registerSeedPacketBackground(ItemModelGenerator itemModelGenerator, String background) {
+			Identifier id = Identifier.of(HomeLawnSecurity.MOD_ID, "item/seed_packet/background/" + background);
 			return Models.GENERATED.upload(id, TextureMap.layer0(id), itemModelGenerator.modelCollector);
 		}
 
@@ -683,9 +725,19 @@ public class ModModelProvider extends FabricModelProvider {
 			return Models.GENERATED.upload(id, TextureMap.layer0(id), itemModelGenerator.modelCollector);
 		}
 
+		public static Identifier registerSeedPacketOverlay(ItemModelGenerator itemModelGenerator, String overlay) {
+			Identifier id = Identifier.of(HomeLawnSecurity.MOD_ID, "item/seed_packet/overlay/" + overlay);
+			return Models.GENERATED.upload(id, TextureMap.layer0(id), itemModelGenerator.modelCollector);
+		}
+
+		public static Identifier registerSeedPacketOverlayExpanded(ItemModelGenerator itemModelGenerator, String overlay) {
+			Identifier id = Identifier.of(HomeLawnSecurity.MOD_ID, "item/seed_packet/overlay_expanded/" + overlay);
+			return TEMPLATE_SEED_PACKET_EXPANDED.upload(id, TextureMap.layer0(id), itemModelGenerator.modelCollector);
+		}
+
 		public static Identifier registerSeedPacketCost(ItemModelGenerator itemModelGenerator, String team, String cost) {
 			Identifier id = Identifier.of(HomeLawnSecurity.MOD_ID, "item/seed_packet/cost/" + team + "/" + cost);
-			return Models.GENERATED.upload(id, TextureMap.layer0(id), itemModelGenerator.modelCollector);
+			return TEMPLATE_SEED_PACKET_EXPANDED.upload(id, TextureMap.layer0(id), itemModelGenerator.modelCollector);
 		}
 
 		private static boolean generatedMarkerPathModels = false;

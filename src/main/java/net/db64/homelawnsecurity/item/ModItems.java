@@ -10,7 +10,9 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -92,35 +94,28 @@ public class ModItems {
 
 
 
-	public static final Item SEED_PACKET_SUNFLOWER = register("seed_packet_sunflower", settings ->
-		new LawnSeedPacketItem(ModEntities.Plant.SUNFLOWER, settings), new Item.Settings()
-		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(50, 150)));
+	public static final Item SEED_PACKET_SUNFLOWER =
+		registerLawnSeedPacket("sunflower", ModEntities.Plant.SUNFLOWER, 50, 150);
 
-	public static final Item SEED_PACKET_PEASHOOTER = register("seed_packet_peashooter", settings ->
-		new LawnSeedPacketItem(ModEntities.Plant.PEASHOOTER, settings), new Item.Settings()
-		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(100, 150)));
+	public static final Item SEED_PACKET_PEASHOOTER =
+		registerLawnSeedPacket("peashooter", ModEntities.Plant.PEASHOOTER, 100, 150);
 
-	public static final Item SEED_PACKET_WALL_NUT = register("seed_packet_wall_nut", settings ->
-		new PathSeedPacketItem(ModEntities.Plant.WALL_NUT, settings), new Item.Settings()
-		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(50, 600)));
+	public static final Item SEED_PACKET_WALL_NUT =
+		registerPathSeedPacket("wall_nut", ModEntities.Plant.WALL_NUT, 50, 600);
 
 
 
-	public static final Item SEED_PACKET_ZOMBIE_GRAVESTONE = register("seed_packet_zombie_gravestone", settings ->
-		new ZombieSeedPacketItem(ModEntities.Zombie.ZOMBIE_GRAVESTONE, settings), new Item.Settings()
-		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(25, 150)));
+	public static final Item SEED_PACKET_ZOMBIE_GRAVESTONE =
+		registerZombieSeedPacket("zombie_gravestone", ModEntities.Zombie.ZOMBIE_GRAVESTONE, 25, 150);
 
-	public static final Item SEED_PACKET_BASIC_ZOMBIE = register("seed_packet_basic_zombie", settings ->
-		new ZombieSeedPacketItem(ModEntities.Zombie.BASIC_ZOMBIE, settings), new Item.Settings()
-		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(25, 150)));
+	public static final Item SEED_PACKET_BASIC_ZOMBIE =
+		registerZombieSeedPacket("basic_zombie", ModEntities.Zombie.BASIC_ZOMBIE, 25, 150);
 
-	public static final Item SEED_PACKET_CONEHEAD_ZOMBIE = register("seed_packet_conehead_zombie", settings ->
-		new ZombieSeedPacketItem(ModEntities.Zombie.CONEHEAD_ZOMBIE, settings), new Item.Settings()
-		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(75, 600)));
+	public static final Item SEED_PACKET_CONEHEAD_ZOMBIE =
+		registerZombieSeedPacket("conehead_zombie", ModEntities.Zombie.CONEHEAD_ZOMBIE, 75, 600);
 
-	public static final Item SEED_PACKET_BUCKETHEAD_ZOMBIE = register("seed_packet_buckethead_zombie", settings ->
-		new ZombieSeedPacketItem(ModEntities.Zombie.BUCKETHEAD_ZOMBIE, settings), new Item.Settings()
-		.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(100, 600)));
+	public static final Item SEED_PACKET_BUCKETHEAD_ZOMBIE =
+		registerZombieSeedPacket("buckethead_zombie", ModEntities.Zombie.BUCKETHEAD_ZOMBIE, 100, 600);
 
 	public static Item register(RegistryKey<Item> key, Function<Item.Settings, Item> factory, Item.Settings settings) {
 		HomeLawnSecurity.LOGGER.debug("Registering item with key {}", key.getValue());
@@ -160,6 +155,26 @@ public class ModItems {
 		return register(
 			keyOf(id), itemSettings -> factory.apply(block, itemSettings), settings.useBlockPrefixedTranslationKey()
 		);
+	}
+
+	public static Item registerLawnSeedPacket(String unitName, EntityType<? extends MobEntity> entityType, int cost, int cooldown) {
+		return registerSeedPacket(unitName, cost, cooldown, "sun", settings ->
+			new LawnSeedPacketItem(entityType, settings));
+	}
+
+	public static Item registerPathSeedPacket(String unitName, EntityType<? extends MobEntity> entityType, int cost, int cooldown) {
+		return registerSeedPacket(unitName, cost, cooldown, "sun", settings ->
+			new PathSeedPacketItem(entityType, settings));
+	}
+
+	public static Item registerZombieSeedPacket(String unitName, EntityType<? extends MobEntity> entityType, int cost, int cooldown) {
+		return registerSeedPacket(unitName, cost, cooldown, "brainpower", settings ->
+			new PathSeedPacketItem(entityType, settings));
+	}
+
+	public static Item registerSeedPacket(String unitName, int cost, int cooldown, String currencyName, Function<Item.Settings, Item> settingsFunction) {
+		return register("seed_packet_" + unitName, settingsFunction, new Item.Settings()
+			.component(ModDataComponentTypes.SEED_PACKET, new SeedPacketComponent(cost, cooldown, currencyName)));
 	}
 
 	private static RegistryKey<Item> keyOf(RegistryKey<Block> blockKey) {

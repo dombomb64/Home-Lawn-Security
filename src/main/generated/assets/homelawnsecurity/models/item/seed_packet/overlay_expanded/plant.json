@@ -1,0 +1,6 @@
+{
+  "parent": "homelawnsecurity:item/seed_packet/template_expanded",
+  "textures": {
+    "layer0": "homelawnsecurity:item/seed_packet/overlay_expanded/plant"
+  }
+}

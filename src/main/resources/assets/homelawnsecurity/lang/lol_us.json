@@ -394,6 +394,11 @@
 	"tooltip.item.homelawnsecurity.mower.when_tripped.roof_cleaner": "goez strayt n den BOIGN!!!1",
 	"tooltip.item.homelawnsecurity.mower.when_tripped.bloomba": "taeks teh turnz",
 
+	"tooltip.item.homelawnsecurity.seed_packet.cost": "%1$s%2$s",
+	"tooltip.item.homelawnsecurity.seed_packet.currency.sun": "\udb80\udc00",
+	"tooltip.item.homelawnsecurity.seed_packet.currency.brainpower": "\udb80\udc01",
+	"tooltip.item.homelawnsecurity.seed_packet.cooldown": "again tiem: %1$ss",
+
 	"tooltip.item.homelawnsecurity.bone_meal": "gib 2 da plant to get MOAR plant!!1",
 	"tooltip.item.homelawnsecurity.shears": "snip da turf",
 	"tooltip.item.homelawnsecurity.obsolete": "idem iz ded to devloper!!1",

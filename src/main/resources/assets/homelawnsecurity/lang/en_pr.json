@@ -392,6 +392,11 @@
 	"tooltip.item.homelawnsecurity.mower.when_tripped.roof_cleaner": "Follows a straight course, jumpin' up ledges.",
 	"tooltip.item.homelawnsecurity.mower.when_tripped.bloomba": "Tries teh follow the whole thing, but it's a landlubber.",
 
+	"tooltip.item.homelawnsecurity.seed_packet.cost": "%1$s%2$s",
+	"tooltip.item.homelawnsecurity.seed_packet.currency.sun": "\udb80\udc00",
+	"tooltip.item.homelawnsecurity.seed_packet.currency.brainpower": "\udb80\udc01",
+	"tooltip.item.homelawnsecurity.seed_packet.cooldown": "Loadin' time: %1$ss",
+
 	"tooltip.item.homelawnsecurity.bone_meal": "Give this to a plant fer a free crossbonus!",
 	"tooltip.item.homelawnsecurity.shears": "Ye can snip the turf off yer lawn with these.",
 	"tooltip.item.homelawnsecurity.obsolete": "Ancient Relic",
