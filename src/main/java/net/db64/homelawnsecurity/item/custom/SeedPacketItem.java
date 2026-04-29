@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.SeedPacketComponent;
@@ -51,11 +52,11 @@ public abstract class SeedPacketItem extends Item {
 
 	public static final Predicate<ItemStack> SUN_BAG_PREDICATE = stack -> {
 		if (stack == null) return false;
-		return stack.isIn(ModTags.Items.BAG_OF_SUN);
+		return stack.isIn(ModTags.Items.BAG_OF_SUN) && stack.get(ModDataComponentTypes.BAG_OF_CURRENCY) != null;
 	};
 	public static final Predicate<ItemStack> BRAINPOWER_BAG_PREDICATE = stack -> {
 		if (stack == null) return false;
-		return stack.isIn(ModTags.Items.BAG_OF_BRAINPOWER);
+		return stack.isIn(ModTags.Items.BAG_OF_BRAINPOWER) && stack.get(ModDataComponentTypes.BAG_OF_CURRENCY) != null;
 	};
 
 	public SeedPacketItem(EntityType<? extends MobEntity> type, Settings settings) {
@@ -214,16 +215,18 @@ public abstract class SeedPacketItem extends Item {
 				}
 
 				ItemStack bag = getCurrentBag(player);
-				if (bag != null) {
+				if (!bag.isEmpty()) {
 					BagOfCurrencyComponent bagComponent = bag.get(ModDataComponentTypes.BAG_OF_CURRENCY);
-					if (bagComponent != null) {
-						if (bagComponent.amount() < cost) {
-							playBuzzerSound(world, usePos);
-							return false;
-						}
-
-						bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(bagComponent.amount() - cost, bagComponent.name()));
+					if (bagComponent.amount() < cost) {
+						playBuzzerSound(world, usePos);
+						return false;
 					}
+
+					bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(bagComponent.amount() - cost, bagComponent.name()));
+				}
+				else {
+					playBuzzerSound(world, usePos);
+					return false;
 				}
 
 				// Cooldown

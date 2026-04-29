@@ -169,7 +169,7 @@ public class ModItems {
 
 	public static Item registerZombieSeedPacket(String unitName, EntityType<? extends MobEntity> entityType, int cost, int cooldown) {
 		return registerSeedPacket(unitName, cost, cooldown, "brainpower", settings ->
-			new PathSeedPacketItem(entityType, settings));
+			new ZombieSeedPacketItem(entityType, settings));
 	}
 
 	public static Item registerSeedPacket(String unitName, int cost, int cooldown, String currencyName, Function<Item.Settings, Item> settingsFunction) {
