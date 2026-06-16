@@ -38,6 +38,9 @@ public class BucketheadZombieEntity extends ZombieEntity {
 		degradationStages.add(new DegradationStage("headwear", 270 * IPvzEntity.HEALTH_SCALE, false, ModSounds.ENTITY_ZOMBIE_DETACH_HEADWEAR));
 		degradationStages.add(new DegradationStage("arm", 180 * IPvzEntity.HEALTH_SCALE, false, ModSounds.ENTITY_ZOMBIE_DETACH_LIMB));
 		degradationStages.add(new DegradationStage("head", 90 * IPvzEntity.HEALTH_SCALE, true, ModSounds.ENTITY_ZOMBIE_DETACH_HEAD));
+
+		setupAnimationState.startIfNotRunning(this.age);
+		bucketSetupAnimationState.startIfNotRunning(this.age);
 	}
 
 	/*
@@ -47,10 +50,6 @@ public class BucketheadZombieEntity extends ZombieEntity {
 	@Override
 	protected void updateAnimations() {
 		super.updateAnimations();
-		if (!setupAnimationState.isRunning())
-			setupAnimationState.start(this.age);
-		if (!bucketSetupAnimationState.isRunning())
-			bucketSetupAnimationState.start(this.age);
 	}
 
 	@Override

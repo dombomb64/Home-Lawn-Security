@@ -63,7 +63,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 		if (!livingEntity.isAlive()) {
 			return false;
 		}
-		if (mob instanceof ZombieEntity zombie && !zombie.hasHead()) {
+		if (mob instanceof ZombieEntity zombie && !zombie.isInPlay()) {
 			return false;
 		}
 		if (!this.pauseWhenMobIdle) {
@@ -77,7 +77,8 @@ public class ZombieMeleeAttackGoal extends Goal {
 
 	@Override
 	public void start() {
-		this.mob.getNavigation().startMovingAlong(this.path, this.speed);
+		if (mob instanceof ZombieEntity zombie && !zombie.movementBlocked)
+			this.mob.getNavigation().startMovingAlong(this.path, this.speed);
 		this.mob.setAttacking(true);
 		this.updateCountdownTicks = 0;
 		this.cooldown = 0;
@@ -117,7 +118,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 			} else if (d > 256.0) {
 				this.updateCountdownTicks += 5;
 			}
-			if (!this.mob.getNavigation().startMovingTo(livingEntity, this.speed)) {
+			if (this.mob.getNavigation().findPathTo(livingEntity, 1) == null) {
 				this.updateCountdownTicks += 15;
 			}
 			this.updateCountdownTicks = this.getTickCount(this.updateCountdownTicks);

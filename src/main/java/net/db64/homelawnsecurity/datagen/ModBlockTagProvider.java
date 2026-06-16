@@ -166,8 +166,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
 
 
-		//getTagBuilder(BlockTags.AXE_MINEABLE)
-			//.add(Registries.BLOCK.getId(ModBlocks.RUBBERWOOD_PLANKS));
+		getTagBuilder(BlockTags.AXE_MINEABLE)
+			.add(Registries.BLOCK.getId(ModBlocks.SPEAKER_PLANT_VICTORY))
+			.add(Registries.BLOCK.getId(ModBlocks.SPEAKER_ZOMBIE_VICTORY));
 
 		//getTagBuilder(BlockTags.HOE_MINEABLE)
 			//.add(Registries.BLOCK.getId(ModBlocks.RUBBERWOOD_PLANKS));

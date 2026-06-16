@@ -40,6 +40,8 @@ public class BasicZombieEntity extends ZombieEntity {
 		ArrayList<DegradationStage> degradationStages = getDegradationStageList();
 		degradationStages.add(new DegradationStage("arm", 180 * IPvzEntity.HEALTH_SCALE, false, ModSounds.ENTITY_ZOMBIE_DETACH_LIMB));
 		degradationStages.add(new DegradationStage("head", 90 * IPvzEntity.HEALTH_SCALE, true, ModSounds.ENTITY_ZOMBIE_DETACH_HEAD));
+
+		setupAnimationState.startIfNotRunning(this.age);
 	}
 
 	/*
@@ -49,8 +51,6 @@ public class BasicZombieEntity extends ZombieEntity {
 	@Override
 	protected void updateAnimations() {
 		super.updateAnimations();
-		if (!setupAnimationState.isRunning())
-			setupAnimationState.start(this.age);
 	}
 
 	@Override

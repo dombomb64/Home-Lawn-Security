@@ -55,6 +55,10 @@ public class ModBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 		addDrop(ModBlocks.SUN_SPAWNER);
 		addDrop(ModBlocks.BRAINPOWER_BEACON);
+
+		addDrop(ModBlocks.LAWN_MANAGER);
+		addDrop(ModBlocks.SPEAKER_PLANT_VICTORY);
+		addDrop(ModBlocks.SPEAKER_ZOMBIE_VICTORY);
 	}
 
 	public LootTable.Builder lawnBlockDrops(Block drop) {

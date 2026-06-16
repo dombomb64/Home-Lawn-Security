@@ -39,6 +39,8 @@ public class SunflowerEntity extends PlantEntity implements ILawnPlant {
 
 	public SunflowerEntity(EntityType<? extends PlantEntity> entityType, World world) {
 		super(entityType, world);
+
+		setupAnimationState.startIfNotRunning(this.age);
 	}
 
 	/*
@@ -47,9 +49,6 @@ public class SunflowerEntity extends PlantEntity implements ILawnPlant {
 
 	protected void updateAnimations() {
 		super.updateAnimations();
-
-		if (!setupAnimationState.isRunning())
-			setupAnimationState.start(this.age);
 	}
 
 	@Override

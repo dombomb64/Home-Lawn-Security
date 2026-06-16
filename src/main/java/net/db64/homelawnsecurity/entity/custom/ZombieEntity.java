@@ -7,6 +7,7 @@ import net.db64.homelawnsecurity.entity.ai.zombie.ZombieMoveGoal;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieTargetGoal;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.LawnUtil;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,6 +18,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
@@ -46,6 +48,8 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	public int maxAttackAnimationTimeout = 10;
 	public int attackTimeout = 0;
 	protected int eatingSoundTimeout = 0;
+
+	public boolean movementBlocked = false;
 
 	protected ZombieEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
@@ -93,7 +97,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		}
 		else {
 			if (this.getUsingAttack()) {
-				if (!hasHead()) {
+				if (!isInPlay()) {
 					setUsingAttack(false);
 					setTarget(null);
 				}
@@ -126,6 +130,24 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 				damage((ServerWorld) getEntityWorld(), this.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), 2);
 			}*/
 		}
+	}
+
+	@Override
+	public void tickMovement() {
+		if (getEntityWorld() instanceof ServerWorld) {
+			// Stop moving when coming into contact with a plant
+			movementBlocked = false;
+			for (Entity plant : getEntityWorld().getOtherEntities(this, getBoundingBox(), EntityPredicates.EXCEPT_SPECTATOR.and(this::stopsMovingAt))) {
+				if (MiscUtil.isFacingEntity(this, plant)) {
+					movementBlocked = true;
+					//setVelocity(0d, getVelocity().y, 0d);
+					getNavigation().stop();
+					break;
+				}
+			}
+		}
+
+		super.tickMovement();
 	}
 
 	@Override
@@ -178,7 +200,28 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 
 	@Override
 	public boolean collidesWith(Entity other) {
-		return (other.isCollidable(this) || (other instanceof PlantEntity && this.hasHead())) && !this.isConnectedThroughVehicle(other);
+		//return (other.isCollidable(this) || (other instanceof PlantEntity && this.hasHead())) && !this.isConnectedThroughVehicle(other);
+		return false;
+	}
+
+	/**
+	 * @param other The entity to check against.
+	 * @return Whether this entity should stop moving forward when reaching that entity.
+	 */
+	public boolean stopsMovingAt(Entity other) {
+		return other instanceof PlantEntity plant
+			&& (plant.getPathId() == this.getPathId()
+			|| plant.intersectingPath == this.getPathId())
+			&& this.isInPlay();
+	}
+
+	/**
+	 * Zombies that have lost their head cannot do any harm.
+	 * They are "out of play" besides plants targeting and damaging them.
+	 * @return If the zombie is a threat to the plant team.
+	 */
+	public boolean isInPlay() {
+		return this.hasHead();
 	}
 
 	@Override
@@ -191,6 +234,8 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 			view.putInt("path_tag", 1);*/
 
 		writeDegradationNbt(view);
+
+		view.putBoolean("movement_blocked", movementBlocked);
 	}
 
 	@Override
@@ -207,6 +252,8 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		}*/
 
 		readDegradationNbt(view);
+
+		movementBlocked = view.getBoolean("movement_blocked", false);
 	}
 
 	/*

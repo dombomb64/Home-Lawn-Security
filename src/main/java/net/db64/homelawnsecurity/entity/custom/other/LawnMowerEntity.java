@@ -100,7 +100,7 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 
 			for (ZombieEntity entity : world
 				.getEntitiesByClass(ZombieEntity.class, this.getBoundingBox(), EntityPredicates.EXCEPT_SPECTATOR)) {
-				if (!(entity instanceof TargetZombieEntity) && !(entity instanceof ZombieGravestoneEntity)) {
+				if (!(entity instanceof TargetZombieEntity) && !(entity instanceof ZombieGravestoneEntity) && entity.isInPlay()) {
 					mowing = true;
 					entity.kill(serverWorld);
 				}

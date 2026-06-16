@@ -78,6 +78,6 @@ public class PvzNavigation extends MobNavigation {
 
 	@Override
 	protected boolean isAtValidPosition() {
-		return super.isAtValidPosition() || entity instanceof SeedPacketPathfindingEntity;
+		return super.isAtValidPosition() || entity instanceof SeedPacketPathfindingEntity || entity.age < 2;
 	}
 }

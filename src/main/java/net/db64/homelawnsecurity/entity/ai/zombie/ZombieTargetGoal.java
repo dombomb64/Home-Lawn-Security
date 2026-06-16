@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.entity.ai.zombie;
 import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -54,18 +55,19 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 		if (startPath.getTarget().equals(entity.getBlockPos())) return false; // *tells predicate to return true if the pos at the end of the path to the enemy is the same as the enemy's pos* "Why is it ignoring the pathfinding part of the predicate?" -Me, apparently
 		for (int i = 0; i < startPath.getLength(); i++) {
 			//HomeLawnSecurity.LOGGER.info("checking for if startPath has position {} at node #{}", targetPos.toShortString(), i);
-			if (startPath.getNode(i).getBlockPos().equals(targetPos)) {
+			if (startPath.getNode(i).getBlockPos().equals(targetPos)
+				&& (i > 0 || !MiscUtil.isFacingEntity(mob, entity))) {
 				//HomeLawnSecurity.LOGGER.info("startPath does share a node position with targetPos");
 				return false;
 			}
 		}
 		//HomeLawnSecurity.LOGGER.info("startPath did not share a node position with targetPos");
-		return true;
+		return MiscUtil.isFacingEntity(mob, entity);
 	};
 
 	public Predicate<LivingEntity> hasHeadPredicate = entity -> {
 		if (mob instanceof ZombieEntity zombie) {
-			return zombie.hasHead();
+			return zombie.isInPlay();
 		}
 		return true;
 	};
@@ -124,7 +126,7 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 
 	@Override
 	public boolean shouldContinue() {
-		if (mob instanceof ZombieEntity zombie && !zombie.hasHead())
+		if (mob instanceof ZombieEntity zombie && !zombie.isInPlay())
 			mob.setTarget(null);
 		return super.shouldContinue()
 			&& (targetEntity == null || hasHeadPredicate.test(targetEntity));

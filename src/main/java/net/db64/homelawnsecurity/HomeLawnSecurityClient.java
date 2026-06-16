@@ -11,15 +11,20 @@ import net.db64.homelawnsecurity.entity.client.plant.*;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaModel;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
 import net.db64.homelawnsecurity.entity.client.zombie.*;
+import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
 import net.db64.homelawnsecurity.particle.ModParticles;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.client.gui.hud.debug.RendererDebugHudEntry;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactories;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 
 public class HomeLawnSecurityClient implements ClientModInitializer {
@@ -53,10 +58,38 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 		BlockRenderLayerMap.putBlock(ModBlocks.SUN_SPAWNER, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.BRAINPOWER_BEACON, BlockRenderLayer.CUTOUT);
 
+		registerPackets();
+
 		registerOther();
 		registerProjectiles();
 		registerPlants();
 		registerZombies();
+	}
+
+	private void registerPackets() {
+		ClientPlayNetworking.registerGlobalReceiver(SnapLookDirS2CPayload.ID, (payload, context) -> {
+			context.client().execute(() -> {
+				MinecraftClient client = context.client();
+
+				if (client.world == null)
+					return;
+
+				Entity entity = client.world.getEntity(payload.uuid());
+				if (entity == null)
+					return;
+
+				entity.setPitch(payload.pitch());
+				entity.setYaw(payload.yaw());
+				entity.lastPitch = payload.pitch();
+				entity.lastYaw = payload.yaw();
+				if (entity instanceof LivingEntity living) {
+					living.setHeadYaw(payload.yaw());
+					living.setBodyYaw(payload.yaw());
+					living.lastHeadYaw = payload.yaw();
+					living.lastBodyYaw = payload.yaw();
+				}
+			});
+		});
 	}
 
 	private void registerOther() {

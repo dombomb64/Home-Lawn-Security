@@ -5,6 +5,7 @@ import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.SeedPacketComponent;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.SeedPlacedEntity;
 import net.db64.homelawnsecurity.item.ModItems;
@@ -16,7 +17,6 @@ import net.minecraft.block.FluidBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.Spawner;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -195,6 +195,10 @@ public abstract class SeedPacketItem extends Item {
 			stack.decrementUnlessCreative(1, player);
 
 			setEntityData(stack, entity, player);
+
+			if (entity instanceof PathBoundEntity unit) {
+				unit.faceGoal();
+			}
 
 			world.emitGameEvent(player, GameEvent.ENTITY_PLACE, usePos);
 			playPlaceSound(world, usePos);

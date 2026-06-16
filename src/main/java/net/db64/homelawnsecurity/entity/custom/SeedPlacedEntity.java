@@ -1,11 +1,14 @@
 package net.db64.homelawnsecurity.entity.custom;
 
+import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -20,8 +23,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LocalDifficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.debug.data.EntityPathDebugData;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEntity {
 	public boolean shouldDropSpawnItem = false;
@@ -30,6 +38,13 @@ public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEn
 	protected SeedPlacedEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
 	}
+
+	/*@Override
+	public @Nullable EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
+		EntityData result = super.initialize(world, difficulty, spawnReason, entityData);
+
+		return result;
+	}*/
 
 	/*
 		DEATH / DROPS

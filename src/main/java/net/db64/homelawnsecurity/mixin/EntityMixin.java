@@ -74,8 +74,9 @@ public abstract class EntityMixin implements IEntityDataSaver {
 	)
 	private boolean checkForPushThis(Entity instance, double deltaX, double deltaY, double deltaZ, @Local(index = 0, argsOnly = true) Entity that) {
 		Entity toHiss = (Entity) (Object) this; // This should be pushed by that if...
-		return (toHiss instanceof ZombieEntity && that instanceof PlantEntity) // This is a zombie being pushed by that plant
-			|| (!(toHiss instanceof IPvzEntity) && !(that instanceof IPvzEntity)); // Neither of these are PvZ-related
+		/*return (toHiss instanceof ZombieEntity && that instanceof PlantEntity) // This is a zombie being pushed by that plant
+			|| (!(toHiss instanceof IPvzEntity) && !(that instanceof IPvzEntity)); // Neither of these are PvZ-related*/
+		return !(toHiss instanceof IPvzEntity) && !(that instanceof IPvzEntity); // Neither of these are PvZ-related
 	}
 
 	@WrapWithCondition(
@@ -88,7 +89,8 @@ public abstract class EntityMixin implements IEntityDataSaver {
 	)
 	private boolean checkForPushThat(Entity instance, double deltaX, double deltaY, double deltaZ, @Local(index = 0, argsOnly = true) Entity that) {
 		Entity toHiss = (Entity) (Object) this; // That should be pushed by this if...
-		return (that instanceof ZombieEntity && toHiss instanceof PlantEntity) // That is a zombie being pushed by this plant
-			|| (!(that instanceof IPvzEntity) && !(toHiss instanceof IPvzEntity)); // Neither of these are PvZ-related
+		/*return (that instanceof ZombieEntity && toHiss instanceof PlantEntity) // That is a zombie being pushed by this plant
+			|| (!(that instanceof IPvzEntity) && !(toHiss instanceof IPvzEntity)); // Neither of these are PvZ-related*/
+		return !(that instanceof IPvzEntity) && !(toHiss instanceof IPvzEntity); // Neither of these are PvZ-related
 	}
 }

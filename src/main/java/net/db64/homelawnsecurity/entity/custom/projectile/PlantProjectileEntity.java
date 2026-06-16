@@ -87,7 +87,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 	protected boolean canHit(Entity entity) {
 		if (!(entity instanceof ZombieEntity zombie))
 			return false;
-		return super.canHit(entity) &&
+		return /*super.canHit(entity) &&*/
 			(
 				getPathId() == 0 ||
 					getPathId() == zombie.getPathId() ||

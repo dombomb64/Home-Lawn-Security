@@ -4,6 +4,7 @@ import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.util.LawnUtil;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
@@ -111,7 +112,8 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 		if (goalPath.getTarget().equals(entity.getBlockPos())) return true; // *tells predicate to return true if the pos at the end of the path to the enemy is the same as the enemy's pos* "Why is it ignoring the pathfinding part of the predicate?" -Me, apparently
 		for (int i = 0; i < goalPath.getLength(); i++) {
 			//HomeLawnSecurity.LOGGER.info("checking for if goalPath has position {} at node #{}", targetPos.toShortString(), i);
-			if (goalPath.getNode(i).getBlockPos().equals(targetPos)) {
+			if (goalPath.getNode(i).getBlockPos().equals(targetPos)
+				&& (i > 0 || MiscUtil.isFacingEntity(mob, entity))) {
 				//HomeLawnSecurity.LOGGER.info("goalPath does share a node position with targetPos");
 				return true;
 			}

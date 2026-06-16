@@ -51,6 +51,8 @@ public class TargetZombieEntity extends ZombieEntity implements IDegradableEntit
 
 	public TargetZombieEntity(EntityType<? extends ZombieEntity> entityType, World world) {
 		super(entityType, world);
+
+		setupAnimationState.startIfNotRunning(this.age);
 	}
 
 	@Override
@@ -93,8 +95,6 @@ public class TargetZombieEntity extends ZombieEntity implements IDegradableEntit
 	@Override
 	protected void updateAnimations() {
 		super.updateAnimations();
-		if (!setupAnimationState.isRunning())
-			setupAnimationState.start(this.age);
 	}
 
 	@Override

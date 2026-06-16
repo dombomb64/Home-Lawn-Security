@@ -21,11 +21,13 @@ import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
+import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
 import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.loader.api.FabricLoader;
@@ -56,6 +58,8 @@ public class HomeLawnSecurity implements ModInitializer {
 		ModGameEvents.registerGameEvents();
 		ModDebugSubscriptionTypes.registerDebugSubscriptionTypes();
 
+		registerPackets();
+
 		ModLootTableModifiers.modifyLootTables();
 		addVanillaItemComponents();
 		addWanderingTraderOffers();
@@ -64,6 +68,10 @@ public class HomeLawnSecurity implements ModInitializer {
 		registerProjectiles();
 		registerPlants();
 		registerZombies();
+	}
+
+	private void registerPackets() {
+		PayloadTypeRegistry.playS2C().register(SnapLookDirS2CPayload.ID, SnapLookDirS2CPayload.CODEC);
 	}
 
 	private void addVanillaItemComponents() {

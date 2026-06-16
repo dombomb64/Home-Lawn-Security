@@ -47,6 +47,8 @@ public class ZombieGravestoneEntity extends ZombieEntity {
 		degradationStages.add(new IDegradableEntity.DegradationStage("break2", 200 * IPvzEntity.HEALTH_SCALE, false, null));
 		degradationStages.add(new IDegradableEntity.DegradationStage("break3", 160 * IPvzEntity.HEALTH_SCALE, false, null));
 		degradationStages.add(new IDegradableEntity.DegradationStage("break4", 100 * IPvzEntity.HEALTH_SCALE, false, null));
+
+		setupAnimationState.startIfNotRunning(this.age);
 	}
 
 	/*
@@ -55,9 +57,6 @@ public class ZombieGravestoneEntity extends ZombieEntity {
 
 	protected void updateAnimations() {
 		super.updateAnimations();
-
-		if (!setupAnimationState.isRunning())
-			setupAnimationState.start(this.age);
 	}
 
 	@Override

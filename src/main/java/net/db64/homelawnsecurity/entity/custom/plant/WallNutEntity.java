@@ -31,6 +31,8 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 
 	public WallNutEntity(EntityType<? extends PlantEntity> entityType, World world) {
 		super(entityType, world);
+
+		setupAnimationState.startIfNotRunning(this.age);
 	}
 
 	/*
@@ -39,9 +41,6 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 
 	protected void updateAnimations() {
 		super.updateAnimations();
-
-		if (!setupAnimationState.isRunning())
-			setupAnimationState.start(this.age);
 	}
 
 	@Override
