@@ -236,6 +236,7 @@
 	"entity.homelawnsecurity.wall_nut": "Great nut ov plaent gaym",
 	"entity.homelawnsecurity.potato_mine": "spudowioingus",
 	"entity.homelawnsecurity.snow_pea": "its cold when i pea",
+	"entity.homelawnsecurity.chomper": "piranna plant",
 	"entity.homelawnsecurity.tall_nut": "max nut from bsoser game",
 	"entity.homelawnsecurity.fire_peashooter": "Peashooter Warm",
 
@@ -245,6 +246,7 @@
 	"entity.homelawnsecurity.conehead_zombie": "Plug zommie",
 	"entity.homelawnsecurity.pole_vaulting_zombie": "Speeding ath1337 zommie",
 	"entity.homelawnsecurity.buckethead_zombie": "the knight",
+	"entity.homelawnsecurity.flag_zombie": "ZARMY LEADR",
 
 
 
@@ -325,6 +327,7 @@
 	"item.homelawnsecurity.seed_packet_wall_nut": "nut seedz",
 	"item.homelawnsecurity.seed_packet_potato_mine": "seedz for spuddy boi",
 	"item.homelawnsecurity.seed_packet_snow_pea": "cold pee seedz",
+	"item.homelawnsecurity.seed_packet_chomper": "piranna plant seedz",
 
 	"item.homelawnsecurity.seed_packet_zombie_gravestone": "ROACK SEEDZ???/",
 	"item.homelawnsecurity.seed_packet_basic_zombie": "seedz for zomble",
@@ -332,6 +335,7 @@
 	"item.homelawnsecurity.seed_packet_trash_can_zombie": "seedz 4 TRASH zomble",
 	"item.homelawnsecurity.seed_packet_pole_vaulting_zombie": "seedz for stupid an ugly zomble",
 	"item.homelawnsecurity.seed_packet_buckethead_zombie": "NO FLURMPIN WAI",
+	"item.homelawnsecurity.seed_packet_flag_zombie": "zarmy seedz",
 
 
 

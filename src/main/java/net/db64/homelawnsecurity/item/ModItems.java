@@ -103,6 +103,9 @@ public class ModItems {
 	public static final Item SEED_PACKET_WALL_NUT =
 		registerPathSeedPacket("wall_nut", ModEntities.Plant.WALL_NUT, 50, 600);
 
+	public static final Item SEED_PACKET_CHOMPER =
+		registerPathSeedPacket("chomper", ModEntities.Plant.CHOMPER, 150, 150);
+
 
 
 	public static final Item SEED_PACKET_ZOMBIE_GRAVESTONE =

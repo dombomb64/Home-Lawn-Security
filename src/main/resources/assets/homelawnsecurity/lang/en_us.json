@@ -236,6 +236,7 @@
 	"entity.homelawnsecurity.wall_nut": "Wall-nut",
 	"entity.homelawnsecurity.potato_mine": "Potato Mine",
 	"entity.homelawnsecurity.snow_pea": "Snow Pea",
+	"entity.homelawnsecurity.chomper": "Chomper",
 
 	"entity.homelawnsecurity.zombie_gravestone": "Zombie Gravestone",
 	"entity.homelawnsecurity.basic_zombie": "Basic Zombie",
@@ -243,6 +244,7 @@
 	"entity.homelawnsecurity.conehead_zombie": "Conehead Zombie",
 	"entity.homelawnsecurity.pole_vaulting_zombie": "Pole Vaulting Zombie",
 	"entity.homelawnsecurity.buckethead_zombie": "Buckethead Zombie",
+	"entity.homelawnsecurity.flag_zombie": "Flag Zombie",
 
 
 
@@ -323,6 +325,7 @@
 	"item.homelawnsecurity.seed_packet_wall_nut": "Wall-nut Seed Packet",
 	"item.homelawnsecurity.seed_packet_potato_mine": "Potato Mine Seed Packet",
 	"item.homelawnsecurity.seed_packet_snow_pea": "Snow Pea Seed Packet",
+	"item.homelawnsecurity.seed_packet_chomper": "Chomper Seed Packet",
 
 	"item.homelawnsecurity.seed_packet_zombie_gravestone": "Zombie Gravestone Seed Packet",
 	"item.homelawnsecurity.seed_packet_basic_zombie": "Basic Zombie Seed Packet",
@@ -330,6 +333,7 @@
 	"item.homelawnsecurity.seed_packet_conehead_zombie": "Conehead Zombie Seed Packet",
 	"item.homelawnsecurity.seed_packet_pole_vaulting_zombie": "Pole Vaulting Zombie Seed Packet",
 	"item.homelawnsecurity.seed_packet_buckethead_zombie": "Buckethead Zombie Seed Packet",
+	"item.homelawnsecurity.seed_packet_flag_zombie": "Flag Zombie Seed Packet",
 
 
 

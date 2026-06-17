@@ -10,14 +10,12 @@ import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.MiscUtil;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
@@ -27,6 +25,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -103,7 +102,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 				}
 				else {
 					if (this.eatingSoundTimeout <= 0) {
-						this.playSound(ModSounds.ENTITY_ZOMBIE_EAT, 0.5f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 1f));
+						this.playSound(ModSounds.ENTITY_ZOMBIE_EAT, 0.5f, MiscUtil.getSoundPitch(getRandom()));
 						this.eatingSoundTimeout = 10;
 						//HomeLawnSecurity.LOGGER.info("zombie took bite");
 					}
@@ -137,7 +136,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		if (getEntityWorld() instanceof ServerWorld) {
 			// Stop moving when coming into contact with a plant
 			movementBlocked = false;
-			for (Entity plant : getEntityWorld().getOtherEntities(this, getBoundingBox(), EntityPredicates.EXCEPT_SPECTATOR.and(this::stopsMovingAt))) {
+			for (Entity plant : getEntityWorld().getOtherEntities(this, getBoundingBox().contract(0.2), EntityPredicates.EXCEPT_SPECTATOR.and(this::stopsMovingAt))) {
 				if (MiscUtil.isFacingEntity(this, plant)) {
 					movementBlocked = true;
 					//setVelocity(0d, getVelocity().y, 0d);
@@ -222,6 +221,11 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	 */
 	public boolean isInPlay() {
 		return this.hasHead();
+	}
+
+	@Override
+	protected Box getAttackBox(double attackRange) {
+		return super.getAttackBox(attackRange).contract(0.5f, 0f, 0.5f);
 	}
 
 	@Override
@@ -496,7 +500,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new ZombieStayOnPathGoal(this, 1f));
-		this.goalSelector.add(2, new ZombieTargetGoal<PlantEntity>(this, PlantEntity.class, true, 1));
+		this.goalSelector.add(2, new ZombieTargetGoal<>(this, PlantEntity.class, true, 1f));
 		this.goalSelector.add(3, new ZombieMoveGoal(this, 1f));
 	}
 

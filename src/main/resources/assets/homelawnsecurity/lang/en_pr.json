@@ -236,6 +236,7 @@
 	"entity.homelawnsecurity.wall_nut": "Walnut Barricade",
 	"entity.homelawnsecurity.potato_mine": "Spud Bomb",
 	"entity.homelawnsecurity.snow_pea": "Cold Pea Cannon",
+	"entity.homelawnsecurity.chomper": "Charybdis' Maw",
 
 	"entity.homelawnsecurity.zombie_gravestone": "Undead Farm",
 	"entity.homelawnsecurity.basic_zombie": "Run-o'-the-Mill Plunderer",
@@ -243,6 +244,7 @@
 	"entity.homelawnsecurity.conehead_zombie": "Buoyhead Plunderer",
 	"entity.homelawnsecurity.pole_vaulting_zombie": "Nimble Plunderer",
 	"entity.homelawnsecurity.buckethead_zombie": "Buckethead Plunderer",
+	"entity.homelawnsecurity.flag_zombie": "Flag Plunderer",
 
 
 
@@ -323,6 +325,7 @@
 	"item.homelawnsecurity.seed_packet_wall_nut": "Walnut Barricade seeds",
 	"item.homelawnsecurity.seed_packet_potato_mine": "Spud Bomb seeds",
 	"item.homelawnsecurity.seed_packet_snow_pea": "Cold Pea Cannon seeds",
+	"item.homelawnsecurity.seed_packet_chomper": "Charybdis' Maw seeds",
 
 	"item.homelawnsecurity.seed_packet_zombie_gravestone": "Undead Farm seeds",
 	"item.homelawnsecurity.seed_packet_basic_zombie": "Run-o'-the-Mill Plunderer seeds",
@@ -330,6 +333,7 @@
 	"item.homelawnsecurity.seed_packet_conehead_zombie": "Buoyhead Plunderer seeds",
 	"item.homelawnsecurity.seed_packet_pole_vaulting_zombie": "Nimble Plunderer seeds",
 	"item.homelawnsecurity.seed_packet_buckethead_zombie": "Buckethead Plunderer seeds",
+	"item.homelawnsecurity.seed_packet_flag_zombie": "Flag Plunderer seeds",
 
 
 

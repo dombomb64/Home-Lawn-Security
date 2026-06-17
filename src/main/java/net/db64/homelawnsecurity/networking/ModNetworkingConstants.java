@@ -5,4 +5,5 @@ import net.minecraft.util.Identifier;
 
 public class ModNetworkingConstants {
 	public static final Identifier SNAP_LOOK_DIR_PACKET_ID = Identifier.of(HomeLawnSecurity.MOD_ID, "snap_look_dir");
+	public static final Identifier CHANGE_ENTITY_STATE_PACKET_ID = Identifier.of(HomeLawnSecurity.MOD_ID, "change_entity_state");
 }

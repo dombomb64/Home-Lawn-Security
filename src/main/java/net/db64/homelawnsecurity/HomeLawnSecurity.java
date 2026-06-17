@@ -10,6 +10,7 @@ import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.db64.homelawnsecurity.entity.custom.other.PlantSeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.entity.custom.other.ZombieSeedPacketPathfindingEntity;
+import net.db64.homelawnsecurity.entity.custom.plant.ChomperEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.WallNutEntity;
@@ -21,6 +22,7 @@ import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
+import net.db64.homelawnsecurity.networking.ChangeEntityStateS2CPayload;
 import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
 import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModLootTableModifiers;
@@ -72,6 +74,7 @@ public class HomeLawnSecurity implements ModInitializer {
 
 	private void registerPackets() {
 		PayloadTypeRegistry.playS2C().register(SnapLookDirS2CPayload.ID, SnapLookDirS2CPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(ChangeEntityStateS2CPayload.ID, ChangeEntityStateS2CPayload.CODEC);
 	}
 
 	private void addVanillaItemComponents() {
@@ -101,7 +104,11 @@ public class HomeLawnSecurity implements ModInitializer {
 			factories.pool(Identifier.of(HomeLawnSecurity.MOD_ID, "plant_seed_packets"), 3,
 				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_PEASHOOTER, price, count, maxUses, 1),
 				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_SUNFLOWER, price, count, maxUses, 1),
-				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_WALL_NUT, price, count, maxUses, 1)
+				//new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_CHERRY_BOMB, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_WALL_NUT, price, count, maxUses, 1),
+				//new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_POTATO_MINE, price, count, maxUses, 1),
+				//new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_SNOW_PEA, price, count, maxUses, 1),
+				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_CHOMPER, price, count, maxUses, 1)
 			);
 
 			factories.pool(Identifier.of(HomeLawnSecurity.MOD_ID, "zombie_seed_packets"), 3,
@@ -135,6 +142,8 @@ public class HomeLawnSecurity implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.Plant.PEASHOOTER, PeashooterEntity.createAttributes());
 
 		FabricDefaultAttributeRegistry.register(ModEntities.Plant.WALL_NUT, WallNutEntity.createAttributes());
+
+		FabricDefaultAttributeRegistry.register(ModEntities.Plant.CHOMPER, ChomperEntity.createAttributes());
 	}
 
 	private void registerZombies() {

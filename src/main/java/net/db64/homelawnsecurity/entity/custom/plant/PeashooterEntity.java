@@ -41,7 +41,7 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 	public PeashooterEntity(EntityType<? extends PlantEntity> entityType, World world) {
 		super(entityType, world);
 		this.lookControl = new PeashooterLookControl(this);
-		
+
 		setupAnimationState.startIfNotRunning(this.age);
 	}
 

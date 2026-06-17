@@ -639,6 +639,14 @@ public class ModModelProvider extends FabricModelProvider {
 				seedPacketOverlaysExpanded.get("plant"),
 				seedPacketCosts.get("plant50")
 			);
+
+			ModItemModels.registerSeedPacket(itemModelGenerator, ModItems.SEED_PACKET_CHOMPER,
+				seedPacketBackgrounds.get("plant"),
+				seedPacketImages.get("chomper"),
+				seedPacketOverlays.get("plant"),
+				seedPacketOverlaysExpanded.get("plant"),
+				seedPacketCosts.get("plant150")
+			);
 		}
 
 		// Zombie seed packets

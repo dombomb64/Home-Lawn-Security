@@ -98,6 +98,7 @@ public class ModItemGroups {
 				entries.add(ModItems.SEED_PACKET_SUNFLOWER);
 				entries.add(ModItems.SEED_PACKET_PEASHOOTER);
 				entries.add(ModItems.SEED_PACKET_WALL_NUT);
+				entries.add(ModItems.SEED_PACKET_CHOMPER);
 			}).build());
 
 	public static final ItemGroup ZOMBIES = Registry.register(Registries.ITEM_GROUP,

@@ -28,6 +28,8 @@ public class ModModelLayers {
 			register(HomeLawnSecurity.MOD_ID, "peashooter");
 		public static final EntityModelLayer WALL_NUT =
 			register(HomeLawnSecurity.MOD_ID, "wall_nut");
+		public static final EntityModelLayer CHOMPER =
+			register(HomeLawnSecurity.MOD_ID, "chomper");
 	}
 
 	public static class Zombie {

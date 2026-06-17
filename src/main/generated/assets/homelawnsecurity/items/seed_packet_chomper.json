@@ -1,0 +1,50 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:composite",
+          "models": [
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/background/plant"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/image/plant/chomper"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/overlay_expanded/plant"
+            },
+            {
+              "type": "minecraft:model",
+              "model": "homelawnsecurity:item/seed_packet/cost/plant/150"
+            }
+          ]
+        },
+        "when": "homelawnsecurity:hotbar"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:composite",
+      "models": [
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/background/plant"
+        },
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/image/plant/chomper"
+        },
+        {
+          "type": "minecraft:model",
+          "model": "homelawnsecurity:item/seed_packet/overlay/plant"
+        }
+      ]
+    },
+    "property": "minecraft:custom_model_data"
+  },
+  "oversized_in_gui": true
+}

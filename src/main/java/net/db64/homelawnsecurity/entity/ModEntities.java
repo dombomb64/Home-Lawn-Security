@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.custom.other.*;
+import net.db64.homelawnsecurity.entity.custom.plant.ChomperEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.SunflowerEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.WallNutEntity;
@@ -68,6 +69,12 @@ public class ModEntities {
 		public static final EntityType<WallNutEntity> WALL_NUT = register(
 			"wall_nut",
 			EntityType.Builder.create(WallNutEntity::new, SpawnGroup.MISC)
+				.dimensions(0.8f, 1.25f)
+		);
+
+		public static final EntityType<ChomperEntity> CHOMPER = register(
+			"chomper",
+			EntityType.Builder.create(ChomperEntity::new, SpawnGroup.MISC)
 				.dimensions(0.8f, 1.25f)
 		);
 	}
