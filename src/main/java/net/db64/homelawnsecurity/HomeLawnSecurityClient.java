@@ -11,8 +11,10 @@ import net.db64.homelawnsecurity.entity.client.plant.*;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaModel;
 import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
 import net.db64.homelawnsecurity.entity.client.zombie.*;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.ChomperEntity;
 import net.db64.homelawnsecurity.networking.ChangeEntityStateS2CPayload;
+import net.db64.homelawnsecurity.networking.EntityDamagedS2CPayload;
 import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
 import net.db64.homelawnsecurity.particle.ModParticles;
 import net.fabricmc.api.ClientModInitializer;
@@ -108,6 +110,24 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 					chomper.setState(ChomperEntity.ChomperState.fromString(payload.state()));
 				}
 				// Add more cases for future state-based entities
+			});
+		});
+
+		ClientPlayNetworking.registerGlobalReceiver(EntityDamagedS2CPayload.ID, (payload, context) -> {
+			context.client().execute(() -> {
+				MinecraftClient client = context.client();
+
+				if (client.world == null)
+					return;
+
+				Entity entity = client.world.getEntity(payload.uuid());
+				if (entity == null)
+					return;
+
+				if (entity instanceof PathBoundEntity entity2) {
+					entity2.lastAttackedByPvzEntity = payload.lastAttackedByPvzEntity();
+					entity2.hurtFlashTime = payload.hurtFlashTime();
+				}
 			});
 		});
 

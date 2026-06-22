@@ -1,9 +1,9 @@
 package net.db64.homelawnsecurity.entity.client.zombie;
 
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
+import net.db64.homelawnsecurity.entity.client.PvzRenderState;
 import net.minecraft.entity.AnimationState;
 
-public class ZombieGravestoneRenderState extends LivingEntityRenderState {
+public class ZombieGravestoneRenderState extends PvzRenderState {
 	public boolean cracks = false;
 	public boolean break1 = false;
 	public boolean break2 = false;

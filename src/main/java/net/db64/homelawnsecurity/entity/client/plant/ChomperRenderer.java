@@ -2,15 +2,15 @@ package net.db64.homelawnsecurity.entity.client.plant;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
+import net.db64.homelawnsecurity.entity.client.PvzEntityRenderer;
 import net.db64.homelawnsecurity.entity.custom.plant.ChomperEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class ChomperRenderer extends MobEntityRenderer<ChomperEntity, ChomperRenderState, ChomperModel> {
+public class ChomperRenderer extends PvzEntityRenderer<ChomperEntity, ChomperRenderState, ChomperModel> {
 	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/plant/chomper.png");
 
 	public ChomperRenderer(EntityRendererFactory.Context context) {

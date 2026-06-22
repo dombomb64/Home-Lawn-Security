@@ -1,16 +1,16 @@
 package net.db64.homelawnsecurity.entity.client.zombie;
 
+import net.db64.homelawnsecurity.entity.client.PvzFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
-public class ZombieGravestoneCracksFeatureRenderer<S extends ZombieGravestoneRenderState, M extends EntityModel<? super S>> extends FeatureRenderer<S, M> {
+public class ZombieGravestoneCracksFeatureRenderer<S extends ZombieGravestoneRenderState, M extends EntityModel<? super S>> extends PvzFeatureRenderer<S, M> {
 	//private static final float CRACK_HEALTH = 320 * IPvzEntity.HEALTH_SCALE;
 
 	private final Identifier texture;

@@ -1,6 +1,8 @@
 package net.db64.homelawnsecurity.entity.custom;
 
+import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
+import net.db64.homelawnsecurity.networking.EntityDamagedS2CPayload;
 import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.ModTags;
@@ -13,6 +15,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -38,6 +41,9 @@ import java.util.EnumSet;
 public abstract class PathBoundEntity extends PathAwareEntity {
 	protected int pathId = 1;
 	protected float defaultOrientation = 0f;
+
+	public boolean lastAttackedByPvzEntity = true;
+	public int hurtFlashTime = 0;
 
 	private static final TrackedData<Float> DEFAULT_ORIENTATION =
 		DataTracker.registerData(PathBoundEntity.class, TrackedDataHandlerRegistry.FLOAT);
@@ -158,6 +164,31 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 			//serverHeadYaw = newYaw;
 		}*/
 		super.tick();
+	}
+
+	@Override
+	public void baseTick() {
+		super.baseTick();
+
+		if (getEntityWorld().isClient()) {
+			if (this.hurtFlashTime > 0) {
+				this.hurtFlashTime--;
+			}
+		}
+	}
+
+	@Override
+	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		boolean result = super.damage(world, source, amount);
+
+		if (!source.isOf(ModDamageTypes.ZOMBIE_HEADLESS)) {
+			lastAttackedByPvzEntity = source.getAttacker() instanceof IPvzEntity;
+			for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) getEntityWorld(), getBlockPos())) {
+				ServerPlayNetworking.send(player, new EntityDamagedS2CPayload(getUuid(), lastAttackedByPvzEntity, 10));
+			}
+		}
+
+		return result;
 	}
 
 	@Override

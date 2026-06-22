@@ -2,15 +2,15 @@ package net.db64.homelawnsecurity.entity.client.plant;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
+import net.db64.homelawnsecurity.entity.client.PvzEntityRenderer;
 import net.db64.homelawnsecurity.entity.custom.plant.WallNutEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class WallNutRenderer extends MobEntityRenderer<WallNutEntity, WallNutRenderState, WallNutModel> {
+public class WallNutRenderer extends PvzEntityRenderer<WallNutEntity, WallNutRenderState, WallNutModel> {
 	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/plant/wall_nut.png");
 
 	public WallNutRenderer(EntityRendererFactory.Context context) {

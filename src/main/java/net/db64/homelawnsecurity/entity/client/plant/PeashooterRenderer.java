@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.client.plant;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
+import net.db64.homelawnsecurity.entity.client.PvzEntityRenderer;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -9,7 +10,7 @@ import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class PeashooterRenderer extends MobEntityRenderer<PeashooterEntity, PeashooterRenderState, PeashooterModel> {
+public class PeashooterRenderer extends PvzEntityRenderer<PeashooterEntity, PeashooterRenderState, PeashooterModel> {
 	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/plant/peashooter.png");
 
 	public PeashooterRenderer(EntityRendererFactory.Context context) {

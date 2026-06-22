@@ -23,6 +23,7 @@ import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.networking.ChangeEntityStateS2CPayload;
+import net.db64.homelawnsecurity.networking.EntityDamagedS2CPayload;
 import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
 import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModLootTableModifiers;
@@ -75,6 +76,7 @@ public class HomeLawnSecurity implements ModInitializer {
 	private void registerPackets() {
 		PayloadTypeRegistry.playS2C().register(SnapLookDirS2CPayload.ID, SnapLookDirS2CPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(ChangeEntityStateS2CPayload.ID, ChangeEntityStateS2CPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(EntityDamagedS2CPayload.ID, EntityDamagedS2CPayload.CODEC);
 		//PayloadTypeRegistry.playS2C().register(InitAnimationsS2CPayload.ID, InitAnimationsS2CPayload.CODEC);
 	}
 

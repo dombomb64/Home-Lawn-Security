@@ -2,15 +2,15 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
+import net.db64.homelawnsecurity.entity.client.PvzEntityRenderer;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class TargetZombieRenderer extends MobEntityRenderer<TargetZombieEntity, TargetZombieRenderState, TargetZombieModel> {
+public class TargetZombieRenderer extends PvzEntityRenderer<TargetZombieEntity, TargetZombieRenderState, TargetZombieModel> {
 	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/target_zombie.png");
 
 	public TargetZombieRenderer(EntityRendererFactory.Context context) {

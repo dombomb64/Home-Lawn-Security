@@ -2,15 +2,15 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
+import net.db64.homelawnsecurity.entity.client.PvzEntityRenderer;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.state.CameraRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-public class ZombieGravestoneRenderer extends MobEntityRenderer<ZombieGravestoneEntity, ZombieGravestoneRenderState, ZombieGravestoneModel> {
+public class ZombieGravestoneRenderer extends PvzEntityRenderer<ZombieGravestoneEntity, ZombieGravestoneRenderState, ZombieGravestoneModel> {
 	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/zombie_gravestone.png");
 	private static final Identifier TEXTURE_CRACKS = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/zombie/zombie_gravestone_cracks.png");
 
