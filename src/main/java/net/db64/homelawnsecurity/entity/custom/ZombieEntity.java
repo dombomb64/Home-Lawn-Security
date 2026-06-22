@@ -136,7 +136,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 
 	@Override
 	public void tickMovement() {
-		if (getEntityWorld() instanceof ServerWorld) {
+		if (getEntityWorld() instanceof ServerWorld && isInPlay()) {
 			// Stop moving when coming into contact with a plant
 			movementBlocked = false;
 			for (Entity plant : getEntityWorld().getOtherEntities(this, getBoundingBox().contract(0.2), EntityPredicates.EXCEPT_SPECTATOR.and(this::stopsMovingAt))) {
@@ -277,7 +277,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 			--this.attackAnimationTimeout;
 		}
 
-		if (attackAnimationTimeout <= 0) {
+		if (attackAnimationTimeout <= 0 && (isInPlay() || !isAlive())) {
 			attackAnimationState.stop();
 		}
 	}

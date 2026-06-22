@@ -1,10 +1,13 @@
 package net.db64.homelawnsecurity.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LimbAnimator;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
@@ -38,6 +41,19 @@ public abstract class LivingEntityMixin extends EntityMixin {
 			//HomeLawnSecurity.LOGGER.info("zombie melee attack.");
 			DamageSource sauce = ((Entity) (Object) this).getDamageSources().create(ModDamageTypes.ZOMBIE_EAT, sourceRef.get().getAttacker());
 			sourceRef.set(sauce);
+		}
+	}
+
+	@WrapOperation(
+		method = "onDamaged",
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/entity/LimbAnimator;setSpeed(F)V"
+		)
+	)
+	private void cancelDamageAnimation(LimbAnimator instance, float speed, Operation<Void> original, @Local(ordinal = 0, argsOnly = true) DamageSource damageSource) {
+		if (!damageSource.isOf(ModDamageTypes.ZOMBIE_HEADLESS)) {
+			original.call(instance, speed);
 		}
 	}
 }
