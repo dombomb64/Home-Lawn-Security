@@ -25,7 +25,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -46,7 +45,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	public int attackAnimationTimeout = 0;
 	public int maxAttackAnimationTimeout = 10;
 	public int attackTimeout = 0;
-	protected int eatingSoundTimeout = 0;
+	//protected int biteTimeout = 0;
 
 	public boolean movementBlocked = false;
 
@@ -76,6 +75,12 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 				}
 			}
 		}*/
+
+		/*if (getEntityWorld() instanceof ServerWorld) {
+			for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) getEntityWorld(), getBlockPos())) {
+				ServerPlayNetworking.send(player, new InitAnimationsS2CPayload(uuid));
+			}
+		}*/
 	}
 
 	@Nullable
@@ -100,20 +105,18 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 					setUsingAttack(false);
 					setTarget(null);
 				}
-				else {
-					if (this.eatingSoundTimeout <= 0) {
+				/*else {
+					if (this.biteTimeout <= 0) {
 						this.playSound(ModSounds.ENTITY_ZOMBIE_EAT, 0.5f, MiscUtil.getSoundPitch(getRandom()));
-						this.eatingSoundTimeout = 10;
+						this.biteTimeout = 10;
 						//HomeLawnSecurity.LOGGER.info("zombie took bite");
 					}
-					else {
-						--this.eatingSoundTimeout;
-					}
-				}
+					--this.biteTimeout;
+				}*/
 			}
-			else {
-				this.eatingSoundTimeout = 0;
-			}
+			/*else {
+				this.biteTimeout = -1;
+			}*/
 
 			if (attackTimeout > 0) {
 				--this.attackTimeout;
@@ -224,11 +227,6 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	}
 
 	@Override
-	protected Box getAttackBox(double attackRange) {
-		return super.getAttackBox(attackRange).contract(0.5f, 0f, 0.5f);
-	}
-
-	@Override
 	public void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
 
@@ -240,6 +238,8 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		writeDegradationNbt(view);
 
 		view.putBoolean("movement_blocked", movementBlocked);
+
+		//view.putInt("bite_timeout", biteTimeout);
 	}
 
 	@Override
@@ -258,6 +258,8 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		readDegradationNbt(view);
 
 		movementBlocked = view.getBoolean("movement_blocked", false);
+
+		//biteTimeout = view.getInt("bite_timeout", 0);
 	}
 
 	/*
@@ -291,10 +293,6 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		super.onAttacking(target);
 		setUsingAttack(true);
 		attackTimeout = 2;
-
-		if (target instanceof LivingEntity && ((LivingEntity) target).getHealth() <= 0) {
-			this.playSound(ModSounds.ENTITY_ZOMBIE_GULP, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
-		}
 	}
 
 	/*
@@ -514,6 +512,25 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		SOUNDS
 	 */
 
+	@Override
+	protected void playAttackSound() {
+		playEatingSoundsOnAttack();
+	}
+
+	public void playEatingSoundsOnAttack() {
+		Entity target = getTarget();
+		if (target instanceof LivingEntity living && living.getHealth() <= 0) {
+			SoundEvent sound = getGulpSound();
+			if (sound != null)
+				this.playSound(sound, 1.0f, MiscUtil.getSoundPitch(getRandom()));
+		}
+		else {
+			SoundEvent sound = getBiteSound();
+			if (sound != null)
+				this.playSound(sound, 0.5f, MiscUtil.getSoundPitch(getRandom()));
+		}
+	}
+
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -557,6 +574,14 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	protected SoundEvent getDrinkSound(ItemStack stack) {
 		return ModSounds.ENTITY_ZOMBIE_EAT;
 	}*/
+
+	protected @Nullable SoundEvent getBiteSound() {
+		return ModSounds.ENTITY_ZOMBIE_EAT;
+	}
+
+	protected @Nullable SoundEvent getGulpSound() {
+		return ModSounds.ENTITY_ZOMBIE_GULP;
+	}
 
 	@Override
 	protected void playFeedSound() {

@@ -5,7 +5,6 @@ import net.db64.homelawnsecurity.entity.client.ModModelLayers;
 import net.db64.homelawnsecurity.entity.client.plant.PeashooterRenderState;
 import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.BasicZombieEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -47,6 +46,7 @@ public class BasicZombieRenderer extends MobEntityRenderer<BasicZombieEntity, Ba
 		state.hasLostArm = entity.hasTriggeredDegradationStage("arm");
 		state.hasLostHead = entity.hasTriggeredDegradationStage("head");
 		state.setupAnimationState.copyFrom(entity.setupAnimationState);
+		state.idleAnimationState.copyFrom(entity.idleAnimationState);
 		state.attackAnimationState.copyFrom(entity.attackAnimationState);
 	}
 }

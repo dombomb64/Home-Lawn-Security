@@ -9,7 +9,6 @@ import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -19,8 +18,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
@@ -44,6 +41,7 @@ public class TargetZombieEntity extends ZombieEntity implements IDegradableEntit
 
 	public final AnimationState setupAnimationState = new AnimationState();
 	//private int setupAnimationTimeout = 0;
+	public final AnimationState idleAnimationState = new AnimationState();
 
 	/*
 		GENERAL
@@ -52,7 +50,10 @@ public class TargetZombieEntity extends ZombieEntity implements IDegradableEntit
 	public TargetZombieEntity(EntityType<? extends ZombieEntity> entityType, World world) {
 		super(entityType, world);
 
-		setupAnimationState.startIfNotRunning(this.age);
+		if (getEntityWorld().isClient()) {
+			setupAnimationState.startIfNotRunning(this.age);
+			idleAnimationState.startIfNotRunning(this.age);
+		}
 	}
 
 	@Override
@@ -167,7 +168,7 @@ public class TargetZombieEntity extends ZombieEntity implements IDegradableEntit
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
 			.add(EntityAttributes.MAX_HEALTH, 200 * IPvzEntity.HEALTH_SCALE)
-			.add(EntityAttributes.ATTACK_DAMAGE, 5 * IPvzEntity.HEALTH_SCALE)
+			.add(EntityAttributes.ATTACK_DAMAGE, 50 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.FOLLOW_RANGE, 0)
 			.add(EntityAttributes.MOVEMENT_SPEED, 0);
 	}

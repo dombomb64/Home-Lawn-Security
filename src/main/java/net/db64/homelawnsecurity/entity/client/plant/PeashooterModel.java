@@ -21,7 +21,7 @@ public class PeashooterModel extends EntityModel<PeashooterRenderState> {
 		this.head = stem.getChild("head");
 		this.base = peashooter.getChild("base");
 
-		setupAnimation = ModAnimations.Plant.Peashooter.SETUP.createAnimation(root);
+		setupAnimation = ModAnimations.Plant.Peashooter.IDLE.createAnimation(root);
 		attackAnimation = ModAnimations.Plant.Peashooter.SHOOT.createAnimation(root);
 	}
 

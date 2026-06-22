@@ -16,7 +16,7 @@ public class WallNutModel extends EntityModel<WallNutRenderState> {
 		this.wallNut = root.getChild("wallNut");
 		this.body = this.wallNut.getChild("body");
 
-		setupAnimation = ModAnimations.Plant.WallNut.SETUP.createAnimation(root);
+		setupAnimation = ModAnimations.Plant.WallNut.IDLE.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {

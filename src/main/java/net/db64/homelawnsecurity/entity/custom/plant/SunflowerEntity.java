@@ -28,7 +28,7 @@ public class SunflowerEntity extends PlantEntity implements ILawnPlant {
 
 	private static final PlantStats STATS = new PlantStats().attackRange(3f).attackTicks(30);
 
-	public final AnimationState setupAnimationState = new AnimationState();
+	public final AnimationState idleAnimationState = new AnimationState();
 
 	public final int MAX_SUN_TICKS = 480;
 	public int sunTicks = 120;
@@ -40,7 +40,9 @@ public class SunflowerEntity extends PlantEntity implements ILawnPlant {
 	public SunflowerEntity(EntityType<? extends PlantEntity> entityType, World world) {
 		super(entityType, world);
 
-		setupAnimationState.startIfNotRunning(this.age);
+		if (getEntityWorld().isClient()) {
+			idleAnimationState.startIfNotRunning(this.age);
+		}
 	}
 
 	/*

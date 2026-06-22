@@ -17,12 +17,12 @@ public class ZombieMeleeAttackGoal extends Goal {
 	private final double speed;
 	private final boolean pauseWhenMobIdle;
 	private Path path;
-	private double targetX;
+	/*private double targetX;
 	private double targetY;
 	private double targetZ;
-	private int updateCountdownTicks;
+	private int updateCountdownTicks;*/
 	private int cooldown;
-	private final int attackIntervalTicks = 1;
+	private final int attackIntervalTicks = 10;
 	private long lastUpdateTime;
 	private static final long MAX_ATTACK_TIME = 1L;
 
@@ -48,10 +48,11 @@ public class ZombieMeleeAttackGoal extends Goal {
 			return false;
 		}
 		this.path = this.mob.getNavigation().findPathTo(livingEntity, 0);
-		if (this.path != null) {
-			return true;
+		if (this.path != null && this.mob instanceof ZombieEntity zombie) {
+			return zombie.movementBlocked;
 		}
-		return this.mob.isInAttackRange(livingEntity);
+		//return this.mob.isInAttackRange(livingEntity);
+		return false;
 	}
 
 	@Override
@@ -66,9 +67,9 @@ public class ZombieMeleeAttackGoal extends Goal {
 		if (mob instanceof ZombieEntity zombie && !zombie.isInPlay()) {
 			return false;
 		}
-		if (!this.pauseWhenMobIdle) {
+		/*if (!this.pauseWhenMobIdle) {
 			return !this.mob.getNavigation().isIdle();
-		}
+		}*/
 		if (!this.mob.isInPositionTargetRange(livingEntity.getBlockPos())) {
 			return false;
 		}
@@ -80,7 +81,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 		if (mob instanceof ZombieEntity zombie && !zombie.movementBlocked)
 			this.mob.getNavigation().startMovingAlong(this.path, this.speed);
 		this.mob.setAttacking(true);
-		this.updateCountdownTicks = 0;
+		//this.updateCountdownTicks = 0;
 		this.cooldown = 0;
 	}
 
@@ -106,7 +107,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 			return;
 		}
 		this.mob.getLookControl().lookAt(livingEntity, 30.0f, 30.0f);
-		this.updateCountdownTicks = Math.max(this.updateCountdownTicks - 1, 0);
+		/*this.updateCountdownTicks = Math.max(this.updateCountdownTicks - 1, 0);
 		if ((this.pauseWhenMobIdle || this.mob.getVisibilityCache().canSee(livingEntity)) && this.updateCountdownTicks <= 0 && (this.targetX == 0.0 && this.targetY == 0.0 && this.targetZ == 0.0 || livingEntity.squaredDistanceTo(this.targetX, this.targetY, this.targetZ) >= 1.0 || this.mob.getRandom().nextFloat() < 0.05f)) {
 			this.targetX = livingEntity.getX();
 			this.targetY = livingEntity.getY();
@@ -122,7 +123,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 				this.updateCountdownTicks += 15;
 			}
 			this.updateCountdownTicks = this.getTickCount(this.updateCountdownTicks);
-		}
+		}*/
 		this.cooldown = Math.max(this.getCooldown() - 1, 0);
 		this.attack(livingEntity);
 	}

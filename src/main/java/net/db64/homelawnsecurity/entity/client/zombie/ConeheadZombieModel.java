@@ -12,8 +12,9 @@ public class ConeheadZombieModel extends EntityModel<ConeheadZombieRenderState> 
 	private final ModelPart leftForearm;
 	private final ModelPart headwear;
 
-	private final Animation moveAnimation;
 	private final Animation setupAnimation;
+	private final Animation idleAnimation;
+	private final Animation moveAnimation;
 	private final Animation attackAnimation;
 
 	public ConeheadZombieModel(ModelPart root) {
@@ -23,8 +24,9 @@ public class ConeheadZombieModel extends EntityModel<ConeheadZombieRenderState> 
 		this.headwear = head.getChild("headwear");
 		this.leftForearm = coneheadZombie.getChild("body").getChild("leftArm").getChild("leftForearm");
 
-		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
 		setupAnimation = ModAnimations.Zombie.BasicZombie.SETUP.createAnimation(root);
+		idleAnimation = ModAnimations.Zombie.BasicZombie.IDLE.createAnimation(root);
+		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
 		attackAnimation = ModAnimations.Zombie.BasicZombie.EAT.createAnimation(root);
 	}
 
@@ -67,6 +69,7 @@ public class ConeheadZombieModel extends EntityModel<ConeheadZombieRenderState> 
 		moveAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
 
 		setupAnimation.apply(state.setupAnimationState, state.age, 1f);
+		idleAnimation.apply(state.idleAnimationState, state.age, 1f);
 		attackAnimation.apply(state.attackAnimationState, state.age, 1f);
 
 		this.updateVisibleParts(state);

@@ -3,7 +3,6 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -45,6 +44,7 @@ public class TargetZombieRenderer extends MobEntityRenderer<TargetZombieEntity, 
 		state.hasLostArm = entity.hasTriggeredDegradationStage("arm");
 		state.hasLostHead = entity.hasTriggeredDegradationStage("head");
 		state.setupAnimationState.copyFrom(entity.setupAnimationState);
+		state.idleAnimationState.copyFrom(entity.idleAnimationState);
 		state.attackAnimationState.copyFrom(entity.attackAnimationState);
 	}
 }

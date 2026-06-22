@@ -3,7 +3,6 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

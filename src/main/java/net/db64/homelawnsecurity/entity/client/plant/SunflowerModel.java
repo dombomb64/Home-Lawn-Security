@@ -20,7 +20,7 @@ public class SunflowerModel extends EntityModel<SunflowerRenderState> {
 		this.head = stem.getChild("head");
 		this.base = sunflower.getChild("base");
 
-		setupAnimation = ModAnimations.Plant.Sunflower.SETUP.createAnimation(root);
+		setupAnimation = ModAnimations.Plant.Sunflower.IDLE.createAnimation(root);
 	}
 
 	public static TexturedModelData getTexturedModelData() {

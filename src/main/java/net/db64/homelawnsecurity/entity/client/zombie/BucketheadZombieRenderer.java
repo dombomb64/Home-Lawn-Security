@@ -3,7 +3,6 @@ package net.db64.homelawnsecurity.entity.client.zombie;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
 import net.db64.homelawnsecurity.entity.custom.zombie.BucketheadZombieEntity;
-import net.db64.homelawnsecurity.entity.custom.zombie.ConeheadZombieEntity;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -46,6 +45,7 @@ public class BucketheadZombieRenderer extends MobEntityRenderer<BucketheadZombie
 		state.hasLostArm = entity.hasTriggeredDegradationStage("arm");
 		state.hasLostHead = entity.hasTriggeredDegradationStage("head");
 		state.setupAnimationState.copyFrom(entity.setupAnimationState);
+		state.idleAnimationState.copyFrom(entity.idleAnimationState);
 		state.attackAnimationState.copyFrom(entity.attackAnimationState);
 		state.bucketSetupAnimationState.copyFrom(entity.bucketSetupAnimationState);
 	}

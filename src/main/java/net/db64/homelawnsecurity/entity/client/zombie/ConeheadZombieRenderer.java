@@ -54,6 +54,7 @@ public class ConeheadZombieRenderer extends MobEntityRenderer<ConeheadZombieEnti
 		state.hasLostArm = entity.hasTriggeredDegradationStage("arm");
 		state.hasLostHead = entity.hasTriggeredDegradationStage("head");
 		state.setupAnimationState.copyFrom(entity.setupAnimationState);
+		state.idleAnimationState.copyFrom(entity.idleAnimationState);
 		state.attackAnimationState.copyFrom(entity.attackAnimationState);
 	}
 }

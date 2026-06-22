@@ -13,8 +13,9 @@ public class TargetZombieModel extends EntityModel<TargetZombieRenderState> {
 	private final ModelPart leftForearm;
 	private final ModelPart target;
 
-	private final Animation moveAnimation;
 	private final Animation setupAnimation;
+	private final Animation idleAnimation;
+	private final Animation moveAnimation;
 	private final Animation attackAnimation;
 
 	public TargetZombieModel(ModelPart root) {
@@ -25,8 +26,9 @@ public class TargetZombieModel extends EntityModel<TargetZombieRenderState> {
 		this.leftForearm = this.targetZombie.getChild("body").getChild("leftArm").getChild("leftForearm");
 		this.target = this.targetZombie.getChild("target");
 
-		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
 		setupAnimation = ModAnimations.Zombie.TargetZombie.SETUP.createAnimation(root);
+		idleAnimation = ModAnimations.Zombie.TargetZombie.IDLE.createAnimation(root);
+		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
 		attackAnimation = ModAnimations.Zombie.BasicZombie.EAT.createAnimation(root);
 	}
 
@@ -68,6 +70,7 @@ public class TargetZombieModel extends EntityModel<TargetZombieRenderState> {
 		moveAnimation.applyWalking(state.limbSwingAnimationProgress, state.limbSwingAmplitude, 8f, 8f);
 
 		setupAnimation.apply(state.setupAnimationState, state.age, 1f);
+		idleAnimation.apply(state.idleAnimationState, state.age, 1f);
 		attackAnimation.apply(state.attackAnimationState, state.age, 1f);
 
 		this.updateVisibleParts(state);

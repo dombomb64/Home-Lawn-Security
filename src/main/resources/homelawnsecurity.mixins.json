@@ -19,6 +19,7 @@
 		"ClientDebugSubscriptionManagerMixin",
 		"ClientPlayerEntityMixin",
 		"DebugRendererMixin",
+		"FeatureRendererMixin",
 		"InGameHudMixin",
 		"ParticleManagerMixin"
 	]

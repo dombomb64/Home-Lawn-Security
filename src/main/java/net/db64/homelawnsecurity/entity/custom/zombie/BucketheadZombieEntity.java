@@ -26,6 +26,7 @@ public class BucketheadZombieEntity extends ZombieEntity {
 
 	public final AnimationState setupAnimationState = new AnimationState();
 	public final AnimationState bucketSetupAnimationState = new AnimationState();
+	public final AnimationState idleAnimationState = new AnimationState();
 
 	/*
 		GENERAL
@@ -39,8 +40,11 @@ public class BucketheadZombieEntity extends ZombieEntity {
 		degradationStages.add(new DegradationStage("arm", 180 * IPvzEntity.HEALTH_SCALE, false, ModSounds.ENTITY_ZOMBIE_DETACH_LIMB));
 		degradationStages.add(new DegradationStage("head", 90 * IPvzEntity.HEALTH_SCALE, true, ModSounds.ENTITY_ZOMBIE_DETACH_HEAD));
 
-		setupAnimationState.startIfNotRunning(this.age);
-		bucketSetupAnimationState.startIfNotRunning(this.age);
+		if (getEntityWorld().isClient()) {
+			setupAnimationState.startIfNotRunning(this.age);
+			bucketSetupAnimationState.startIfNotRunning(this.age);
+			idleAnimationState.startIfNotRunning(this.age);
+		}
 	}
 
 	/*
@@ -72,7 +76,7 @@ public class BucketheadZombieEntity extends ZombieEntity {
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
 			.add(EntityAttributes.MAX_HEALTH, 1370 * IPvzEntity.HEALTH_SCALE)
-			.add(EntityAttributes.ATTACK_DAMAGE, 5 * IPvzEntity.HEALTH_SCALE)
+			.add(EntityAttributes.ATTACK_DAMAGE, 50 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.FOLLOW_RANGE, 64)
 			.add(EntityAttributes.MOVEMENT_SPEED, 0.0748);
 	}

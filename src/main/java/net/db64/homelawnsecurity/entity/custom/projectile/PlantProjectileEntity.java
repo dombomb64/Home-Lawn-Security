@@ -88,6 +88,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 		if (!(entity instanceof ZombieEntity zombie))
 			return false;
 		return /*super.canHit(entity) &&*/
+			entity.isAlive() &&
 			(
 				getPathId() == 0 ||
 					getPathId() == zombie.getPathId() ||

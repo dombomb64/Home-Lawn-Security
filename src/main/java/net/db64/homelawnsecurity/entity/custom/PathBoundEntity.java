@@ -1,11 +1,8 @@
 package net.db64.homelawnsecurity.entity.custom;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.entity.ai.PvzNavigation;
-import net.db64.homelawnsecurity.entity.custom.plant.PeashooterEntity;
 import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
 import net.db64.homelawnsecurity.util.LawnUtil;
-import net.db64.homelawnsecurity.util.MiscUtil;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

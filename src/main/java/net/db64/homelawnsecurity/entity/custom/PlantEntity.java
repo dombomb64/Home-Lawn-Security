@@ -8,7 +8,6 @@ import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
@@ -16,7 +15,6 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.TagKey;
@@ -56,6 +54,12 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 
 	protected PlantEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
+
+		/*if (getEntityWorld() instanceof ServerWorld) {
+			for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) getEntityWorld(), getBlockPos())) {
+				ServerPlayNetworking.send(player, new InitAnimationsS2CPayload(uuid));
+			}
+		}*/
 	}
 
 	@Nullable

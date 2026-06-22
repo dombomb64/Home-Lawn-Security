@@ -110,6 +110,26 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 				// Add more cases for future state-based entities
 			});
 		});
+
+		/*ClientPlayNetworking.registerGlobalReceiver(InitAnimationsS2CPayload.ID, (payload, context) -> {
+			context.client().execute(() -> {
+				MinecraftClient client = context.client();
+
+				if (client.world == null)
+					return;
+
+				Entity entity = client.world.getEntity(payload.uuid());
+				if (entity == null)
+					return;
+
+				if (entity instanceof PlantEntity entity2) {
+					entity2.initAnimations();
+				}
+				else if (entity instanceof ZombieEntity entity2) {
+					entity2.initAnimations();
+				}
+			});
+		});*/
 	}
 
 	private void registerOther() {

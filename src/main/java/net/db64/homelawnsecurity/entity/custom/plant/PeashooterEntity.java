@@ -29,8 +29,7 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 
 	private static final PlantStats STATS = new PlantStats().attackRange(3f).attackRangePath(16f).attackTicks(30);
 
-	public final AnimationState setupAnimationState = new AnimationState();
-	//public int setupAnimationTimeout = 0;
+	public final AnimationState idleAnimationState = new AnimationState();
 
 	//public int attackHeadRotTimeout = 0;
 
@@ -42,7 +41,9 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 		super(entityType, world);
 		this.lookControl = new PeashooterLookControl(this);
 
-		setupAnimationState.startIfNotRunning(this.age);
+		if (getEntityWorld().isClient()) {
+			idleAnimationState.startIfNotRunning(this.age);
+		}
 	}
 
 	/*

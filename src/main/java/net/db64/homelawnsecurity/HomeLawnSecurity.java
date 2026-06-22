@@ -75,6 +75,7 @@ public class HomeLawnSecurity implements ModInitializer {
 	private void registerPackets() {
 		PayloadTypeRegistry.playS2C().register(SnapLookDirS2CPayload.ID, SnapLookDirS2CPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(ChangeEntityStateS2CPayload.ID, ChangeEntityStateS2CPayload.CODEC);
+		//PayloadTypeRegistry.playS2C().register(InitAnimationsS2CPayload.ID, InitAnimationsS2CPayload.CODEC);
 	}
 
 	private void addVanillaItemComponents() {
@@ -118,6 +119,7 @@ public class HomeLawnSecurity implements ModInitializer {
 				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_CONEHEAD_ZOMBIE, price, count, maxUses, 1),
 				//new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_POLE_VAULTING_ZOMBIE, price, count, maxUses, 1),
 				new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_BUCKETHEAD_ZOMBIE, price, count, maxUses, 1)
+				//new TradeOffers.SellItemFactory(ModItems.SEED_PACKET_FLAG_ZOMBIE, price, count, maxUses, 1)
 			);
 		});
 	}

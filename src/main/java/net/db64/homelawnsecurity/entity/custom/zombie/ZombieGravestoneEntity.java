@@ -48,7 +48,9 @@ public class ZombieGravestoneEntity extends ZombieEntity {
 		degradationStages.add(new IDegradableEntity.DegradationStage("break3", 160 * IPvzEntity.HEALTH_SCALE, false, null));
 		degradationStages.add(new IDegradableEntity.DegradationStage("break4", 100 * IPvzEntity.HEALTH_SCALE, false, null));
 
-		setupAnimationState.startIfNotRunning(this.age);
+		if (getEntityWorld().isClient()) {
+			setupAnimationState.startIfNotRunning(this.age);
+		}
 	}
 
 	/*
@@ -175,7 +177,7 @@ public class ZombieGravestoneEntity extends ZombieEntity {
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
 			.add(EntityAttributes.MAX_HEALTH, 400 * IPvzEntity.HEALTH_SCALE)
-			.add(EntityAttributes.ATTACK_DAMAGE, 20 * IPvzEntity.HEALTH_SCALE)
+			.add(EntityAttributes.ATTACK_DAMAGE, 50 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.FOLLOW_RANGE, 3)
 			.add(EntityAttributes.MOVEMENT_SPEED, 0);
 	}

@@ -8,6 +8,7 @@ public class TargetZombieRenderState extends ZombieRenderState {
 	public boolean hasLostHead = false;
 
 	public final AnimationState setupAnimationState = new AnimationState();
+	public final AnimationState idleAnimationState = new AnimationState();
 	public final AnimationState attackAnimationState = new AnimationState();
 
 	public TargetZombieRenderState() {

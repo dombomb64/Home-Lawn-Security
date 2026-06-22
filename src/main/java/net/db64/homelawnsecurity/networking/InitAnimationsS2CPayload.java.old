@@ -1,0 +1,21 @@
+package net.db64.homelawnsecurity.networking;
+
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.util.Uuids;
+
+import java.util.UUID;
+
+public record InitAnimationsS2CPayload(UUID uuid) implements CustomPayload {
+	public static final Id<InitAnimationsS2CPayload> ID = new Id<>(ModNetworkingConstants.INIT_ANIMATIONS_PACKET_ID);
+	public static final PacketCodec<RegistryByteBuf, InitAnimationsS2CPayload> CODEC = PacketCodec.tuple(
+		Uuids.PACKET_CODEC, InitAnimationsS2CPayload::uuid,
+		InitAnimationsS2CPayload::new);
+
+	@Override
+	public Id<? extends CustomPayload> getId() {
+		return ID;
+	}
+}

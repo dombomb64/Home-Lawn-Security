@@ -51,8 +51,10 @@ public class ChomperEntity extends PlantEntity implements IPathPlant {
 	public ChomperEntity(EntityType<? extends PlantEntity> entityType, World world) {
 		super(entityType, world);
 
-		setupAnimationState.startIfNotRunning(this.age);
-		idleAnimationState.startIfNotRunning(this.age);
+		if (getEntityWorld().isClient()) {
+			setupAnimationState.startIfNotRunning(this.age);
+			idleAnimationState.startIfNotRunning(this.age);
+		}
 	}
 
 	@Override

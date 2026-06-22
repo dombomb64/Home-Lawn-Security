@@ -4,8 +4,6 @@ import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtByte;
 import net.minecraft.nbt.NbtByteArray;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.storage.NbtReadView;
@@ -62,7 +60,7 @@ public interface IDegradableEntity {
 				}
 
 				if (!entity.getEntityWorld().isClient() && stage.getShouldDrainHealth()) {
-					entity.damage((ServerWorld) entity.getEntityWorld(), entity.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), 0.25f);
+					entity.damage((ServerWorld) entity.getEntityWorld(), entity.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), IPvzEntity.HEALTH_SCALE);
 				}
 			}
 		}

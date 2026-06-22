@@ -23,7 +23,7 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 
 	private static final PlantStats STATS = new PlantStats().attackRange(3f).attackTicks(30);
 
-	public final AnimationState setupAnimationState = new AnimationState();
+	public final AnimationState idleAnimationState = new AnimationState();
 
 	/*
 		GENERAL
@@ -32,7 +32,9 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 	public WallNutEntity(EntityType<? extends PlantEntity> entityType, World world) {
 		super(entityType, world);
 
-		setupAnimationState.startIfNotRunning(this.age);
+		if (getEntityWorld().isClient()) {
+			idleAnimationState.startIfNotRunning(this.age);
+		}
 	}
 
 	/*
