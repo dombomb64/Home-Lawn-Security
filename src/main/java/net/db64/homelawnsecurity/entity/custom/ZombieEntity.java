@@ -339,10 +339,7 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	}
 
 	public boolean hasHead() {
-		if (getDegradationStage("head") != null) {
-			return !hasTriggeredDegradationStage("head");
-		}
-		return true;
+		return !hasTriggeredDegradationStage("head");
 	}
 
 	/*public abstract TrackedData<Boolean> getHasLostHeadwearTrackedData();

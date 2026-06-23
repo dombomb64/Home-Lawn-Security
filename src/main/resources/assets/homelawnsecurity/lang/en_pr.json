@@ -6,6 +6,8 @@
 
 
 	"death.attack.pea": "%1$s was peas'd to be met by %2$s",
+	"death.attack.chomper_swallow": "%1$s was chomped by %2$s",
+	"death.attack.chomper_swallow.item": "%1$s was chomped by %2$s eating with %3$s",
 	"death.attack.zombie_eat": "%1$s was lobotomized by %2$s",
 	"death.attack.zombie_eat.item": "%1$s was lobotomized by %2$s eating with %3$s",
 	"death.attack.zombie_headless": "%1$s didn't have their head in the game",

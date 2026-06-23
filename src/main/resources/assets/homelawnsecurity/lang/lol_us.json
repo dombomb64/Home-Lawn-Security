@@ -6,6 +6,8 @@
 
 
 	"death.attack.pea": "%1$s was PEAD ON by %2$s!!1",
+	"death.attack.chomper_swallow": "%1$s got DIVOURED by %2$s",
+	"death.attack.chomper_swallow.item": "%1$s got DIVOURED by %2$s and dey used da %3$s 2 eat!!1!",
 	"death.attack.zombie_eat": "%1$s had deir HEADMEAT eatin by %2$s!1!1",
 	"death.attack.zombie_eat.item": "%1$s had deir HEADMEAT eatin by %2$s and dey used da %3$s 2 eat!!1!",
 	"death.attack.zombie_headless": "%1$s waz stoopided to deth",

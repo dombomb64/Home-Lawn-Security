@@ -72,8 +72,7 @@ public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEn
 	protected void drop(ServerWorld world, DamageSource damageSource) {
 		super.drop(world, damageSource);
 
-		if (isDead())
-			dropSpawnItemOnDeath();
+		dropSpawnItemOnDeath();
 	}
 
 	protected void dropSpawnItemOnDeath() {

@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.entity.custom.plant;
 
+import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ai.plant.ChomperAttackGoal;
 import net.db64.homelawnsecurity.entity.ai.plant.PlantTargetGoal;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
@@ -96,6 +97,7 @@ public class ChomperEntity extends PlantEntity implements IPathPlant {
 				else if (stateTimer == 10) {
 					if (target != null && MiscUtil.isFacingEntity(this, target)) {
 						// Condition's a bit janky but it's not like the zombie's gonna backflip 9 blocks
+						target.onDeath(this.getDamageSources().create(ModDamageTypes.CHOMPER_SWALLOW, this));
 						target.remove(RemovalReason.KILLED);
 						landedAttack = true;
 					}

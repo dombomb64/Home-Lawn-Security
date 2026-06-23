@@ -8,13 +8,18 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
 public class ModDamageTypes implements DamageTypes {
-	public static final RegistryKey<DamageType> PEA = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, "pea"));
-	public static final RegistryKey<DamageType> ZOMBIE_EAT = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, "zombie_eat"));
-	public static final RegistryKey<DamageType> ZOMBIE_HEADLESS = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, "zombie_headless"));
+	public static final RegistryKey<DamageType> PEA = register("pea");
+	public static final RegistryKey<DamageType> CHOMPER_SWALLOW = register("chomper_swallow");
+	public static final RegistryKey<DamageType> ZOMBIE_EAT = register("zombie_eat");
+	public static final RegistryKey<DamageType> ZOMBIE_HEADLESS = register("zombie_headless");
 
 	/*public static DamageSource of(World world, RegistryKey<DamageType> key) {
 		return new DamageSource(world.getRegistryManager().getOrThrow(RegistryKeys.DAMAGE_TYPE).getEntry(key.));
 	}*/
+
+	private static RegistryKey<DamageType> register(String name) {
+		return RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, name));
+	}
 
 	public static void registerDamageTypes() {
 		HomeLawnSecurity.logRegistration("damage types");
