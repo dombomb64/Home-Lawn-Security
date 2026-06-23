@@ -182,7 +182,7 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 		boolean result = super.damage(world, source, amount);
 
 		if (!source.isOf(ModDamageTypes.ZOMBIE_HEADLESS)) {
-			lastAttackedByPvzEntity = source.getAttacker() instanceof IPvzEntity;
+			lastAttackedByPvzEntity = source.getAttacker() instanceof IPvzEntity || source.getSource() instanceof IPvzEntity;
 			for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) getEntityWorld(), getBlockPos())) {
 				ServerPlayNetworking.send(player, new EntityDamagedS2CPayload(getUuid(), lastAttackedByPvzEntity, 10));
 			}
