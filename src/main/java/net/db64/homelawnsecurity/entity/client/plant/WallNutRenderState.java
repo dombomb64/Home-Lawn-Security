@@ -5,6 +5,7 @@ import net.minecraft.entity.AnimationState;
 
 public class WallNutRenderState extends PvzRenderState {
 	public final AnimationState setupAnimationState = new AnimationState();
+	public byte degradation = 0;
 
 	public WallNutRenderState() {
 

@@ -41,6 +41,16 @@ public interface IDegradableEntity {
 		return false;
 	}
 
+	default byte getDegradationStagesTriggered() {
+		byte result = 0;
+		for (DegradationStage stage : getDegradationStageList()) {
+			if (!stage.hasTriggered)
+				break;
+			result++;
+		}
+		return result;
+	}
+
 	default void tickDegradation(LivingEntity entity) {
 		for (DegradationStage stage : getDegradationStageList()) {
 			if (entity.getHealth() < stage.getHealth()) {

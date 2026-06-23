@@ -1,11 +1,10 @@
 package net.db64.homelawnsecurity.entity.custom.plant;
 
+import net.db64.homelawnsecurity.entity.custom.IDegradableEntity;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
-import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.data.DataTracker;
@@ -17,7 +16,9 @@ import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
 
-public class WallNutEntity extends PlantEntity implements IPathPlant {
+import java.util.ArrayList;
+
+public class WallNutEntity extends PlantEntity implements IPathPlant, IDegradableEntity {
 	private static final TrackedData<Boolean> USING_ATTACK =
 		DataTracker.registerData(WallNutEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
@@ -25,12 +26,18 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 
 	public final AnimationState idleAnimationState = new AnimationState();
 
+	ArrayList<DegradationStage> degradationStages = new ArrayList<>();
+
 	/*
 		GENERAL
 	 */
 
 	public WallNutEntity(EntityType<? extends PlantEntity> entityType, World world) {
 		super(entityType, world);
+
+		ArrayList<DegradationStage> degradationStages = getDegradationStageList();
+		degradationStages.add(new DegradationStage("degrade1", 2667 * IPvzEntity.HEALTH_SCALE, false, null));
+		degradationStages.add(new DegradationStage("degrade2", 1333 * IPvzEntity.HEALTH_SCALE, false, null));
 
 		if (getEntityWorld().isClient()) {
 			idleAnimationState.startIfNotRunning(this.age);
@@ -50,17 +57,23 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 		return USING_ATTACK;
 	}
 
+	@Override
+	public ArrayList<DegradationStage> getDegradationStageList() {
+		return degradationStages;
+	}
+
 	/*
 		BLOCKS
 	 */
 
 	/*
-		SHOOTING
+		BEHAVIOR
 	 */
 
 	@Override
 	public void tick() {
 		super.tick();
+		tickDegradation(this);
 
 		if (!(getEntityWorld() instanceof ServerWorld)) {
 			return;
@@ -75,11 +88,15 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 	@Override
 	public void writeCustomData(WriteView view) {
 		super.writeCustomData(view);
+
+		writeDegradationNbt(view);
 	}
 
 	@Override
 	public void readCustomData(ReadView view) {
 		super.readCustomData(view);
+
+		readDegradationNbt(view);
 	}
 
 	/*
@@ -88,7 +105,7 @@ public class WallNutEntity extends PlantEntity implements IPathPlant {
 
 	@Override
 	protected void initGoals() {
-		goalSelector.add(2, new LookAtEntityGoal(this, ZombieEntity.class, 3));
+		//goalSelector.add(2, new LookAtEntityGoal(this, ZombieEntity.class, 3));
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {

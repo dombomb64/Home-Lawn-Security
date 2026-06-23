@@ -24,7 +24,8 @@ public class WallNutModel extends EntityModel<WallNutRenderState> {
 		ModelPartData modelPartData = modelData.getRoot();
 		ModelPartData wallNut = modelPartData.addChild("wallNut", ModelPartBuilder.create(), ModelTransform.origin(0.0F, 24.0F, 0.0F));
 
-		ModelPartData body = wallNut.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -18.0F, -7.0F, 14.0F, 18.0F, 14.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
+		ModelPartData body = wallNut.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-7.0F, -18.0F, -7.0F, 14.0F, 18.0F, 14.0F, new Dilation(0.0F))
+			.uv(0, 32).cuboid(-6.0F, -17.0F, -6.0F, 12.0F, 16.0F, 12.0F, new Dilation(0.0F)), ModelTransform.origin(0.0F, 0.0F, 0.0F));
 		return TexturedModelData.of(modelData, 64, 64);
 	}
 

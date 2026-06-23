@@ -12,6 +12,8 @@ import net.minecraft.util.Identifier;
 
 public class WallNutRenderer extends PvzEntityRenderer<WallNutEntity, WallNutRenderState, WallNutModel> {
 	private static final Identifier TEXTURE = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/plant/wall_nut.png");
+	private static final Identifier TEXTURE_DEGRADE1 = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/plant/wall_nut_degrade1.png");
+	private static final Identifier TEXTURE_DEGRADE2 = Identifier.of(HomeLawnSecurity.MOD_ID, "textures/entity/plant/wall_nut_degrade2.png");
 
 	public WallNutRenderer(EntityRendererFactory.Context context) {
 		super(context, new WallNutModel(context.getPart(ModModelLayers.Plant.WALL_NUT)), 0.5f);
@@ -19,7 +21,11 @@ public class WallNutRenderer extends PvzEntityRenderer<WallNutEntity, WallNutRen
 
 	@Override
 	public Identifier getTexture(WallNutRenderState state) {
-		return TEXTURE;
+		return switch (state.degradation) {
+			case 2 -> TEXTURE_DEGRADE2;
+			case 1 -> TEXTURE_DEGRADE1;
+			default -> TEXTURE;
+		};
 	}
 
 	@Override
@@ -42,5 +48,6 @@ public class WallNutRenderer extends PvzEntityRenderer<WallNutEntity, WallNutRen
 		super.updateRenderState(entity, state, f);
 
 		state.setupAnimationState.copyFrom(entity.idleAnimationState);
+		state.degradation = entity.getDegradationStagesTriggered();
 	}
 }

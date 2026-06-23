@@ -1,0 +1,27 @@
+package net.db64.homelawnsecurity.entity.ai;
+
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
+import net.db64.homelawnsecurity.entity.custom.PlantEntity;
+import net.db64.homelawnsecurity.util.MiscUtil;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.mob.MobEntity;
+
+public class LookAtEntityOnPathGoal extends LookAtEntityGoal {
+	public LookAtEntityOnPathGoal(MobEntity mob, Class<? extends LivingEntity> targetType, float range) {
+		this(mob, targetType, range, 0.02f);
+	}
+	
+	public LookAtEntityOnPathGoal(MobEntity mob, Class<? extends LivingEntity> targetType, float range, float chance) {
+		this(mob, targetType, range, chance, false);
+	}
+
+	public LookAtEntityOnPathGoal(MobEntity mob, Class<? extends LivingEntity> targetType, float range, float chance, boolean lookForward) {
+		super(mob, targetType, range, chance, lookForward);
+	}
+
+	@Override
+	public boolean canStart() {
+		return super.canStart() && target != null && MiscUtil.isFacingEntity(mob, target);
+	}
+}
