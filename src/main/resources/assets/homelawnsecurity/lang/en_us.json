@@ -4,7 +4,7 @@
 	"itemgroup.homelawnsecurity.zombies": "Home Lawn Security - Zombies",
 
 
-	
+
 	"death.attack.pea": "%1$s was peas'd to be met by %2$s",
 	"death.attack.chomper_swallow": "%1$s was chomped by %2$s",
 	"death.attack.chomper_swallow.item": "%1$s was chomped by %2$s eating with %3$s",
@@ -388,8 +388,9 @@
 	"tooltip.item.homelawnsecurity.shovel.use": "Use on plants to remove them.",
 	"tooltip.item.homelawnsecurity.shovel.attack": "Smack plants and zombies to send them flying.",
 	"tooltip.item.homelawnsecurity.lawn_gadget.use": "Use this item on a lawn block to change something about it.",
-	"tooltip.item.homelawnsecurity.lawn_gadget.switch": "Punch a block with this item to switch modes.",
-	"tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode": "Sneak and punch a block to switch between markers and normal blocks.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.switch": "Punch with this item to switch modes.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode": "Sneak and punch to switch between markers and normal blocks.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.mode": "Mode: ",
 	"tooltip.item.homelawnsecurity.turf": "Use on an unsodded lawn block to allow the placement of lawn plants.",
 	"tooltip.item.homelawnsecurity.brain": "Feed this to one of your zombies to get a duplicate seed packet.",
 	"tooltip.item.homelawnsecurity.mower.when_tripped": "When tripped:",

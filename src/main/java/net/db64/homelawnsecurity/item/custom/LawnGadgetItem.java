@@ -22,6 +22,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+import java.util.Objects;
+
 public class LawnGadgetItem extends Item {
 	/*@Deprecated
 	protected static final Map<Block, BlockState> STATES_TURF_TOGGLE;
@@ -42,17 +44,17 @@ public class LawnGadgetItem extends Item {
 
 	@Override
 	public boolean canMine(ItemStack stack, BlockState state, World world, BlockPos pos, LivingEntity miner) {
-		if (!world.isClient()) {
+		/*if (!world.isClient()) {
 			Random random = miner.getRandom();
 			/*if (miner.isSneaking()) {
 				toggleMarkerMode(miner.getStackInHand(Hand.MAIN_HAND), miner);
 				world.playSound(null, miner.getBlockPos(), ModSounds.ITEM_LAWN_GADGET_SWITCH, SoundCategory.PLAYERS, 0.5f, (random.nextFloat() * 0.4f) + 1.6f);
-			}*/
+			}*
 			//else {
 				switchMode(miner.getStackInHand(Hand.MAIN_HAND), miner);
 				world.playSound(null, miner.getBlockPos(), ModSounds.ITEM_LAWN_GADGET_SWITCH, SoundCategory.PLAYERS, 0.5f, (random.nextFloat() * 0.4f) + 0.8f);
 			//}
-		}
+		}*/
 
 		return false;
 	}
@@ -75,9 +77,6 @@ public class LawnGadgetItem extends Item {
 			return ActionResult.CONSUME;
 		}
 
-		BlockState state = world.getBlockState(pos);
-		//Block block = state.getBlock();
-
 		String mode = component.mode();
 		// Which map should it use?
 		/*Map<Block, BlockState> map = switch (mode) {
@@ -89,6 +88,15 @@ public class LawnGadgetItem extends Item {
 			case "path_type_marker" -> STATES_MARKER_PATH_TYPE;
 			default -> STATES_TURF_TOGGLE;
 		};*/
+
+		// Set the mode on first use
+		// It's not the default so that the creative tab tooltip isn't weird
+		if (Objects.equals(mode, "uninitialized")) {
+			stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("path_type_main"));
+		}
+
+		BlockState state = world.getBlockState(pos);
+		//Block block = state.getBlock();
 
 		// Set the block state to the new one
 		/*if (map.containsKey(block)) {

@@ -24,7 +24,7 @@ public class ModDataComponentTypes {
 		register("shovel", builder -> builder.codec(Unit.CODEC).packetCodec(PacketCodec.unit(Unit.INSTANCE)));
 
 	public static final ComponentType<LawnGadgetComponent> LAWN_GADGET =
-		register("lawn_gadget", builder -> builder.codec(LawnGadgetComponent.CODEC).packetCodec(LawnGadgetComponent.PACKET_CODEC));
+		register("lawn_gadget", builder -> builder.codec(LawnGadgetComponent.CODEC).packetCodec(LawnGadgetComponent.PACKET_CODEC).skipsHandAnimation());
 
 	public static final ComponentType<TooltipComponent> TOOLTIP =
 		register("tooltip", builder -> builder.codec(TooltipComponent.CODEC).packetCodec(TooltipComponent.PACKET_CODEC));

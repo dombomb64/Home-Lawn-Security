@@ -44,5 +44,6 @@ public abstract class ItemStackMixin {
 		appendComponentTooltip(ModDataComponentTypes.CURRENCY, context, displayComponent, consumer, type);
 		appendComponentTooltip(ModDataComponentTypes.BAG_OF_CURRENCY, context, displayComponent, consumer, type);
 		appendComponentTooltip(ModDataComponentTypes.SEED_PACKET, context, displayComponent, consumer, type);
+		appendComponentTooltip(ModDataComponentTypes.LAWN_GADGET, context, displayComponent, consumer, type);
 	}
 }

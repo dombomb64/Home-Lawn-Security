@@ -80,7 +80,7 @@ public class ModItems {
 			Text.translatable("tooltip.item.homelawnsecurity.shovel.attack")));
 	public static final Item LAWN_GADGET = register("lawn_gadget", settings ->
 		new LawnGadgetItem(settings), new Item.Settings().maxCount(1)
-		.component(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("turf_toggle")), List.of(
+		.component(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("uninitialized")), List.of(
 			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.use"),
 			Text.translatable("tooltip.item.homelawnsecurity.lawn_gadget.switch")));
 
