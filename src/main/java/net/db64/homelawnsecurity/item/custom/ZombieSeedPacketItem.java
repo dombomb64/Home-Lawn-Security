@@ -6,6 +6,7 @@ import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.other.ZombieSeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -70,11 +71,12 @@ public class ZombieSeedPacketItem extends SeedPacketItem {
 	}
 
 	@Override
-	public void playPlaceSound(World world, BlockPos pos) {
+	public void playPlaceSound(Entity placed, BlockPos pos) {
+		World world = placed.getEntityWorld();
 		if (world.getFluidState(pos.down()).isIn(FluidTags.WATER))
-			world.playSound(null, pos, ModSounds.ENTITY_ZOMBIE_PLACE_WATER, SoundCategory.NEUTRAL);
+			world.playSound(null, pos, ModSounds.ENTITY_ZOMBIE_PLACE_WATER, placed.getSoundCategory());
 		else
-			world.playSound(null, pos, ModSounds.ENTITY_ZOMBIE_PLACE, SoundCategory.NEUTRAL);
+			world.playSound(null, pos, ModSounds.ENTITY_ZOMBIE_PLACE, placed.getSoundCategory());
 	}
 
 	@Override

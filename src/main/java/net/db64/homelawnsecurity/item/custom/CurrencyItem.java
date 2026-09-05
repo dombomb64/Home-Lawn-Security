@@ -4,6 +4,7 @@ import net.db64.homelawnsecurity.component.CurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -73,19 +74,18 @@ public class CurrencyItem extends Item implements ProjectileItem {
 		else
 			sound = ModSounds.ENTITY_SUN_THROW;
 
-		world.playSound(
-			null,
-			user.getX(),
-			user.getY(),
-			user.getZ(),
-			sound,
-			SoundCategory.NEUTRAL,
-			0.5f,
-			world.getRandom().nextFloat() * 0.4f + 1f
-		);
-
 		if (world instanceof ServerWorld serverWorld) {
-			ProjectileEntity.spawnWithVelocity(CurrencyEntity::new, serverWorld, itemStack, user, 0.0f, 1.5f, 1.0f);
+			CurrencyEntity entity = ProjectileEntity.spawnWithVelocity(CurrencyEntity::new, serverWorld, itemStack, user, 0.0f, 1.5f, 1.0f);
+			world.playSound(
+				null,
+				user.getX(),
+				user.getY(),
+				user.getZ(),
+				sound,
+				entity.getSoundCategory(),
+				0.5f,
+				MiscUtil.getSoundPitch(user.getRandom())
+			);
 		}
 
 		user.incrementStat(Stats.USED.getOrCreateStat(this));

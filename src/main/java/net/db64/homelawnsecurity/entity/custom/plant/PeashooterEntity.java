@@ -7,6 +7,7 @@ import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.projectile.PeaEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -85,7 +86,7 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 		double f = target.getZ() - this.getZ();
 		//double g = Math.sqrt(d * d + f * f);
 		projectileEntity.setVelocity(d, /*e + g * (double)0.2f*/ 0, f, 0.3f, /*14 - this.getEntityWorld().getDifficulty().getId() * 4*/ 0);
-		this.playSound(ModSounds.ENTITY_PEA_THROW, 1.0f, 1.0f / (this.getRandom().nextFloat() * 0.4f + 0.8f));
+		this.playSound(ModSounds.ENTITY_PEA_THROW, 1.0f, MiscUtil.getSoundPitch(getRandom()));
 		this.getEntityWorld().spawnEntity(projectileEntity);
 	}
 

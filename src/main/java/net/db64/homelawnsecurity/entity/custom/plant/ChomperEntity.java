@@ -119,7 +119,14 @@ public class ChomperEntity extends PlantEntity implements IPathPlant {
 
 			case ATTACK:
 				if (stateTimer == 0 && world instanceof ServerWorld) {
-					world.playSound(this, getBlockPos(), ModSounds.ENTITY_CHOMPER_EAT, SoundCategory.NEUTRAL, 1f, MiscUtil.getSoundPitch(getRandom()));
+					world.playSound(
+						this,
+						getBlockPos(),
+						ModSounds.ENTITY_CHOMPER_EAT,
+						getSoundCategory(),
+						1f,
+						MiscUtil.getSoundPitch(getRandom())
+					);
 				}
 				else if (stateTimer >= 10) {
 					if (target != null && MiscUtil.isFacingEntity(this, target)) {

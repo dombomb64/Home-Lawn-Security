@@ -68,15 +68,16 @@ public abstract class SeedPacketItem extends Item {
 		return PlantEntity.isPlaceable(blockPos, world, this);
 	}
 
-	public void playPlaceSound(World world, BlockPos pos) {
+	public void playPlaceSound(Entity placed, BlockPos pos) {
+		World world = placed.getEntityWorld();
 		if (world.getFluidState(pos.down()).isIn(FluidTags.WATER))
-			world.playSound(null, pos, ModSounds.RANDOM_PLANT_WATER, SoundCategory.NEUTRAL);
+			world.playSound(null, pos, ModSounds.RANDOM_PLANT_WATER, placed.getSoundCategory());
 		else
-			world.playSound(null, pos, ModSounds.RANDOM_PLANT, SoundCategory.NEUTRAL);
+			world.playSound(null, pos, ModSounds.RANDOM_PLANT, placed.getSoundCategory());
 	}
 
-	public static void playBuzzerSound(World world, BlockPos pos) {
-		world.playSound(null, pos, ModSounds.RANDOM_BUZZER, SoundCategory.NEUTRAL);
+	public static void playBuzzerSound(Entity entity, BlockPos pos) {
+		entity.getEntityWorld().playSound(null, pos, ModSounds.RANDOM_BUZZER, entity.getSoundCategory());
 	}
 
 	protected static boolean isWearingDavesPan(@Nullable PlayerEntity user) {
@@ -181,7 +182,7 @@ public abstract class SeedPacketItem extends Item {
 		// Invalid spawn position
 		if (!isPlaceable(groundPos, world, isWearingDavesPan(player), (ServerPlayerEntity) player)) {
 			//HomeLawnSecurity.LOGGER.warn("BlockPos {} is not a valid position for a seed packet of type {}!", pos, getClass().getSimpleName());
-			playBuzzerSound(world, usePos);
+			playBuzzerSound(player, usePos);
 			return ActionResult.SUCCESS;
 		}
 
@@ -201,7 +202,7 @@ public abstract class SeedPacketItem extends Item {
 			}
 
 			world.emitGameEvent(player, GameEvent.ENTITY_PLACE, usePos);
-			playPlaceSound(world, usePos);
+			playPlaceSound(entity, usePos);
 		}
 
 		return ActionResult.CONSUME;
@@ -222,14 +223,14 @@ public abstract class SeedPacketItem extends Item {
 				if (!bag.isEmpty()) {
 					BagOfCurrencyComponent bagComponent = bag.get(ModDataComponentTypes.BAG_OF_CURRENCY);
 					if (bagComponent.amount() < cost) {
-						playBuzzerSound(world, usePos);
+						playBuzzerSound(player, usePos);
 						return false;
 					}
 
 					bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(bagComponent.amount() - cost, bagComponent.name()));
 				}
 				else {
-					playBuzzerSound(world, usePos);
+					playBuzzerSound(player, usePos);
 					return false;
 				}
 

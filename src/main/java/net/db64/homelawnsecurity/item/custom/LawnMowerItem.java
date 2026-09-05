@@ -37,12 +37,12 @@ public class LawnMowerItem extends SeedPacketItem {
 	}
 
 	@Override
-	public void playPlaceSound(World world, BlockPos pos) {
+	public void playPlaceSound(Entity placed, BlockPos pos) {
 
 	}
 
-	public static void playBuzzerSound(World world, BlockPos pos) {
-		world.playSound(null, pos, ModSounds.RANDOM_BUZZER, SoundCategory.NEUTRAL);
+	public static void playBuzzerSound(Entity entity, BlockPos pos) {
+		entity.getEntityWorld().playSound(null, pos, ModSounds.RANDOM_BUZZER, entity.getSoundCategory());
 	}
 
 	/*@Override

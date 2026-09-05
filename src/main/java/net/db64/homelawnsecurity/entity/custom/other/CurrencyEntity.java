@@ -7,6 +7,7 @@ import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.item.custom.CurrencyItem;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -177,9 +178,23 @@ public class CurrencyEntity extends ProjectileEntity implements FlyingItemEntity
 					bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(Math.min(bagCurrency.amount() + pickupCurrency.amount(), 10000), bagCurrency.name()));
 
 					if (pickupCurrency.name().equals("brainpower"))
-						world.playSound(null, entity.getBlockPos(), ModSounds.ENTITY_BRAINPOWER_COLLECT, SoundCategory.NEUTRAL, 1f, world.getRandom().nextFloat() * 0.4f + 1f);
+						world.playSound(
+							null,
+							entity.getBlockPos(),
+							ModSounds.ENTITY_BRAINPOWER_COLLECT,
+							getSoundCategory(),
+							1f,
+							MiscUtil.getSoundPitch(getRandom())
+						);
 					else
-						world.playSound(null, entity.getBlockPos(), ModSounds.ENTITY_SUN_COLLECT, SoundCategory.NEUTRAL, 1f, world.getRandom().nextFloat() * 0.4f + 1f);
+						world.playSound(
+							null,
+							entity.getBlockPos(),
+							ModSounds.ENTITY_SUN_COLLECT,
+							getSoundCategory(),
+							1f,
+							MiscUtil.getSoundPitch(getRandom())
+						);
 
 					this.discard();
 					break;

@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,10 +37,22 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
 			ItemStack itemStack = this.getMainHandStack();
 			if (!ItemStack.areEqual(this.selectedItem, itemStack)) {
 				if (itemStack.contains(ModDataComponentTypes.SHOVEL)) {
-					world.playSoundFromEntityClient((PlayerEntity) (Object) this, ModSounds.RANDOM_SHOVEL, SoundCategory.PLAYERS, 0.25f, random.nextFloat() * 0.4f + 0.8f);
+					world.playSoundFromEntityClient(
+						(PlayerEntity) (Object) this,
+						ModSounds.RANDOM_SHOVEL,
+						getSoundCategory(),
+						0.25f,
+						MiscUtil.getSoundPitch(getRandom())
+					);
 				}
 				else if (itemStack.contains(ModDataComponentTypes.SEED_PACKET)) {
-					world.playSoundFromEntityClient((PlayerEntity) (Object) this, ModSounds.RANDOM_SELECT_SEED, SoundCategory.PLAYERS, 0.25f, random.nextFloat() * 0.4f + 0.8f);
+					world.playSoundFromEntityClient(
+						(PlayerEntity) (Object) this,
+						ModSounds.RANDOM_SELECT_SEED,
+						getSoundCategory(),
+						0.25f,
+						MiscUtil.getSoundPitch(getRandom())
+					);
 				}
 			}
 		}

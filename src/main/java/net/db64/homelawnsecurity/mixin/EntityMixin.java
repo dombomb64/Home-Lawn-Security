@@ -8,6 +8,7 @@ import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.util.IEntityDataSaver;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +31,11 @@ public abstract class EntityMixin implements IEntityDataSaver {
 	@Final
 	@Shadow
 	protected Random random;
+
+	@Shadow public abstract Random getRandom();
+
+	@Shadow
+	public abstract SoundCategory getSoundCategory();
 
 	@Unique
 	private NbtCompound persistentData;
@@ -72,7 +78,7 @@ public abstract class EntityMixin implements IEntityDataSaver {
 			ordinal = 0
 		)
 	)
-	private boolean checkForPushThis(Entity instance, double deltaX, double deltaY, double deltaZ, @Local(index = 0, argsOnly = true) Entity that) {
+	private boolean checkForPushThis(Entity instance, double deltaX, double deltaY, double deltaZ, @Local(argsOnly = true, index = 1) Entity that) {
 		Entity toHiss = (Entity) (Object) this; // This should be pushed by that if...
 		/*return (toHiss instanceof ZombieEntity && that instanceof PlantEntity) // This is a zombie being pushed by that plant
 			|| (!(toHiss instanceof IPvzEntity) && !(that instanceof IPvzEntity)); // Neither of these are PvZ-related*/
@@ -87,7 +93,7 @@ public abstract class EntityMixin implements IEntityDataSaver {
 			ordinal = 1
 		)
 	)
-	private boolean checkForPushThat(Entity instance, double deltaX, double deltaY, double deltaZ, @Local(index = 0, argsOnly = true) Entity that) {
+	private boolean checkForPushThat(Entity instance, double deltaX, double deltaY, double deltaZ, @Local(argsOnly = true, index = 1) Entity that) {
 		Entity toHiss = (Entity) (Object) this; // That should be pushed by this if...
 		/*return (that instanceof ZombieEntity && toHiss instanceof PlantEntity) // That is a zombie being pushed by this plant
 			|| (!(that instanceof IPvzEntity) && !(toHiss instanceof IPvzEntity)); // Neither of these are PvZ-related*/

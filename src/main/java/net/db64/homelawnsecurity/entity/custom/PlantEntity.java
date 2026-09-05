@@ -137,7 +137,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 				for (int i = 0; i < 5; i++) {
 					world.addParticleClient(new BlockStateParticleEffect(ParticleTypes.BLOCK, getSteppingBlockState()), false, true, getX(), getY(), getZ(), 0, 0, 0);
 				}
-				world.playSoundClient(getX(), getY(), getZ(), ModSounds.ENTITY_PLANT_SHOVEL, SoundCategory.NEUTRAL, 1, 1, false);
+				world.playSoundClient(getX(), getY(), getZ(), ModSounds.ENTITY_PLANT_SHOVEL, getSoundCategory(), 1, 1, false);
 			}
 			else {
 				dropSpawnItemOnDeath();

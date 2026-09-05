@@ -5,6 +5,7 @@ import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.other.PlantSeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.entity.custom.other.SeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.pathing.Path;
@@ -72,10 +73,11 @@ public class PathSeedPacketItem extends SeedPacketItem {
 	}
 
 	@Override
-	public void playPlaceSound(World world, BlockPos pos) {
+	public void playPlaceSound(Entity placed, BlockPos pos) {
+		World world = placed.getEntityWorld();
 		if (world.getFluidState(pos.down()).isIn(FluidTags.WATER))
-			world.playSound(null, pos, ModSounds.ENTITY_PLANT_PLACE_WATER, SoundCategory.NEUTRAL);
+			world.playSound(null, pos, ModSounds.ENTITY_PLANT_PLACE_WATER, placed.getSoundCategory());
 		else
-			world.playSound(null, pos, ModSounds.ENTITY_PLANT_PLACE, SoundCategory.NEUTRAL);
+			world.playSound(null, pos, ModSounds.ENTITY_PLANT_PLACE, placed.getSoundCategory());
 	}
 }

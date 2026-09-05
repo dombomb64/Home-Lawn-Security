@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity.entity.custom;
 
 import net.db64.homelawnsecurity.entity.ModDamageTypes;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtByte;
 import net.minecraft.nbt.NbtByteArray;
@@ -64,13 +65,17 @@ public interface IDegradableEntity {
 							stage.getSound(),
 							entity.getSoundCategory(),
 							1f,
-							1.0f / (entity.getRandom().nextFloat() * 0.4f + 0.8f)
+							MiscUtil.getSoundPitch(entity.getRandom())
 						);
 					}
 				}
 
 				if (!entity.getEntityWorld().isClient() && stage.getShouldDrainHealth()) {
-					entity.damage((ServerWorld) entity.getEntityWorld(), entity.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS), IPvzEntity.HEALTH_SCALE);
+					entity.damage(
+						(ServerWorld) entity.getEntityWorld(),
+						entity.getDamageSources().create(ModDamageTypes.ZOMBIE_HEADLESS),
+						IPvzEntity.HEALTH_SCALE
+					);
 				}
 			}
 		}
