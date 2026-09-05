@@ -9,6 +9,8 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.server.debug.SubscriberTracker;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class PvzNavigation extends MobNavigation {
@@ -79,5 +81,21 @@ public class PvzNavigation extends MobNavigation {
 	@Override
 	protected boolean isAtValidPosition() {
 		return super.isAtValidPosition() || entity instanceof SeedPacketPathfindingEntity || entity.age < 2;
+	}
+
+	@Override
+	protected void continueFollowingPath() {
+		Vec3d vec3d = this.getPos();
+		this.nodeReachProximity = 0.1f;
+		Vec3i vec3i = this.currentPath.getCurrentNodePos();
+		double d = Math.abs(this.entity.getX() - (vec3i.getX() + 0.5));
+		double e = Math.abs(this.entity.getY() - vec3i.getY());
+		double f = Math.abs(this.entity.getZ() - (vec3i.getZ() + 0.5));
+		boolean bl = d < this.nodeReachProximity && f < this.nodeReachProximity && e < 1.0;
+		if (bl || this.canJumpToNext(this.currentPath.getCurrentNode().type) && this.shouldJumpToNextNode(vec3d)) {
+			this.currentPath.next();
+		}
+
+		this.checkTimeouts(vec3d);
 	}
 }

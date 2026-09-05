@@ -33,6 +33,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 		DataTracker.registerData(PlantProjectileEntity.class, TrackedDataHandlerRegistry.FLOAT);
 	private int pathId = 0;
 	private int intersectingPath = 0;
+	public boolean ownerOnPath = false;
 
 	public PlantProjectileEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
 		super(entityType, world);
@@ -87,7 +88,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 	protected boolean canHit(Entity entity) {
 		if (!(entity instanceof ZombieEntity zombie))
 			return false;
-		return /*super.canHit(entity) &&*/
+		/*return /*super.canHit(entity) &&*
 			entity.isAlive() &&
 			(
 				getPathId() == 0 ||
@@ -96,7 +97,8 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 						getIntersectingPath() == zombie.getPathId() &&
 							getIntersectingPath() != 0
 					)
-			);
+			);*/
+		return LawnUtil.canTargetEntity(this, zombie);
 	}
 
 	@Override
@@ -116,6 +118,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 		//double e = this.getY() + vec3d.y;
 		//double f = this.getZ() + vec3d.z;
 
+		//ProjectileUtil.setRotationFromVelocity(this, 0.2F);
 		this.setPosition(vec3d);
 		this.updateRotation();
 		this.tickBlockCollision();
@@ -168,6 +171,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 
 		view.putInt("path_id", pathId % (LawnUtil.getPathTypeAmount() + 1));
 		view.putInt("intersecting_path", intersectingPath % (LawnUtil.getPathTypeAmount() + 1));
+		view.putBoolean("owner_on_path", ownerOnPath);
 	}
 
 	@Override
@@ -176,6 +180,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 
 		this.pathId = view.getInt("path_id", 0) % (LawnUtil.getPathTypeAmount() + 1);
 		this.intersectingPath = view.getInt("intersecting_path", 0) % (LawnUtil.getPathTypeAmount() + 1);
+		this.ownerOnPath = view.getBoolean("owner_on_path", ownerOnPath);
 	}
 
 	/**

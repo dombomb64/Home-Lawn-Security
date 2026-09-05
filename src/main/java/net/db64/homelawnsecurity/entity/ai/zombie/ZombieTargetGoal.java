@@ -3,6 +3,7 @@ package net.db64.homelawnsecurity.entity.ai.zombie;
 import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
+import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -37,9 +38,16 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 
 		//HomeLawnSecurity.LOGGER.info("checking notBehindPredicate");
 
-		// Check for if the enemy is on a different path
-		if (entity instanceof PlantEntity && ((PlantEntity) entity).onPath && !((PlantEntity) entity).isThisPath(mob.getSteppingPos()))
+		if (!(mob instanceof ZombieEntity zombie && entity instanceof PlantEntity plant))
 			return false;
+
+		if (!LawnUtil.canTargetEntity(zombie, plant))
+			return false;
+
+		// Check for if the enemy is on a different path
+		//if (entity instanceof PlantEntity && ((PlantEntity) entity).onPath && !((PlantEntity) entity).isThisPath(mob.getSteppingPos()))
+		//if (!LawnUtil.canTargetEntity((ZombieEntity) mob, (PlantEntity) entity))
+			//return false;
 
 		// Find paths to the enemy and to the start
 		Path targetPath = mob.getNavigation().findPathTo(entity, 1);
@@ -91,7 +99,7 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 		if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class) {
 			this.targetEntity = serverWorld.getClosestEntity(
 				this.mob.getEntityWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
-					livingEntity -> rangePredicate.test(livingEntity) && notBehindPredicate.test(livingEntity) && hasHeadPredicate.test(livingEntity)),
+					livingEntity -> rangePredicate.test(livingEntity) && hasHeadPredicate.test(livingEntity) && notBehindPredicate.test(livingEntity)),
 				this.getAndUpdateTargetPredicate(),
 				this.mob,
 				this.mob.getX(),

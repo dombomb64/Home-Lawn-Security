@@ -66,9 +66,10 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 			//HomeLawnSecurity.LOGGER.info("block pos {} is:", blockPos.toShortString());
 			if (LawnUtil.isAnyPath(blockPos, getEntityWorld())) {
 				for (int i = 1; i <= LawnUtil.getPathTypeAmount(); i++) {
-					if (LawnUtil.isCertainPath(blockPos, getEntityWorld(), i)) {
+					if (LawnUtil.isCertainPath(blockPos, getEntityWorld(), i, true, false)) {
 						//HomeLawnSecurity.LOGGER.info("path {}", i);
 						pathId = i;
+						break;
 					}
 				}
 				break;

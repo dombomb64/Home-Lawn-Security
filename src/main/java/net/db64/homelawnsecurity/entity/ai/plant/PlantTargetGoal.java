@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.entity.ai.plant;
 
 import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
+import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.util.LawnUtil;
 import net.db64.homelawnsecurity.util.MiscUtil;
@@ -38,19 +39,24 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 	};
 
 	public Predicate<LivingEntity> intersectionPredicate = entity -> {
+		if (!(mob instanceof PlantEntity plant && entity instanceof ZombieEntity zombie))
+			return false;
+
 		boolean result = false;
+		int mainPathId = plant.getPathId();
+		int intersectingPathId = plant.intersectingPath;
 
 		for (int i = 1; i <= 2; i++) {
-			int mainPathId = LawnUtil.getMainPathId(entity.getBlockPos(), entity.getEntityWorld());
-			int intersectingPathId = LawnUtil.getIntersectingPathId(entity.getBlockPos(), entity.getEntityWorld());
+			//int mainPathId = LawnUtil.getMainPathId(zombie.getBlockPos(), zombie.getEntityWorld());
+			//int intersectingPathId = LawnUtil.getIntersectingPathId(zombie.getBlockPos(), zombie.getEntityWorld());
 			//int pathId = i == 1 ? mainPathId : intersectingPathId;
 			int otherPathId = i == 1 ? intersectingPathId : mainPathId;
 
 			// Find paths to the enemy and to the goal
-			Path targetPath = mob.getNavigation().findPathTo(entity, 1);
+			Path targetPath = plant.getNavigation().findPathTo(zombie, 1);
 			Path goalPath = findGoalPath();
 			if (targetPath == null || goalPath == null) {
-				((PlantEntity) mob).setPathId(otherPathId);
+				plant.setPathId(otherPathId);
 				continue;
 			}
 			//HomeLawnSecurity.LOGGER.info("targetPath: {}, goalPath: {}", targetPath, goalPath);
@@ -73,7 +79,7 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 
 			// We switch the path because we need to trick the pathfinding into looking down the other path
 			// And we do it in such a way that it triggers exactly twice
-			((PlantEntity) mob).setPathId(otherPathId);
+			plant.setPathId(otherPathId);
 		}
 
 		return result;
@@ -84,18 +90,25 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 
 		//HomeLawnSecurity.LOGGER.info("checking pathPredicate");
 
-		if (mob instanceof PlantEntity plant && !plant.onPath) {
+		if (!(mob instanceof PlantEntity plant && entity instanceof ZombieEntity zombie))
+			return false;
+
+		if (!LawnUtil.canTargetEntity(plant, zombie))
+			return false;
+
+		if (!plant.onPath) {
 			// This plant is not on a path, behave as such
 			return !(entity instanceof TargetZombieEntity);
 		}
 
-		if (LawnUtil.getIntersectingPathId(entity.getBlockPos().down(), entity.getEntityWorld()) != 0)
+		//if (LawnUtil.getIntersectingPathId(entity.getBlockPos().down(), entity.getEntityWorld()) != 0)
+		if (plant.intersectingPath != 0)
 			// This plant needs to target entities on both paths, redirect them to a different predicate
 			return intersectionPredicate.test(entity);
 
-		if (!(entity instanceof PathBoundEntity) || ((PathBoundEntity) mob).getPathId() != ((PathBoundEntity) entity).getPathId())
+		//if (!(entity instanceof PathBoundEntity) || ((PathBoundEntity) mob).getPathId() != ((PathBoundEntity) entity).getPathId())
 			// It's on a different path, the enemy is of no concern
-			return false;
+			//return false;
 		//HomeLawnSecurity.LOGGER.info("pathTag of mob ({}) is the same as pathTag of entity ({})", ((PathBoundEntity) mob).getPathTagNbt(), ((PathBoundEntity) entity).getPathTagNbt());
 
 		// Find paths to the enemy and to the goal

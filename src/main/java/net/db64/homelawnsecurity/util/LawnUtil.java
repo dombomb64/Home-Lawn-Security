@@ -12,6 +12,7 @@ import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.ILawnPlant;
 import net.db64.homelawnsecurity.entity.custom.plant.IPathPlant;
+import net.db64.homelawnsecurity.entity.custom.projectile.PlantProjectileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -76,18 +77,22 @@ public class LawnUtil {
 		return false;
 	}
 
+	public static boolean isCertainPath(BlockPos pos, World world, int entityPathId) {
+		return isCertainPath(pos, world, entityPathId, false, false);
+	}
+
 	/**
 	 * @return If this block has a path matching entityPathId.
 	 */
-	public static boolean isCertainPath(BlockPos pos, World world, int entityPathId) {
+	public static boolean isCertainPath(BlockPos pos, World world, int entityPathId, boolean onlyMain, boolean onlyIntersecting) {
 		BlockState state = world.getBlockState(pos);
 		BlockState markerState = world.getBlockState(pos.up());
 
 		if (markerState.getBlock() instanceof LawnMarkerBlock) {
-			return isCertainPathHelper(markerState, entityPathId);
+			return isCertainPathHelper(markerState, entityPathId, onlyMain, onlyIntersecting);
 		}
 		else if (state.getBlock() instanceof ILawnBlock) {
-			return isCertainPathHelper(state, entityPathId);
+			return isCertainPathHelper(state, entityPathId, onlyMain, onlyIntersecting);
 		}
 		return false;
 	}
@@ -98,8 +103,67 @@ public class LawnUtil {
 		return false;
 	}
 
+	private static boolean isCertainPathHelper(BlockState state, int entityPathId, boolean onlyMain, boolean onlyIntersecting) {
+		if (state.getBlock() instanceof ILawnBlock)
+			return (!onlyIntersecting && ILawnBlock.getMainPathId(state) == entityPathId)
+				|| (!onlyMain && ILawnBlock.getIntersectingPathId(state) == entityPathId);
+		return false;
+	}
+
 	/**
-	 * @return If this kind of entity can be placed at this spot. Does not check distance from graveyard or if a plant is in the way.
+	 * @return Whether the {@code plant}'s path placement allows for targeting of entities of the {@code zombie}'s path.
+	 * @apiNote This only checks for path IDs. The rest is handled by the attacking entity.
+	 */
+	public static boolean canTargetEntity(PlantEntity plant, ZombieEntity zombie) {
+		if (!plant.onPath) {
+			return true;
+		}
+		int plantPath = plant.getPathId();
+		int plantIntPath = plant.intersectingPath;
+		int zombiePath = zombie.getPathId();
+		if (plantIntPath == 0) {
+			return plantPath == zombiePath;
+		}
+		return plantPath == zombiePath || plantIntPath == zombiePath;
+	}
+
+	/**
+	 * @return Whether the {@code zombie}'s path placement allows for targeting of entities of the {@code plant}'s path.
+	 * @apiNote This only checks for path IDs. The rest is handled by the attacking entity.
+	 */
+	public static boolean canTargetEntity(ZombieEntity zombie, PlantEntity plant) {
+		if (!plant.onPath) {
+			return true;
+		}
+		int plantPath = plant.getPathId();
+		int plantIntPath = plant.intersectingPath;
+		int zombiePath = zombie.getPathId();
+		if (plantIntPath == 0) {
+			return plantPath == zombiePath;
+		}
+		return plantPath == zombiePath || plantIntPath == zombiePath;
+	}
+
+	/**
+	 * @return Whether the {@code projectile}'s path values allow for attacking of entities of the {@code zombie}'s path.
+	 * @apiNote This only checks for path IDs. The rest is handled by the attacking entity.
+	 */
+	public static boolean canTargetEntity(PlantProjectileEntity projectile, ZombieEntity zombie) {
+		int plantPath = projectile.getPathId();
+		if (!projectile.ownerOnPath) {
+			return true;
+		}
+		int plantIntPath = projectile.getIntersectingPath();
+		int zombiePath = zombie.getPathId();
+		if (plantIntPath == 0) {
+			return plantPath == zombiePath;
+		}
+		return plantPath == zombiePath || plantIntPath == zombiePath;
+	}
+
+	/**
+	 * @return If this kind of entity can be placed at this spot.
+	 * @apiNote Does not check distance from graveyards or if a plant is in the way.
 	 */
 	public static boolean isPlaceable(BlockPos pos, World world, Class<? extends PathAwareEntity> entityClass) {
 		if (TargetZombieEntity.class.isAssignableFrom(entityClass)) {

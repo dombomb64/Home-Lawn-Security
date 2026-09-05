@@ -99,6 +99,7 @@ public class PeashooterEntity extends PlantEntity implements ILawnPlant, RangedA
 		projectileEntity.setMaxDistance(maxDistance);
 		projectileEntity.setPathId(entity.onPath ? entity.getPathId() : 0);
 		projectileEntity.setIntersectingPath(entity.intersectingPath);
+		projectileEntity.ownerOnPath = entity.onPath;
 
 		return projectileEntity;
 	}

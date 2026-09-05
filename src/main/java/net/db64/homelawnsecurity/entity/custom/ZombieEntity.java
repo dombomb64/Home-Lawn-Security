@@ -139,12 +139,23 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 		if (getEntityWorld() instanceof ServerWorld && isInPlay()) {
 			// Stop moving when coming into contact with a plant
 			movementBlocked = false;
-			for (Entity plant : getEntityWorld().getOtherEntities(this, getBoundingBox().contract(0.2), EntityPredicates.EXCEPT_SPECTATOR.and(this::stopsMovingAt))) {
+			for (Entity plant : getEntityWorld().getOtherEntities(this, getBoundingBox().contract(0.2, 0.5, 0.2),
+				EntityPredicates.EXCEPT_SPECTATOR.and(entity -> this.stopsMovingAt(entity, false)))) {
 				if (MiscUtil.isFacingEntity(this, plant)) {
 					movementBlocked = true;
 					//setVelocity(0d, getVelocity().y, 0d);
 					getNavigation().stop();
 					break;
+				}
+			}
+			if (!movementBlocked) {
+				for (Entity plant : getEntityWorld().getOtherEntities(this, getBoundingBox().expand(0.4, -0.5, 0.4),
+					EntityPredicates.EXCEPT_SPECTATOR.and(entity -> this.stopsMovingAt(entity, true)))) {
+					if (MiscUtil.isFacingEntity(this, plant)) {
+						movementBlocked = true;
+						getNavigation().stop();
+						break;
+					}
 				}
 			}
 		}
@@ -203,7 +214,11 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	 * @param other The entity to check against.
 	 * @return Whether this entity should stop moving forward when reaching that entity.
 	 */
-	public boolean stopsMovingAt(Entity other) {
+	public boolean stopsMovingAt(Entity other, boolean checkOffPath) {
+		if (checkOffPath)
+			return other instanceof PlantEntity plant
+				&& !plant.onPath
+				&& this.isInPlay();
 		return other instanceof PlantEntity plant
 			&& (plant.getPathId() == this.getPathId()
 			|| plant.intersectingPath == this.getPathId())
