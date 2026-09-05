@@ -60,7 +60,7 @@ public class PvzNavigation extends MobNavigation {
 	@Override
 	public boolean startMovingTo(Entity entity, double speed) {
 		Path path = this.findPathTo(entity, 0);
-		return path != null && this.startMovingAlong(path, speed);
+		return path != null && path.reachesTarget() && this.startMovingAlong(path, speed);
 	}
 
 	/*@Override

@@ -47,7 +47,7 @@ public class ChomperAttackGoal extends Goal {
 				return false;
 			} else {
 				this.path = this.mob.getNavigation().findPathTo(livingEntity, 0);
-				return this.path != null ? true : this.mob.isInAttackRange(livingEntity);
+				return this.path != null && this.path.reachesTarget() || this.mob.isInAttackRange(livingEntity);
 			}
 		}
 	}

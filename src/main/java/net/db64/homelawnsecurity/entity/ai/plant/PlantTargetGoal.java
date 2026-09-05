@@ -53,9 +53,10 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 			int otherPathId = i == 1 ? intersectingPathId : mainPathId;
 
 			// Find paths to the enemy and to the goal
-			Path targetPath = plant.getNavigation().findPathTo(zombie, 1);
+			Path targetPath = plant.getNavigation().findPathTo(zombie, 0);
 			Path goalPath = findGoalPath();
-			if (targetPath == null || goalPath == null) {
+			if ((targetPath == null || !targetPath.reachesTarget()) ||
+				(goalPath == null || !goalPath.reachesTarget())) {
 				plant.setPathId(otherPathId);
 				continue;
 			}
@@ -112,9 +113,10 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 		//HomeLawnSecurity.LOGGER.info("pathTag of mob ({}) is the same as pathTag of entity ({})", ((PathBoundEntity) mob).getPathTagNbt(), ((PathBoundEntity) entity).getPathTagNbt());
 
 		// Find paths to the enemy and to the goal
-		Path targetPath = mob.getNavigation().findPathTo(entity, 1);
+		Path targetPath = mob.getNavigation().findPathTo(entity, 0);
 		Path goalPath = findGoalPath();
-		if (targetPath == null || goalPath == null) return false;
+		if ((targetPath == null || !targetPath.reachesTarget()) ||
+			(goalPath == null || !goalPath.reachesTarget())) return false;
 		//HomeLawnSecurity.LOGGER.info("targetPath: {}, goalPath: {}", targetPath, goalPath);
 
 		// Get the position of the enemy
@@ -218,8 +220,8 @@ public class PlantTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T>
 			//HomeLawnSecurity.LOGGER.info("plant is checking for if the block at {}, {}, {} is a goal", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			if (!((PathBoundEntity) mob).isGoal(blockPos.down())) continue;
 			//HomeLawnSecurity.LOGGER.info("plant is checking for if the goal at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
-			Path path = mob.getNavigation().findPathTo(blockPos, 1);
-			if (path == null) continue;
+			Path path = mob.getNavigation().findPathTo(blockPos, 0);
+			if (path == null || !path.reachesTarget()) continue;
 			//HomeLawnSecurity.LOGGER.info("plant has decided the goal at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			return path;
 		}

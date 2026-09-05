@@ -80,7 +80,7 @@ public class LawnSeedPacketItem extends SeedPacketItem {
 	public boolean isValidPositionOnPath(SeedPacketPathfindingEntity entity) {
 		Path path = entity.findPathToGoal(SeedPacketPathfindingEntity.searchDistanceFromOtherEnd());
 
-		if (path == null) return false;
+		if (path == null || !path.reachesTarget()) return false;
 		else return path.getLength() > SeedPacketPathfindingEntity.searchDistanceFromClose();
 	}
 

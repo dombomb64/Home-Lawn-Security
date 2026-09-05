@@ -61,7 +61,7 @@ public class ZombieSeedPacketItem extends SeedPacketItem {
 	public boolean isValidPositionOnPath(SeedPacketPathfindingEntity entity) {
 		Path path = entity.findPathToStart(SeedPacketPathfindingEntity.searchDistanceFromClose());
 
-		if (path == null) return false;
+		if (path == null || !path.reachesTarget()) return false;
 		else return path.getLength() <= SeedPacketPathfindingEntity.searchDistanceFromClose();
 	}
 

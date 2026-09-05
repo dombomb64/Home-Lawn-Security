@@ -50,27 +50,28 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 			//return false;
 
 		// Find paths to the enemy and to the start
-		Path targetPath = mob.getNavigation().findPathTo(entity, 1);
-		Path startPath = findStartPath();
-		if (targetPath == null || startPath == null) return false;
-		//HomeLawnSecurity.LOGGER.info("targetPath: {}, startPath: {}", targetPath, startPath);
+		Path targetPath = mob.getNavigation().findPathTo(entity, 0);
+		Path goalPath = findGoalPath();
+		if ((targetPath == null || !targetPath.reachesTarget()) ||
+			(goalPath == null || !goalPath.reachesTarget())) return false;
+		//HomeLawnSecurity.LOGGER.info("targetPath: {}, goalPath: {}", targetPath, goalPath);
 
 		// Get the position of the enemy
 		BlockPos targetPos = targetPath.getTarget();
 		//HomeLawnSecurity.LOGGER.info("targetPos: {}", targetPos.toString());
 
-		// Go through the start path and see if the enemy is behind or not
-		if (startPath.getTarget().equals(entity.getBlockPos())) return false; // *tells predicate to return true if the pos at the end of the path to the enemy is the same as the enemy's pos* "Why is it ignoring the pathfinding part of the predicate?" -Me, apparently
-		for (int i = 0; i < startPath.getLength(); i++) {
-			//HomeLawnSecurity.LOGGER.info("checking for if startPath has position {} at node #{}", targetPos.toShortString(), i);
-			if (startPath.getNode(i).getBlockPos().equals(targetPos)
-				&& (i > 0 || !MiscUtil.isFacingEntity(mob, entity))) {
-				//HomeLawnSecurity.LOGGER.info("startPath does share a node position with targetPos");
-				return false;
+		// Go through the goal path and see if the enemy is in front or not
+		if (goalPath.getTarget().equals(entity.getBlockPos())) return true; // *tells predicate to return true if the pos at the end of the path to the enemy is the same as the enemy's pos* "Why is it ignoring the pathfinding part of the predicate?" -Me, apparently
+		for (int i = 0; i < goalPath.getLength(); i++) {
+			//HomeLawnSecurity.LOGGER.info("checking for if goalPath has position {} at node #{}", targetPos.toShortString(), i);
+			if (goalPath.getNode(i).getBlockPos().equals(targetPos)
+				&& (i > 0 || MiscUtil.isFacingEntity(mob, entity))) {
+				//HomeLawnSecurity.LOGGER.info("goalPath does share a node position with targetPos");
+				return true;
 			}
 		}
-		//HomeLawnSecurity.LOGGER.info("startPath did not share a node position with targetPos");
-		return MiscUtil.isFacingEntity(mob, entity);
+		//HomeLawnSecurity.LOGGER.info("goalPath did not share a node position with targetPos");
+		return false;
 	};
 
 	public Predicate<LivingEntity> hasHeadPredicate = entity -> {
@@ -116,16 +117,16 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 	}
 
 	@Nullable
-	private Path findStartPath() {
+	private Path findGoalPath() {
 		int rangeH = 16;
 		int rangeV = 5;
 		Iterable<BlockPos> iterable = BlockPos.iterateOutwards(mob.getSteppingPos().up(), rangeH, rangeV, rangeH);
 		for (BlockPos blockPos : iterable) {
 			//HomeLawnSecurity.LOGGER.info("zombie is checking for if the block at {}, {}, {} is a goal", blockPos.getX(), blockPos.getY(), blockPos.getZ());
-			if (!((PathBoundEntity) mob).isStart(blockPos.down())) continue;
+			if (!((PathBoundEntity) mob).isGoal(blockPos.down())) continue;
 			//HomeLawnSecurity.LOGGER.info("zombie is checking for if the start at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
-			Path path = mob.getNavigation().findPathTo(blockPos, 1);
-			if (path == null) continue;
+			Path path = mob.getNavigation().findPathTo(blockPos, 0);
+			if (path == null || !path.reachesTarget()) continue;
 			//HomeLawnSecurity.LOGGER.info("zombie has decided the start at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			return path;
 		}

@@ -60,7 +60,7 @@ public class LawnMowerMoveGoal extends MoveToGoalGoal {
 	@Override
 	protected void startMoving(double x, double y, double z) {
 		Path fullPath = this.mob.getNavigation().findPathTo(x, y, z, 0);
-		if (fullPath == null) return;
+		if (fullPath == null || !fullPath.reachesTarget()) return;
 		if (fullPath.getLength() < 3) {
 			this.mob.getNavigation().startMovingAlong(fullPath, this.speed);
 			return;
@@ -84,7 +84,7 @@ public class LawnMowerMoveGoal extends MoveToGoalGoal {
 			prevNode = curNode;
 			prevDiff = curDiff;
 		}
-		if (cutPath == null || cutPath.getLength() < 1) {
+		if (cutPath == null || !cutPath.reachesTarget() || cutPath.getLength() < 1) {
 			this.mob.getNavigation().startMovingAlong(fullPath, this.speed);
 			return;
 		}

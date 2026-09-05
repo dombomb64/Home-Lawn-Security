@@ -48,7 +48,7 @@ public class ZombieMeleeAttackGoal extends Goal {
 			return false;
 		}
 		this.path = this.mob.getNavigation().findPathTo(livingEntity, 0);
-		if (this.path != null && this.mob instanceof ZombieEntity zombie) {
+		if (this.path != null && this.path.reachesTarget() && this.mob instanceof ZombieEntity zombie) {
 			return zombie.movementBlocked;
 		}
 		//return this.mob.isInAttackRange(livingEntity);

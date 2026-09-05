@@ -108,7 +108,7 @@ public abstract class SeedPacketPathfindingEntity extends PathBoundEntity {
 			if (!isGoal(blockPos.down())) continue;
 			//HomeLawnSecurity.LOGGER.info("seed packet is checking for if the goal at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			Path path = getNavigation().findPathTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1);
-			if (path == null) continue;
+			if (path == null || !path.reachesTarget()) continue;
 			//HomeLawnSecurity.LOGGER.info("seed packet has determined that the goal at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			return path;
 		}
@@ -125,7 +125,7 @@ public abstract class SeedPacketPathfindingEntity extends PathBoundEntity {
 			if (!isStart(blockPos.down())) continue;
 			//HomeLawnSecurity.LOGGER.info("seed packet is checking for if the start at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			Path path = getNavigation().findPathTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1);
-			if (path == null) continue;
+			if (path == null || !path.reachesTarget()) continue;
 			//HomeLawnSecurity.LOGGER.info("seed packet has determined that the start at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
 			return path;
 		}
