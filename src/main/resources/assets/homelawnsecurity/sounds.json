@@ -178,6 +178,26 @@
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.lawn_mower.activate"
 	},
+	"entity.lawn_mower.damage": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/lawnmower_damage",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.lawn_mower.damage"
+	},
+	"entity.lawn_mower.destroy": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity/other/lawnmower_destroy",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.lawn_mower.destroy"
+	},
 
 	"entity.pool_cleaner.activate": {
 		"sounds": [
@@ -188,6 +208,62 @@
 			}
 		],
 		"subtitle": "subtitles.homelawnsecurity.entity.pool_cleaner.activate"
+	},
+	"entity.pool_cleaner.damage": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.lawn_mower.damage",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pool_cleaner.damage"
+	},
+	"entity.pool_cleaner.destroy": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.lawn_mower.destroy",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.pool_cleaner.destroy"
+	},
+
+	"entity.roof_cleaner.activate": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.lawn_mower.activate",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.roof_cleaner.activate"
+	},
+	"entity.roof_cleaner.damage": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.lawn_mower.damage",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.roof_cleaner.damage"
+	},
+	"entity.roof_cleaner.destroy": {
+		"sounds": [
+			{
+				"name": "homelawnsecurity:entity.lawn_mower.destroy",
+				"type": "event",
+				"pitch": 1.0,
+				"volume": 1.0
+			}
+		],
+		"subtitle": "subtitles.homelawnsecurity.entity.roof_cleaner.destroy"
 	},
 
 	"entity.gravestone.appear": {

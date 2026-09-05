@@ -34,7 +34,7 @@ public class MoveToGoalGoal extends Goal {
 	public void tick() {
 		super.tick();
 		if (!mob.isNavigating()) {
-			this.mob.getNavigation().startMovingTo(this.targetX, this.targetY, this.targetZ, this.speed);
+			startMoving(this.targetX, this.targetY, this.targetZ);
 		}
 	}
 
@@ -43,7 +43,7 @@ public class MoveToGoalGoal extends Goal {
 		return !mob.isGoal(this.mob.getSteppingPos()) && this.checkForExistingGoal();
 	}
 
-	private boolean checkForExistingGoal() {
+	protected boolean checkForExistingGoal() {
 		BlockPos targetPos = new BlockPos(MathHelper.floor(this.targetX), MathHelper.floor(this.targetY), MathHelper.floor(this.targetZ));
 		//HomeLawnSecurity.LOGGER.info("zombie's current goal pos: " + targetX + ", " + targetY + ", " + targetZ + " | " + targetPos.toShortString() + " zombie's current pos: " + mob.getPos().toString() + " | " + mob.getBlockPos().toShortString());
 		if (targetChosenBefore && mob.isGoal(targetPos.down())) {
@@ -76,7 +76,7 @@ public class MoveToGoalGoal extends Goal {
 	@Override
 	public void start() {
 		//HomeLawnSecurity.LOGGER.info("zombie started moving towards goal of " + targetX + ", " + targetY + ", " + targetZ + " while at " + mob.getPos().toString());
-		this.mob.getNavigation().startMovingTo(this.targetX, this.targetY, this.targetZ, this.speed);
+		startMoving(this.targetX, this.targetY, this.targetZ);
 	}
 
 	@Override
@@ -98,9 +98,17 @@ public class MoveToGoalGoal extends Goal {
 			if (path == null || !path.reachesTarget()) continue;
 			// TODO: Iterate through path nodes here to make sure the path doesn't have a goal block before the last node?
 
-			this.mob.getNavigation().startMovingTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.speed);
+			//startMoving(blockPos);
 			return Vec3d.ofBottomCenter(blockPos);
 		}
 		return null;
+	}
+
+	private void startMoving(BlockPos blockPos) {
+		startMoving(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+	}
+
+	protected void startMoving(double x, double y, double z) {
+		this.mob.getNavigation().startMovingTo(x, y, z, this.speed);
 	}
 }

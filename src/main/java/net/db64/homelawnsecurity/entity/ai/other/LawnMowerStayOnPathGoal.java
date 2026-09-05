@@ -10,7 +10,8 @@ public class LawnMowerStayOnPathGoal extends StayOnPathGoal {
 
 	@Override
 	public boolean canStart() {
-		return ((LawnMowerEntity) mob).mowing && super.canStart();
+		LawnMowerEntity mower = ((LawnMowerEntity) mob);
+		return mower.mowing && !mower.pathFinished && super.canStart();
 	}
 
 	@Override

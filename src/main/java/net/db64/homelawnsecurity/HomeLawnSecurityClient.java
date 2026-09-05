@@ -13,9 +13,7 @@ import net.db64.homelawnsecurity.entity.client.projectile.PeaRenderer;
 import net.db64.homelawnsecurity.entity.client.zombie.*;
 import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.ChomperEntity;
-import net.db64.homelawnsecurity.networking.ChangeEntityStateS2CPayload;
-import net.db64.homelawnsecurity.networking.EntityDamagedS2CPayload;
-import net.db64.homelawnsecurity.networking.SnapLookDirS2CPayload;
+import net.db64.homelawnsecurity.networking.*;
 import net.db64.homelawnsecurity.particle.ModParticles;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -54,7 +52,7 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 
 		//ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
 
-		ModDebugSubscriptionTypes.registerDebugSubscriptionTypes();
+		//ModDebugSubscriptionTypes.registerDebugSubscriptionTypes();
 		ModParticles.registerParticles();
 
 		BlockRenderLayerMap.putBlock(ModBlocks.SODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);
@@ -150,6 +148,17 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 				}
 			});
 		});*/
+
+		ClientPlayNetworking.registerGlobalReceiver(PlayerDestroyedMowerS2CPayload.ID, (payload, context) -> {
+			context.client().execute(() -> {
+				MinecraftClient client = context.client();
+
+				if (client.interactionManager == null)
+					return;
+				
+				client.interactionManager.blockBreakingCooldown = 5;
+			});
+		});
 	}
 
 	private void registerOther() {

@@ -112,6 +112,11 @@ public class ModSounds {
 	public static SoundEvent ENTITY_JALAPENO_EXPLODE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.jalapeno.explode"));
 	public static SoundEvent ENTITY_COIN_COLLECT = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.coin.collect"));
 	public static SoundEvent ENTITY_POOL_CLEANER_ACTIVATE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.pool_cleaner.activate"));
+	public static SoundEvent ENTITY_POOL_CLEANER_DAMAGE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.pool_cleaner.damage"));
+	public static SoundEvent ENTITY_POOL_CLEANER_DESTROY = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.pool_cleaner.destroy"));
+	public static SoundEvent ENTITY_ROOF_CLEANER_ACTIVATE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.roof_cleaner.activate"));
+	public static SoundEvent ENTITY_ROOF_CLEANER_DAMAGE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.roof_cleaner.damage"));
+	public static SoundEvent ENTITY_ROOF_CLEANER_DESTROY = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.roof_cleaner.destroy"));
 	public static SoundEvent ENTITY_ZOMBIE_EXPLODE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.explode"));
 	public static SoundEvent ENTITY_JACK_IN_THE_BOX_ZOMBIE_BOING = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.jack_in_the_box_zombie.boing"));
 	public static SoundEvent ENTITY_BUCKETHEAD_ZOMBIE_HURT = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.buckethead_zombie.hurt"));
@@ -126,6 +131,8 @@ public class ModSounds {
 	public static SoundEvent ENTITY_ZOMBIE_COLLAPSE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.collapse"));
 	public static SoundEvent ENTITY_GARGANTUAR_IDLE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.gargantuar.idle"));
 	public static SoundEvent ENTITY_LAWN_MOWER_ACTIVATE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.lawn_mower.activate"));
+	public static SoundEvent ENTITY_LAWN_MOWER_DAMAGE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.lawn_mower.damage"));
+	public static SoundEvent ENTITY_LAWN_MOWER_DESTROY = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.lawn_mower.destroy"));
 	public static SoundEvent ENTITY_ZOMBIE_FROZEN = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.zombie.frozen"));
 	public static SoundEvent ENTITY_SQUASH_NOTICE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.squash.notice"));
 	public static SoundEvent ENTITY_FROZEN_PEA_IGNITE = SoundEvent.of(Identifier.of(HomeLawnSecurity.MOD_ID, "entity.frozen_pea.ignite"));

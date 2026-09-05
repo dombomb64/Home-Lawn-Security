@@ -39,10 +39,18 @@
 	"subtitles.homelawnsecurity.entity.sun.collect": "Sun gets collected",
 
 	"subtitles.homelawnsecurity.entity.lawn_mower.activate": "Lawn Mower purrs",
+	"subtitles.homelawnsecurity.entity.lawn_mower.damage": "Lawn Mower shudders",
+	"subtitles.homelawnsecurity.entity.lawn_mower.destroy": "Lawn Mower smashes",
 	"subtitles.homelawnsecurity.entity.pool_cleaner.activate": "Pool Cleaner stirs",
+	"subtitles.homelawnsecurity.entity.pool_cleaner.damage": "Pool Cleaner sputters",
+	"subtitles.homelawnsecurity.entity.pool_cleaner.destroy": "Pool Cleaner bashes",
 	"subtitles.homelawnsecurity.entity.roof_cleaner.activate": "Roof Cleaner whirs",
+	"subtitles.homelawnsecurity.entity.roof_cleaner.damage": "Roof Cleaner crashes",
+	"subtitles.homelawnsecurity.entity.roof_cleaner.destroy": "Roof Cleaner stutters",
 	"subtitles.homelawnsecurity.entity.roof_cleaner.jump": "Roof Cleaner sproings",
 	"subtitles.homelawnsecurity.entity.bloomba.activate": "Bloomba clears",
+	"subtitles.homelawnsecurity.entity.bloomba.damage": "Bloomba judders",
+	"subtitles.homelawnsecurity.entity.bloomba.destroy": "Bloomba mashes",
 
 	"subtitles.homelawnsecurity.entity.gravestone.appear": "Gravestone emerges",
 

@@ -10,9 +10,12 @@ import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.entity.custom.zombie.ZombieGravestoneEntity;
 import net.db64.homelawnsecurity.item.ModItems;
+import net.db64.homelawnsecurity.networking.PlayerDestroyedMowerS2CPayload;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.LawnUtil;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.db64.homelawnsecurity.util.ModTags;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -20,19 +23,26 @@ import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -47,7 +57,17 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 	@Deprecated
 	public TagKey<Block> pathMarkerTag = ModTags.Blocks.ZOMBIE_PATH_1_MARKERS;*/
 
+	public static final int MOW_MIN_TIME = 50;
+	public static final int LEAVE_TIME = 10;
 	public boolean mowing;
+	public boolean leaving;
+	public int mowTicks;
+	public int leaveTicks;
+	public boolean canLeave;
+	public boolean pathFinished;
+	//private boolean velocityStored;
+	//public Vec3d leaveVelocity;
+	private int wallCrashTicks;
 
 	public boolean shouldDropSpawnItem = false;
 	public ItemStack customSpawnItem = getDefaultSpawnItem();
@@ -86,6 +106,14 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 		}
 
 		mowing = false;
+		mowTicks = -1;
+		leaving = false;
+		leaveTicks = -1;
+		canLeave = false;
+		pathFinished = false;
+		//velocityStored = false;
+		//leaveVelocity = new Vec3d(0d, 0d, 0d);
+		wallCrashTicks = -1;
 
 		return result;
 	}
@@ -106,24 +134,125 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 				}
 			}
 
-			if (mowing && !wasMowing)
-				world.playSoundFromEntity(null, this, ModSounds.ENTITY_LAWN_MOWER_ACTIVATE, SoundCategory.NEUTRAL, 1f, world.getRandom().nextFloat() * 0.4f + 1f);
+			if (mowing && !wasMowing) {
+				world.playSoundFromEntity(
+					null,
+					this,
+					ModSounds.ENTITY_LAWN_MOWER_ACTIVATE,
+					getSoundCategory(),
+					1f,
+					MiscUtil.getSoundPitch(getRandom())
+				);
+				mowTicks = 0;
+			}
+			else {
+				if (leaving) {
+					if (leaveTicks >= LEAVE_TIME) {
+						disappear();
+					}
+					else {
+						leaveTicks++;
+						keepMoving();
+					}
+				}
+				else if (mowing) {
+					if (mowTicks >= MOW_MIN_TIME) {
+						canLeave = true;
+					}
+					else if (mowTicks >= 0) {
+						mowTicks++;
+					}
+					if (pathFinished) {
+						/*Vec3d motion = getVelocity();
+						if (!velocityStored) {
+							leaveVelocity = new Vec3d(motion.x, motion.y, motion.z);
+							velocityStored = true;
+						}
+						setVelocity(leaveVelocity.x, motion.y, leaveVelocity.z);*/
+						keepMoving();
+
+						if (canLeave) {
+							leaving = true;
+							leaveTicks = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void keepMoving() {
+		World world = getEntityWorld();
+		if (!(world instanceof ServerWorld)) return;
+		ServerWorld serverWorld = (ServerWorld) getEntityWorld();
+
+		//setVelocity(leaveVelocity.x, getVelocity().y, leaveVelocity.z);
+		Vec3d movementInput = new Vec3d(0, 0, getAttributeValue(EntityAttributes.MOVEMENT_SPEED));
+		travel(movementInput);
+
+		if (wallCrashTicks > 0) {
+			wallCrashTicks--;
+			if (wallCrashTicks <= 0) {
+				kill(serverWorld);
+			}
+			return;
+		}
+
+		Vec3d velocity = movementInputToVelocity(movementInput, 0.1f, getYaw());
+		Box box = getBoundingBox();
+		Vec3d adjusted = adjustMovementForCollisions(
+			this, velocity, box, serverWorld,
+			serverWorld.getEntityCollisions(this, box.stretch(velocity))
+		);
+		if (!MathHelper.approximatelyEquals(adjusted.x, velocity.x)
+			|| !MathHelper.approximatelyEquals(adjusted.z, velocity.z)) {
+			wallCrashTicks = 4;
 		}
 	}
 
 	public void disappear() {
-		((ServerWorld) getEntityWorld()).spawnParticles(ParticleTypes.POOF, getBodyX(0.5), getBodyY(0.5), getBodyZ(0.5), 20, getWidth() * 0.5, getHeight() * 0.5, getWidth() * 0.5, 0.02);
-		dropSpawnItemOnDeath();
+		World world = getEntityWorld();
+		if (!(world instanceof ServerWorld serverWorld)) return;
+
+		serverWorld.spawnParticles(ParticleTypes.POOF,
+			getBodyX(0.0), getBodyY(0.5), getBodyZ(0.0), 20,
+			getWidth() * 0.5, getHeight() * 0.5, getWidth() * 0.5, 0.02);
+
+		dropSpawnItemOnDeath(null);
+		this.discard();
+	}
+
+	public void destroy() {
+		World world = getEntityWorld();
+		if (!(world instanceof ServerWorld serverWorld)) return;
+
+		serverWorld.spawnParticles(
+			new ItemStackParticleEffect(ParticleTypes.ITEM, ModItems.LAWN_MOWER.getDefaultStack()),
+			getBodyX(0.0), getBodyY(0.5), getBodyZ(0.0), 20,
+			getWidth() * 0.5, getHeight() * 0.5, getWidth() * 0.5, 0.05);
+		serverWorld.playSound(
+			null,
+			this.getBlockPos(),
+			ModSounds.ENTITY_LAWN_MOWER_DESTROY,
+			getSoundCategory(),
+			1f,
+			MiscUtil.getSoundPitch(getRandom())
+		);
 
 		this.discard();
+	}
+
+	@Override
+	public void onDeath(DamageSource damageSource) {
+		super.onDeath(damageSource);
+		destroy();
 	}
 
 	@Override
 	protected void drop(ServerWorld world, DamageSource damageSource) {
 		super.drop(world, damageSource);
 
-		if (isDead())
-			dropSpawnItemOnDeath();
+		dropSpawnItemOnDeath(damageSource);
 	}
 
 	protected void dropSpawnItemOnDeath() {
@@ -162,11 +291,27 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 
 		view.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
 
+		view.putBoolean("force_no_drops", forceNoDrops);
+
 		view.put("spawn_item", ItemStack.CODEC, customSpawnItem);
 
-		if (this.mowing) {
-			view.putBoolean("mowing", true);
-		}
+		view.putBoolean("mowing", mowing);
+
+		view.putBoolean("leaving", leaving);
+
+		view.putInt("mow_ticks", mowTicks);
+
+		view.putInt("leave_ticks", leaveTicks);
+
+		view.putBoolean("can_leave", canLeave);
+
+		view.putBoolean("path_finished", pathFinished);
+
+		//view.putBoolean("velocity_stored", velocityStored);
+
+		//view.put("leave_velocity", Vec3d.CODEC, leaveVelocity);
+
+		view.putInt("wall_crash_ticks", wallCrashTicks);
 	}
 
 	@Override
@@ -195,6 +340,30 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 
 		// mowing
 		this.mowing = view.getBoolean("mowing", false);
+
+		// leaving
+		this.leaving = view.getBoolean("leaving", false);
+
+		// mow_ticks
+		this.mowTicks = view.getInt("mow_ticks", -1);
+
+		// leave_ticks
+		this.leaveTicks = view.getInt("leave_ticks", -1);
+
+		// can_leave
+		this.canLeave = view.getBoolean("can_leave", false);
+
+		// path_finished
+		this.pathFinished = view.getBoolean("path_finished", false);
+
+		// velocity_stored
+		//this.velocityStored = view.getBoolean("velocity_stored", false);
+
+		// path_finished
+		//this.leaveVelocity = view.read("leave_velocity", Vec3d.CODEC).orElse(new Vec3d(0d, 0d, 0d));
+
+		// wall_crash_ticks
+		this.wallCrashTicks = view.getInt("wall_crash_ticks", -1);
 	}
 
 	@Override
@@ -210,18 +379,27 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		Entity attacker = source.getAttacker();
 		boolean damaged;
-		if (attacker instanceof LivingEntity && ((LivingEntity) attacker).getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
-			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, attacker.getSoundCategory(), 1, 1);
+
+		if (attacker instanceof ServerPlayerEntity player && player.isCreative()) {
 			damaged = super.damage(world, source, 1000000);
-		}
-		else if (attacker instanceof IPvzEntity) {
-			damaged = super.damage(world, source, amount);
 
 			this.hurtTime = 0;
 			this.timeUntilRegen = 0;
+
+			if (source.isOf(DamageTypes.PLAYER_ATTACK)) {
+				ServerPlayNetworking.send(
+					player,
+					new PlayerDestroyedMowerS2CPayload(getUuid())
+				);
+			}
 		}
 		else {
-			damaged = super.damage(world, source, amount * 10);
+			damaged = super.damage(world, source, amount);
+
+			if (attacker instanceof IPvzEntity || attacker instanceof PlayerEntity) {
+				this.hurtTime = 0;
+				this.timeUntilRegen = 0;
+			}
 		}
 
 		return damaged;
@@ -231,6 +409,24 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
 		// Don't let the player duplicate lawn mowers
 		return ActionResult.PASS;
+	}
+
+	/**
+	 * Mowers cannot despawn naturally.
+	 * @return Whether this entity's "intermediate range" despawning is disabled or not.
+	 */
+	@Override
+	public boolean cannotDespawn() {
+		return false;
+	}
+
+	/**
+	 * Mowers cannot despawn naturally.
+	 * @return Whether this entity can naturally despawn at all or not.
+	 */
+	@Override
+	public boolean canImmediatelyDespawn(double distanceSquared) {
+		return false;
 	}
 
 	/*
@@ -360,7 +556,7 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.MAX_HEALTH, 100 * IPvzEntity.HEALTH_SCALE)
+			.add(EntityAttributes.MAX_HEALTH, 50 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.ATTACK_DAMAGE, 10000)
 			.add(EntityAttributes.FOLLOW_RANGE, 64)
 			.add(EntityAttributes.MOVEMENT_SPEED, 0.3);
@@ -386,6 +582,21 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 	@Override
 	protected void playSecondaryStepSound(BlockState state) {
 		//super.playSecondaryStepSound(state);
+	}
+
+	@Override
+	protected @org.jspecify.annotations.Nullable SoundEvent getHurtSound(DamageSource source) {
+		return ModSounds.ENTITY_LAWN_MOWER_DAMAGE;
+	}
+
+	@Override
+	protected @org.jspecify.annotations.Nullable SoundEvent getDeathSound() {
+		return ModSounds.ENTITY_LAWN_MOWER_DESTROY;
+	}
+
+	@Override
+	public SoundCategory getSoundCategory() {
+		return SoundCategory.NEUTRAL;
 	}
 
 	/*

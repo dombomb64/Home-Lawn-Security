@@ -83,6 +83,7 @@ public class HomeLawnSecurity implements ModInitializer {
 		PayloadTypeRegistry.playS2C().register(ChangeEntityStateS2CPayload.ID, ChangeEntityStateS2CPayload.CODEC);
 		PayloadTypeRegistry.playS2C().register(EntityDamagedS2CPayload.ID, EntityDamagedS2CPayload.CODEC);
 		//PayloadTypeRegistry.playS2C().register(InitAnimationsS2CPayload.ID, InitAnimationsS2CPayload.CODEC);
+		PayloadTypeRegistry.playS2C().register(PlayerDestroyedMowerS2CPayload.ID, PlayerDestroyedMowerS2CPayload.CODEC);
 
 		PayloadTypeRegistry.playC2S().register(LawnGadgetSwitchModeC2SPayload.ID, LawnGadgetSwitchModeC2SPayload.CODEC);
 		ServerPlayNetworking.registerGlobalReceiver(LawnGadgetSwitchModeC2SPayload.ID, (payload, context) -> {

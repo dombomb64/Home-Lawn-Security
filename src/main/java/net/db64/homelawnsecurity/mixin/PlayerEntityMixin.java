@@ -1,7 +1,14 @@
 package net.db64.homelawnsecurity.mixin;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
+import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
@@ -36,5 +43,18 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
 				}
 			}
 		}
+	}
+
+	@Definition(id = "target", local = @Local(type = Entity.class, argsOnly = true))
+	@Definition(id = "LivingEntity", type = LivingEntity.class)
+	@Expression("target instanceof LivingEntity")
+	@ModifyExpressionValue(
+		method = "handleAttackDamage",
+		at = @At(
+			value = "MIXINEXTRAS:EXPRESSION"
+		)
+	)
+	public boolean mowerBlockDamageStatAndParticles(boolean original, @Local(argsOnly = true) Entity target) {
+		return original && !(target instanceof LawnMowerEntity);
 	}
 }
