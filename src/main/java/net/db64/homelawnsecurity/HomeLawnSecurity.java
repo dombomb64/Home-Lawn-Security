@@ -24,7 +24,6 @@ import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.item.custom.LawnGadgetItem;
 import net.db64.homelawnsecurity.networking.*;
-import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
@@ -35,10 +34,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -89,11 +87,16 @@ public class HomeLawnSecurity implements ModInitializer {
 		ServerPlayNetworking.registerGlobalReceiver(LawnGadgetSwitchModeC2SPayload.ID, (payload, context) -> {
 			context.server().execute(() -> {
 				ServerPlayerEntity player = context.player();
-				ServerWorld world = player.getEntityWorld();
+				ItemStack stack = player.getMainHandStack();
 
-				((LawnGadgetItem) ModItems.LAWN_GADGET).switchMode(player.getMainHandStack(), player);
-				world.playSound(null, player.getBlockPos(), ModSounds.ITEM_LAWN_GADGET_SWITCH, SoundCategory.PLAYERS, 0.5f, (player.getRandom().nextFloat() * 0.4f) + 0.8f);
-				player.swingHand(Hand.MAIN_HAND, true);
+				if (stack != null && stack.get(ModDataComponentTypes.LAWN_GADGET) != null) {
+					((LawnGadgetItem) ModItems.LAWN_GADGET).switchMode(stack, player, true);
+					player.swingHand(Hand.MAIN_HAND, true);
+				}
+				else if (stack != null && stack.getItem() instanceof LawnGadgetItem) {
+					((LawnGadgetItem) stack.getItem()).doBrokenItem(player, false);
+					player.swingHand(Hand.MAIN_HAND, true);
+				}
 			});
 		});
 	}

@@ -291,7 +291,7 @@
 
 	"item.homelawnsecurity.lawn_gadget": "Lawn buddy",
 	"item.homelawnsecurity.lawn_gadget.switch": "Mode: %1$s",
-	"item.homelawnsecurity.lawn_gadget.switch.error": "This item be broken!!",
+	"item.homelawnsecurity.lawn_gadget.switch.error": "This item be stuck!!",
 	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block": "Ye can't use yer lawn buddy on this block!!",
 	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block.no_markers": "Stench doesn't have anythin' ye can see!!",
 	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block.needs_turf": "This block be needin' some grass teh do that!!",
@@ -308,7 +308,7 @@
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting_marker": "Switch Intersecting Path Type (Marker Mode)",
 	"item.homelawnsecurity.lawn_gadget.mode.shade.old": "Change the amount of times shaven last grassacre (How dark it be)",
 	"item.homelawnsecurity.lawn_gadget.mode.shade": "Change how dark the land be",
-	"item.homelawnsecurity.lawn_gadget.use.error": "This item be broken!!",
+	"item.homelawnsecurity.lawn_gadget.use.error": "This item be broken beyond use!!",
 
 	"item.homelawnsecurity.turf": "Imitation Imitation Land",
 

@@ -5,7 +5,9 @@ import net.db64.homelawnsecurity.block.custom.lawn.LawnBlockBlock;
 import net.db64.homelawnsecurity.component.LawnGadgetComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.sound.ModSounds;
+import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -17,10 +19,9 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 
@@ -72,8 +73,9 @@ public class LawnGadgetItem extends Item {
 			// If the component is null, set it to its default value
 			//setComponentToDefault(stack);
 			// Actually no, play a funny sound and return
-			world.playSound(null, pos, SoundEvents.ENTITY_ITEM_BREAK.value(), SoundCategory.PLAYERS, 0.5f, 1.0f);
-			sendMessage(context.getPlayer(), Text.translatable(getTranslationKey() + ".use.error"));
+			PlayerEntity player = context.getPlayer();
+			if (player != null)
+				doBrokenItem(player, true);
 			return ActionResult.CONSUME;
 		}
 
@@ -131,7 +133,7 @@ public class LawnGadgetItem extends Item {
 					}
 					break;
 			}
-			world.playSound(null, pos, world.getBlockState(pos).getSoundGroup().getPlaceSound(), SoundCategory.PLAYERS, 1.0f, 1.0f);
+			world.playSound(null, pos, world.getBlockState(pos).getSoundGroup().getPlaceSound(), SoundCategory.BLOCKS, 1.0f, 1.0f);
 		}
 		else {
 			//world.playSound(null, context.getPlayer().getBlockPos(), ModSounds.RANDOM_BUZZER, SoundCategory.PLAYERS, 1.0f, 1.0f);
@@ -141,35 +143,51 @@ public class LawnGadgetItem extends Item {
 		return ActionResult.CONSUME;
 	}
 
-	public void switchMode(ItemStack stack, LivingEntity entity) {
+	public void switchMode(ItemStack stack, LivingEntity entity, boolean playSound) {
+		if (playSound) {
+			entity.getEntityWorld().playSound(
+				null,
+				entity.getBlockPos(),
+				ModSounds.ITEM_LAWN_GADGET_SWITCH,
+				entity.getSoundCategory(),
+				0.5f,
+				MiscUtil.getSoundPitch(entity.getRandom())
+			);
+		}
+		
 		LawnGadgetComponent component = stack.get(ModDataComponentTypes.LAWN_GADGET);
 		if (component == null) { // Lawn gadget component is null for some reason, make it the default value
-			setComponentToDefault(stack);
-			if (entity instanceof PlayerEntity player)
-				sendMessage(player, Text.translatable(getTranslationKey() + ".switch.error"));
+			//setComponentToDefault(stack);
+			/*if (entity instanceof PlayerEntity player)
+				sendMessage(player, Text.translatable(getTranslationKey() + ".switch.error"));*/
+			component = setComponentToDefault(stack);
 		}
-		else { // Component is not null, continue as normal
-			String mode = component.mode();
-			mode = switch (mode) { // case "currentMode": mode = "nextMode";
-				/*case "turf_toggle" -> "path_toggle";
-				case "path_toggle" -> "path_type";
-				case "path_type" -> "turf_toggle";
-				case "turf_toggle_marker" -> "path_toggle_marker";
-				case "path_toggle_marker" -> "path_type_marker";
-				case "path_type_marker" -> "turf_toggle_marker";*/
-				case "path_type_main" -> "path_type_intersecting";
-				case "path_type_intersecting" -> "shade";
-				case "shade" -> "path_type_main";
-				/*case "path_type_main_marker" -> "path_type_intersecting_marker";
-				case "path_type_intersecting_marker" -> "path_type_main_marker";*/
-				default -> "path_type_main";
-			};
-			stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent(mode));
-			if (entity instanceof PlayerEntity player)
-				sendMessage(player,
-					Text.translatable(getTranslationKey() + ".switch",
-						Text.translatable(getTranslationKey() + ".mode." + mode)));
-		}
+		// Component is not null, continue as normal
+		String mode = getNextMode(component);
+		stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent(mode));
+		if (entity instanceof PlayerEntity player)
+			sendMessage(player,
+				Text.translatable(getTranslationKey() + ".switch",
+					Text.translatable(getTranslationKey() + ".mode." + mode)));
+	}
+
+	private static @NonNull String getNextMode(LawnGadgetComponent component) {
+		String mode = component.mode();
+		mode = switch (mode) { // case "current_mode" -> "next_mode";
+			/*case "turf_toggle" -> "path_toggle";
+			case "path_toggle" -> "path_type";
+			case "path_type" -> "turf_toggle";
+			case "turf_toggle_marker" -> "path_toggle_marker";
+			case "path_toggle_marker" -> "path_type_marker";
+			case "path_type_marker" -> "turf_toggle_marker";*/
+			case "path_type_main" -> "path_type_intersecting";
+			case "path_type_intersecting" -> "shade";
+			case "shade" -> "path_type_main";
+			/*case "path_type_main_marker" -> "path_type_intersecting_marker";
+			case "path_type_intersecting_marker" -> "path_type_main_marker";*/
+			default -> "path_type_main";
+		};
+		return mode;
 	}
 
 	/*public void toggleMarkerMode(ItemStack stack, LivingEntity entity) {
@@ -202,12 +220,27 @@ public class LawnGadgetItem extends Item {
 		}
 	}*/
 
-	public void setComponentToDefault(ItemStack stack) {
-		stack.set(ModDataComponentTypes.LAWN_GADGET, new LawnGadgetComponent("path_type_main"));
+	public LawnGadgetComponent setComponentToDefault(ItemStack stack) {
+		LawnGadgetComponent component = new LawnGadgetComponent("path_type_main");
+		stack.set(ModDataComponentTypes.LAWN_GADGET, component);
+		return component;
 	}
 
 	private static void sendMessage(PlayerEntity player, Text message) {
 		((ServerPlayerEntity) player).sendMessageToClient(message, true);
+	}
+
+	public void doBrokenItem(Entity entity, boolean use) {
+		entity.getEntityWorld().playSound(
+			null,
+			entity.getBlockPos(),
+			SoundEvents.ENTITY_ITEM_BREAK.value(),
+			entity.getSoundCategory(),
+			0.5f,
+			MiscUtil.getSoundPitch(entity.getRandom())
+		);
+		if (entity instanceof PlayerEntity player)
+			sendMessage(player, Text.translatable(getTranslationKey() + (use ? ".use.error" : ".switch.error")));
 	}
 
 	/*public static boolean shouldRevealMarkers(ItemStack stack) {

@@ -293,7 +293,7 @@
 
 	"item.homelawnsecurity.lawn_gadget": "lil sporky",
 	"item.homelawnsecurity.lawn_gadget.switch": "type of do: %1$s",
-	"item.homelawnsecurity.lawn_gadget.switch.error": "U BROKE DIS",
+	"item.homelawnsecurity.lawn_gadget.switch.error": "isstUCK",
 	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block": "U CANT SPORK DIS BLOUK",
 	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block.no_markers": "DIS BLONKS INVISIBUL DUM DUM",
 	"item.homelawnsecurity.lawn_gadget.switch.error.invalid_block.needs_turf": "DIS BLOGK NEDZ GRASS TO DO DAT",
