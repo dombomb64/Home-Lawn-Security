@@ -165,24 +165,17 @@ public abstract class ZombieEntity extends SeedPlacedEntity implements IDegradab
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		Entity attacker = source.getAttacker();
 		boolean damaged;
-		if (attacker instanceof LivingEntity && ((LivingEntity) attacker).getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
-			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, attacker.getSoundCategory(), 1, 1);
-			damaged = super.damage(world, source, 1000000);
-		}
-		else {
-			damaged = super.damage(world, source, amount);
-		}
 
 		if (attacker instanceof IPvzEntity
 			|| source.isOf(ModDamageTypes.ZOMBIE_HEADLESS)) {
-			//damaged = super.damage(world, source, amount);
+			damaged = super.damage(world, source, amount);
 
 			this.hurtTime = 0;
 			this.timeUntilRegen = 0;
 		}
-		//else {
-			//damaged = super.damage(world, source, amount * 10);
-		//}
+		else {
+			damaged = super.damage(world, source, amount);
+		}
 
 		/*if (!getHasLostHeadwear() && getHealth() < getLoseHeadwearHealth()) {
 			setHasLostHeadwear(true);

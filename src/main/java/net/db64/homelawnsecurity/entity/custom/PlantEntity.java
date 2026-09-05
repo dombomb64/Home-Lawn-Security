@@ -110,21 +110,20 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 
 	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
+		boolean damaged;
 		Entity attacker = source.getAttacker();
-		if (attacker instanceof LivingEntity && ((LivingEntity) attacker).getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
-			world.playSound(this, getBlockPos(), ModSounds.RANDOM_SHOVEL_ATTACK, attacker.getSoundCategory(), 0.5f, 1);
-			return super.damage(world, source, 1000000);
-		}
-		else if (attacker instanceof IPvzEntity) {
-			//boolean damaged = super.damage(world, source, amount);
+
+		if (attacker instanceof IPvzEntity) {
+			damaged = super.damage(world, source, amount);
 
 			this.hurtTime = 0;
 			this.timeUntilRegen = 0;
-
-			//return damaged;
 		}
-		//return super.damage(world, source, amount * 10);
-		return super.damage(world, source, amount);
+		else {
+			damaged = super.damage(world, source, amount);
+		}
+
+		return damaged;
 	}
 
 	@Override
@@ -140,7 +139,7 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 				world.playSoundClient(getX(), getY(), getZ(), ModSounds.ENTITY_PLANT_SHOVEL, getSoundCategory(), 1, 1, false);
 			}
 			else {
-				dropSpawnItemOnDeath();
+				dropSpawnItemOnDeath(null);
 				discard();
 			}
 

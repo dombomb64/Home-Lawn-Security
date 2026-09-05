@@ -70,6 +70,7 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 	private int wallCrashTicks;
 
 	public boolean shouldDropSpawnItem = false;
+	public boolean forceNoDrops = false;
 	public ItemStack customSpawnItem = getDefaultSpawnItem();
 
 	/*
@@ -255,11 +256,17 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 		dropSpawnItemOnDeath(damageSource);
 	}
 
-	protected void dropSpawnItemOnDeath() {
-		if (shouldDropSpawnItem) {
+	protected void dropSpawnItemOnDeath(@Nullable DamageSource damageSource) {
+		if (!forceNoDrops && (shouldDropSpawnItem ||
+			(damageSource != null && damageSource.getAttacker() instanceof PlayerEntity player
+			&& !player.isCreative() && !player.isSpectator()))) {
 			ItemEntity itemEntity = dropStack((ServerWorld) getEntityWorld(), getSpawnItem());
 			if (itemEntity != null) {
-				itemEntity.setVelocity(random.nextFloat() * 0.1f - 0.05f, 0.1f, random.nextFloat() * 0.1f - 0.05f);
+				itemEntity.setVelocity(
+					random.nextFloat() * 0.1f - 0.05f,
+					0.1f,
+					random.nextFloat() * 0.1f - 0.05f
+				);
 			}
 		}
 	}
@@ -273,6 +280,11 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 
 	protected ItemStack getDefaultSpawnItem() {
 		return ModItems.LAWN_MOWER.getDefaultStack().copy();
+	}
+
+	@Override
+	public @org.jspecify.annotations.Nullable ItemStack getPickBlockStack() {
+		return getSpawnItem();
 	}
 
 	@Override
@@ -335,6 +347,8 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 		}*/
 
 		shouldDropSpawnItem = view.getBoolean("should_drop_spawn_item", false);
+
+		forceNoDrops = view.getBoolean("force_no_drops", false);
 
 		customSpawnItem = view.read("spawn_item", ItemStack.CODEC).orElse(getDefaultSpawnItem());
 

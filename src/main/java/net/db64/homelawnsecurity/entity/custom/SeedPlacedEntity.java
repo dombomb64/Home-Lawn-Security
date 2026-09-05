@@ -1,20 +1,16 @@
 package net.db64.homelawnsecurity.entity.custom;
 
-import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
@@ -23,16 +19,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.debug.data.EntityPathDebugData;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEntity {
 	public boolean shouldDropSpawnItem = false;
+	public boolean forceNoDrops = false;
 	public ItemStack spawnItem = ItemStack.EMPTY;
 
 	protected SeedPlacedEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
@@ -72,14 +65,20 @@ public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEn
 	protected void drop(ServerWorld world, DamageSource damageSource) {
 		super.drop(world, damageSource);
 
-		dropSpawnItemOnDeath();
+		dropSpawnItemOnDeath(damageSource);
 	}
 
-	protected void dropSpawnItemOnDeath() {
-		if (shouldDropSpawnItem) {
+	protected void dropSpawnItemOnDeath(@Nullable DamageSource damageSource) {
+		if (!forceNoDrops && (shouldDropSpawnItem ||
+			(damageSource != null && damageSource.getAttacker() instanceof PlayerEntity player
+				&& !player.isCreative() && !player.isSpectator()))) {
 			ItemEntity itemEntity = dropStack((ServerWorld) getEntityWorld(), getSpawnItem());
 			if (itemEntity != null) {
-				itemEntity.setVelocity(random.nextFloat() * 0.1f - 0.05f, 0.1f, random.nextFloat() * 0.1f - 0.05f);
+				itemEntity.setVelocity(
+					random.nextFloat() * 0.1f - 0.05f,
+					0.1f,
+					random.nextFloat() * 0.1f - 0.05f
+				);
 			}
 		}
 	}
@@ -97,6 +96,11 @@ public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEn
 			return spawnItem;
 		}
 		return ItemStack.EMPTY.copy();
+	}
+
+	@Override
+	public @Nullable ItemStack getPickBlockStack() {
+		return getSpawnItem();
 	}
 
 	@Override
@@ -186,6 +190,8 @@ public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEn
 
 		view.putBoolean("should_drop_spawn_item", shouldDropSpawnItem);
 
+		view.putBoolean("force_no_drops", forceNoDrops);
+
 		view.put("spawn_item", ItemStack.OPTIONAL_CODEC, getSpawnItem());
 	}
 
@@ -200,6 +206,7 @@ public abstract class SeedPlacedEntity extends PathBoundEntity implements IPvzEn
 		}*/
 
 		shouldDropSpawnItem = view.getBoolean("should_drop_spawn_item", false);
+		forceNoDrops = view.getBoolean("force_no_drops", false);
 		spawnItem = view.read("spawn_item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY.copy());
 	}
 
