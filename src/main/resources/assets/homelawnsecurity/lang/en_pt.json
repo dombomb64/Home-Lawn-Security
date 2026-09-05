@@ -232,8 +232,8 @@
 
 	"entity.homelawnsecurity.currency": "Loot",
 	"entity.homelawnsecurity.lawn_mower": "Murderin' Machine",
-	"entity.homelawnsecurity.pool_cleaner": "Murderin' Machine o' the sea",
-	"entity.homelawnsecurity.roof_cleaner": "Murderin' Machine o' the highlands",
+	"entity.homelawnsecurity.pool_cleaner": "Murderin' Machine o' th' sea",
+	"entity.homelawnsecurity.roof_cleaner": "Murderin' Machine o' th' highlands",
 	"entity.homelawnsecurity.bloomba": "Murderin' Machine o' bang fer yer 'bloon",
 	"entity.homelawnsecurity.target_zombie": "Bullseye Plunderer",
 
@@ -266,22 +266,22 @@
 	"item.homelawnsecurity.daves_pan": "Pot o' craziness",
 
 	"item.homelawnsecurity.bag_of_sun": "Sack o' sunshine",
-	"item.homelawnsecurity.bag_of_brainpower": "Sack o' brainpowerrr",
+	"item.homelawnsecurity.bag_of_brainpower": "Sack o' plunder power",
 
 	"item.homelawnsecurity.sun": "Sunshine",
-	"item.homelawnsecurity.brainpower": "Brainpowerrr",
+	"item.homelawnsecurity.brainpower": "Plunder power",
 
 	"item.homelawnsecurity.currency.name.separator": " - ",
 	"item.homelawnsecurity.currency.name.sun": "%1$s Sun",
-	"item.homelawnsecurity.currency.name.brainpower": "%1$s Brainpowerrr",
+	"item.homelawnsecurity.currency.name.brainpower": "%1$s Plunder power",
 
 	"item.homelawnsecurity.lawn_mower": "Murderin' Machine",
 	"item.homelawnsecurity.lawn_mower.placement.error": "Yargh! Ye can only place these on the garden!",
-	"item.homelawnsecurity.pool_cleaner": "Murderin' Machine o' the sea",
+	"item.homelawnsecurity.pool_cleaner": "Murderin' Machine o' th' sea",
 	"item.homelawnsecurity.pool_cleaner.placement.error": "Yargh! Ye can only place these on the garden!",
-	"item.homelawnsecurity.roof_cleaner": "Murderin' Machine o' the highlands",
+	"item.homelawnsecurity.roof_cleaner": "Murderin' Machine o' th' highlands",
 	"item.homelawnsecurity.roof_cleaner.placement.error": "Yargh! Ye can only place these on the garden!",
-	"item.homelawnsecurity.bloomba": "Murderin' Machine o' the bang fer yer 'bloon",
+	"item.homelawnsecurity.bloomba": "Murderin' Machine o' th' bang fer yer 'bloon",
 	"item.homelawnsecurity.bloomba.placement.error": "Yargh! Ye can only place these on the garden!",
 
 	"item.homelawnsecurity.target": "Bullseye",
@@ -302,12 +302,12 @@
 	"item.homelawnsecurity.lawn_gadget.mode.path_toggle_marker": "Toggle Path (Marker Mode)",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type": "Switch Path Type",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_marker": "Switch Path Type (Marker Mode)",
-	"item.homelawnsecurity.lawn_gadget.mode.path_type_main": "Change the main voyage",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_main": "Change th' main voyage",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_main_marker": "Switch Main Path Type (Marker Mode)",
-	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting": "Change the other voyage",
+	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting": "Change th' crossin' voyage",
 	"item.homelawnsecurity.lawn_gadget.mode.path_type_intersecting_marker": "Switch Intersecting Path Type (Marker Mode)",
-	"item.homelawnsecurity.lawn_gadget.mode.shade.old": "Change the amount of times shaven last grassacre (How dark it be)",
-	"item.homelawnsecurity.lawn_gadget.mode.shade": "Change how dark the land be",
+	"item.homelawnsecurity.lawn_gadget.mode.shade.old": "Change th' amount of times shaven last grassacre (How dark it be)",
+	"item.homelawnsecurity.lawn_gadget.mode.shade": "Change how dark th' land be",
 	"item.homelawnsecurity.lawn_gadget.use.error": "This item be broken beyond use!!",
 
 	"item.homelawnsecurity.turf": "Imitation Imitation Land",
@@ -356,7 +356,7 @@
 	"block.homelawnsecurity.zombie_path_block_1": "Unsodded Path Block A",
 	"block.homelawnsecurity.zombie_path_block_2": "Unsodded Path Block B",
 	"block.homelawnsecurity.zombie_path_block_cross": "Unsodded Path Block Intersection",
-	"block.homelawnsecurity.unsodded_lawn_block": "Naked lawn",
+	"block.homelawnsecurity.unsodded_lawn_block": "Bare lawn",
 	"block.homelawnsecurity.lawn_block_v2": "Lawn Block",
 	"block.homelawnsecurity.sodded_lawn_block": "Grassy lawn",
 
@@ -384,18 +384,18 @@
 
 
 	"tooltip.homelawnsecurity.bag_of_sun": "Sunshine: %1$s",
-	"tooltip.homelawnsecurity.bag_of_brainpower": "Brainpowerrr: %1$s",
+	"tooltip.homelawnsecurity.bag_of_brainpower": "Plunder power: %1$s",
 	"tooltip.homelawnsecurity.currency.sun": "Sunshine: %1$s",
-	"tooltip.homelawnsecurity.currency.brainpower": "Brainpowerrr: %1$s",
+	"tooltip.homelawnsecurity.currency.brainpower": "Plunder power: %1$s",
 
 	"tooltip.item.homelawnsecurity.dummy_item": "If any of ye mod in a use fer this thing, I'll eat me own hat.",
 
 	"tooltip.item.homelawnsecurity.daves_pan": "Triggers tinkerin' mode.",
-	"tooltip.item.homelawnsecurity.daves_pan.warning": "BEWARE! Use of this thing is cheatin'!",
+	"tooltip.item.homelawnsecurity.daves_pan.warning": "BEWARE! Use of this thing be cheatin'!",
 	"tooltip.item.homelawnsecurity.target": "Places a bullseye plunderer.",
 	"tooltip.item.homelawnsecurity.shovel.use": "Use on plants to disarrrm them.",
 	"tooltip.item.homelawnsecurity.shovel.attack": "Smack traitorous plants and plunderers to behead them.",
-	"tooltip.item.homelawnsecurity.lawn_gadget.use": "Use this on the lawn to get tinkerin'.",
+	"tooltip.item.homelawnsecurity.lawn_gadget.use": "Use this on th' lawn to get tinkerin'.",
 	"tooltip.item.homelawnsecurity.lawn_gadget.switch": "Jostle yer hand to change what yer doin'.",
 	"tooltip.item.homelawnsecurity.lawn_gadget.toggle_marker_mode": "Sneak and punch to switch between markers and normal blocks.",
 	"tooltip.item.homelawnsecurity.lawn_gadget.mode": "Mode: ",
@@ -403,9 +403,9 @@
 	"tooltip.item.homelawnsecurity.brain": "Give this to a plunderer fer a free crossbonus!",
 	"tooltip.item.homelawnsecurity.mower.when_tripped": "When tripped:",
 	"tooltip.item.homelawnsecurity.mower.when_tripped.lawn_mower": "Follows a straight course.",
-	"tooltip.item.homelawnsecurity.mower.when_tripped.pool_cleaner": "Follows a straight course, survivin' the sea.",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.pool_cleaner": "Follows a straight course, survivin' th' sea.",
 	"tooltip.item.homelawnsecurity.mower.when_tripped.roof_cleaner": "Follows a straight course, jumpin' up ledges.",
-	"tooltip.item.homelawnsecurity.mower.when_tripped.bloomba": "Tries teh follow the whole thing, but it's a landlubber.",
+	"tooltip.item.homelawnsecurity.mower.when_tripped.bloomba": "Tries t' follow th' whole thing, but it's a landlubber.",
 
 	"tooltip.item.homelawnsecurity.seed_packet.cost": "%1$s%2$s",
 	"tooltip.item.homelawnsecurity.seed_packet.currency.sun": "\udb80\udc00",
@@ -413,31 +413,31 @@
 	"tooltip.item.homelawnsecurity.seed_packet.cooldown": "Loadin' time: %1$ss",
 
 	"tooltip.item.homelawnsecurity.bone_meal": "Give this to a plant fer a free crossbonus!",
-	"tooltip.item.homelawnsecurity.shears": "Ye can snip the turf off yer lawn with these.",
+	"tooltip.item.homelawnsecurity.shears": "Ye can snip th' turf off yer lawn with these.",
 	"tooltip.item.homelawnsecurity.obsolete": "Ancient Relic",
 
-	"tooltip.block.homelawnsecurity.garden": "Plunderers will try teh get here.",
-	"tooltip.block.homelawnsecurity.graveyard": "Murderin' Machines will try teh get here.",
+	"tooltip.block.homelawnsecurity.garden": "Plunderers will try t' get here.",
+	"tooltip.block.homelawnsecurity.graveyard": "Murderin' Machines will try t' get here.",
 
-	"tooltip.block.homelawnsecurity.marker": "Tells the bottom block what teh do.",
-	"tooltip.block.homelawnsecurity.placement.allows": "Allows the placement of:",
+	"tooltip.block.homelawnsecurity.marker": "Tells th' bottom block what t' do.",
+	"tooltip.block.homelawnsecurity.placement.allows": "Allows th' placement of:",
 	"tooltip.block.homelawnsecurity.placement.lawn_plants": "Lawnlubber Plants",
 	"tooltip.block.homelawnsecurity.placement.path_plants": "Sacrificial Plants",
 	"tooltip.block.homelawnsecurity.placement.zombies": "Plunderers",
 	"tooltip.block.homelawnsecurity.placement.none": "Nuffin'",
 
-	"tooltip.block.homelawnsecurity.lawn_block": "Use a lawn buddy on this block teh get tinkerin'.",
+	"tooltip.block.homelawnsecurity.lawn_block": "Use a lawn buddy on this block t' get tinkerin'.",
 
 	"tooltip.block.homelawnsecurity.sun_spawner": "Place near a lawn to make doubloons o' sunshine rain down.",
 	"tooltip.block.homelawnsecurity.brainpower_beacon": "Place near a lawn to make doubloons o' plunderin' rain down.",
 
 	"tooltip.block.homelawnsecurity.lawn_manager.winner": "If ye win, yer side gets powered.",
-	"tooltip.block.homelawnsecurity.lawn_manager.reset": "Press [%s] on the block teh bring it back teh square one.",
+	"tooltip.block.homelawnsecurity.lawn_manager.reset": "Press [%s] on th' block t' bring it back t' square one.",
 
 
 
 	"tag.item.homelawnsecurity.bag_of_sun": "Holds sunshine",
-	"tag.item.homelawnsecurity.bag_of_brainpower": "Holds brainpowerrr",
+	"tag.item.homelawnsecurity.bag_of_brainpower": "Holds plunder power",
 	"tag.item.homelawnsecurity.reveals_markers": "Reveals stench",
 	"tag.item.homelawnsecurity.reveals_markers_while_sneaking": "Reveals stench while theftin'",
 	"tag.item.homelawnsecurity.plant_feedable_for_duplicate": "Duplicates plants",
