@@ -5,17 +5,21 @@ import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
+import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.other.LawnMowerEntity;
+import net.db64.homelawnsecurity.particle.ModParticles;
 import net.db64.homelawnsecurity.sound.ModSounds;
 import net.db64.homelawnsecurity.util.MiscUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -68,6 +72,44 @@ public abstract class PlayerEntityMixin extends LivingEntityMixin {
 		)
 	)
 	public boolean mowerBlockDamageStatAndParticles(boolean original, @Local(argsOnly = true) Entity target) {
+		boolean replaceParticles = getMainHandStack().get(ModDataComponentTypes.SHOVEL) != null
+			&& (target instanceof LawnMowerEntity);
+		if (replaceParticles && getEntityWorld() instanceof ServerWorld world) {
+			spawnBonkParticle(world, target);
+		}
 		return original && !(target instanceof LawnMowerEntity);
+	}
+
+	@Definition(id = "f", local = @Local(type = float.class, ordinal = 1))
+	@Expression("f > 2.0")
+	@ModifyExpressionValue(
+		method = "handleAttackDamage",
+		at = @At(
+			value = "MIXINEXTRAS:EXPRESSION"
+		)
+	)
+	public boolean shovelReplaceDamageParticles(boolean original, @Local(argsOnly = true) Entity target) {
+		boolean replaceParticles = getMainHandStack().get(ModDataComponentTypes.SHOVEL) != null
+			&& (target instanceof PathBoundEntity);
+		if (replaceParticles && getEntityWorld() instanceof ServerWorld world) {
+			spawnBonkParticle(world, target);
+			return false;
+		}
+		return original;
+	}
+
+	@Unique
+	public void spawnBonkParticle(ServerWorld world, Entity target) {
+		world.spawnParticles(
+			ModParticles.BONK,
+			target.getX(),
+			target.getBodyY(0.5),
+			target.getZ(),
+			1,
+			0d,
+			0d,
+			0d,
+			0d
+		);
 	}
 }

@@ -179,6 +179,17 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 	}
 
 	@Override
+	public void takeKnockback(double strength, double x, double z) {
+		// oh no, i hope this really heavy beach ball doesn't break my leg, ahaha- *snap*
+
+		LivingEntity attacker = getAttacker();
+		if (attacker != null && attacker.getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
+			super.takeKnockback(strength * 3, x, z);
+			addVelocity(0d, 0.2d, 0d);
+		}
+	}
+
+	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		Entity attacker = source.getAttacker();
 		boolean damaged;

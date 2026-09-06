@@ -24,6 +24,7 @@ import net.db64.homelawnsecurity.item.ModItemGroups;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.item.custom.LawnGadgetItem;
 import net.db64.homelawnsecurity.networking.*;
+import net.db64.homelawnsecurity.particle.ModParticles;
 import net.db64.homelawnsecurity.util.ModGameEvents;
 import net.db64.homelawnsecurity.util.ModLootTableModifiers;
 import net.fabricmc.api.ModInitializer;
@@ -63,6 +64,7 @@ public class HomeLawnSecurity implements ModInitializer {
 		ModDamageTypes.registerDamageTypes();
 		ModGameEvents.registerGameEvents();
 		ModDebugSubscriptionTypes.registerDebugSubscriptionTypes();
+		ModParticles.registerParticles();
 
 		registerPackets();
 

@@ -53,7 +53,7 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 		//ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
 
 		//ModDebugSubscriptionTypes.registerDebugSubscriptionTypes();
-		ModParticles.registerParticles();
+		//ModParticles.registerParticles();
 
 		BlockRenderLayerMap.putBlock(ModBlocks.SODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.UNSODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);

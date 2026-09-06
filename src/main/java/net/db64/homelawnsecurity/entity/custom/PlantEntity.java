@@ -100,15 +100,6 @@ public abstract class PlantEntity extends SeedPlacedEntity {
 	}
 
 	@Override
-	public void takeKnockback(double strength, double x, double z) {
-		// ahaha--*snap*
-
-		if (getAttacker() != null && getAttacker().getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
-			super.takeKnockback(strength * 3, x, z);
-		}
-	}
-
-	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		boolean damaged;
 		Entity attacker = source.getAttacker();

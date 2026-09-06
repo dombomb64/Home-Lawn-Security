@@ -10,12 +10,16 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
+import net.minecraft.component.type.ToolComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
@@ -74,8 +78,8 @@ public class ModItems {
 			Text.translatable("tooltip.item.homelawnsecurity.target")));
 
 	public static final Item SHOVEL = register("shovel", settings ->
-		new Item(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.SHOVEL, Unit.INSTANCE)
-		/*.shovel(ToolMaterial.IRON, 1.5f, -3f)*/, List.of( // Lol oops it got durability
+		new Item(settings), shovelify(new Item.Settings().maxCount(1).component(ModDataComponentTypes.SHOVEL, Unit.INSTANCE)
+		/*.shovel(ToolMaterial.IRON, 1.5f, -3f)*/), List.of( // Lol oops it got durability
 			Text.translatable("tooltip.item.homelawnsecurity.shovel.use"),
 			Text.translatable("tooltip.item.homelawnsecurity.shovel.attack")));
 	public static final Item LAWN_GADGET = register("lawn_gadget", settings ->
@@ -186,6 +190,19 @@ public class ModItems {
 
 	private static RegistryKey<Item> keyOf(String id) {
 		return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(HomeLawnSecurity.MOD_ID, id));
+	}
+
+	private static Item.Settings shovelify(Item.Settings settings) {
+		RegistryEntryLookup<Block> reginald = Registries.createEntryLookup(Registries.BLOCK);
+		return settings.component(DataComponentTypes.TOOL, new ToolComponent(
+			List.of(
+				ToolComponent.Rule.ofNeverDropping(reginald.getOrThrow(BlockTags.INCORRECT_FOR_WOODEN_TOOL)),
+				ToolComponent.Rule.ofAlwaysDropping(reginald.getOrThrow(BlockTags.SHOVEL_MINEABLE), 2f)
+			),
+			1f,
+			1,
+			false
+		));
 	}
 
 	public static void registerItems() {

@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.particle;
 
 import com.mojang.serialization.MapCodec;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
+import net.db64.homelawnsecurity.particle.custom.BonkParticle;
 import net.db64.homelawnsecurity.particle.custom.EntityParticleRenderer;
 import net.db64.homelawnsecurity.particle.custom.MarkerParticle;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -22,6 +23,9 @@ public class ModParticles {
 		MARKER = register(
 			"marker", true, ItemStackParticleEffect::createCodec, ItemStackParticleEffect::createPacketCodec
 	);
+	public static final SimpleParticleType BONK = register(
+		"bonk", true
+	);
 
 	public static final ParticleTextureSheet SHEET_ENTITY = new ParticleTextureSheet("pvz_entity");
 
@@ -29,11 +33,13 @@ public class ModParticles {
 		HomeLawnSecurity.logRegistration("particles");
 
 		ParticleRendererRegistry.register(SHEET_ENTITY, EntityParticleRenderer::new);
-		ParticleFactoryRegistry.getInstance().register(MARKER, new MarkerParticle.Factory());
+		ParticleFactoryRegistry particleFactoryRegistry = ParticleFactoryRegistry.getInstance();
+		particleFactoryRegistry.register(MARKER, new MarkerParticle.Factory());
+		particleFactoryRegistry.register(BONK, BonkParticle.Factory::new);
 	}
 
 	private static SimpleParticleType register(String name, boolean alwaysShow) {
-		return Registry.register(Registries.PARTICLE_TYPE, name, FabricParticleTypes.simple(alwaysShow));
+		return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, name), FabricParticleTypes.simple(alwaysShow));
 	}
 
 	private static <T extends ParticleEffect> ParticleType<T> register(

@@ -33,7 +33,7 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 			&& (Math.abs(mob.getBlockZ() - entity.getBlockZ()) <= attackRange);
 	};
 
-	public Predicate<LivingEntity> notBehindPredicate = entity -> {
+	public Predicate<LivingEntity> pathPredicate = entity -> {
 		// It should not target entities that are between it and its start
 
 		//HomeLawnSecurity.LOGGER.info("checking notBehindPredicate");
@@ -100,7 +100,7 @@ public class ZombieTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T
 		if (this.targetClass != PlayerEntity.class && this.targetClass != ServerPlayerEntity.class) {
 			this.targetEntity = serverWorld.getClosestEntity(
 				this.mob.getEntityWorld().getEntitiesByClass(this.targetClass, this.getSearchBox(this.getFollowRange()),
-					livingEntity -> rangePredicate.test(livingEntity) && hasHeadPredicate.test(livingEntity) && notBehindPredicate.test(livingEntity)),
+					livingEntity -> rangePredicate.test(livingEntity) && hasHeadPredicate.test(livingEntity) && pathPredicate.test(livingEntity)),
 				this.getAndUpdateTargetPredicate(),
 				this.mob,
 				this.mob.getX(),

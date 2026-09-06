@@ -381,15 +381,6 @@ public class LawnMowerEntity extends PathBoundEntity implements IPvzEntity {
 	}
 
 	@Override
-	public void takeKnockback(double strength, double x, double z) {
-		// oh no--i hope this really heavy beach ball doesn't break my leg
-
-		if (getAttacker() != null && getAttacker().getMainHandStack().contains(ModDataComponentTypes.SHOVEL)) {
-			super.takeKnockback(strength * 3, x, z);
-		}
-	}
-
-	@Override
 	public boolean damage(ServerWorld world, DamageSource source, float amount) {
 		Entity attacker = source.getAttacker();
 		boolean damaged;
