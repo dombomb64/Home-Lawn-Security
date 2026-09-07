@@ -2,13 +2,7 @@ package net.db64.homelawnsecurity.particle;
 
 import com.mojang.serialization.MapCodec;
 import net.db64.homelawnsecurity.HomeLawnSecurity;
-import net.db64.homelawnsecurity.particle.custom.BonkParticle;
-import net.db64.homelawnsecurity.particle.custom.EntityParticleRenderer;
-import net.db64.homelawnsecurity.particle.custom.MarkerParticle;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleRendererRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.particle.*;
@@ -27,15 +21,8 @@ public class ModParticles {
 		"bonk", true
 	);
 
-	public static final ParticleTextureSheet SHEET_ENTITY = new ParticleTextureSheet("pvz_entity");
-
 	public static void registerParticles() {
 		HomeLawnSecurity.logRegistration("particles");
-
-		ParticleRendererRegistry.register(SHEET_ENTITY, EntityParticleRenderer::new);
-		ParticleFactoryRegistry particleFactoryRegistry = ParticleFactoryRegistry.getInstance();
-		particleFactoryRegistry.register(MARKER, new MarkerParticle.Factory());
-		particleFactoryRegistry.register(BONK, BonkParticle.Factory::new);
 	}
 
 	private static SimpleParticleType register(String name, boolean alwaysShow) {

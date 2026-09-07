@@ -1,6 +1,6 @@
 package net.db64.homelawnsecurity.mixin;
 
-import net.db64.homelawnsecurity.particle.ModParticles;
+import net.db64.homelawnsecurity.particle.ModParticlesClient;
 import net.db64.homelawnsecurity.particle.custom.EntityParticleRenderer;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleRenderer;
@@ -20,7 +20,7 @@ public abstract class ParticleManagerMixin {
 		)
 	)
 	public void addParticleTypes(ParticleTextureSheet textureSheet, CallbackInfoReturnable<ParticleRenderer<?>> cir) {
-		if (textureSheet == ModParticles.SHEET_ENTITY) {
+		if (textureSheet == ModParticlesClient.SHEET_ENTITY) {
 			cir.setReturnValue(new EntityParticleRenderer((ParticleManager) (Object) this));
 		}
 	}

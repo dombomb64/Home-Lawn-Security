@@ -112,6 +112,6 @@ public class ModItemGroups {
 			}).build());
 
 	public static void registerItemGroups() {
-		HomeLawnSecurity.LOGGER.debug("Registering item groups for Home Lawn Security (" + HomeLawnSecurity.MOD_ID + ")");
+		HomeLawnSecurity.logRegistration("item groups");
 	}
 }

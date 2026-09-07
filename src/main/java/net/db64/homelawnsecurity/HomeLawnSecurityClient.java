@@ -1,7 +1,6 @@
 package net.db64.homelawnsecurity;
 
 import net.db64.homelawnsecurity.block.ModBlocks;
-import net.db64.homelawnsecurity.debug.ModDebugSubscriptionTypes;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.client.other.CurrencyRenderer;
 import net.db64.homelawnsecurity.entity.client.ModModelLayers;
@@ -14,7 +13,7 @@ import net.db64.homelawnsecurity.entity.client.zombie.*;
 import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.plant.ChomperEntity;
 import net.db64.homelawnsecurity.networking.*;
-import net.db64.homelawnsecurity.particle.ModParticles;
+import net.db64.homelawnsecurity.particle.ModParticlesClient;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
@@ -32,7 +31,6 @@ import net.minecraft.util.Identifier;
 public class HomeLawnSecurityClient implements ClientModInitializer {
 	public static final Identifier DEBUG_PATHFINDING =
 		DebugHudEntries.register(Identifier.of(HomeLawnSecurity.MOD_ID, "pvz_pathfinding"), new RendererDebugHudEntry(true));
-
 
 	@Override
 	public void onInitializeClient() {
@@ -53,7 +51,7 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 		//ParticleFactoryRegistry.getInstance().register(ModParticles.MARKER, new MarkerParticle.Factory());
 
 		//ModDebugSubscriptionTypes.registerDebugSubscriptionTypes();
-		//ModParticles.registerParticles();
+		ModParticlesClient.registerParticles();
 
 		BlockRenderLayerMap.putBlock(ModBlocks.SODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.UNSODDED_LAWN_BLOCK, BlockRenderLayer.CUTOUT);

@@ -1,20 +1,15 @@
 package net.db64.homelawnsecurity.particle.custom;
 
-import net.db64.homelawnsecurity.entity.ModEntities;
-import net.db64.homelawnsecurity.entity.client.other.CurrencyRenderState;
 import net.db64.homelawnsecurity.entity.custom.other.CurrencyEntity;
-import net.db64.homelawnsecurity.particle.ModParticles;
+import net.db64.homelawnsecurity.particle.ModParticlesClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.Model;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.entity.state.EntityRenderState;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.util.Unit;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,7 +42,7 @@ public class MarkerParticle extends Particle {
 
 	@Override
 	public ParticleTextureSheet textureSheet() {
-		return ModParticles.SHEET_ENTITY;
+		return ModParticlesClient.SHEET_ENTITY;
 	}
 
 	/*private Entity getOrCopy(Entity entity) {
