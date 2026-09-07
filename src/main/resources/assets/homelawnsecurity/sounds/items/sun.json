@@ -1,0 +1,8 @@
+{
+	"keys": [
+		"homelawnsecurity:sun"
+	],
+	"soundEvent": "homelawnsecurity:entity.sun.collect",
+	"pitch": 2.0,
+	"volume": 0.25
+}

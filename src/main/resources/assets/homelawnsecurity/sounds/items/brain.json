@@ -1,0 +1,6 @@
+{
+	"keys": [
+		"homelawnsecurity:brain"
+	],
+	"soundEvent": "minecraft:block.slime_block.hit"
+}

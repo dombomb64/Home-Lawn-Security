@@ -1,0 +1,6 @@
+{
+	"keys": [
+		"homelawnsecurity:turf"
+	],
+	"soundEvent": "minecraft:block.grass.place"
+}

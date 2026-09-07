@@ -1,0 +1,8 @@
+{
+	"keys": [
+		"#homelawnsecurity:seed_packets"
+	],
+	"soundEvent": "homelawnsecurity:random.select_seed",
+	"pitch": 1.0,
+	"volume": 0.25
+}

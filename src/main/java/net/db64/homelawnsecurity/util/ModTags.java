@@ -80,6 +80,10 @@ public class ModTags {
 		public static final TagKey<Item> PLANT_FEEDABLE_FOR_DUPLICATE = createTag("plant_feedable_for_duplicate");
 		public static final TagKey<Item> ZOMBIE_FEEDABLE_FOR_DUPLICATE = createTag("zombie_feedable_for_duplicate");
 
+		public static final TagKey<Item> PLANT_SEED_PACKETS = createTag("plant_seed_packets");
+		public static final TagKey<Item> ZOMBIE_SEED_PACKETS = createTag("zombie_seed_packets");
+		public static final TagKey<Item> SEED_PACKETS = createTag("seed_packets");
+
 		public static final TagKey<Item> RECIPE_TURF_GRASS = createTag("recipe/turf_grass");
 		public static final TagKey<Item> RECIPE_GRASSLESS_DIRT = createTag("recipe/grassless_dirt");
 		public static final TagKey<Item> RECIPE_PLANT_FEEDABLE = createTag("recipe/plant_feedable");

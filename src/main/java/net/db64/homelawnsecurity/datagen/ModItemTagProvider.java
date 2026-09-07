@@ -2,6 +2,7 @@ package net.db64.homelawnsecurity.datagen;
 
 import java.util.concurrent.CompletableFuture;
 
+import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.block.ModBlocks;
 import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.util.ModTags;
@@ -52,6 +53,22 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 		getTagBuilder(ModTags.Items.ZOMBIE_FEEDABLE_FOR_DUPLICATE)
 			.add(Registries.ITEM.getId(ModItems.BRAIN));
+
+		getTagBuilder(ModTags.Items.PLANT_SEED_PACKETS)
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_SUNFLOWER))
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_PEASHOOTER))
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_WALL_NUT))
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_CHOMPER));
+
+		getTagBuilder(ModTags.Items.ZOMBIE_SEED_PACKETS)
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_ZOMBIE_GRAVESTONE))
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_BASIC_ZOMBIE))
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_CONEHEAD_ZOMBIE))
+			.add(Registries.ITEM.getId(ModItems.SEED_PACKET_BUCKETHEAD_ZOMBIE));
+
+		getTagBuilder(ModTags.Items.SEED_PACKETS)
+			.addTag(Identifier.of(HomeLawnSecurity.MOD_ID, "plant_seed_packets"))
+			.addTag(Identifier.of(HomeLawnSecurity.MOD_ID, "zombie_seed_packets"));
 
 		getTagBuilder(ModTags.Items.RECIPE_TURF_GRASS)
 			.add(Registries.ITEM.getId(Items.SHORT_GRASS))

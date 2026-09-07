@@ -1,0 +1,7 @@
+{
+	"keys": [
+		"homelawnsecurity:bag_of_sun",
+		"homelawnsecurity:bag_of_brainpower"
+	],
+	"soundEvent": "minecraft:block.wool.place"
+}

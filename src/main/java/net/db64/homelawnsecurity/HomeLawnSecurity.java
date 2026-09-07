@@ -51,6 +51,8 @@ public class HomeLawnSecurity implements ModInitializer {
 	public static final String MOD_ID = "homelawnsecurity";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+	public static boolean soundsModLoaded = FabricLoader.getInstance().isModLoaded("sounds");
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("if you see this read sunny side skies");

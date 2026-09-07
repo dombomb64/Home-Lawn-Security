@@ -1,0 +1,8 @@
+{
+	"keys": [
+		"homelawnsecurity:lawn_gadget"
+	],
+	"soundEvent": "homelawnsecurity:item.lawn_gadget.switch",
+	"pitch": 1.75,
+	"volume": 0.25
+}
