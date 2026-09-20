@@ -80,7 +80,7 @@ public class ModItemGroups {
 				tempItem.set(DataComponentTypes.ITEM_NAME, Text.literal("Temporary Item"));
 				tempItem.set(ModDataComponentTypes.TOOLTIP, new TooltipComponent(List.of(
 					Text.literal("Warning:"),
-					Text.literal("Comsumption of WIP Pool Cleaner's fuel may result in instant death."))));
+					Text.literal("Consumption of WIP Pool Cleaner's fuel may result in instant death."))));
 				tempItem.set(DataComponentTypes.CONSUMABLE, ConsumableComponents.DRINK);
 				entries.add(tempItem);
 

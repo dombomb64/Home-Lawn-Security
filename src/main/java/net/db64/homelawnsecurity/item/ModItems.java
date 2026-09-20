@@ -68,6 +68,7 @@ public class ModItems {
 		Item::new, new Item.Settings().maxCount(1).component(ModDataComponentTypes.BAG_OF_CURRENCY,
 		new BagOfCurrencyComponent(0, "sun")));
 	public static final Item BAG_OF_BRAINPOWER = register("bag_of_brainpower",
+		Item::new, new Item.Settings().maxCount(1).component(ModDataComponentTypes.BAG_OF_CURRENCY,
 		new BagOfCurrencyComponent(0, "brainpower")));
 
 	public static final Item LAWN_MOWER = register("lawn_mower", settings ->
