@@ -271,7 +271,8 @@
 	"item.homelawnsecurity.sun": "Sun",
 	"item.homelawnsecurity.brainpower": "Brainpower",
 
-	"item.homelawnsecurity.currency.name.separator": " - ",
+	"item.homelawnsecurity.currency.separator": " - ",
+	"item.homelawnsecurity.currency.amount.infinite": "∞",
 	"item.homelawnsecurity.currency.name.sun": "%1$s Sun",
 	"item.homelawnsecurity.currency.name.brainpower": "%1$s Brainpower",
 

@@ -1,7 +1,6 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.db64.homelawnsecurity.HomeLawnSecurity;
 import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.SeedPacketComponent;
@@ -30,7 +29,6 @@ import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -52,11 +50,15 @@ public abstract class SeedPacketItem extends Item {
 
 	public static final Predicate<ItemStack> SUN_BAG_PREDICATE = stack -> {
 		if (stack == null) return false;
-		return stack.isIn(ModTags.Items.BAG_OF_SUN) && stack.get(ModDataComponentTypes.BAG_OF_CURRENCY) != null;
+		BagOfCurrencyComponent component = stack.get(ModDataComponentTypes.BAG_OF_CURRENCY);
+		if (component == null) return false;
+		return "sun".equals(component.name());
 	};
 	public static final Predicate<ItemStack> BRAINPOWER_BAG_PREDICATE = stack -> {
 		if (stack == null) return false;
-		return stack.isIn(ModTags.Items.BAG_OF_BRAINPOWER) && stack.get(ModDataComponentTypes.BAG_OF_CURRENCY) != null;
+		BagOfCurrencyComponent component = stack.get(ModDataComponentTypes.BAG_OF_CURRENCY);
+		if (component == null) return false;
+		return "brainpower".equals(component.name());
 	};
 
 	public SeedPacketItem(EntityType<? extends MobEntity> type, Settings settings) {
@@ -220,16 +222,19 @@ public abstract class SeedPacketItem extends Item {
 				}
 
 				ItemStack bag = getCurrentBag(player);
-				if (!bag.isEmpty()) {
-					BagOfCurrencyComponent bagComponent = bag.get(ModDataComponentTypes.BAG_OF_CURRENCY);
-					if (bagComponent.amount() < cost) {
+				BagOfCurrencyComponent bagComponent = bag.get(ModDataComponentTypes.BAG_OF_CURRENCY);
+				if (bagComponent != null) {
+					boolean finite = bagComponent.amount() != -1;
+					if (finite && bagComponent.amount() < cost) {
 						playBuzzerSound(player, usePos);
 						return false;
 					}
 
-					bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(bagComponent.amount() - cost, bagComponent.name()));
+					if (finite) {
+						bag.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(bagComponent.amount() - cost, bagComponent.name()));
+					}
 				}
-				else {
+				else if (bag.isEmpty()) {
 					playBuzzerSound(player, usePos);
 					return false;
 				}

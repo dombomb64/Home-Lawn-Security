@@ -22,11 +22,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
 	@Override
 	protected void configure(WrapperLookup arg) {
-		getTagBuilder(ModTags.Items.BAG_OF_SUN)
-			.add(Registries.ITEM.getId(ModItems.BAG_OF_SUN));
+		/*getTagBuilder(ModTags.Items.BAG_OF_SUN)
+			.add(Registries.ITEM.getId(ModItems.BAG_OF_SUN));*/
 
-		getTagBuilder(ModTags.Items.BAG_OF_BRAINPOWER)
-			.add(Registries.ITEM.getId(ModItems.BAG_OF_BRAINPOWER));
+		/*getTagBuilder(ModTags.Items.BAG_OF_BRAINPOWER)
+			.add(Registries.ITEM.getId(ModItems.BAG_OF_BRAINPOWER));*/
 
 		getTagBuilder(ModTags.Items.REVEALS_MARKERS)
 			.add(Registries.ITEM.getId(ModBlocks.GARDEN_MARKER.asItem()))

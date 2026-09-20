@@ -273,7 +273,8 @@
 	"item.homelawnsecurity.sun": "Warm windoe stuf",
 	"item.homelawnsecurity.brainpower": "nekomansy orbz",
 
-	"item.homelawnsecurity.currency.name.separator": " - ",
+	"item.homelawnsecurity.currency.separator": " - ",
+	"item.homelawnsecurity.currency.amount.infinite": "\uD83D\uDC08",
 	"item.homelawnsecurity.currency.name.sun": "%1$s orbz a warm windoe stuf",
 	"item.homelawnsecurity.currency.name.brainpower": "%1$s nekomansy POWAH!!1",
 

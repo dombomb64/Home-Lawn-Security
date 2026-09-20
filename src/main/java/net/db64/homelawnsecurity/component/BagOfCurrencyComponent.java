@@ -1,6 +1,7 @@
 package net.db64.homelawnsecurity.component;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.component.ComponentsAccess;
 import net.minecraft.item.Item;
@@ -9,15 +10,22 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.dynamic.Codecs;
 
 import java.util.function.Consumer;
 
 public record BagOfCurrencyComponent(int amount, String name) implements TooltipAppender {
+	public static final Codec<Integer> AMOUNT_CODEC = Codec.INT.validate(
+		value -> value.compareTo(-1) >= 0 && value.compareTo(Integer.MAX_VALUE) <= 0 ?
+			DataResult.success(value) :
+			DataResult.error(() -> "Value must be -1 or higher: " + value)
+	);
+
 	public static final Codec<BagOfCurrencyComponent> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-				Codecs.NON_NEGATIVE_INT.fieldOf("amount").forGetter(BagOfCurrencyComponent::amount),
+				AMOUNT_CODEC.fieldOf("amount").forGetter(BagOfCurrencyComponent::amount),
 				Codecs.NON_EMPTY_STRING.fieldOf("name").forGetter(BagOfCurrencyComponent::name)
 			)
 			.apply(instance, BagOfCurrencyComponent::new)
@@ -32,7 +40,10 @@ public record BagOfCurrencyComponent(int amount, String name) implements Tooltip
 
 	@Override
 	public void appendTooltip(Item.TooltipContext context, Consumer<Text> tooltip, TooltipType type, ComponentsAccess components) {
-		tooltip.accept(Text.translatable("tooltip.homelawnsecurity.bag_of_" + name, amount));
+		MutableText amountText = amount == -1
+			? Text.translatable("item.homelawnsecurity.currency.amount.infinite")
+			: Text.literal("" + amount);
+		tooltip.accept(Text.translatable("tooltip.homelawnsecurity.bag_of_" + name, amountText));
 	}
 
 	public static class Builder {

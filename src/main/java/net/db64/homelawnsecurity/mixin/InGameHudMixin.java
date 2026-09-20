@@ -24,7 +24,6 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextCodecs;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -72,7 +71,7 @@ public abstract class InGameHudMixin {
 					customName = entityDataComponent.copyNbtWithoutId().get("CustomName");
 					if (customName != null && client.world != null) {
 						try {
-							entityName = Text.empty().append(TextCodecs.CODEC.parse(client.world.getRegistryManager().getOps(NbtOps.INSTANCE), customName).getOrThrow());
+							entityName.append(TextCodecs.CODEC.parse(client.world.getRegistryManager().getOps(NbtOps.INSTANCE), customName).getOrThrow());
 						} catch (Exception e) {
 							HomeLawnSecurity.LOGGER.warn("Failed to parse entity custom name {}", customName.asString(), e);
 						}
@@ -89,7 +88,7 @@ public abstract class InGameHudMixin {
 					entityType = ((SeedPacketItem) ModItems.SEED_PACKET_PEASHOOTER).getEntityType(currentStack);
 				}
 				if (entityType != null) {
-					entityName = Text.empty().append(entityType.getName());
+					entityName.append(entityType.getName());
 				}
 			}
 
@@ -103,7 +102,7 @@ public abstract class InGameHudMixin {
 			CurrencyComponent currencyComponent = currentStack.getOrDefault(ModDataComponentTypes.CURRENCY, new CurrencyComponent(25, "sun"));
 
 			// 25 Sun
-			currencyText = currencyText.append(Text.translatable("item.homelawnsecurity.currency.name." + currencyComponent.name(), currencyComponent.amount()));
+			currencyText.append(Text.translatable("item.homelawnsecurity.currency.name." + currencyComponent.name(), currencyComponent.amount()));
 
 			value = Text.empty().append(currencyText);
 		}
@@ -113,11 +112,15 @@ public abstract class InGameHudMixin {
 			MutableText currencyText = Text.empty();
 			BagOfCurrencyComponent bagComponent = currentStack.getOrDefault(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(25, "sun"));
 
+			MutableText amount = bagComponent.amount() == -1
+				? Text.translatable("item.homelawnsecurity.currency.amount.infinite")
+				: Text.literal("" + bagComponent.amount());
+
 			// Bag of Sun - 25 Sun
-			currencyText = currencyText
+			currencyText
 				.append(currentStack.getName())
-				.append(Text.translatable("item.homelawnsecurity.currency.name.separator"))
-				.append(Text.translatable("item.homelawnsecurity.currency.name." + bagComponent.name(), bagComponent.amount()));
+				.append(Text.translatable("item.homelawnsecurity.currency.separator"))
+				.append(Text.translatable("item.homelawnsecurity.currency.name." + bagComponent.name(), amount));
 
 			value = Text.empty().append(currencyText);
 		}

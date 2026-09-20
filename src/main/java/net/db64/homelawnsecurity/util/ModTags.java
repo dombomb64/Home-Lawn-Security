@@ -71,8 +71,8 @@ public class ModTags {
 	}
 
 	public static class Items {
-		public static final TagKey<Item> BAG_OF_SUN = createTag("bag_of_sun");
-		public static final TagKey<Item> BAG_OF_BRAINPOWER = createTag("bag_of_brainpower");
+		//public static final TagKey<Item> BAG_OF_SUN = createTag("bag_of_sun");
+		//public static final TagKey<Item> BAG_OF_BRAINPOWER = createTag("bag_of_brainpower");
 
 		public static final TagKey<Item> REVEALS_MARKERS = createTag("reveals_markers");
 		public static final TagKey<Item> REVEALS_MARKERS_WHILE_SNEAKING = createTag("reveals_markers_while_sneaking");

@@ -64,11 +64,10 @@ public class ModItems {
 		new CurrencyItem(settings, SeedPacketItem.BRAINPOWER_BAG_PREDICATE), new Item.Settings().component(ModDataComponentTypes.CURRENCY,
 		new CurrencyComponent(25, "brainpower")));
 
-	public static final Item BAG_OF_SUN = register("bag_of_sun", settings ->
-		new BagOfCurrencyItem(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BAG_OF_CURRENCY,
+	public static final Item BAG_OF_SUN = register("bag_of_sun",
+		Item::new, new Item.Settings().maxCount(1).component(ModDataComponentTypes.BAG_OF_CURRENCY,
 		new BagOfCurrencyComponent(0, "sun")));
-	public static final Item BAG_OF_BRAINPOWER = register("bag_of_brainpower", settings ->
-		new BagOfCurrencyItem(settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BAG_OF_CURRENCY,
+	public static final Item BAG_OF_BRAINPOWER = register("bag_of_brainpower",
 		new BagOfCurrencyComponent(0, "brainpower")));
 
 	public static final Item LAWN_MOWER = register("lawn_mower", settings ->

@@ -271,7 +271,8 @@
 	"item.homelawnsecurity.sun": "Sunshine",
 	"item.homelawnsecurity.brainpower": "Plunder power",
 
-	"item.homelawnsecurity.currency.name.separator": " - ",
+	"item.homelawnsecurity.currency.separator": " - ",
+	"item.homelawnsecurity.currency.amount.infinite": "\uD83D\uDD71",
 	"item.homelawnsecurity.currency.name.sun": "%1$s Sun",
 	"item.homelawnsecurity.currency.name.brainpower": "%1$s Plunder power",
 
