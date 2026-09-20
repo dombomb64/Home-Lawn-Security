@@ -32,14 +32,14 @@ public class ModModelProvider extends FabricModelProvider {
 			blockStateModelGenerator,
 			ModBlocks.GARDEN_BLOCK,
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/garden_block_top"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded_0"),
+			Identifier.of(HomeLawnSecurity.MOD_ID, "block/garden_block_side"),
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded")
 		);
 		ModBlockModels.registerCubeBottomTop(
 			blockStateModelGenerator,
 			ModBlocks.GRAVEYARD_BLOCK,
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/graveyard_block_top"),
-			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/side_sodded_0"),
+			Identifier.of(HomeLawnSecurity.MOD_ID, "block/graveyard_block_side"),
 			Identifier.of(HomeLawnSecurity.MOD_ID, "block/lawn_block/unsodded")
 		);
 
