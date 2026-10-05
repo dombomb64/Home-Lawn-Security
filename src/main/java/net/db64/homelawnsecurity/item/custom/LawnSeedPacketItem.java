@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.item.custom;
 
+import net.db64.homelawnsecurity.component.IgnoredPlacementRulesComponent;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.other.PlantSeedPacketPathfindingEntity;
@@ -15,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -29,21 +29,21 @@ public class LawnSeedPacketItem extends SeedPacketItem {
 	}
 
 	@Override
-	protected boolean isPlaceable(BlockPos blockPos, World world, boolean devMode, ServerPlayerEntity player) {
+	protected boolean isPlaceable(BlockPos blockPos, World world, ServerPlayerEntity player, IgnoredPlacementRulesComponent ignores) {
 		if (!(world instanceof ServerWorld serverWorld)) return false;
 
 		// Return if there is already a plant there
-		if (!devMode && !world.getOtherEntities(null, new Box(0, 0, 0, 1, 1, 1).offset(blockPos.up()), entity -> entity instanceof PlantEntity).isEmpty())
+		if (!ignores.occupied() && !world.getOtherEntities(null, new Box(0, 0, 0, 1, 1, 1).offset(blockPos.up()), entity -> entity instanceof PlantEntity).isEmpty())
 			return false;
 
 		// Return if it's not on turf
-		if (!PlantEntity.isPlaceableLawn(blockPos, world)) {
+		if (!ignores.turf() && !PlantEntity.isPlaceableLawn(blockPos, world)) {
 			sendMessage(player, Text.translatable("item.homelawnsecurity.seed_packet.plant.placement.error.turf"));
 			return false;
 		}
 
 		// Return if it's not next to or on a path
-		if (!(devMode || LawnUtil.isAnyPath(blockPos, world))) {
+		if (!(ignores.nearPath() || LawnUtil.isAnyPath(blockPos, world))) {
 			boolean nearPath = false;
 			Iterable<BlockPos> iterable = BlockPos.iterateOutwards(blockPos, 1, 1, 1);
 			for (BlockPos pos : iterable) {
@@ -68,7 +68,7 @@ public class LawnSeedPacketItem extends SeedPacketItem {
 		boolean isOffPath = !LawnUtil.isAnyPath(blockPos, world); // We need lawn plants to still be placeable off the path
 
 		// Return if it's too far away from the garden and on a path
-		if (!(devMode || isOffPath || isValidPositionOnPath(entity))) {
+		if (!(ignores.teamSide() || isOffPath || isValidPositionOnPath(entity))) {
 			sendMessage(player, Text.translatable("item.homelawnsecurity.seed_packet.plant.placement.error.too_far"));
 			return false;
 		}

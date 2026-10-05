@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.item.custom;
 
+import net.db64.homelawnsecurity.component.IgnoredPlacementRulesComponent;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.other.PlantSeedPacketPathfindingEntity;
@@ -11,16 +12,12 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import java.util.function.Predicate;
@@ -31,15 +28,15 @@ public class PathSeedPacketItem extends SeedPacketItem {
 	}
 
 	@Override
-	protected boolean isPlaceable(BlockPos blockPos, World world, boolean devMode, ServerPlayerEntity player) {
+	protected boolean isPlaceable(BlockPos blockPos, World world, ServerPlayerEntity player, IgnoredPlacementRulesComponent ignores) {
 		if (!(world instanceof ServerWorld serverWorld)) return false;
 
 		// Return if there is already a plant there
-		if (!devMode && !world.getOtherEntities(null, new Box(0, 0, 0, 1, 1, 1).offset(blockPos.up()), entity -> entity instanceof PlantEntity).isEmpty())
+		if (!ignores.occupied() && !world.getOtherEntities(null, new Box(0, 0, 0, 1, 1, 1).offset(blockPos.up()), entity -> entity instanceof PlantEntity).isEmpty())
 			return false;
 
 		// Return if it's not on a path
-		if (!PlantEntity.isPlaceablePath(blockPos, world)) {
+		if (!(ignores.nearPath() || PlantEntity.isPlaceablePath(blockPos, world))) {
 			sendMessage(player, Text.translatable("item.homelawnsecurity.seed_packet.plant.placement.error.path"));
 			return false;
 		}
@@ -51,7 +48,7 @@ public class PathSeedPacketItem extends SeedPacketItem {
 		entity.initialize(serverWorld, serverWorld.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
 
 		// Return if it's too far away from the garden
-		if (!(devMode || isValidPositionOnPath(entity))) {
+		if (!(ignores.teamSide() || isValidPositionOnPath(entity))) {
 			sendMessage(player, Text.translatable("item.homelawnsecurity.seed_packet.plant.placement.error.too_far"));
 			return false;
 		}

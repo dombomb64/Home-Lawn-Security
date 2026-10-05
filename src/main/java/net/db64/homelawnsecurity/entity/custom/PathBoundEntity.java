@@ -86,8 +86,17 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 		builder.add(DEFAULT_ORIENTATION, 0f);
 	}
 
-	public void faceGoal() {
-		// Find the goal and turn to face the path
+	public void faceSpawnDirection() {
+		if (this instanceof PlantEntity plant && !plant.onPath) {
+			facePath();
+		}
+		else {
+			faceGoal();
+		}
+	}
+
+	private void faceGoal() {
+		// Find the goal and turn to face forward
 		int rangeH = 16;
 		int rangeV = 5;
 		Iterable<BlockPos> iterable2 = BlockPos.iterateOutwards(getSteppingPos().up(), rangeH, rangeV, rangeH);
@@ -113,23 +122,7 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 				facingPos = new Vec3d(facingBlock.getX(), facingBlock.getY(), facingBlock.getZ());
 			}
 			// Get the correct direction
-			float newYaw;
-			if (pos.getZ() < facingPos.getZ()) {
-				// South
-				newYaw = 0f;
-			}
-			else if (pos.getZ() > facingPos.getZ()) {
-				// North
-				newYaw = 180f;
-			}
-			else if (pos.getX() < facingPos.getX()) {
-				// East
-				newYaw = -90f;
-			}
-			else {
-				// West
-				newYaw = 90f;
-			}
+			float newYaw = getOrdinalYaw(pos, facingPos);
 			//HomeLawnSecurity.LOGGER.info("Setting default orientation to {} (entity pos: ({}, {}), path pos: ({}, {}))", newYaw, pos.getX(), pos.getZ(), facingPos.getX(), facingPos.getZ());
 			setYaw(newYaw);
 			setHeadYaw(newYaw);
@@ -149,6 +142,94 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 			}
 
 			break;
+		}
+	}
+
+	private void facePath() {
+		// Find the path and turn to face it
+		int rangeH = 5;
+		int rangeV = 5;
+		Iterable<BlockPos> iterable2 = BlockPos.iterateOutwards(getSteppingPos().up(), rangeH, rangeV, rangeH);
+		for (BlockPos blockPos : iterable2) {
+			//HomeLawnSecurity.LOGGER.info("entity is checking for if the block at {}, {}, {} is a path", blockPos.getX(), blockPos.getY(), blockPos.getZ());
+			if (!LawnUtil.isAnyPath(blockPos.down(), getEntityWorld())) continue;
+			//HomeLawnSecurity.LOGGER.info("entity is checking for if the path at {}, {}, {} is reachable", blockPos.getX(), blockPos.getY(), blockPos.getZ());
+			Path path = getNavigation().findPathTo(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1);
+			/*if (path == null)
+				HomeLawnSecurity.LOGGER.info("the path at {}, {}, {} could not generate a path", blockPos.getX(), blockPos.getY(), blockPos.getZ());
+			else if (!path.reachesTarget())
+				HomeLawnSecurity.LOGGER.info("the path at {}, {}, {} is not reachable with this path", blockPos.getX(), blockPos.getY(), blockPos.getZ());*/
+			if (path == null || !path.reachesTarget()) continue;
+
+			Vec3d pos = getEntityPos().floorAlongAxes(EnumSet.of(Direction.Axis.X, Direction.Axis.Z));
+			Vec3d facingPos;
+			if (path.getLength() > 1) {
+				facingPos = path.getNode(1).getPos();
+			}
+			else {
+				BlockPos facingBlock = path.getTarget();
+				facingPos = new Vec3d(facingBlock.getX(), facingBlock.getY(), facingBlock.getZ());
+			}
+			// Get the correct direction
+			float newYaw = getOrdinalYaw(pos, facingPos);
+			//HomeLawnSecurity.LOGGER.info("Setting default orientation to {} (entity pos: ({}, {}), path pos: ({}, {}))", newYaw, pos.getX(), pos.getZ(), facingPos.getX(), facingPos.getZ());
+			setYaw(newYaw);
+			setHeadYaw(newYaw);
+			setBodyYaw(newYaw);
+			/*headYaw = newYaw;
+			bodyYaw = newYaw;
+			refreshPositionAndAngles(pos, newYaw, getPitch());*/
+			lastYaw = newYaw;
+			lastHeadYaw = newYaw;
+			lastBodyYaw = newYaw;
+			//serverHeadYaw = newYaw;
+			defaultOrientation = newYaw;
+			dataTracker.set(DEFAULT_ORIENTATION, defaultOrientation);
+
+			for (ServerPlayerEntity player : PlayerLookup.tracking((ServerWorld) getEntityWorld(), getBlockPos())) {
+				ServerPlayNetworking.send(player, new SnapLookDirS2CPayload(uuid, getPitch(), getYaw()));
+			}
+
+			break;
+		}
+	}
+
+	private float getOrdinalYaw(Vec3d pos, Vec3d facingPos) {
+		if (pos.getZ() < facingPos.getZ()) {
+			if (pos.getX() < facingPos.getX()) {
+				// Southeast
+				return -45f;
+			}
+			else if (pos.getX() > facingPos.getX()) {
+				// Southwest
+				return 45f;
+			}
+			else {
+				// South
+				return 0f;
+			}
+		}
+		else if (pos.getZ() > facingPos.getZ()) {
+			if (pos.getX() < facingPos.getX()) {
+				// Northeast
+				return -135f;
+			}
+			else if (pos.getX() > facingPos.getX()) {
+				// Northwest
+				return 135f;
+			}
+			else {
+				// North
+				return 180f;
+			}
+		}
+		else if (pos.getX() < facingPos.getX()) {
+			// East
+			return -90f;
+		}
+		else {
+			// West
+			return 90f;
 		}
 	}
 
@@ -322,7 +403,7 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 	 * @apiNote Will prioritize any markers placed at <code>pos.up()</code>.
 	 */
 	public boolean isWalkable(BlockPos pos) {
-		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, getSteppingPos(), shouldPathLikeZombie());
+		return LawnUtil.isWalkable(pos, getEntityWorld(), pathId, shouldPathLikeZombie());
 	}
 
 	/**

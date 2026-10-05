@@ -29,6 +29,9 @@ public class ModDataComponentTypes {
 	public static final ComponentType<TooltipComponent> TOOLTIP =
 		register("tooltip", builder -> builder.codec(TooltipComponent.CODEC).packetCodec(TooltipComponent.PACKET_CODEC));
 
+	public static final ComponentType<IgnoredPlacementRulesComponent> IGNORED_PLACEMENT_RULES =
+		register("ignored_placement_rules", builder -> builder.codec(IgnoredPlacementRulesComponent.CODEC).packetCodec(IgnoredPlacementRulesComponent.PACKET_CODEC));
+
 	private static <T>ComponentType<T> register(String name, UnaryOperator<ComponentType.Builder<T>> builderOperator) {
 		return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(HomeLawnSecurity.MOD_ID, name),
 			builderOperator.apply(ComponentType.builder()).build());

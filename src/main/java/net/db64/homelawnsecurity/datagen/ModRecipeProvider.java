@@ -179,7 +179,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 					.input(redDyeTag)
 					.input(cobblestoneTag)
 					.input(coalTag)
-					.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+					.criterion(hasItem(Items.IRON_INGOT), conditionsFromTag(ironTag))
 					.offerTo(exporter, getRecipeName(ModItems.LAWN_MOWER));
 
 				// Shovel
@@ -191,7 +191,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 					.pattern("i ")
 					.pattern("s ")
 					.pattern("nd")
-					.criterion(hasItem(Items.IRON_INGOT), conditionsFromItem(Items.IRON_INGOT))
+					.criterion(hasItem(Items.IRON_INGOT), conditionsFromTag(ironTag))
 					.offerTo(exporter, getRecipeName(ModItems.SHOVEL));
 
 				// Lawn Gadget
@@ -204,6 +204,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 					.pattern(" i ")
 					.criterion(hasItem(Items.IRON_INGOT), conditionsFromTag(ironTag))
 					.offerTo(exporter, getRecipeName(ModItems.LAWN_GADGET));
+
+				// Protective Pan
+				createShaped(RecipeCategory.MISC, ModItems.PROTECTIVE_PAN, 1)
+					.input('i', ironTag)
+					.pattern("iii")
+					.pattern("ii ")
+					.criterion(hasItem(Items.IRON_INGOT), conditionsFromTag(ironTag))
+					.offerTo(exporter);
 
 				// Sun Spawner
 				createShaped(RecipeCategory.MISC, ModBlocks.SUN_SPAWNER, 1)

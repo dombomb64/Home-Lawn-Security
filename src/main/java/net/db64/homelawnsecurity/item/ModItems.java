@@ -15,6 +15,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.*;
+import net.minecraft.item.equipment.ArmorMaterials;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -26,6 +28,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.Unit;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,10 +55,25 @@ public class ModItems {
 
 	//public static final Item DAVES_PAN = registerItem("daves_pan",
 		//new ArmorItem(ModArmorMaterials.DAVES_PAN, ArmorItem.Type.HELMET, new FabricItemSettings()));
-	public static final Item DAVES_PAN = register("daves_pan", settings ->
-		new DavesPanItem(settings), new Item.Settings().component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD).equipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON).damageOnHurt(false).build()), List.of(
-			Text.translatable("tooltip.item.homelawnsecurity.daves_pan"),
+	public static final Item DAVES_PAN = register("daves_pan",
+		Item::new, new Item.Settings().component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD)
+				.equipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON)
+				.damageOnHurt(false).build())
+			.maxCount(1)
+			.rarity(Rarity.EPIC)
+			.component(ModDataComponentTypes.IGNORED_PLACEMENT_RULES,
+				new IgnoredPlacementRulesComponent.Builder().checkWhenHeld(false).cost(true).cooldown(true).occupied(true).nearPath(true).teamSide(true).turf(true).build()), List.of(
+					Text.translatable("tooltip.item.homelawnsecurity.daves_pan"),
 			Text.translatable("tooltip.item.homelawnsecurity.daves_pan.warning").setStyle(Style.EMPTY.withColor(Formatting.YELLOW))));
+
+	public static final Item PROTECTIVE_PAN = register("protective_pan",
+		Item::new, new Item.Settings().component(DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.HEAD)
+				.equipSound(SoundEvents.ITEM_ARMOR_EQUIP_IRON)
+				.damageOnHurt(true).build())
+			.maxDamage(EquipmentType.HELMET.getMaxDamage(ArmorMaterials.IRON.durability()))
+			.attributeModifiers(ArmorMaterials.IRON.createAttributeModifiers(EquipmentType.HELMET))
+			.enchantable(ArmorMaterials.IRON.enchantmentValue())
+			.repairable(ArmorMaterials.IRON.repairIngredient()));
 
 	public static final Item SUN = register("sun", settings ->
 		new CurrencyItem(settings, SeedPacketItem.SUN_BAG_PREDICATE), new Item.Settings().component(ModDataComponentTypes.CURRENCY,
@@ -262,6 +280,18 @@ public class ModItems {
 		}
 
 		public static void addItemsToOperatorUtilitiesItemGroup(FabricItemGroupEntries entries) {
+			// Infinite bags
+			ItemStack stack = BAG_OF_SUN.getDefaultStack();
+			stack.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(-1, "sun"));
+			stack.set(DataComponentTypes.RARITY, Rarity.EPIC);
+			entries.add(stack);
+			stack = BAG_OF_BRAINPOWER.getDefaultStack();
+			stack.set(ModDataComponentTypes.BAG_OF_CURRENCY, new BagOfCurrencyComponent(-1, "brainpower"));
+			stack.set(DataComponentTypes.RARITY, Rarity.EPIC);
+			entries.add(stack);
+
+			// Dave's Pan
+			entries.add(DAVES_PAN);
 		}
 	}
 }

@@ -1,11 +1,10 @@
 package net.db64.homelawnsecurity.item.custom;
 
 import com.mojang.serialization.MapCodec;
+import net.db64.homelawnsecurity.component.IgnoredPlacementRulesComponent;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.other.TargetZombieEntity;
 import net.db64.homelawnsecurity.sound.ModSounds;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
@@ -13,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,7 +29,7 @@ public class TargetItem extends SeedPacketItem {
 	}
 
 	@Override
-	protected boolean isPlaceable(BlockPos blockPos, World world, boolean devMode, ServerPlayerEntity player) {
+	protected boolean isPlaceable(BlockPos blockPos, World world, ServerPlayerEntity player, IgnoredPlacementRulesComponent ignores) {
 		return TargetZombieEntity.isPlaceable(blockPos, world);
 	}
 
@@ -103,7 +101,7 @@ public class TargetItem extends SeedPacketItem {
 	}*/
 
 	@Override
-	protected boolean setCooldownAndCurrencyAndReturnIfInsufficient(@Nullable PlayerEntity player, ItemStack stack, World world, BlockPos usePos) {
+	protected boolean setCooldownAndCurrencyAndReturnIfInsufficient(@Nullable PlayerEntity player, ItemStack stack, World world, BlockPos usePos, IgnoredPlacementRulesComponent ignores) {
 		return true;
 	}
 

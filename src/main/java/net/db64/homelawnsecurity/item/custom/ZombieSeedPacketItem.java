@@ -1,5 +1,6 @@
 package net.db64.homelawnsecurity.item.custom;
 
+import net.db64.homelawnsecurity.component.IgnoredPlacementRulesComponent;
 import net.db64.homelawnsecurity.entity.ModEntities;
 import net.db64.homelawnsecurity.entity.custom.other.SeedPacketPathfindingEntity;
 import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
@@ -17,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -33,11 +33,11 @@ public class ZombieSeedPacketItem extends SeedPacketItem {
 	}
 
 	@Override
-	protected boolean isPlaceable(BlockPos blockPos, World world, boolean devMode, ServerPlayerEntity player) {
+	protected boolean isPlaceable(BlockPos blockPos, World world, ServerPlayerEntity player, IgnoredPlacementRulesComponent ignores) {
 		if (!(world instanceof ServerWorld serverWorld)) return false;
 
 		// Return if it's not on a path
-		if (!ZombieEntity.isPlaceable(blockPos, world)) {
+		if (!(ignores.nearPath() || ZombieEntity.isPlaceable(blockPos, world))) {
 			sendMessage(player, Text.translatable("item.homelawnsecurity.seed_packet.zombie.placement.error.path"));
 			return false;
 		}
@@ -49,7 +49,7 @@ public class ZombieSeedPacketItem extends SeedPacketItem {
 		entity.initialize(serverWorld, serverWorld.getLocalDifficulty(blockPos), SpawnReason.SPAWN_ITEM_USE, null);
 
 		// Return if it's too close to the garden
-		if (!(devMode || isValidPositionOnPath(entity))) {
+		if (!(ignores.teamSide() || isValidPositionOnPath(entity))) {
 			sendMessage(player, Text.translatable("item.homelawnsecurity.seed_packet.zombie.placement.error.too_close"));
 			return false;
 		}

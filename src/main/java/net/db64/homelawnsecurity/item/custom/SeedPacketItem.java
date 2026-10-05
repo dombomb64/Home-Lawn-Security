@@ -2,14 +2,13 @@ package net.db64.homelawnsecurity.item.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.db64.homelawnsecurity.component.BagOfCurrencyComponent;
+import net.db64.homelawnsecurity.component.IgnoredPlacementRulesComponent;
 import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.component.SeedPacketComponent;
 import net.db64.homelawnsecurity.entity.custom.PathBoundEntity;
 import net.db64.homelawnsecurity.entity.custom.PlantEntity;
 import net.db64.homelawnsecurity.entity.custom.SeedPlacedEntity;
-import net.db64.homelawnsecurity.item.ModItems;
 import net.db64.homelawnsecurity.sound.ModSounds;
-import net.db64.homelawnsecurity.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
@@ -66,7 +65,7 @@ public abstract class SeedPacketItem extends Item {
 		this.type = type;
 	}
 
-	protected boolean isPlaceable(BlockPos blockPos, World world, boolean devMode, ServerPlayerEntity player) {
+	protected boolean isPlaceable(BlockPos blockPos, World world, ServerPlayerEntity player, IgnoredPlacementRulesComponent ignores) {
 		return PlantEntity.isPlaceable(blockPos, world, this);
 	}
 
@@ -82,10 +81,87 @@ public abstract class SeedPacketItem extends Item {
 		entity.getEntityWorld().playSound(null, pos, ModSounds.RANDOM_BUZZER, entity.getSoundCategory());
 	}
 
-	protected static boolean isWearingDavesPan(@Nullable PlayerEntity user) {
-		if (user == null) return false;
+	/**
+	 * Get which placement rules should be ignored when trying to place a seed packet.
+	 * @param user The player to check the items of.
+	 * @return A component with rules as booleans, with true meaning the rule is ignored.
+	 * @apiNote The return's {@code checkWhenHeld} value should be disregarded, as it is only for single {@link ItemStack}s.
+	 */
+	protected static IgnoredPlacementRulesComponent getIgnoredPlacementRules(@Nullable PlayerEntity user) {
+		if (user == null) return new IgnoredPlacementRulesComponent.Builder().build();
 
-		return user.getEquippedStack(EquipmentSlot.HEAD).isOf(ModItems.DAVES_PAN);
+		//return user.getEquippedStack(EquipmentSlot.HEAD).isOf(ModItems.DAVES_PAN);
+		boolean cost = false;
+		boolean cooldown = false;
+		boolean occupied = false;
+		boolean nearPath = false;
+		boolean teamSide = false;
+		boolean turf = false;
+
+		// Head
+		ItemStack stack = user.getEquippedStack(EquipmentSlot.HEAD);
+		IgnoredPlacementRulesComponent ignores = stack.get(ModDataComponentTypes.IGNORED_PLACEMENT_RULES);
+		if (ignores != null) {
+			if (ignores.cost()) cost = true;
+			if (ignores.cooldown()) cooldown = true;
+			if (ignores.occupied()) occupied = true;
+			if (ignores.nearPath()) nearPath = true;
+			if (ignores.teamSide()) teamSide = true;
+			if (ignores.turf()) turf = true;
+
+			if (cost && cooldown && occupied && nearPath && teamSide && turf)
+				return new IgnoredPlacementRulesComponent.Builder()
+					.cost(cost)
+					.cooldown(cooldown)
+					.occupied(occupied)
+					.nearPath(nearPath)
+					.teamSide(teamSide)
+					.turf(turf)
+					.build();
+		}
+
+		// Offhand
+		stack = user.getEquippedStack(EquipmentSlot.OFFHAND);
+		ignores = stack.get(ModDataComponentTypes.IGNORED_PLACEMENT_RULES);
+		if (ignores != null && ignores.checkWhenHeld()) {
+			if (!cost && ignores.cost()) cost = true;
+			if (!cooldown && ignores.cooldown()) cooldown = true;
+			if (!occupied && ignores.occupied()) occupied = true;
+			if (!nearPath && ignores.nearPath()) nearPath = true;
+			if (!teamSide && ignores.teamSide()) teamSide = true;
+			if (!turf && ignores.turf()) turf = true;
+
+			if (cost && cooldown && occupied && nearPath && teamSide && turf)
+				return new IgnoredPlacementRulesComponent.Builder()
+					.cost(cost)
+					.cooldown(cooldown)
+					.occupied(occupied)
+					.nearPath(nearPath)
+					.teamSide(teamSide)
+					.turf(turf)
+					.build();
+		}
+
+		// Main hand
+		stack = user.getEquippedStack(EquipmentSlot.MAINHAND);
+		ignores = stack.get(ModDataComponentTypes.IGNORED_PLACEMENT_RULES);
+		if (ignores != null && ignores.checkWhenHeld()) {
+			if (!cost && ignores.cost()) cost = true;
+			if (!cooldown && ignores.cooldown()) cooldown = true;
+			if (!occupied && ignores.occupied()) occupied = true;
+			if (!nearPath && ignores.nearPath()) nearPath = true;
+			if (!teamSide && ignores.teamSide()) teamSide = true;
+			if (!turf && ignores.turf()) turf = true;
+		}
+
+		return new IgnoredPlacementRulesComponent.Builder()
+			.cost(cost)
+			.cooldown(cooldown)
+			.occupied(occupied)
+			.nearPath(nearPath)
+			.teamSide(teamSide)
+			.turf(turf)
+			.build();
 	}
 
 	@Override
@@ -180,9 +256,10 @@ public abstract class SeedPacketItem extends Item {
 		BlockPos groundPos = usePos.offset(direction).down();
 		BlockState state = world.getBlockState(usePos);
 		EntityType<?> entityType = this.getEntityType(stack);
+		IgnoredPlacementRulesComponent ignores = getIgnoredPlacementRules(player);
 
 		// Invalid spawn position
-		if (!isPlaceable(groundPos, world, isWearingDavesPan(player), (ServerPlayerEntity) player)) {
+		if (!isPlaceable(groundPos, world, (ServerPlayerEntity) player, ignores)) {
 			//HomeLawnSecurity.LOGGER.warn("BlockPos {} is not a valid position for a seed packet of type {}!", pos, getClass().getSimpleName());
 			playBuzzerSound(player, usePos);
 			return ActionResult.SUCCESS;
@@ -190,7 +267,7 @@ public abstract class SeedPacketItem extends Item {
 
 		BlockPos spawnPos = state.getCollisionShape(world, usePos).isEmpty() ? usePos : usePos.offset(direction);
 
-		if (!setCooldownAndCurrencyAndReturnIfInsufficient(player, stack, world, usePos))
+		if (!setCooldownAndCurrencyAndReturnIfInsufficient(player, stack, world, usePos, ignores))
 			return ActionResult.SUCCESS;
 
 		Entity entity = entityType.spawnFromItemStack(world, stack, player, spawnPos, SpawnReason.SPAWN_ITEM_USE, true, !Objects.equals(usePos, spawnPos) && direction == Direction.UP);
@@ -200,7 +277,7 @@ public abstract class SeedPacketItem extends Item {
 			setEntityData(stack, entity, player);
 
 			if (entity instanceof PathBoundEntity unit) {
-				unit.faceGoal();
+				unit.faceSpawnDirection();
 			}
 
 			world.emitGameEvent(player, GameEvent.ENTITY_PLACE, usePos);
@@ -210,12 +287,12 @@ public abstract class SeedPacketItem extends Item {
 		return ActionResult.CONSUME;
 	}
 
-	protected boolean setCooldownAndCurrencyAndReturnIfInsufficient(@Nullable PlayerEntity player, ItemStack stack, World world, BlockPos usePos) {
+	protected boolean setCooldownAndCurrencyAndReturnIfInsufficient(@Nullable PlayerEntity player, ItemStack stack, World world, BlockPos usePos, IgnoredPlacementRulesComponent ignores) {
 		if (player != null) {
-			boolean wearingPan = isWearingDavesPan(player);
-			if (!wearingPan) {
-				// Cost
-				SeedPacketComponent seedData = stack.get(ModDataComponentTypes.SEED_PACKET);
+			SeedPacketComponent seedData = stack.get(ModDataComponentTypes.SEED_PACKET);
+
+			// Cost
+			if (!ignores.cost()) {
 				int cost = 0;
 				if (seedData != null) {
 					cost = seedData.cost();
@@ -238,8 +315,10 @@ public abstract class SeedPacketItem extends Item {
 					playBuzzerSound(player, usePos);
 					return false;
 				}
+			}
 
-				// Cooldown
+			// Cooldown
+			if (!ignores.cooldown()) {
 				if (seedData != null) {
 					player.getItemCooldownManager().set(stack, seedData.cooldown());
 				}

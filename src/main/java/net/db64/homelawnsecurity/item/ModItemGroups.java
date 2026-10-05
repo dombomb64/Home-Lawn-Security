@@ -86,6 +86,8 @@ public class ModItemGroups {
 
 				entries.add(ModItems.TARGET);
 
+				entries.add(ModItems.PROTECTIVE_PAN);
+
 				entries.add(ModBlocks.LAWN_MANAGER);
 				entries.add(ModBlocks.SPEAKER_PLANT_VICTORY);
 				entries.add(ModBlocks.SPEAKER_ZOMBIE_VICTORY);
