@@ -18,6 +18,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.client.gui.hud.debug.RendererDebugHudEntry;
@@ -26,7 +30,10 @@ import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactories;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
+import java.util.Optional;
 
 public class HomeLawnSecurityClient implements ClientModInitializer {
 	public static final Identifier DEBUG_PATHFINDING =
@@ -59,6 +66,8 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 		BlockRenderLayerMap.putBlock(ModBlocks.BRAINPOWER_BEACON, BlockRenderLayer.CUTOUT);
 
 		registerPackets();
+
+		registerResourcePacks();
 
 		registerOther();
 		registerProjectiles();
@@ -157,6 +166,17 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 				client.interactionManager.blockBreakingCooldown = 5;
 			});
 		});
+	}
+
+	private void registerResourcePacks() {
+		Optional<ModContainer> optional = FabricLoader.getInstance().getModContainer("homelawnsecurity");
+		if (optional.isEmpty()) return;
+		ModContainer container = optional.get();
+
+		ResourceLoader.registerBuiltinPack(Identifier.of(HomeLawnSecurity.MOD_ID, "old_palettes"),
+			container,
+			Text.literal("HLS - Old Palettes"),
+			PackActivationType.NORMAL);
 	}
 
 	private void registerOther() {

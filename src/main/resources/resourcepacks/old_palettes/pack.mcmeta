@@ -1,0 +1,16 @@
+{
+	"pack": {
+		"description": {
+			"text": "",
+			"extra": [
+				{
+					"text": "Reverts palettes to have less hue shading"
+				}
+			]
+		},
+		"pack_format": 34,
+		"min_format": 34,
+		"max_format": 999,
+		"supported_formats": [34, 999]
+	}
+}
