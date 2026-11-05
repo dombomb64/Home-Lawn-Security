@@ -26,7 +26,7 @@ public class BucketheadZombieModel extends EntityModel<BucketheadZombieRenderSta
 		this.leftForearm = this.bucketheadZombie.getChild("body").getChild("leftArm").getChild("leftForearm");
 
 		setupAnimation = ModAnimations.Zombie.BasicZombie.SETUP.createAnimation(root);
-		idleAnimation = ModAnimations.Zombie.BasicZombie.SETUP.createAnimation(root);
+		idleAnimation = ModAnimations.Zombie.BasicZombie.IDLE.createAnimation(root);
 		moveAnimation = ModAnimations.Zombie.BasicZombie.WALK.createAnimation(root);
 		attackAnimation = ModAnimations.Zombie.BasicZombie.EAT.createAnimation(root);
 		bucketSetupAnimation = ModAnimations.Zombie.BucketheadZombie.SETUP_BUCKET.createAnimation(root);
