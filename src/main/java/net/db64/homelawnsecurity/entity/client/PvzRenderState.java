@@ -5,11 +5,12 @@ import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 public abstract class PvzRenderState extends LivingEntityRenderState {
 	public boolean lastAttackedByPvzEntity = true;
 	public boolean actuallyTakingDamage = false;
-	public int hurtFlashTime = 0;
+	public float hurtFlashTime = 0;
 
 	public float getAnimationCounter() {
+		float oneOverDuration = 0.1f;
 		if (lastAttackedByPvzEntity && actuallyTakingDamage) {
-			return 0.25f * (hurtFlashTime * 0.1f);
+			return 0.45f * (hurtFlashTime * oneOverDuration);
 		}
 		else return 0f;
 	}

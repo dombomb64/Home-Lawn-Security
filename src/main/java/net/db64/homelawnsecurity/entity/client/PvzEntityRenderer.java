@@ -5,6 +5,7 @@ import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.util.math.MathHelper;
 
 public abstract class PvzEntityRenderer<
 	T extends PathBoundEntity,
@@ -29,6 +30,6 @@ public abstract class PvzEntityRenderer<
 		if (state.lastAttackedByPvzEntity) {
 			state.hurt = false;
 		}
-		state.hurtFlashTime = entity.hurtFlashTime;
+		state.hurtFlashTime = MathHelper.lerp(tickProgress, (float) entity.previousHurtFlashTime, (float) entity.hurtFlashTime);
 	}
 }

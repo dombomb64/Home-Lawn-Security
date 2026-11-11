@@ -132,6 +132,7 @@ public class HomeLawnSecurityClient implements ClientModInitializer {
 				if (entity instanceof PathBoundEntity entity2) {
 					entity2.lastAttackedByPvzEntity = payload.lastAttackedByPvzEntity();
 					entity2.hurtFlashTime = payload.hurtFlashTime();
+					entity2.previousHurtFlashTime = payload.hurtFlashTime();
 				}
 			});
 		});

@@ -44,6 +44,7 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 
 	public boolean lastAttackedByPvzEntity = true;
 	public int hurtFlashTime = 0;
+	public int previousHurtFlashTime = 0;
 
 	private static final TrackedData<Float> DEFAULT_ORIENTATION =
 		DataTracker.registerData(PathBoundEntity.class, TrackedDataHandlerRegistry.FLOAT);
@@ -253,6 +254,7 @@ public abstract class PathBoundEntity extends PathAwareEntity {
 		super.baseTick();
 
 		if (getEntityWorld().isClient()) {
+			this.previousHurtFlashTime = hurtFlashTime;
 			if (this.hurtFlashTime > 0) {
 				this.hurtFlashTime--;
 			}
