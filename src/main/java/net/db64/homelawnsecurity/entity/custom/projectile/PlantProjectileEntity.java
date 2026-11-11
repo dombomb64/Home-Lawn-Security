@@ -185,7 +185,7 @@ public abstract class PlantProjectileEntity extends ProjectileEntity implements 
 
 	/**
 	 * @return The gravity value for this projectile.
-	 * @implNote By default, the projectile has no gravity until it reaches its max distance,
+	 * @implSpec By default, the projectile has no gravity until it reaches its max distance,
 	 * but this may be overridden for things like catapult projectiles.
 	 */
 	@Override
