@@ -1,6 +1,5 @@
 package net.db64.homelawnsecurity.entity.custom;
 
-import net.db64.homelawnsecurity.component.ModDataComponentTypes;
 import net.db64.homelawnsecurity.entity.ModDamageTypes;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieStayOnPathGoal;
 import net.db64.homelawnsecurity.entity.ai.zombie.ZombieMoveGoal;

@@ -3,8 +3,6 @@ package net.db64.homelawnsecurity.mixin;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.db64.homelawnsecurity.entity.custom.IPvzEntity;
-import net.db64.homelawnsecurity.entity.custom.PlantEntity;
-import net.db64.homelawnsecurity.entity.custom.ZombieEntity;
 import net.db64.homelawnsecurity.util.IEntityDataSaver;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;

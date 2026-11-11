@@ -109,6 +109,6 @@ public class BasicZombieEntity extends ZombieEntity {
 			.add(EntityAttributes.MAX_HEALTH, 270 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.ATTACK_DAMAGE, 50 * IPvzEntity.HEALTH_SCALE)
 			.add(EntityAttributes.FOLLOW_RANGE, 64)
-			.add(EntityAttributes.MOVEMENT_SPEED, 0.0748);
+			.add(EntityAttributes.MOVEMENT_SPEED, 0.07412);
 	}
 }
